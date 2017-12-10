@@ -2,6 +2,7 @@
 import codecs
 import os
 import re
+from collections import OrderedDict
 
 CTP_PATH = os.path.join(os.path.dirname(__file__), "ctp")
 
@@ -13,13 +14,13 @@ USERAPI_STRUCT_FILE = os.path.join(HEADER_PATH, "ThostFtdcUserApiStruct.h")
 GENERATE_PATH = os.path.join(os.path.dirname(__file__), "ctpwrapper")
 
 
-def generate_structure():
+def generate_structure(datatype_dict):
     """
     generate structure file
     :return:
     """
-    generate_file = os.path.join(GENERATE_PATH, "ThostFtdcUserApiStruct.pxd")
 
+    generate_file = os.path.join(GENERATE_PATH, "ThostFtdcUserApiStruct.pxd")
 
     data_struct_file = codecs.open(generate_file, "w", encoding="utf-8")
     data_struct_file.write("# encoding:utf-8")
@@ -33,12 +34,15 @@ def generate_structure():
         if line.startswith("struct"):
             result = re.findall("\w+", line)
             name = result[1]
-            data_struct_file.write("    cdef struct {name}\n".format(name=name))
+            data_struct_file.write("    cdef struct {name}:\n".format(name=name))
         else:
 
-            pass
-            # print(result)
-            # for line in file.readline():
+            result = re.findall("\w+", line)
+
+            if result:
+                type_name = result[0]
+                if type_name in datatype_dict:
+                    data_struct_file.write("    " + line.replace(";", ""))
 
     data_struct_file.close()
 
@@ -48,7 +52,8 @@ def generate_datatype():
     generate structure data
     :return:
     """
-    data_type_dict =
+    datatype_dict = OrderedDict()
+
     generate_file = os.path.join(GENERATE_PATH, "ThostFtdcUserApiDataType.pxd")
     data_type_file = codecs.open(generate_file, "w", encoding="utf-8")
 
@@ -66,6 +71,7 @@ def generate_datatype():
 
             _type = result[1]
             name = result[2]
+            datatype_dict.setdefault(name)
             length = None
 
             if len(result) == 4:  # char xxxxx [10]
@@ -79,8 +85,9 @@ def generate_datatype():
                 data_type_file.write("    ctypedef {_type} {name} \n".format(_type=_type,
                                                                              name=name))
     data_type_file.close()
+    return datatype_dict
 
 
 if __name__ == "__main__":
-    generate_datatype()
-    generate_structure()
+    datatype_dict = generate_datatype()
+    generate_structure(datatype_dict)
