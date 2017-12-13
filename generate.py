@@ -65,11 +65,12 @@ def generate_datatype():
         if line.startswith("enum"):
             # special output data
             data_type_file.write(""" 
-                                    cdef enum THOST_TE_RESUME_TYPE:
-                                        THOST_TERT_RESTART = 0
-                                        THOST_TERT_RESUME
-                                        THOST_TERT_QUICK
-                                """)
+    cdef enum THOST_TE_RESUME_TYPE:
+        THOST_TERT_RESTART = 0
+        THOST_TERT_RESUME
+        THOST_TERT_QUICK 
+""")
+            # special write data
         if line.startswith("#define"):
             pass
         elif line.startswith("typedef"):

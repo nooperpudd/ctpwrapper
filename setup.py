@@ -1,9 +1,9 @@
 # encoding:utf-8
-import os
 import sys
+from distutils.core import setup
+from distutils.extension import Extension
 
-import Cython
-
+from Cython.Build import cythonize
 
 compile_args = []
 extra_link_args = []
@@ -11,13 +11,18 @@ extra_link_args = []
 package_data = ["ctp/*.xml", "ctp/*.dtd"]
 
 if sys.platform == "linux":
-    compile_args = ["-03", "-Wall"]
-    extra_link_args = ["-g"]
     package_data.append("ctp/*.so")
 elif sys.platform == "win32":
-    compile_args = ["/GR", "/EHsc"]
-    extra_link_args = []
     package_data.append("ctp/*.dll")
+
+# if sys.platform == "linux":
+#     compile_args = ["-03", "-Wall"]
+#     extra_link_args = ["-g"]
+#
+# elif sys.platform == "win32":
+#     compile_args = ["/GR", "/EHsc"]
+#     extra_link_args = []
+#
 
 # common_args = {
 #     "include_dirs": [ctp_dir, header_dir],
@@ -25,13 +30,11 @@ elif sys.platform == "win32":
 #     "language": "c++"
 # }
 
-extensions = [
-    Extension(name="pyctp.md_api",
-              sources=["pyctp/md_api.cpp", "pyctp/api_struct.cpp", "pyctp/md_wrapper.cpp"],
-              extra_compile_args=compile_args,
-              extra_link_args=extra_link_args,
-              libraries=["thostmduserapi"],
-              **common_args)
+ext_modules = [
+    Extension("demo",
+              sources=["demo.pyx"],
+              libraries=["m"]  # Unix-like specific
+              )
 ]
 
 setup(name="python CTP api",
@@ -40,6 +43,6 @@ setup(name="python CTP api",
       author_email="winton@quant.vc",
       description="This is CTP wrapper python interface",
       include_package_data=True,
-      packages=find_packages(),
       package_data={"": package_data},
-      ext_modules=extensions)
+      ext_modules=cythonize(ext_modules)
+      )

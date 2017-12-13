@@ -62,9 +62,8 @@ cdef extern from './ctp/ThostFtdcMdApi.h':
 
     cdef cppclass CMdApi "CThostFtdcMdApi":
         # static CThostFtdcMdApi *CreateFtdcMdApi(const char *pszFlowPath = "", const bool bIsUsingUdp=false, const bool bIsMulticast=false);
-        # CThostFtdcMdApi  *CreateFtdcMdApi(const char *pszFlowPath = "",
-        #                                   const bool bIsUsingUdp = False,
-        #                                   const bool bIsMulticast = False)
+        CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath="", const bool bIsUsingUdp = False,
+                                          const bool bIsMulticast = False) nogil except +
 
 
         #  删除接口对象本身
