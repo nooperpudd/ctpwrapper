@@ -63,7 +63,13 @@ def generate_datatype():
 
     for line in codecs.open(USERAPI_DATA_FILE, encoding="utf-8"):
         if line.startswith("enum"):
-            pass
+            # special output data
+            data_type_file.write(""" 
+                                    cdef enum THOST_TE_RESUME_TYPE:
+                                        THOST_TERT_RESTART = 0
+                                        THOST_TERT_RESUME
+                                        THOST_TERT_QUICK
+                                """)
         if line.startswith("#define"):
             pass
         elif line.startswith("typedef"):
