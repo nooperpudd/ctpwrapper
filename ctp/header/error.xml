@@ -63,7 +63,7 @@
     <error id="OTPPARAM_NOT_FOUND" value="58" prompt="CTP:找不到动态令牌配置信息"/>
     <error id="UNSUPPORTED_OTPTYPE" value="59" prompt="CTP:不支持的动态令牌类型"/>
     <error id="SINGLEUSERSESSION_EXCEED_LIMIT" value="60" prompt="CTP:用户在线会话超出上限"/>
-    <error id="EXCHANGE_UNSUPPORTED_ARBITRAGE" value="61" prompt="CTP:该交易所不支持套利类型报单"/>
+    <error id="EXCHANGE_UNSUPPORTED_ARBITRAGE" value="61" prompt="CTP:该交易所不支持套利/做市商类型报单"/>
     <error id="NO_CONDITIONAL_ORDER_RIGHT" value="62" prompt="CTP:没有条件单交易权限"/>
     <error id="AUTH_FAILED" value="63" prompt="CTP:客户端认证失败"/>
     <error id="NOT_AUTHENT" value="64" prompt="CTP:客户端未认证"/>
@@ -99,6 +99,11 @@
     <!--灾备系统错误代码 -->
     <error id="NO_TRADING_RIGHT_IN_SEPC_DR" value="101" prompt="CTP:用户在本系统没有报单权限"/>
     <error id="NO_DR_NO" value="102" prompt="CTP:系统缺少灾备标示号"/>
+    <error id="BATCHACTION_NOSUPPORT" value="103" prompt="CTP:该交易所不支持批量撤单"/>
+    <error id="POSI_LIMIT" value="106" prompt="CTP:投资者限仓"/>
+    <error id="OUT_OF_TIMEINTERVAL" value="113" prompt="CTP:当前时间禁止询价"/>
+    <error id="OUT_OF_PRICEINTERVAL" value="114" prompt="CTP:当前价差禁止询价"/>
+    <error id="ORDER_FREQ_LIMIT" value="116" prompt="CTP:下单频率限制"/>
     <!--转帐系统错误代码 -->
     <error id="SEND_INSTITUTION_CODE_ERROR" value="1000" prompt="CTP:银期转账：发送机构代码错误"/>
     <error id="NO_GET_PLATFORM_SN" value="1001" prompt="CTP:银期转账：取平台流水号错误"/>
@@ -140,6 +145,8 @@
     <error id="NOT_SUPPORT_SECAGENT_BY_BANK" value="1037" prompt="CTP:银期转账：不支持银行端发起的二级代理商转账和查询"/>
     <error id="PINKEY_SYNCING" value="1038" prompt="CTP:银期转账：PIN密钥正在同步"/>
     <error id="SECAGENT_QUERY_BY_CCB" value="1039" prompt="CTP:银期转账：建行发起的二级代理商查询"/>
+    <error id="BANKACCOUNT_NOT_EMPTY" value="1040" prompt="CTP:银期转账：银行账户不能为空"/>
+    <error id="INVALID_RESERVE_OPEN_ACCOUNT" value="1041" prompt="CTP:银期转账：资金账户存在，预约开户失败"/>
     <!-- add for transfer begin -->
     <error id="NO_VALID_BANKOFFER_AVAILABLE" value="2000" prompt="CTP:该报盘未连接到银行"/>
     <error id="PASSWORD_MISMATCH" value="2001" prompt="CTP:资金密码错误"/>
@@ -154,7 +161,10 @@
     <error id="NOT_ALLOW_REPEAL_BYMANUAL" value="2013" prompt="CTP:该交易不能执行手工冲正"/>
     <error id="AMOUNT_OUTOFTHEWAY" value="2014" prompt="CTP:转帐金额错误"/>
     <error id="EXCHANGERATE_NOT_FOUND" value="2015" prompt="CTP:找不到汇率"/>
+    <error id="RESERVE_OPEN_ACCOUNT_NOT_FUND" value="2016" prompt="CTP:找不到预约开户请求"/>
+    <error id="DUPLICATE_RESERVE_OPEN_ACCOUNT_NOT_FUND" value="2017" prompt="CTP:重复的预约开户请求"/>
     <error id="WAITING_OFFER_RSP" value="999999" prompt="CTP:等待银期报盘处理结果"/>
+
     <!-- add for transfer end -->
     <!--换汇系统错误代码 bgn-->
     <error id="FBE_NO_GET_PLATFORM_SN" value="3001" prompt="CTP:银期换汇：取平台流水号错误"/>
