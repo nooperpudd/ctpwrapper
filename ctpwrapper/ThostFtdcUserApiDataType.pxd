@@ -1,51 +1,56 @@
 # encoding:utf-8
 
-cdef  extern  from './ctp/ThostFtdcUserApiDataType.h': 
-    ctypedef char[21] TThostFtdcTraderIDType 
-    ctypedef char[13] TThostFtdcInvestorIDType 
-    ctypedef char[11] TThostFtdcBrokerIDType 
-    ctypedef char[9] TThostFtdcBrokerAbbrType 
-    ctypedef char[81] TThostFtdcBrokerNameType 
-    ctypedef char[31] TThostFtdcExchangeInstIDType 
-    ctypedef char[13] TThostFtdcOrderRefType 
-    ctypedef char[11] TThostFtdcParticipantIDType 
-    ctypedef char[16] TThostFtdcUserIDType 
-    ctypedef char[41] TThostFtdcPasswordType 
-    ctypedef char[11] TThostFtdcClientIDType 
-    ctypedef char[31] TThostFtdcInstrumentIDType 
-    ctypedef char[31] TThostFtdcMarketIDType 
-    ctypedef char[21] TThostFtdcProductNameType 
-    ctypedef char[9] TThostFtdcExchangeIDType 
-    ctypedef char[61] TThostFtdcExchangeNameType 
-    ctypedef char[9] TThostFtdcExchangeAbbrType 
-    ctypedef char[2] TThostFtdcExchangeFlagType 
-    ctypedef char[21] TThostFtdcMacAddressType 
-    ctypedef char[21] TThostFtdcSystemIDType 
+cdef extern from './ctp/ThostFtdcUserApiDataType.h': 
+ 
+    cdef enum THOST_TE_RESUME_TYPE:
+        THOST_TERT_RESTART = 0
+        THOST_TERT_RESUME
+        THOST_TERT_QUICK 
+    ctypedef char TThostFtdcTraderIDType[21] 
+    ctypedef char TThostFtdcInvestorIDType[13] 
+    ctypedef char TThostFtdcBrokerIDType[11] 
+    ctypedef char TThostFtdcBrokerAbbrType[9] 
+    ctypedef char TThostFtdcBrokerNameType[81] 
+    ctypedef char TThostFtdcExchangeInstIDType[31] 
+    ctypedef char TThostFtdcOrderRefType[13] 
+    ctypedef char TThostFtdcParticipantIDType[11] 
+    ctypedef char TThostFtdcUserIDType[16] 
+    ctypedef char TThostFtdcPasswordType[41] 
+    ctypedef char TThostFtdcClientIDType[11] 
+    ctypedef char TThostFtdcInstrumentIDType[31] 
+    ctypedef char TThostFtdcMarketIDType[31] 
+    ctypedef char TThostFtdcProductNameType[21] 
+    ctypedef char TThostFtdcExchangeIDType[9] 
+    ctypedef char TThostFtdcExchangeNameType[61] 
+    ctypedef char TThostFtdcExchangeAbbrType[9] 
+    ctypedef char TThostFtdcExchangeFlagType[2] 
+    ctypedef char TThostFtdcMacAddressType[21] 
+    ctypedef char TThostFtdcSystemIDType[21] 
     ctypedef char TThostFtdcExchangePropertyType 
-    ctypedef char[9] TThostFtdcDateType 
-    ctypedef char[9] TThostFtdcTimeType 
-    ctypedef char[13] TThostFtdcLongTimeType 
-    ctypedef char[21] TThostFtdcInstrumentNameType 
-    ctypedef char[9] TThostFtdcSettlementGroupIDType 
-    ctypedef char[21] TThostFtdcOrderSysIDType 
-    ctypedef char[21] TThostFtdcTradeIDType 
-    ctypedef char[65] TThostFtdcCommandTypeType 
-    ctypedef char[16] TThostFtdcIPAddressType 
+    ctypedef char TThostFtdcDateType[9] 
+    ctypedef char TThostFtdcTimeType[9] 
+    ctypedef char TThostFtdcLongTimeType[13] 
+    ctypedef char TThostFtdcInstrumentNameType[21] 
+    ctypedef char TThostFtdcSettlementGroupIDType[9] 
+    ctypedef char TThostFtdcOrderSysIDType[21] 
+    ctypedef char TThostFtdcTradeIDType[21] 
+    ctypedef char TThostFtdcCommandTypeType[65] 
+    ctypedef char TThostFtdcIPAddressType[16] 
     ctypedef int TThostFtdcIPPortType 
-    ctypedef char[11] TThostFtdcProductInfoType 
-    ctypedef char[11] TThostFtdcProtocolInfoType 
-    ctypedef char[21] TThostFtdcBusinessUnitType 
-    ctypedef char[15] TThostFtdcDepositSeqNoType 
-    ctypedef char[51] TThostFtdcIdentifiedCardNoType 
+    ctypedef char TThostFtdcProductInfoType[11] 
+    ctypedef char TThostFtdcProtocolInfoType[11] 
+    ctypedef char TThostFtdcBusinessUnitType[21] 
+    ctypedef char TThostFtdcDepositSeqNoType[15] 
+    ctypedef char TThostFtdcIdentifiedCardNoType[51] 
     ctypedef char TThostFtdcIdCardTypeType 
-    ctypedef char[13] TThostFtdcOrderLocalIDType 
-    ctypedef char[81] TThostFtdcUserNameType 
-    ctypedef char[81] TThostFtdcPartyNameType 
-    ctypedef char[81] TThostFtdcErrorMsgType 
-    ctypedef char[2049] TThostFtdcFieldNameType 
-    ctypedef char[2049] TThostFtdcFieldContentType 
-    ctypedef char[41] TThostFtdcSystemNameType 
-    ctypedef char[501] TThostFtdcContentType 
+    ctypedef char TThostFtdcOrderLocalIDType[13] 
+    ctypedef char TThostFtdcUserNameType[81] 
+    ctypedef char TThostFtdcPartyNameType[81] 
+    ctypedef char TThostFtdcErrorMsgType[81] 
+    ctypedef char TThostFtdcFieldNameType[2049] 
+    ctypedef char TThostFtdcFieldContentType[2049] 
+    ctypedef char TThostFtdcSystemNameType[41] 
+    ctypedef char TThostFtdcContentType[501] 
     ctypedef char TThostFtdcInvestorRangeType 
     ctypedef char TThostFtdcDepartmentRangeType 
     ctypedef char TThostFtdcDataSyncStatusType 
@@ -102,38 +107,38 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef int TThostFtdcMonthType 
     ctypedef int TThostFtdcBoolType 
     ctypedef double TThostFtdcPriceType 
-    ctypedef char[5] TThostFtdcCombOffsetFlagType 
-    ctypedef char[5] TThostFtdcCombHedgeFlagType 
+    ctypedef char TThostFtdcCombOffsetFlagType[5] 
+    ctypedef char TThostFtdcCombHedgeFlagType[5] 
     ctypedef double TThostFtdcRatioType 
     ctypedef double TThostFtdcMoneyType 
     ctypedef double TThostFtdcLargeVolumeType 
     ctypedef short TThostFtdcSequenceSeriesType 
     ctypedef short TThostFtdcCommPhaseNoType 
-    ctypedef char[2] TThostFtdcSequenceLabelType 
+    ctypedef char TThostFtdcSequenceLabelType[2] 
     ctypedef double TThostFtdcUnderlyingMultipleType 
     ctypedef int TThostFtdcPriorityType 
-    ctypedef char[41] TThostFtdcContractCodeType 
-    ctypedef char[51] TThostFtdcCityType 
-    ctypedef char[11] TThostFtdcIsStockType 
-    ctypedef char[51] TThostFtdcChannelType 
-    ctypedef char[101] TThostFtdcAddressType 
-    ctypedef char[7] TThostFtdcZipCodeType 
-    ctypedef char[41] TThostFtdcTelephoneType 
-    ctypedef char[41] TThostFtdcFaxType 
-    ctypedef char[41] TThostFtdcMobileType 
-    ctypedef char[41] TThostFtdcEMailType 
-    ctypedef char[161] TThostFtdcMemoType 
-    ctypedef char[51] TThostFtdcCompanyCodeType 
-    ctypedef char[51] TThostFtdcWebsiteType 
-    ctypedef char[31] TThostFtdcTaxNoType 
+    ctypedef char TThostFtdcContractCodeType[41] 
+    ctypedef char TThostFtdcCityType[51] 
+    ctypedef char TThostFtdcIsStockType[11] 
+    ctypedef char TThostFtdcChannelType[51] 
+    ctypedef char TThostFtdcAddressType[101] 
+    ctypedef char TThostFtdcZipCodeType[7] 
+    ctypedef char TThostFtdcTelephoneType[41] 
+    ctypedef char TThostFtdcFaxType[41] 
+    ctypedef char TThostFtdcMobileType[41] 
+    ctypedef char TThostFtdcEMailType[41] 
+    ctypedef char TThostFtdcMemoType[161] 
+    ctypedef char TThostFtdcCompanyCodeType[51] 
+    ctypedef char TThostFtdcWebsiteType[51] 
+    ctypedef char TThostFtdcTaxNoType[31] 
     ctypedef char TThostFtdcBatchStatusType 
-    ctypedef char[33] TThostFtdcPropertyIDType 
-    ctypedef char[65] TThostFtdcPropertyNameType 
-    ctypedef char[51] TThostFtdcLicenseNoType 
-    ctypedef char[13] TThostFtdcAgentIDType 
-    ctypedef char[41] TThostFtdcAgentNameType 
-    ctypedef char[13] TThostFtdcAgentGroupIDType 
-    ctypedef char[41] TThostFtdcAgentGroupNameType 
+    ctypedef char TThostFtdcPropertyIDType[33] 
+    ctypedef char TThostFtdcPropertyNameType[65] 
+    ctypedef char TThostFtdcLicenseNoType[51] 
+    ctypedef char TThostFtdcAgentIDType[13] 
+    ctypedef char TThostFtdcAgentNameType[41] 
+    ctypedef char TThostFtdcAgentGroupIDType[13] 
+    ctypedef char TThostFtdcAgentGroupNameType[41] 
     ctypedef char TThostFtdcReturnStyleType 
     ctypedef char TThostFtdcReturnPatternType 
     ctypedef char TThostFtdcReturnLevelType 
@@ -143,69 +148,69 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcExchangeSettlementParamIDType 
     ctypedef char TThostFtdcSystemParamIDType 
     ctypedef char TThostFtdcTradeParamIDType 
-    ctypedef char[256] TThostFtdcSettlementParamValueType 
-    ctypedef char[33] TThostFtdcCounterIDType 
-    ctypedef char[41] TThostFtdcInvestorGroupNameType 
-    ctypedef char[257] TThostFtdcBrandCodeType 
-    ctypedef char[257] TThostFtdcWarehouseType 
-    ctypedef char[41] TThostFtdcProductDateType 
-    ctypedef char[41] TThostFtdcGradeType 
-    ctypedef char[41] TThostFtdcClassifyType 
-    ctypedef char[41] TThostFtdcPositionType 
-    ctypedef char[41] TThostFtdcYieldlyType 
-    ctypedef char[41] TThostFtdcWeightType 
+    ctypedef char TThostFtdcSettlementParamValueType[256] 
+    ctypedef char TThostFtdcCounterIDType[33] 
+    ctypedef char TThostFtdcInvestorGroupNameType[41] 
+    ctypedef char TThostFtdcBrandCodeType[257] 
+    ctypedef char TThostFtdcWarehouseType[257] 
+    ctypedef char TThostFtdcProductDateType[41] 
+    ctypedef char TThostFtdcGradeType[41] 
+    ctypedef char TThostFtdcClassifyType[41] 
+    ctypedef char TThostFtdcPositionType[41] 
+    ctypedef char TThostFtdcYieldlyType[41] 
+    ctypedef char TThostFtdcWeightType[41] 
     ctypedef int TThostFtdcSubEntryFundNoType 
     ctypedef char TThostFtdcFileIDType 
-    ctypedef char[257] TThostFtdcFileNameType 
+    ctypedef char TThostFtdcFileNameType[257] 
     ctypedef char TThostFtdcFileTypeType 
     ctypedef char TThostFtdcFileFormatType 
     ctypedef char TThostFtdcFileUploadStatusType 
     ctypedef char TThostFtdcTransferDirectionType 
-    ctypedef char[21] TThostFtdcUploadModeType 
-    ctypedef char[13] TThostFtdcAccountIDType 
-    ctypedef char[4] TThostFtdcBankFlagType 
-    ctypedef char[41] TThostFtdcBankAccountType 
-    ctypedef char[61] TThostFtdcOpenNameType 
-    ctypedef char[101] TThostFtdcOpenBankType 
-    ctypedef char[101] TThostFtdcBankNameType 
-    ctypedef char[257] TThostFtdcPublishPathType 
-    ctypedef char[65] TThostFtdcOperatorIDType 
+    ctypedef char TThostFtdcUploadModeType[21] 
+    ctypedef char TThostFtdcAccountIDType[13] 
+    ctypedef char TThostFtdcBankFlagType[4] 
+    ctypedef char TThostFtdcBankAccountType[41] 
+    ctypedef char TThostFtdcOpenNameType[61] 
+    ctypedef char TThostFtdcOpenBankType[101] 
+    ctypedef char TThostFtdcBankNameType[101] 
+    ctypedef char TThostFtdcPublishPathType[257] 
+    ctypedef char TThostFtdcOperatorIDType[65] 
     ctypedef int TThostFtdcMonthCountType 
-    ctypedef char[13] TThostFtdcAdvanceMonthArrayType 
-    ctypedef char[1025] TThostFtdcDateExprType 
-    ctypedef char[41] TThostFtdcInstrumentIDExprType 
-    ctypedef char[41] TThostFtdcInstrumentNameExprType 
+    ctypedef char TThostFtdcAdvanceMonthArrayType[13] 
+    ctypedef char TThostFtdcDateExprType[1025] 
+    ctypedef char TThostFtdcInstrumentIDExprType[41] 
+    ctypedef char TThostFtdcInstrumentNameExprType[41] 
     ctypedef char TThostFtdcSpecialCreateRuleType 
     ctypedef char TThostFtdcBasisPriceTypeType 
     ctypedef char TThostFtdcProductLifePhaseType 
     ctypedef char TThostFtdcDeliveryModeType 
-    ctypedef char[33] TThostFtdcLogLevelType 
-    ctypedef char[257] TThostFtdcProcessNameType 
-    ctypedef char[1025] TThostFtdcOperationMemoType 
+    ctypedef char TThostFtdcLogLevelType[33] 
+    ctypedef char TThostFtdcProcessNameType[257] 
+    ctypedef char TThostFtdcOperationMemoType[1025] 
     ctypedef char TThostFtdcFundIOTypeType 
     ctypedef char TThostFtdcFundTypeType 
     ctypedef char TThostFtdcFundDirectionType 
     ctypedef char TThostFtdcFundStatusType 
-    ctypedef char[15] TThostFtdcBillNoType 
-    ctypedef char[33] TThostFtdcBillNameType 
+    ctypedef char TThostFtdcBillNoType[15] 
+    ctypedef char TThostFtdcBillNameType[33] 
     ctypedef char TThostFtdcPublishStatusType 
-    ctypedef char[65] TThostFtdcEnumValueIDType 
-    ctypedef char[33] TThostFtdcEnumValueTypeType 
-    ctypedef char[65] TThostFtdcEnumValueLabelType 
-    ctypedef char[33] TThostFtdcEnumValueResultType 
+    ctypedef char TThostFtdcEnumValueIDType[65] 
+    ctypedef char TThostFtdcEnumValueTypeType[33] 
+    ctypedef char TThostFtdcEnumValueLabelType[65] 
+    ctypedef char TThostFtdcEnumValueResultType[33] 
     ctypedef char TThostFtdcSystemStatusType 
     ctypedef char TThostFtdcSettlementStatusType 
-    ctypedef char[33] TThostFtdcRangeIntTypeType 
-    ctypedef char[33] TThostFtdcRangeIntFromType 
-    ctypedef char[33] TThostFtdcRangeIntToType 
-    ctypedef char[25] TThostFtdcFunctionIDType 
-    ctypedef char[257] TThostFtdcFunctionValueCodeType 
-    ctypedef char[65] TThostFtdcFunctionNameType 
-    ctypedef char[11] TThostFtdcRoleIDType 
-    ctypedef char[41] TThostFtdcRoleNameType 
-    ctypedef char[401] TThostFtdcDescriptionType 
-    ctypedef char[25] TThostFtdcCombineIDType 
-    ctypedef char[25] TThostFtdcCombineTypeType 
+    ctypedef char TThostFtdcRangeIntTypeType[33] 
+    ctypedef char TThostFtdcRangeIntFromType[33] 
+    ctypedef char TThostFtdcRangeIntToType[33] 
+    ctypedef char TThostFtdcFunctionIDType[25] 
+    ctypedef char TThostFtdcFunctionValueCodeType[257] 
+    ctypedef char TThostFtdcFunctionNameType[65] 
+    ctypedef char TThostFtdcRoleIDType[11] 
+    ctypedef char TThostFtdcRoleNameType[41] 
+    ctypedef char TThostFtdcDescriptionType[401] 
+    ctypedef char TThostFtdcCombineIDType[25] 
+    ctypedef char TThostFtdcCombineTypeType[25] 
     ctypedef char TThostFtdcInvestorTypeType 
     ctypedef char TThostFtdcBrokerTypeType 
     ctypedef char TThostFtdcRiskLevelType 
@@ -214,50 +219,51 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcAlgorithmType 
     ctypedef char TThostFtdcIncludeCloseProfitType 
     ctypedef char TThostFtdcAllWithoutTradeType 
-    ctypedef char[31] TThostFtdcCommentType 
-    ctypedef char[4] TThostFtdcVersionType 
-    ctypedef char[7] TThostFtdcTradeCodeType 
-    ctypedef char[9] TThostFtdcTradeDateType 
-    ctypedef char[9] TThostFtdcTradeTimeType 
-    ctypedef char[9] TThostFtdcTradeSerialType 
+    ctypedef char TThostFtdcCommentType[31] 
+    ctypedef char TThostFtdcVersionType[4] 
+    ctypedef char TThostFtdcTradeCodeType[7] 
+    ctypedef char TThostFtdcTradeDateType[9] 
+    ctypedef char TThostFtdcTradeTimeType[9] 
+    ctypedef char TThostFtdcTradeSerialType[9] 
     ctypedef int TThostFtdcTradeSerialNoType 
-    ctypedef char[11] TThostFtdcFutureIDType 
-    ctypedef char[4] TThostFtdcBankIDType 
-    ctypedef char[5] TThostFtdcBankBrchIDType 
-    ctypedef char[11] TThostFtdcBankBranchIDType 
-    ctypedef char[17] TThostFtdcOperNoType 
-    ctypedef char[3] TThostFtdcDeviceIDType 
-    ctypedef char[7] TThostFtdcRecordNumType 
-    ctypedef char[22] TThostFtdcFutureAccountType 
+    ctypedef char TThostFtdcFutureIDType[11] 
+    ctypedef char TThostFtdcBankIDType[4] 
+    ctypedef char TThostFtdcBankBrchIDType[5] 
+    ctypedef char TThostFtdcBankBranchIDType[11] 
+    ctypedef char TThostFtdcOperNoType[17] 
+    ctypedef char TThostFtdcDeviceIDType[3] 
+    ctypedef char TThostFtdcRecordNumType[7] 
+    ctypedef char TThostFtdcFutureAccountType[22] 
     ctypedef char TThostFtdcFuturePwdFlagType 
     ctypedef char TThostFtdcTransferTypeType 
-    ctypedef char[17] TThostFtdcFutureAccPwdType 
-    ctypedef char[4] TThostFtdcCurrencyCodeType 
-    ctypedef char[5] TThostFtdcRetCodeType 
-    ctypedef char[129] TThostFtdcRetInfoType 
-    ctypedef char[20] TThostFtdcTradeAmtType 
-    ctypedef char[20] TThostFtdcUseAmtType 
-    ctypedef char[20] TThostFtdcFetchAmtType 
+    ctypedef char TThostFtdcFutureAccPwdType[17] 
+    ctypedef char TThostFtdcCurrencyCodeType[4] 
+    ctypedef char TThostFtdcRetCodeType[5] 
+    ctypedef char TThostFtdcRetInfoType[129] 
+    ctypedef char TThostFtdcTradeAmtType[20] 
+    ctypedef char TThostFtdcUseAmtType[20] 
+    ctypedef char TThostFtdcFetchAmtType[20] 
     ctypedef char TThostFtdcTransferValidFlagType 
-    ctypedef char[21] TThostFtdcCertCodeType 
+    ctypedef char TThostFtdcCertCodeType[21] 
     ctypedef char TThostFtdcReasonType 
-    ctypedef char[5] TThostFtdcFundProjectIDType 
+    ctypedef char TThostFtdcFundProjectIDType[5] 
     ctypedef char TThostFtdcSexType 
-    ctypedef char[101] TThostFtdcProfessionType 
-    ctypedef char[31] TThostFtdcNationalType 
-    ctypedef char[51] TThostFtdcProvinceType 
-    ctypedef char[16] TThostFtdcRegionType 
-    ctypedef char[16] TThostFtdcCountryType 
-    ctypedef char[33] TThostFtdcLicenseNOType 
-    ctypedef char[16] TThostFtdcCompanyTypeType 
-    ctypedef char[1001] TThostFtdcBusinessScopeType 
-    ctypedef char[4] TThostFtdcCapitalCurrencyType 
+    ctypedef char TThostFtdcProfessionType[101] 
+    ctypedef char TThostFtdcNationalType[31] 
+    ctypedef char TThostFtdcProvinceType[51] 
+    ctypedef char TThostFtdcRegionType[16] 
+    ctypedef char TThostFtdcCountryType[16] 
+    ctypedef char TThostFtdcLicenseNOType[33] 
+    ctypedef char TThostFtdcCompanyTypeType[16] 
+    ctypedef char TThostFtdcBusinessScopeType[1001] 
+    ctypedef char TThostFtdcCapitalCurrencyType[4] 
     ctypedef char TThostFtdcUserTypeType 
+    ctypedef char TThostFtdcBranchIDType[9] 
     ctypedef char TThostFtdcRateTypeType 
     ctypedef char TThostFtdcNoteTypeType 
     ctypedef char TThostFtdcSettlementStyleType 
-    ctypedef char[256] TThostFtdcBrokerDNSType 
-    ctypedef char[501] TThostFtdcSentenceType 
+    ctypedef char TThostFtdcBrokerDNSType[256] 
+    ctypedef char TThostFtdcSentenceType[501] 
     ctypedef char TThostFtdcSettlementBillTypeType 
     ctypedef char TThostFtdcUserRightTypeType 
     ctypedef char TThostFtdcMarginPriceTypeType 
@@ -272,16 +278,16 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef int TThostFtdcLegIDType 
     ctypedef int TThostFtdcLegMultipleType 
     ctypedef int TThostFtdcImplyLevelType 
-    ctypedef char[33] TThostFtdcClearAccountType 
-    ctypedef char[6] TThostFtdcOrganNOType 
-    ctypedef char[6] TThostFtdcClearbarchIDType 
+    ctypedef char TThostFtdcClearAccountType[33] 
+    ctypedef char TThostFtdcOrganNOType[6] 
+    ctypedef char TThostFtdcClearbarchIDType[6] 
     ctypedef char TThostFtdcUserEventTypeType 
-    ctypedef char[1025] TThostFtdcUserEventInfoType 
+    ctypedef char TThostFtdcUserEventInfoType[1025] 
     ctypedef char TThostFtdcCloseStyleType 
     ctypedef char TThostFtdcStatModeType 
     ctypedef char TThostFtdcParkedOrderStatusType 
-    ctypedef char[13] TThostFtdcParkedOrderIDType 
-    ctypedef char[13] TThostFtdcParkedOrderActionIDType 
+    ctypedef char TThostFtdcParkedOrderIDType[13] 
+    ctypedef char TThostFtdcParkedOrderActionIDType[13] 
     ctypedef char TThostFtdcVirDealStatusType 
     ctypedef char TThostFtdcOrgSystemIDType 
     ctypedef char TThostFtdcVirTradeStatusType 
@@ -289,86 +295,86 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcVirementStatusType 
     ctypedef char TThostFtdcVirementAvailAbilityType 
     ctypedef char TThostFtdcVirementTradeCodeType 
-    ctypedef char[41] TThostFtdcPhotoTypeNameType 
-    ctypedef char[5] TThostFtdcPhotoTypeIDType 
-    ctypedef char[161] TThostFtdcPhotoNameType 
+    ctypedef char TThostFtdcPhotoTypeNameType[41] 
+    ctypedef char TThostFtdcPhotoTypeIDType[5] 
+    ctypedef char TThostFtdcPhotoNameType[161] 
     ctypedef int TThostFtdcTopicIDType 
-    ctypedef char[3] TThostFtdcReportTypeIDType 
-    ctypedef char[5] TThostFtdcCharacterIDType 
-    ctypedef char[21] TThostFtdcAMLParamIDType 
-    ctypedef char[3] TThostFtdcAMLInvestorTypeType 
-    ctypedef char[3] TThostFtdcAMLIdCardTypeType 
-    ctypedef char[3] TThostFtdcAMLTradeDirectType 
-    ctypedef char[3] TThostFtdcAMLTradeModelType 
-    ctypedef char[21] TThostFtdcAMLParamIDType 
+    ctypedef char TThostFtdcReportTypeIDType[3] 
+    ctypedef char TThostFtdcCharacterIDType[5] 
+    ctypedef char TThostFtdcAMLParamIDType[21] 
+    ctypedef char TThostFtdcAMLInvestorTypeType[3] 
+    ctypedef char TThostFtdcAMLIdCardTypeType[3] 
+    ctypedef char TThostFtdcAMLTradeDirectType[3] 
+    ctypedef char TThostFtdcAMLTradeModelType[3] 
+    ctypedef char TThostFtdcAMLParamIDType[21] 
     ctypedef double TThostFtdcAMLOpParamValueType 
-    ctypedef char[81] TThostFtdcAMLCustomerCardTypeType 
-    ctypedef char[65] TThostFtdcAMLInstitutionNameType 
-    ctypedef char[7] TThostFtdcAMLDistrictIDType 
-    ctypedef char[3] TThostFtdcAMLRelationShipType 
-    ctypedef char[3] TThostFtdcAMLInstitutionTypeType 
-    ctypedef char[13] TThostFtdcAMLInstitutionIDType 
-    ctypedef char[5] TThostFtdcAMLAccountTypeType 
-    ctypedef char[7] TThostFtdcAMLTradingTypeType 
-    ctypedef char[7] TThostFtdcAMLTransactClassType 
-    ctypedef char[3] TThostFtdcAMLCapitalIOType 
-    ctypedef char[10] TThostFtdcAMLSiteType 
-    ctypedef char[129] TThostFtdcAMLCapitalPurposeType 
-    ctypedef char[2] TThostFtdcAMLReportTypeType 
-    ctypedef char[5] TThostFtdcAMLSerialNoType 
-    ctypedef char[2] TThostFtdcAMLStatusType 
+    ctypedef char TThostFtdcAMLCustomerCardTypeType[81] 
+    ctypedef char TThostFtdcAMLInstitutionNameType[65] 
+    ctypedef char TThostFtdcAMLDistrictIDType[7] 
+    ctypedef char TThostFtdcAMLRelationShipType[3] 
+    ctypedef char TThostFtdcAMLInstitutionTypeType[3] 
+    ctypedef char TThostFtdcAMLInstitutionIDType[13] 
+    ctypedef char TThostFtdcAMLAccountTypeType[5] 
+    ctypedef char TThostFtdcAMLTradingTypeType[7] 
+    ctypedef char TThostFtdcAMLTransactClassType[7] 
+    ctypedef char TThostFtdcAMLCapitalIOType[3] 
+    ctypedef char TThostFtdcAMLSiteType[10] 
+    ctypedef char TThostFtdcAMLCapitalPurposeType[129] 
+    ctypedef char TThostFtdcAMLReportTypeType[2] 
+    ctypedef char TThostFtdcAMLSerialNoType[5] 
+    ctypedef char TThostFtdcAMLStatusType[2] 
     ctypedef char TThostFtdcAMLGenStatusType 
-    ctypedef char[65] TThostFtdcAMLSeqCodeType 
-    ctypedef char[257] TThostFtdcAMLFileNameType 
+    ctypedef char TThostFtdcAMLSeqCodeType[65] 
+    ctypedef char TThostFtdcAMLFileNameType[257] 
     ctypedef double TThostFtdcAMLMoneyType 
     ctypedef int TThostFtdcAMLFileAmountType 
-    ctypedef char[21] TThostFtdcCFMMCKeyType 
-    ctypedef char[21] TThostFtdcCFMMCTokenType 
+    ctypedef char TThostFtdcCFMMCKeyType[21] 
+    ctypedef char TThostFtdcCFMMCTokenType[21] 
     ctypedef char TThostFtdcCFMMCKeyKindType 
-    ctypedef char[81] TThostFtdcAMLReportNameType 
-    ctypedef char[51] TThostFtdcIndividualNameType 
-    ctypedef char[4] TThostFtdcCurrencyIDType 
-    ctypedef char[36] TThostFtdcCustNumberType 
-    ctypedef char[36] TThostFtdcOrganCodeType 
-    ctypedef char[71] TThostFtdcOrganNameType 
-    ctypedef char[12] TThostFtdcSuperOrganCodeType 
-    ctypedef char[31] TThostFtdcSubBranchIDType 
-    ctypedef char[71] TThostFtdcSubBranchNameType 
-    ctypedef char[31] TThostFtdcBranchNetCodeType 
-    ctypedef char[71] TThostFtdcBranchNetNameType 
-    ctypedef char[2] TThostFtdcOrganFlagType 
-    ctypedef char[33] TThostFtdcBankCodingForFutureType 
-    ctypedef char[7] TThostFtdcBankReturnCodeType 
-    ctypedef char[5] TThostFtdcPlateReturnCodeType 
-    ctypedef char[31] TThostFtdcBankSubBranchIDType 
-    ctypedef char[31] TThostFtdcFutureBranchIDType 
-    ctypedef char[7] TThostFtdcReturnCodeType 
-    ctypedef char[17] TThostFtdcOperatorCodeType 
-    ctypedef char[6] TThostFtdcClearDepIDType 
-    ctypedef char[6] TThostFtdcClearBrchIDType 
-    ctypedef char[71] TThostFtdcClearNameType 
-    ctypedef char[71] TThostFtdcBankAccountNameType 
-    ctypedef char[6] TThostFtdcInvDepIDType 
-    ctypedef char[6] TThostFtdcInvBrchIDType 
-    ctypedef char[36] TThostFtdcMessageFormatVersionType 
-    ctypedef char[36] TThostFtdcDigestType 
-    ctypedef char[129] TThostFtdcAuthenticDataType 
-    ctypedef char[129] TThostFtdcPasswordKeyType 
-    ctypedef char[129] TThostFtdcFutureAccountNameType 
-    ctypedef char[21] TThostFtdcMobilePhoneType 
-    ctypedef char[129] TThostFtdcFutureMainKeyType 
-    ctypedef char[129] TThostFtdcFutureWorkKeyType 
-    ctypedef char[129] TThostFtdcFutureTransKeyType 
-    ctypedef char[129] TThostFtdcBankMainKeyType 
-    ctypedef char[129] TThostFtdcBankWorkKeyType 
-    ctypedef char[129] TThostFtdcBankTransKeyType 
-    ctypedef char[129] TThostFtdcBankServerDescriptionType 
-    ctypedef char[129] TThostFtdcAddInfoType 
-    ctypedef char[129] TThostFtdcDescrInfoForReturnCodeType 
-    ctypedef char[21] TThostFtdcCountryCodeType 
+    ctypedef char TThostFtdcAMLReportNameType[81] 
+    ctypedef char TThostFtdcIndividualNameType[51] 
+    ctypedef char TThostFtdcCurrencyIDType[4] 
+    ctypedef char TThostFtdcCustNumberType[36] 
+    ctypedef char TThostFtdcOrganCodeType[36] 
+    ctypedef char TThostFtdcOrganNameType[71] 
+    ctypedef char TThostFtdcSuperOrganCodeType[12] 
+    ctypedef char TThostFtdcSubBranchIDType[31] 
+    ctypedef char TThostFtdcSubBranchNameType[71] 
+    ctypedef char TThostFtdcBranchNetCodeType[31] 
+    ctypedef char TThostFtdcBranchNetNameType[71] 
+    ctypedef char TThostFtdcOrganFlagType[2] 
+    ctypedef char TThostFtdcBankCodingForFutureType[33] 
+    ctypedef char TThostFtdcBankReturnCodeType[7] 
+    ctypedef char TThostFtdcPlateReturnCodeType[5] 
+    ctypedef char TThostFtdcBankSubBranchIDType[31] 
+    ctypedef char TThostFtdcFutureBranchIDType[31] 
+    ctypedef char TThostFtdcReturnCodeType[7] 
+    ctypedef char TThostFtdcOperatorCodeType[17] 
+    ctypedef char TThostFtdcClearDepIDType[6] 
+    ctypedef char TThostFtdcClearBrchIDType[6] 
+    ctypedef char TThostFtdcClearNameType[71] 
+    ctypedef char TThostFtdcBankAccountNameType[71] 
+    ctypedef char TThostFtdcInvDepIDType[6] 
+    ctypedef char TThostFtdcInvBrchIDType[6] 
+    ctypedef char TThostFtdcMessageFormatVersionType[36] 
+    ctypedef char TThostFtdcDigestType[36] 
+    ctypedef char TThostFtdcAuthenticDataType[129] 
+    ctypedef char TThostFtdcPasswordKeyType[129] 
+    ctypedef char TThostFtdcFutureAccountNameType[129] 
+    ctypedef char TThostFtdcMobilePhoneType[21] 
+    ctypedef char TThostFtdcFutureMainKeyType[129] 
+    ctypedef char TThostFtdcFutureWorkKeyType[129] 
+    ctypedef char TThostFtdcFutureTransKeyType[129] 
+    ctypedef char TThostFtdcBankMainKeyType[129] 
+    ctypedef char TThostFtdcBankWorkKeyType[129] 
+    ctypedef char TThostFtdcBankTransKeyType[129] 
+    ctypedef char TThostFtdcBankServerDescriptionType[129] 
+    ctypedef char TThostFtdcAddInfoType[129] 
+    ctypedef char TThostFtdcDescrInfoForReturnCodeType[129] 
+    ctypedef char TThostFtdcCountryCodeType[21] 
     ctypedef int TThostFtdcSerialType 
     ctypedef int TThostFtdcPlateSerialType 
-    ctypedef char[13] TThostFtdcBankSerialType 
+    ctypedef char TThostFtdcBankSerialType[13] 
     ctypedef int TThostFtdcCorrectSerialType 
     ctypedef int TThostFtdcFutureSerialType 
     ctypedef int TThostFtdcApplicationIDType 
@@ -422,7 +428,7 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcCommApiTypeType 
     ctypedef int TThostFtdcServiceIDType 
     ctypedef int TThostFtdcServiceLineNoType 
-    ctypedef char[61] TThostFtdcServiceNameType 
+    ctypedef char TThostFtdcServiceNameType[61] 
     ctypedef char TThostFtdcLinkStatusType 
     ctypedef int TThostFtdcCommApiPointerType 
     ctypedef char TThostFtdcPwdFlagType 
@@ -431,85 +437,85 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcSponsorTypeType 
     ctypedef char TThostFtdcReqRspTypeType 
     ctypedef char TThostFtdcFBTUserEventTypeType 
-    ctypedef char[21] TThostFtdcBankIDByBankType 
-    ctypedef char[4] TThostFtdcBankOperNoType 
-    ctypedef char[21] TThostFtdcBankCustNoType 
+    ctypedef char TThostFtdcBankIDByBankType[21] 
+    ctypedef char TThostFtdcBankOperNoType[4] 
+    ctypedef char TThostFtdcBankCustNoType[21] 
     ctypedef int TThostFtdcDBOPSeqNoType 
-    ctypedef char[61] TThostFtdcTableNameType 
-    ctypedef char[201] TThostFtdcPKNameType 
-    ctypedef char[501] TThostFtdcPKValueType 
+    ctypedef char TThostFtdcTableNameType[61] 
+    ctypedef char TThostFtdcPKNameType[201] 
+    ctypedef char TThostFtdcPKValueType[501] 
     ctypedef char TThostFtdcDBOperationType 
     ctypedef char TThostFtdcSyncFlagType 
-    ctypedef char[4] TThostFtdcTargetIDType 
+    ctypedef char TThostFtdcTargetIDType[4] 
     ctypedef char TThostFtdcSyncTypeType 
-    ctypedef char[7] TThostFtdcFBETimeType 
-    ctypedef char[13] TThostFtdcFBEBankNoType 
-    ctypedef char[13] TThostFtdcFBECertNoType 
+    ctypedef char TThostFtdcFBETimeType[7] 
+    ctypedef char TThostFtdcFBEBankNoType[13] 
+    ctypedef char TThostFtdcFBECertNoType[13] 
     ctypedef char TThostFtdcExDirectionType 
-    ctypedef char[33] TThostFtdcFBEBankAccountType 
-    ctypedef char[61] TThostFtdcFBEBankAccountNameType 
+    ctypedef char TThostFtdcFBEBankAccountType[33] 
+    ctypedef char TThostFtdcFBEBankAccountNameType[61] 
     ctypedef double TThostFtdcFBEAmtType 
-    ctypedef char[3] TThostFtdcFBEBusinessTypeType 
-    ctypedef char[61] TThostFtdcFBEPostScriptType 
-    ctypedef char[71] TThostFtdcFBERemarkType 
+    ctypedef char TThostFtdcFBEBusinessTypeType[3] 
+    ctypedef char TThostFtdcFBEPostScriptType[61] 
+    ctypedef char TThostFtdcFBERemarkType[71] 
     ctypedef double TThostFtdcExRateType 
     ctypedef char TThostFtdcFBEResultFlagType 
-    ctypedef char[61] TThostFtdcFBERtnMsgType 
-    ctypedef char[61] TThostFtdcFBEExtendMsgType 
-    ctypedef char[31] TThostFtdcFBEBusinessSerialType 
-    ctypedef char[21] TThostFtdcFBESystemSerialType 
+    ctypedef char TThostFtdcFBERtnMsgType[61] 
+    ctypedef char TThostFtdcFBEExtendMsgType[61] 
+    ctypedef char TThostFtdcFBEBusinessSerialType[31] 
+    ctypedef char TThostFtdcFBESystemSerialType[21] 
     ctypedef int TThostFtdcFBETotalExCntType 
     ctypedef char TThostFtdcFBEExchStatusType 
     ctypedef char TThostFtdcFBEFileFlagType 
     ctypedef char TThostFtdcFBEAlreadyTradeType 
-    ctypedef char[61] TThostFtdcFBEOpenBankType 
+    ctypedef char TThostFtdcFBEOpenBankType[61] 
     ctypedef char TThostFtdcFBEUserEventTypeType 
-    ctypedef char[21] TThostFtdcFBEFileNameType 
-    ctypedef char[21] TThostFtdcFBEBatchSerialType 
+    ctypedef char TThostFtdcFBEFileNameType[21] 
+    ctypedef char TThostFtdcFBEBatchSerialType[21] 
     ctypedef char TThostFtdcFBEReqFlagType 
     ctypedef char TThostFtdcNotifyClassType 
-    ctypedef char[257] TThostFtdcRiskNofityInfoType 
-    ctypedef char[24] TThostFtdcForceCloseSceneIdType 
+    ctypedef char TThostFtdcRiskNofityInfoType[257] 
+    ctypedef char TThostFtdcForceCloseSceneIdType[24] 
     ctypedef char TThostFtdcForceCloseTypeType 
-    ctypedef char[101] TThostFtdcInstrumentIDsType 
+    ctypedef char TThostFtdcInstrumentIDsType[101] 
     ctypedef char TThostFtdcRiskNotifyMethodType 
     ctypedef char TThostFtdcRiskNotifyStatusType 
     ctypedef char TThostFtdcRiskUserEventType 
     ctypedef int TThostFtdcParamIDType 
-    ctypedef char[41] TThostFtdcParamNameType 
-    ctypedef char[41] TThostFtdcParamValueType 
+    ctypedef char TThostFtdcParamNameType[41] 
+    ctypedef char TThostFtdcParamValueType[41] 
     ctypedef char TThostFtdcConditionalOrderSortTypeType 
     ctypedef char TThostFtdcSendTypeType 
     ctypedef char TThostFtdcClientIDStatusType 
-    ctypedef char[17] TThostFtdcIndustryIDType 
-    ctypedef char[5] TThostFtdcQuestionIDType 
-    ctypedef char[41] TThostFtdcQuestionContentType 
-    ctypedef char[13] TThostFtdcOptionIDType 
-    ctypedef char[61] TThostFtdcOptionContentType 
+    ctypedef char TThostFtdcIndustryIDType[17] 
+    ctypedef char TThostFtdcQuestionIDType[5] 
+    ctypedef char TThostFtdcQuestionContentType[41] 
+    ctypedef char TThostFtdcOptionIDType[13] 
+    ctypedef char TThostFtdcOptionContentType[61] 
     ctypedef char TThostFtdcQuestionTypeType 
-    ctypedef char[33] TThostFtdcProcessIDType 
+    ctypedef char TThostFtdcProcessIDType[33] 
     ctypedef int TThostFtdcSeqNoType 
-    ctypedef char[3] TThostFtdcUOAProcessStatusType 
-    ctypedef char[3] TThostFtdcProcessTypeType 
+    ctypedef char TThostFtdcUOAProcessStatusType[3] 
+    ctypedef char TThostFtdcProcessTypeType[3] 
     ctypedef char TThostFtdcBusinessTypeType 
     ctypedef char TThostFtdcCfmmcReturnCodeType 
     ctypedef int TThostFtdcExReturnCodeType 
     ctypedef char TThostFtdcClientTypeType 
     ctypedef char TThostFtdcExchangeIDTypeType 
     ctypedef char TThostFtdcExClientIDTypeType 
-    ctypedef char[11] TThostFtdcClientClassifyType 
-    ctypedef char[11] TThostFtdcUOAOrganTypeType 
-    ctypedef char[11] TThostFtdcUOACountryCodeType 
-    ctypedef char[11] TThostFtdcAreaCodeType 
-    ctypedef char[21] TThostFtdcFuturesIDType 
-    ctypedef char[11] TThostFtdcCffmcDateType 
-    ctypedef char[11] TThostFtdcCffmcTimeType 
-    ctypedef char[21] TThostFtdcNocIDType 
+    ctypedef char TThostFtdcClientClassifyType[11] 
+    ctypedef char TThostFtdcUOAOrganTypeType[11] 
+    ctypedef char TThostFtdcUOACountryCodeType[11] 
+    ctypedef char TThostFtdcAreaCodeType[11] 
+    ctypedef char TThostFtdcFuturesIDType[21] 
+    ctypedef char TThostFtdcCffmcDateType[11] 
+    ctypedef char TThostFtdcCffmcTimeType[11] 
+    ctypedef char TThostFtdcNocIDType[21] 
     ctypedef char TThostFtdcUpdateFlagType 
     ctypedef char TThostFtdcApplyOperateIDType 
     ctypedef char TThostFtdcApplyStatusIDType 
     ctypedef char TThostFtdcSendMethodType 
-    ctypedef char[33] TThostFtdcEventTypeType 
+    ctypedef char TThostFtdcEventTypeType[33] 
     ctypedef char TThostFtdcEventModeType 
     ctypedef char TThostFtdcUOAAutoSendType 
     ctypedef int TThostFtdcQueryDepthType 
@@ -519,23 +525,23 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef int TThostFtdcCheckNoType 
     ctypedef char TThostFtdcCheckStatusType 
     ctypedef char TThostFtdcUsedStatusType 
-    ctypedef char[61] TThostFtdcRateTemplateNameType 
-    ctypedef char[2049] TThostFtdcPropertyStringType 
+    ctypedef char TThostFtdcRateTemplateNameType[61] 
+    ctypedef char TThostFtdcPropertyStringType[2049] 
     ctypedef char TThostFtdcBankAcountOriginType 
     ctypedef char TThostFtdcMonthBillTradeSumType 
     ctypedef char TThostFtdcFBTTradeCodeEnumType 
-    ctypedef char[9] TThostFtdcRateTemplateIDType 
-    ctypedef char[21] TThostFtdcRiskRateType 
+    ctypedef char TThostFtdcRateTemplateIDType[9] 
+    ctypedef char TThostFtdcRiskRateType[21] 
     ctypedef int TThostFtdcTimestampType 
-    ctypedef char[61] TThostFtdcInvestorIDRuleNameType 
-    ctypedef char[513] TThostFtdcInvestorIDRuleExprType 
+    ctypedef char TThostFtdcInvestorIDRuleNameType[61] 
+    ctypedef char TThostFtdcInvestorIDRuleExprType[513] 
     ctypedef int TThostFtdcLastDriftType 
     ctypedef int TThostFtdcLastSuccessType 
-    ctypedef char[41] TThostFtdcAuthKeyType 
-    ctypedef char[17] TThostFtdcSerialNumberType 
+    ctypedef char TThostFtdcAuthKeyType[41] 
+    ctypedef char TThostFtdcSerialNumberType[17] 
     ctypedef char TThostFtdcOTPTypeType 
-    ctypedef char[2] TThostFtdcOTPVendorsIDType 
-    ctypedef char[61] TThostFtdcOTPVendorsNameType 
+    ctypedef char TThostFtdcOTPVendorsIDType[2] 
+    ctypedef char TThostFtdcOTPVendorsNameType[61] 
     ctypedef char TThostFtdcOTPStatusType 
     ctypedef char TThostFtdcBrokerUserTypeType 
     ctypedef char TThostFtdcFutureTypeType 
@@ -543,50 +549,50 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcAccountSourceTypeType 
     ctypedef char TThostFtdcCodeSourceTypeType 
     ctypedef char TThostFtdcUserRangeType 
-    ctypedef char[9] TThostFtdcTimeSpanType 
-    ctypedef char[17] TThostFtdcImportSequenceIDType 
+    ctypedef char TThostFtdcTimeSpanType[9] 
+    ctypedef char TThostFtdcImportSequenceIDType[17] 
     ctypedef char TThostFtdcByGroupType 
     ctypedef char TThostFtdcTradeSumStatModeType 
     ctypedef int TThostFtdcComTypeType 
-    ctypedef char[33] TThostFtdcUserProductIDType 
-    ctypedef char[65] TThostFtdcUserProductNameType 
-    ctypedef char[129] TThostFtdcUserProductMemoType 
-    ctypedef char[2] TThostFtdcCSRCCancelFlagType 
-    ctypedef char[11] TThostFtdcCSRCDateType 
-    ctypedef char[201] TThostFtdcCSRCInvestorNameType 
-    ctypedef char[101] TThostFtdcCSRCOpenInvestorNameType 
-    ctypedef char[13] TThostFtdcCSRCInvestorIDType 
-    ctypedef char[51] TThostFtdcCSRCIdentifiedCardNoType 
-    ctypedef char[11] TThostFtdcCSRCClientIDType 
-    ctypedef char[3] TThostFtdcCSRCBankFlagType 
-    ctypedef char[23] TThostFtdcCSRCBankAccountType 
-    ctypedef char[401] TThostFtdcCSRCOpenNameType 
-    ctypedef char[101] TThostFtdcCSRCMemoType 
-    ctypedef char[11] TThostFtdcCSRCTimeType 
-    ctypedef char[21] TThostFtdcCSRCTradeIDType 
-    ctypedef char[31] TThostFtdcCSRCExchangeInstIDType 
-    ctypedef char[7] TThostFtdcCSRCMortgageNameType 
-    ctypedef char[3] TThostFtdcCSRCReasonType 
-    ctypedef char[2] TThostFtdcIsSettlementType 
+    ctypedef char TThostFtdcUserProductIDType[33] 
+    ctypedef char TThostFtdcUserProductNameType[65] 
+    ctypedef char TThostFtdcUserProductMemoType[129] 
+    ctypedef char TThostFtdcCSRCCancelFlagType[2] 
+    ctypedef char TThostFtdcCSRCDateType[11] 
+    ctypedef char TThostFtdcCSRCInvestorNameType[201] 
+    ctypedef char TThostFtdcCSRCOpenInvestorNameType[101] 
+    ctypedef char TThostFtdcCSRCInvestorIDType[13] 
+    ctypedef char TThostFtdcCSRCIdentifiedCardNoType[51] 
+    ctypedef char TThostFtdcCSRCClientIDType[11] 
+    ctypedef char TThostFtdcCSRCBankFlagType[3] 
+    ctypedef char TThostFtdcCSRCBankAccountType[23] 
+    ctypedef char TThostFtdcCSRCOpenNameType[401] 
+    ctypedef char TThostFtdcCSRCMemoType[101] 
+    ctypedef char TThostFtdcCSRCTimeType[11] 
+    ctypedef char TThostFtdcCSRCTradeIDType[21] 
+    ctypedef char TThostFtdcCSRCExchangeInstIDType[31] 
+    ctypedef char TThostFtdcCSRCMortgageNameType[7] 
+    ctypedef char TThostFtdcCSRCReasonType[3] 
+    ctypedef char TThostFtdcIsSettlementType[2] 
     ctypedef double TThostFtdcCSRCMoneyType 
     ctypedef double TThostFtdcCSRCPriceType 
-    ctypedef char[2] TThostFtdcCSRCOptionsTypeType 
+    ctypedef char TThostFtdcCSRCOptionsTypeType[2] 
     ctypedef double TThostFtdcCSRCStrikePriceType 
-    ctypedef char[3] TThostFtdcCSRCTargetProductIDType 
-    ctypedef char[31] TThostFtdcCSRCTargetInstrIDType 
-    ctypedef char[161] TThostFtdcCommModelNameType 
-    ctypedef char[1025] TThostFtdcCommModelMemoType 
+    ctypedef char TThostFtdcCSRCTargetProductIDType[3] 
+    ctypedef char TThostFtdcCSRCTargetInstrIDType[31] 
+    ctypedef char TThostFtdcCommModelNameType[161] 
+    ctypedef char TThostFtdcCommModelMemoType[1025] 
     ctypedef char TThostFtdcExprSetModeType 
     ctypedef char TThostFtdcRateInvestorRangeType 
-    ctypedef char[13] TThostFtdcAgentBrokerIDType 
+    ctypedef char TThostFtdcAgentBrokerIDType[13] 
     ctypedef int TThostFtdcDRIdentityIDType 
-    ctypedef char[65] TThostFtdcDRIdentityNameType 
-    ctypedef char[31] TThostFtdcDBLinkIDType 
+    ctypedef char TThostFtdcDRIdentityNameType[65] 
+    ctypedef char TThostFtdcDBLinkIDType[31] 
     ctypedef char TThostFtdcSyncDataStatusType 
     ctypedef char TThostFtdcTradeSourceType 
     ctypedef char TThostFtdcFlexStatModeType 
     ctypedef char TThostFtdcByInvestorRangeType 
-    ctypedef char[21] TThostFtdcSRiskRateType 
+    ctypedef char TThostFtdcSRiskRateType[21] 
     ctypedef int TThostFtdcSequenceNo12Type 
     ctypedef char TThostFtdcPropertyInvestorRangeType 
     ctypedef char TThostFtdcFileStatusType 
@@ -596,26 +602,26 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcCSRCDataQueyTypeType 
     ctypedef char TThostFtdcFreezeStatusType 
     ctypedef char TThostFtdcStandardStatusType 
-    ctypedef char[2] TThostFtdcCSRCFreezeStatusType 
+    ctypedef char TThostFtdcCSRCFreezeStatusType[2] 
     ctypedef char TThostFtdcRightParamTypeType 
-    ctypedef char[9] TThostFtdcRightTemplateIDType 
-    ctypedef char[61] TThostFtdcRightTemplateNameType 
+    ctypedef char TThostFtdcRightTemplateIDType[9] 
+    ctypedef char TThostFtdcRightTemplateNameType[61] 
     ctypedef char TThostFtdcDataStatusType 
     ctypedef char TThostFtdcAMLCheckStatusType 
     ctypedef char TThostFtdcAmlDateTypeType 
     ctypedef char TThostFtdcAmlCheckLevelType 
-    ctypedef char[2] TThostFtdcAmlCheckFlowType 
-    ctypedef char[129] TThostFtdcDataTypeType 
+    ctypedef char TThostFtdcAmlCheckFlowType[2] 
+    ctypedef char TThostFtdcDataTypeType[129] 
     ctypedef char TThostFtdcExportFileTypeType 
     ctypedef char TThostFtdcSettleManagerTypeType 
-    ctypedef char[33] TThostFtdcSettleManagerIDType 
-    ctypedef char[129] TThostFtdcSettleManagerNameType 
+    ctypedef char TThostFtdcSettleManagerIDType[33] 
+    ctypedef char TThostFtdcSettleManagerNameType[129] 
     ctypedef char TThostFtdcSettleManagerLevelType 
     ctypedef char TThostFtdcSettleManagerGroupType 
-    ctypedef char[1025] TThostFtdcCheckResultMemoType 
-    ctypedef char[1025] TThostFtdcFunctionUrlType 
-    ctypedef char[129] TThostFtdcAuthInfoType 
-    ctypedef char[17] TThostFtdcAuthCodeType 
+    ctypedef char TThostFtdcCheckResultMemoType[1025] 
+    ctypedef char TThostFtdcFunctionUrlType[1025] 
+    ctypedef char TThostFtdcAuthInfoType[129] 
+    ctypedef char TThostFtdcAuthCodeType[17] 
     ctypedef char TThostFtdcLimitUseTypeType 
     ctypedef char TThostFtdcDataResourceType 
     ctypedef char TThostFtdcMarginTypeType 
@@ -627,8 +633,8 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcSaveStatusType 
     ctypedef char TThostFtdcSettArchiveStatusType 
     ctypedef char TThostFtdcCTPTypeType 
-    ctypedef char[9] TThostFtdcToolIDType 
-    ctypedef char[81] TThostFtdcToolNameType 
+    ctypedef char TThostFtdcToolIDType[9] 
+    ctypedef char TThostFtdcToolNameType[81] 
     ctypedef char TThostFtdcCloseDealTypeType 
     ctypedef char TThostFtdcMortgageFundUseRangeType 
     ctypedef double TThostFtdcCurrencyUnitType 
@@ -636,71 +642,71 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcSpecProductTypeType 
     ctypedef char TThostFtdcFundMortgageTypeType 
     ctypedef char TThostFtdcAccountSettlementParamIDType 
-    ctypedef char[31] TThostFtdcCurrencyNameType 
-    ctypedef char[4] TThostFtdcCurrencySignType 
+    ctypedef char TThostFtdcCurrencyNameType[31] 
+    ctypedef char TThostFtdcCurrencySignType[4] 
     ctypedef char TThostFtdcFundMortDirectionType 
     ctypedef char TThostFtdcBusinessClassType 
     ctypedef char TThostFtdcSwapSourceTypeType 
     ctypedef char TThostFtdcCurrExDirectionType 
     ctypedef char TThostFtdcCurrencySwapStatusType 
-    ctypedef char[13] TThostFtdcCurrExchCertNoType 
-    ctypedef char[21] TThostFtdcBatchSerialNoType 
+    ctypedef char TThostFtdcCurrExchCertNoType[13] 
+    ctypedef char TThostFtdcBatchSerialNoType[21] 
     ctypedef char TThostFtdcReqFlagType 
     ctypedef char TThostFtdcResFlagType 
-    ctypedef char[2] TThostFtdcPageControlType 
+    ctypedef char TThostFtdcPageControlType[2] 
     ctypedef int TThostFtdcRecordCountType 
-    ctypedef char[101] TThostFtdcCurrencySwapMemoType 
+    ctypedef char TThostFtdcCurrencySwapMemoType[101] 
     ctypedef char TThostFtdcExStatusType 
     ctypedef char TThostFtdcClientRegionType 
-    ctypedef char[101] TThostFtdcWorkPlaceType 
-    ctypedef char[21] TThostFtdcBusinessPeriodType 
-    ctypedef char[101] TThostFtdcWebSiteType 
-    ctypedef char[3] TThostFtdcUOAIdCardTypeType 
-    ctypedef char[3] TThostFtdcClientModeType 
-    ctypedef char[101] TThostFtdcInvestorFullNameType 
-    ctypedef char[11] TThostFtdcUOABrokerIDType 
-    ctypedef char[11] TThostFtdcUOAZipCodeType 
-    ctypedef char[101] TThostFtdcUOAEMailType 
-    ctypedef char[41] TThostFtdcOldCityType 
-    ctypedef char[101] TThostFtdcCorporateIdentifiedCardNoType 
+    ctypedef char TThostFtdcWorkPlaceType[101] 
+    ctypedef char TThostFtdcBusinessPeriodType[21] 
+    ctypedef char TThostFtdcWebSiteType[101] 
+    ctypedef char TThostFtdcUOAIdCardTypeType[3] 
+    ctypedef char TThostFtdcClientModeType[3] 
+    ctypedef char TThostFtdcInvestorFullNameType[101] 
+    ctypedef char TThostFtdcUOABrokerIDType[11] 
+    ctypedef char TThostFtdcUOAZipCodeType[11] 
+    ctypedef char TThostFtdcUOAEMailType[101] 
+    ctypedef char TThostFtdcOldCityType[41] 
+    ctypedef char TThostFtdcCorporateIdentifiedCardNoType[101] 
     ctypedef char TThostFtdcHasBoardType 
     ctypedef char TThostFtdcStartModeType 
     ctypedef char TThostFtdcTemplateTypeType 
     ctypedef char TThostFtdcLoginModeType 
     ctypedef char TThostFtdcPromptTypeType 
-    ctypedef char[51] TThostFtdcLedgerManageIDType 
-    ctypedef char[101] TThostFtdcInvestVarietyType 
-    ctypedef char[2] TThostFtdcBankAccountTypeType 
-    ctypedef char[101] TThostFtdcLedgerManageBankType 
-    ctypedef char[101] TThostFtdcCffexDepartmentNameType 
-    ctypedef char[9] TThostFtdcCffexDepartmentCodeType 
+    ctypedef char TThostFtdcLedgerManageIDType[51] 
+    ctypedef char TThostFtdcInvestVarietyType[101] 
+    ctypedef char TThostFtdcBankAccountTypeType[2] 
+    ctypedef char TThostFtdcLedgerManageBankType[101] 
+    ctypedef char TThostFtdcCffexDepartmentNameType[101] 
+    ctypedef char TThostFtdcCffexDepartmentCodeType[9] 
     ctypedef char TThostFtdcHasTrusteeType 
-    ctypedef char[41] TThostFtdcCSRCMemo1Type 
-    ctypedef char[101] TThostFtdcAssetmgrCFullNameType 
-    ctypedef char[51] TThostFtdcAssetmgrApprovalNOType 
-    ctypedef char[401] TThostFtdcAssetmgrMgrNameType 
+    ctypedef char TThostFtdcCSRCMemo1Type[41] 
+    ctypedef char TThostFtdcAssetmgrCFullNameType[101] 
+    ctypedef char TThostFtdcAssetmgrApprovalNOType[51] 
+    ctypedef char TThostFtdcAssetmgrMgrNameType[401] 
     ctypedef char TThostFtdcAmTypeType 
-    ctypedef char[5] TThostFtdcCSRCAmTypeType 
+    ctypedef char TThostFtdcCSRCAmTypeType[5] 
     ctypedef char TThostFtdcCSRCFundIOTypeType 
     ctypedef char TThostFtdcCusAccountTypeType 
-    ctypedef char[4] TThostFtdcCSRCNationalType 
-    ctypedef char[11] TThostFtdcCSRCSecAgentIDType 
+    ctypedef char TThostFtdcCSRCNationalType[4] 
+    ctypedef char TThostFtdcCSRCSecAgentIDType[11] 
     ctypedef char TThostFtdcLanguageTypeType 
-    ctypedef char[23] TThostFtdcAmAccountType 
+    ctypedef char TThostFtdcAmAccountType[23] 
     ctypedef char TThostFtdcAssetmgrClientTypeType 
     ctypedef char TThostFtdcAssetmgrTypeType 
-    ctypedef char[11] TThostFtdcUOMType 
-    ctypedef char[3] TThostFtdcSHFEInstLifePhaseType 
-    ctypedef char[11] TThostFtdcSHFEProductClassType 
-    ctypedef char[2] TThostFtdcPriceDecimalType 
-    ctypedef char[2] TThostFtdcInTheMoneyFlagType 
+    ctypedef char TThostFtdcUOMType[11] 
+    ctypedef char TThostFtdcSHFEInstLifePhaseType[3] 
+    ctypedef char TThostFtdcSHFEProductClassType[11] 
+    ctypedef char TThostFtdcPriceDecimalType[2] 
+    ctypedef char TThostFtdcInTheMoneyFlagType[2] 
     ctypedef char TThostFtdcCheckInstrTypeType 
     ctypedef char TThostFtdcDeliveryTypeType 
     ctypedef double TThostFtdcBigMoneyType 
     ctypedef char TThostFtdcMaxMarginSideAlgorithmType 
     ctypedef char TThostFtdcDAClientTypeType 
-    ctypedef char[61] TThostFtdcCombinInstrIDType 
-    ctypedef char[61] TThostFtdcCombinSettlePriceType 
+    ctypedef char TThostFtdcCombinInstrIDType[61] 
+    ctypedef char TThostFtdcCombinSettlePriceType[61] 
     ctypedef int TThostFtdcDCEPriorityType 
     ctypedef int TThostFtdcTradeGroupIDType 
     ctypedef int TThostFtdcIsCheckPrepaType 
@@ -712,16 +718,16 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcFundTypeEnType 
     ctypedef char TThostFtdcFundDirectionEnType 
     ctypedef char TThostFtdcFundMortDirectionEnType 
-    ctypedef char[3] TThostFtdcSwapBusinessTypeType 
+    ctypedef char TThostFtdcSwapBusinessTypeType[3] 
     ctypedef char TThostFtdcOptionsTypeType 
     ctypedef char TThostFtdcStrikeModeType 
     ctypedef char TThostFtdcStrikeTypeType 
     ctypedef char TThostFtdcApplyTypeType 
     ctypedef char TThostFtdcGiveUpDataSourceType 
-    ctypedef char[21] TThostFtdcExecOrderSysIDType 
+    ctypedef char TThostFtdcExecOrderSysIDType[21] 
     ctypedef char TThostFtdcExecResultType 
     ctypedef int TThostFtdcStrikeSequenceType 
-    ctypedef char[13] TThostFtdcStrikeTimeType 
+    ctypedef char TThostFtdcStrikeTimeType[13] 
     ctypedef char TThostFtdcCombinationTypeType 
     ctypedef char TThostFtdcOptionRoyaltyPriceTypeType 
     ctypedef char TThostFtdcBalanceAlgorithmType 
@@ -736,3 +742,14 @@ cdef  extern  from './ctp/ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcSHFEUploadFileNameType 
     ctypedef char TThostFtdcCFFEXUploadFileNameType 
     ctypedef char TThostFtdcCombDirectionType 
+    ctypedef char TThostFtdcStrikeOffsetTypeType 
+    ctypedef char TThostFtdcReserveOpenAccStasType 
+    ctypedef char TThostFtdcLoginRemarkType[36] 
+    ctypedef char TThostFtdcInvestUnitIDType[17] 
+    ctypedef int TThostFtdcBulletinIDType 
+    ctypedef char TThostFtdcNewsTypeType[3] 
+    ctypedef char TThostFtdcNewsUrgencyType 
+    ctypedef char TThostFtdcAbstractType[81] 
+    ctypedef char TThostFtdcComeFromType[21] 
+    ctypedef char TThostFtdcURLLinkType[201] 
+    ctypedef char TThostFtdcLongIndividualNameType[161] 

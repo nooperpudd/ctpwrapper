@@ -1,12 +1,12 @@
 # encoding:utf-8
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
- CThostFtdcRspInfoField,
- CThostFtdcUserLogoutField,
- CThostFtdcSpecificInstrumentField,
- CThostFtdcDepthMarketDataField,
- CThostFtdcFensUserInfoField,
- CThostFtdcReqUserLoginField)
+CThostFtdcRspInfoField,
+CThostFtdcUserLogoutField,
+CThostFtdcSpecificInstrumentField,
+CThostFtdcDepthMarketDataField,
+CThostFtdcFensUserInfoField,
+CThostFtdcReqUserLoginField)
 from libc.string cimport const_char
 from libcpp cimport bool
 
@@ -63,8 +63,7 @@ cdef extern from './ctp/ThostFtdcMdApi.h':
     cdef cppclass CMdApi "CThostFtdcMdApi":
         # static CThostFtdcMdApi *CreateFtdcMdApi(const char *pszFlowPath = "", const bool bIsUsingUdp=false, const bool bIsMulticast=false);
         CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath="", const bool bIsUsingUdp = False,
-                                          const bool bIsMulticast = False) nogil except +
-
+                                 const bool bIsMulticast = False) nogil except +
 
         #  删除接口对象本身
         #  @remark 不再使用本接口对象时,调用该函数删除接口对象
