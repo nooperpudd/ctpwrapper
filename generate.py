@@ -11,7 +11,8 @@ HEADER_PATH = os.path.join(CTP_PATH, "header")
 USERAPI_DATA_FILE = os.path.join(HEADER_PATH, "ThostFtdcUserApiDataType.h")
 USERAPI_STRUCT_FILE = os.path.join(HEADER_PATH, "ThostFtdcUserApiStruct.h")
 
-GENERATE_PATH = os.path.join(os.path.dirname(__file__), "ctpwrapper")
+GENERATE_PATH = os.path.join(os.path.dirname(__file__), "ctpwrapper/headers")
+
 
 
 def generate_structure(datatype_dict):
@@ -28,7 +29,7 @@ def generate_structure(datatype_dict):
 
     data_struct_file.write("from ThostFtdcUserApiDataType cimport * \n")
 
-    data_struct_file.write("cdef extern from './ctp/ThosFtdcUserApiStruct.h': \n")
+    data_struct_file.write("cdef extern from 'ThosFtdcUserApiStruct.h': \n")
 
     for line in codecs.open(USERAPI_STRUCT_FILE, encoding="utf-8"):
         if line.startswith("struct"):
@@ -59,7 +60,7 @@ def generate_datatype():
 
     data_type_file.write("# encoding:utf-8")
     data_type_file.write("\n" * 2)
-    data_type_file.write("cdef extern from './ctp/ThostFtdcUserApiDataType.h': \n")
+    data_type_file.write("cdef extern from 'ThostFtdcUserApiDataType.h': \n")
 
     for line in codecs.open(USERAPI_DATA_FILE, encoding="utf-8"):
         if line.startswith("enum"):

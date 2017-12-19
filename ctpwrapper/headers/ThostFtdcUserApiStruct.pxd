@@ -1,7 +1,7 @@
 # encoding:utf-8
 
 from ThostFtdcUserApiDataType cimport * 
-cdef extern from './ctp/ThosFtdcUserApiStruct.h': 
+cdef extern from 'ThosFtdcUserApiStruct.h':
     cdef struct CThostFtdcDisseminationField:
         TThostFtdcSequenceSeriesType SequenceSeries
         TThostFtdcSequenceNoType SequenceNo

@@ -1,6 +1,6 @@
 # encoding:utf-8
 
-cdef extern from './ctp/ThostFtdcUserApiDataType.h': 
+cdef extern from 'ThostFtdcUserApiDataType.h':
  
     cdef enum THOST_TE_RESUME_TYPE:
         THOST_TERT_RESTART = 0

@@ -10,7 +10,7 @@ CThostFtdcReqUserLoginField)
 from libc.string cimport const_char
 from libcpp cimport bool
 
-cdef extern from './ctp/ThostFtdcMdApi.h':
+cdef extern from 'ThostFtdcMdApi.h':
     cdef cppclass CMdSpi "CThostFtdcMdSpi":
         # 当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
         void OnFrontConnected() nogil except +
