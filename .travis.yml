@@ -1,0 +1,14 @@
+language: python
+
+sudo: false
+
+python:
+  - "3.6"
+
+cache: pip
+
+install:
+  - pip install -r requirements.txt
+
+script:
+  - python setup.py build
