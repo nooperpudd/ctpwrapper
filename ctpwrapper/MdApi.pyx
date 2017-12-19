@@ -2,7 +2,7 @@
 # cython: nonecheck=True
 # cython: profile=False
 
-from Cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
+from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport atoi
 
 from headers.cMdAPI cimport CMdSpi,CMdApi
