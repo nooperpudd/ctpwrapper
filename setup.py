@@ -3,10 +3,10 @@ import codecs
 import os
 import re
 import sys
+from distutils.core import setup
 
 from Cython.Build import cythonize
 from Cython.Distutils import build_ext, Extension
-from setuptools import setup, find_packages
 
 
 def find_version(*file_paths):
@@ -77,7 +77,7 @@ setup(
     version=find_version("ctpwrapper", "__init__.py"),
     setup_requires=["cython"],
     install_requires=["cython"],
-    packages=find_packages(),
+    packages=["ctpwrapper"],
     include_dirs=[ctp_dir],
     include_package_data=True,
     package_data={"": package_data},
