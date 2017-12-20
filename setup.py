@@ -3,11 +3,10 @@ import codecs
 import os
 import re
 import sys
-from setuptools import setup, find_packages
+from distutils.core import setup
 
 from Cython.Build import cythonize
 from Cython.Distutils import build_ext, Extension
-
 
 
 def find_version(*file_paths):
@@ -40,7 +39,7 @@ extra_compile_args = None
 if sys.platform == "linux":
     package_data.append("*.so")
     extra_compile_args = ["-Wall"]  # "-03",
-    extra_link_args = ['-Wl', '-rpath', '$ORIGIN']
+    extra_link_args = ['-Wl,-rpath,$ORIGIN']
 
 elif sys.platform == "win32":
     extra_compile_args = ["/GR", "/EHsc"]
@@ -78,10 +77,11 @@ setup(
     version=find_version("ctpwrapper", "__init__.py"),
     setup_requires=["cython"],
     install_requires=["cython"],
-    packages=find_packages(),
+    packages=["ctpwrapper"],
     include_dirs=[ctp_dir],
     include_package_data=True,
     platforms=["win32", "linux"],
+    package_dir={"ctpwrapper": "ctpwrapper"},
     package_data={"": package_data},
     ext_modules=cythonize(ext_modules),
     cmdclass={'build_ext': build_ext},
