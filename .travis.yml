@@ -1,21 +1,24 @@
 addons:
   apt:
+    sources:
+    - ubuntu-toolchain-r-test
     packages:
-       - g++-5
-       - gcc-5
+    - gcc-5
+    - g++-5
 
-language:
- - python
- - cpp
+matrix:
+  include:
+   - os: linux
+      language: python
+      python: "3.6"
+      compiler: gcc-5
+      env: CC=gcc
 
-python:
-  - "3.6"
 
 sudo: false
 
 cache: pip
 
-compiler: gcc-5
 
 install:
   - pip install -r requirements.txt
