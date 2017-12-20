@@ -81,7 +81,7 @@ setup(
     packages=find_packages(),
     include_dirs=[ctp_dir],
     include_package_data=True,
-    platform=["win32", "linux"],
+    platforms=["win32", "linux"],
     package_data={"": package_data},
     ext_modules=cythonize(ext_modules),
     cmdclass={'build_ext': build_ext},
