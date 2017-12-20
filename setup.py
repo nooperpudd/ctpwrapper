@@ -3,11 +3,11 @@ import codecs
 import os
 import re
 import sys
-
 from setuptools import setup, find_packages
 
 from Cython.Build import cythonize
 from Cython.Distutils import build_ext, Extension
+
 
 
 def find_version(*file_paths):
@@ -40,7 +40,7 @@ extra_compile_args = None
 if sys.platform == "linux":
     package_data.append("*.so")
     extra_compile_args = ["-Wall"]  # "-03",
-    extra_link_args = ["-g"]
+    extra_link_args = ['-Wl', '-rpath', '$ORIGIN']
 
 elif sys.platform == "win32":
     extra_compile_args = ["/GR", "/EHsc"]
