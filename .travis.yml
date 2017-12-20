@@ -1,12 +1,17 @@
+addons:
+  apt:
+    packages:
+       - g++-5
+       - gcc-5
+
 language:
  - python
  - cpp
 
-sudo: false
-
 python:
   - "3.6"
 
+sudo: false
 
 cache: pip
 
