@@ -1,13 +1,16 @@
-language: python
+language:
+ - python
+ - cpp
 
 sudo: false
 
 python:
   - "3.6"
 
+
 cache: pip
 
-compiler: gcc
+compiler: gcc-5
 
 install:
   - pip install -r requirements.txt
