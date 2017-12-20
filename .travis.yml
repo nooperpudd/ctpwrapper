@@ -8,17 +8,16 @@ addons:
 
 matrix:
   include:
-   - os: linux
-      language: python
-      python: "3.6"
-      compiler: gcc-5
-      env: CC=gcc
+  - os: linux
+    language: python
+    python: "3.6"
+    compiler: gcc-5
+    env: CC=gcc
 
 
 sudo: false
 
 cache: pip
-
 
 install:
   - pip install -r requirements.txt
