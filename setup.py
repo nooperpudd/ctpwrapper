@@ -40,7 +40,7 @@ extra_compile_args = None
 if sys.platform == "linux":
     package_data.append("*.so")
     extra_compile_args = ["-Wall"]  # "-03",
-    # extra_link_args = ["-g"]
+    extra_link_args = ["-g"]
 
 elif sys.platform == "win32":
     extra_compile_args = ["/GR", "/EHsc"]
