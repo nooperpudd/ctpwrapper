@@ -69,7 +69,7 @@ def generate_datatype():
     cdef enum THOST_TE_RESUME_TYPE:
         THOST_TERT_RESTART = 0
         THOST_TERT_RESUME
-        THOST_TERT_QUICK 
+        THOST_TERT_QUICK
 """)
             # special write data
         if line.startswith("#define"):
