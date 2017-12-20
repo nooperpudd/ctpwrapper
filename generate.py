@@ -14,7 +14,6 @@ USERAPI_STRUCT_FILE = os.path.join(HEADER_PATH, "ThostFtdcUserApiStruct.h")
 GENERATE_PATH = os.path.join(os.path.dirname(__file__), "ctpwrapper/headers")
 
 
-
 def generate_structure(datatype_dict):
     """
     generate structure file
@@ -28,8 +27,9 @@ def generate_structure(datatype_dict):
     data_struct_file.write("\n" * 2)
 
     data_struct_file.write("from ThostFtdcUserApiDataType cimport * \n")
+    data_struct_file.write("\n" * 2)
 
-    data_struct_file.write("cdef extern from 'ThosFtdcUserApiStruct.h': \n")
+    data_struct_file.write("cdef extern from 'ThostFtdcUserApiStruct.h': \n")
 
     for line in codecs.open(USERAPI_STRUCT_FILE, encoding="utf-8"):
         if line.startswith("struct"):

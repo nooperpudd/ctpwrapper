@@ -67,7 +67,7 @@ common_args = {
 ext_modules = [
     Extension(name="ctpwrapper.MdApi",
               sources=["ctpwrapper/MdApi.pyx"],
-              libraries=["securitymduserapi"],
+              libraries=["thostmduserapi"],
               extra_compile_args=extra_compile_args,
               extra_link_args=extra_link_args,
               **common_args),
