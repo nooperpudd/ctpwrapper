@@ -26,10 +26,10 @@ def generate_structure(datatype_dict):
     data_struct_file.write("# encoding:utf-8")
     data_struct_file.write("\n" * 2)
 
-    data_struct_file.write("from ThostFtdcUserApiDataType cimport * \n")
+    data_struct_file.write("from ThostFtdcUserApiDataType cimport *\n")
     data_struct_file.write("\n" * 2)
 
-    data_struct_file.write("cdef extern from 'ThostFtdcUserApiStruct.h': \n")
+    data_struct_file.write("cdef extern from 'ThostFtdcUserApiStruct.h':\n")
 
     for line in codecs.open(USERAPI_STRUCT_FILE, encoding="utf-8"):
         if line.startswith("struct"):
@@ -60,7 +60,7 @@ def generate_datatype():
 
     data_type_file.write("# encoding:utf-8")
     data_type_file.write("\n" * 2)
-    data_type_file.write("cdef extern from 'ThostFtdcUserApiDataType.h': \n")
+    data_type_file.write("cdef extern from 'ThostFtdcUserApiDataType.h':\n")
 
     for line in codecs.open(USERAPI_DATA_FILE, encoding="utf-8"):
         if line.startswith("enum"):
@@ -86,11 +86,11 @@ def generate_datatype():
                 length = result[3]
 
             if length:
-                data_type_file.write("    ctypedef {_type} {name}[{length}] \n".format(_type=_type,
+                data_type_file.write("    ctypedef {_type} {name}[{length}]\n".format(_type=_type,
                                                                                        name=name,
                                                                                        length=length))
             else:
-                data_type_file.write("    ctypedef {_type} {name} \n".format(_type=_type,
+                data_type_file.write("    ctypedef {_type} {name}\n".format(_type=_type,
                                                                              name=name))
     data_type_file.close()
     return datatype_dict
