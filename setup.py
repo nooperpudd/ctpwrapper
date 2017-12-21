@@ -74,7 +74,6 @@ setup(
     version=find_version("ctpwrapper", "__init__.py"),
     packages=["ctpwrapper"],
     include_dirs=[header_dir],
-    include_package_data=True,
     platforms=["win32", "linux"],
     package_dir={"ctpwrapper": "ctpwrapper"},
     package_data={"": package_data},
