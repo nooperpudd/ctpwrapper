@@ -57,17 +57,16 @@ common_args = {
     "cython_include_dirs": [cython_headers],
     "include_dirs": [header_dir],
     "library_dirs": [lib_dir],
-    "language": "c++"
+    "language": "c++",
+    "extra_compile_args": extra_compile_args,
+    "extra_link_args": extra_link_args,
 }
 
-ext_modules = [
-    Extension(name="ctpwrapper.MdApi",
-              sources=["ctpwrapper/MdApi.pyx"],
-              libraries=["thostmduserapi"],
-              extra_compile_args=extra_compile_args,
-              extra_link_args=extra_link_args,
-              **common_args),
-]
+ext_modules = [Extension(name="ctpwrapper.MdApi",
+                         sources=["ctpwrapper/MdApi.pyx"],
+                         libraries=["thostmduserapi"],
+                         **common_args),
+               ]
 
 setup(
     name="ctpwrapper",
