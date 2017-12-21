@@ -4,6 +4,7 @@ import os
 import re
 import sys
 from distutils.core import setup
+from distutils.dir_util import copy_tree
 
 from Cython.Build import cythonize
 from Cython.Distutils import build_ext, Extension
@@ -28,38 +29,34 @@ def find_version(*file_paths):
     raise RuntimeError("Unable to find version string.")
 
 
-package_data = ["*.xml", "*.dtd"]
-project_dir = os.path.join(os.path.dirname(__file__), "ctpwrapper")
-ctp_dir = os.path.join(project_dir, "ctp")
+base_dir = os.path.dirname(os.path.abspath(__file__))
+project_dir = os.path.join(base_dir, "ctpwrapper")
+ctp_dir = os.path.join(base_dir, "ctp")
 cython_headers = os.path.join(project_dir, "headers")
-
+header_dir = os.path.join(ctp_dir, "header")
+lib_dir = None
+package_data = ["*.xml", "*.dtd"]
 extra_link_args = None
 extra_compile_args = None
 
 if sys.platform == "linux":
+    lib_dir = os.path.join(ctp_dir, "linux")
     package_data.append("*.so")
-    extra_compile_args = ["-Wall"]  # "-03",
+    extra_compile_args = ["-Wall"]
     extra_link_args = ['-Wl,-rpath,$ORIGIN']
 
 elif sys.platform == "win32":
+    lib_dir = os.path.join(ctp_dir, "win")
     extra_compile_args = ["/GR", "/EHsc"]
     # extra_link_args = []
     package_data.append("*.dll")
 
-# extensions = [
-#     Extension(name="ltsapi.MdApi",
-#               sources=["ltsapi/MdApi.pyx"],
-#               extra_compile_args=compile_args,
-#               extra_objects=["securitymduserapi.lib"] if sys.platform == "win32" else None,
-#               extra_link_args=extra_link_args,
-#               libraries=["securitymduserapi"],
-#               **common_args),
-
+copy_tree(lib_dir, project_dir)
 
 common_args = {
     "cython_include_dirs": [cython_headers],
-    "include_dirs": [ctp_dir],
-    "library_dirs": [ctp_dir],
+    "include_dirs": [header_dir],
+    "library_dirs": [lib_dir],
     "language": "c++"
 }
 
@@ -75,10 +72,8 @@ ext_modules = [
 setup(
     name="ctpwrapper",
     version=find_version("ctpwrapper", "__init__.py"),
-    setup_requires=["cython"],
-    install_requires=["cython"],
     packages=["ctpwrapper"],
-    include_dirs=[ctp_dir],
+    include_dirs=[header_dir],
     include_package_data=True,
     platforms=["win32", "linux"],
     package_dir={"ctpwrapper": "ctpwrapper"},
