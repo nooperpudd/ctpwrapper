@@ -2,6 +2,7 @@
 import codecs
 import os
 import re
+import shutil
 import sys
 from distutils.core import setup
 from distutils.dir_util import copy_tree
@@ -51,6 +52,10 @@ elif sys.platform == "win32":
     # extra_link_args = []
     package_data.append("*.dll")
 
+package_data.append("error.dtd")
+package_data.append("error.xml")
+shutil.copy2(header_dir + "/error.dtd", project_dir + "/error.dtd")
+shutil.copy2(header_dir + "/error.xml", project_dir + "/error.xml")
 copy_tree(lib_dir, project_dir)
 
 common_args = {
