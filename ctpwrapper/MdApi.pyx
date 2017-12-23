@@ -3,7 +3,7 @@
 # cython: profile=False
 
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
-from libc.stdlib cimport atoi
+from libc cimport stdlib
 
 from headers.cMdAPI cimport CMdSpi,CMdApi
 

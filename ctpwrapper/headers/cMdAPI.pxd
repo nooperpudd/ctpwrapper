@@ -1,5 +1,8 @@
 # encoding:utf-8
 
+from libc.string cimport const_char
+from libcpp cimport bool
+
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
 CThostFtdcUserLogoutField,
@@ -7,10 +10,10 @@ CThostFtdcSpecificInstrumentField,
 CThostFtdcDepthMarketDataField,
 CThostFtdcFensUserInfoField,
 CThostFtdcReqUserLoginField)
-from libc.string cimport const_char
-from libcpp cimport bool
+
 
 cdef extern from 'ThostFtdcMdApi.h':
+
     cdef cppclass CMdSpi "CThostFtdcMdSpi":
         # 当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
         void OnFrontConnected() nogil except +
@@ -60,22 +63,25 @@ cdef extern from 'ThostFtdcMdApi.h':
         # 深度行情通知
         void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) except +
 
+cdef extern from 'ThostFtdcMdApi.h':
+
     cdef cppclass CMdApi "CThostFtdcMdApi":
         # static CThostFtdcMdApi *CreateFtdcMdApi(const char *pszFlowPath = "", const bool bIsUsingUdp=false, const bool bIsMulticast=false);
+        # todo fix issues
         CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath="", const bool bIsUsingUdp = False,
                                  const bool bIsMulticast = False) nogil except +
 
         #  删除接口对象本身
         #  @remark 不再使用本接口对象时,调用该函数删除接口对象
-        void Release() nogil except +
+        void Release() nogil
 
         #  初始化
         #  @remark 初始化运行环境,只有调用后,接口才开始工作
-        void Init() nogil except +
+        void Init() nogil
 
         #  等待接口线程结束运行
         #  @return 线程退出代码
-        int Join() nogil except +
+        int Join() nogil
 
         #  获取当前交易日
         #  @retrun 获取到的交易日
@@ -97,7 +103,6 @@ cdef extern from 'ThostFtdcMdApi.h':
 
         #  注册名字服务器用户信息
         #  @param pFensUserInfo：用户信息。
-
         void RegisterFensUserInfo(CThostFtdcFensUserInfoField *pFensUserInfo) nogil except +
 
         #  注册回调接口
