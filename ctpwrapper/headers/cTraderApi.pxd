@@ -5,6 +5,7 @@ from ThostFtdcUserApiStruct cimport *
 from libc.string cimport const_char
 
 cdef extern from "ThostFtdcTraderApi.h":
+
     cdef cppclass CTraderApi "CThostFtdcTraderApi":
         # 删除接口对象本身
         #@remark 不再使用本接口对象时,调用该函数删除接口对象
