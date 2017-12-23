@@ -10,8 +10,7 @@ class MdClass(object):
     def GetApiVersion(self):
         """
         获取API的版本信息
-        @retrun 获取到的版本号
-        :return: 
+        :return:  获取到的版本号
         """
         pass
 
@@ -98,9 +97,7 @@ class MdClass(object):
     def UnSubscribeForQuoteRsp(self, pInstrumentID):
         """
         退订询价。
-        :param pInstrumentID: 合约ID
+        :param pInstrumentID: 合约ID list
         :return:
         """
         pass
-
-

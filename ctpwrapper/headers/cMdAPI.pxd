@@ -63,13 +63,12 @@ cdef extern from 'ThostFtdcMdApi.h':
         # 深度行情通知
         void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) except +
 
-cdef extern from 'ThostFtdcMdApi.h':
 
     cdef cppclass CMdApi "CThostFtdcMdApi":
         # static CThostFtdcMdApi *CreateFtdcMdApi(const char *pszFlowPath = "", const bool bIsUsingUdp=false, const bool bIsMulticast=false);
         # todo fix issues
-        CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath="", const bool bIsUsingUdp = False,
-                                 const bool bIsMulticast = False) nogil except +
+        # CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath="", const bool bIsUsingUdp = False,
+        #                          const bool bIsMulticast = False) nogil except +
 
         #  删除接口对象本身
         #  @remark 不再使用本接口对象时,调用该函数删除接口对象
@@ -128,3 +127,7 @@ cdef extern from 'ThostFtdcMdApi.h':
         #  登出请求
         int ReqUserLogout(CThostFtdcUserLogoutField *pUserLogout,
                           int nRequestID) nogil except +
+
+    #获取API的版本信息
+    #@retrun 获取到的版本号
+    const_char *GetApiVersion() nogil

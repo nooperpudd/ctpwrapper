@@ -5,16 +5,34 @@
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc cimport stdlib
 
-from headers.cMdAPI cimport CMdSpi,CMdApi
+from headers.cMdAPI cimport CMdSpi,CMdApi, GetApiVersion
 
-cdef class CThostFtdcMdSpi:
-    cdef CMdSpi*  _this_Ftdc_Md_Spi
+class MdApi(object):
 
     def __cinit__(self):
         pass
 
     def __dealloc__(self):
         pass
+
+    def GetApiVersion(self):
+
+        return GetApiVersion()
+
+
+
+# cdef class CThostFtdcMdSpi:
+#     cdef CMdSpi*  _this_Ftdc_Md_Spi
+#
+#     def __cinit__(self):
+#         pass
+#
+#     def __dealloc__(self):
+#         pass
+#
+#     def
+
+
 
     # cpdef on_front_connected(self, ) except? -1:
     #     pass
@@ -34,4 +52,5 @@ cdef class CThostFtdcMdSpi:
 #
 #     def __dealloc__(self):
 #         pass
+
 
