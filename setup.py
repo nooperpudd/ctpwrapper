@@ -67,11 +67,16 @@ common_args = {
     "extra_link_args": extra_link_args,
 }
 
-ext_modules = [Extension(name="ctpwrapper.MdApi",
-                         sources=["ctpwrapper/MdApi.pyx"],
-                         libraries=["thostmduserapi"],
-                         **common_args),
-               ]
+ext_modules = [
+    Extension(name="ctpwrapper.MdApi",
+              sources=["ctpwrapper/MdApi.pyx"],
+              libraries=["thostmduserapi"],
+              **common_args),
+    Extension(name="ctpwrapper.TraderApi",
+              sources=["ctpwrapper/TraderApi.pyx"],
+              libraries=["thosttraderapi"],
+              **common_args)
+]
 
 setup(
     name="ctpwrapper",
