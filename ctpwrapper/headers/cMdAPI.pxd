@@ -25,43 +25,43 @@ cdef extern from 'ThostFtdcMdApi.h':
         #  0x2001 接收心跳超时
         #  0x2002 发送心跳失败
         #  0x2003 收到错误报文
-        void OnFrontDisconnected(int nReason) except +
+        void OnFrontDisconnected(int nReason) nogil except +
 
         # 心跳超时警告。当长时间未收到报文时，该方法被调用。
         # @param nTimeLapse 距离上次接收报文的时间
-        void OnHeartBeatWarning(int nTimeLapse) except +
+        void OnHeartBeatWarning(int nTimeLapse) nogil except +
 
         # 登录请求响应
         void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin,
                             CThostFtdcRspInfoField *pRspInfo,
                             int nRequestID,
-                            bool bIsLast) except +
+                            bool bIsLast) nogil except +
 
         # 登出请求响应
         void OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout,
                              CThostFtdcRspInfoField *pRspInfo,
                              int nRequestID,
-                             bool bIsLast) except +
+                             bool bIsLast) nogil except +
 
         # 错误应答
         void OnRspError(CThostFtdcRspInfoField *pRspInfo,
                         int nRequestID,
-                        bool bIsLast) except +
+                        bool bIsLast) nogil except +
 
         # 订阅行情应答
         void OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                 CThostFtdcRspInfoField *pRspInfo,
                                 int nRequestID,
-                                bool bIsLast) except +
+                                bool bIsLast) nogil except +
 
         # 取消订阅行情应答
         void OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                   CThostFtdcRspInfoField *pRspInfo,
                                   int nRequestID,
-                                  bool bIsLast) except +
+                                  bool bIsLast) nogil except +
 
         # 深度行情通知
-        void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) except +
+        void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) nogil except +
 
 
     cdef cppclass CMdApi "CThostFtdcMdApi":
