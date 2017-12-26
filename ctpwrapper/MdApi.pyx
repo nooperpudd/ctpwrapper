@@ -14,13 +14,13 @@ CThostFtdcUserLogoutField,
 CThostFtdcSpecificInstrumentField,
 CThostFtdcDepthMarketDataField,
 CThostFtdcFensUserInfoField,
-CThostFtdcReqUserLoginField
-)
+CThostFtdcReqUserLoginField)
 
+import ctypes
 
 cdef class MdApi:
 
-    cdef CMdApi* _api
+    cdef CMdApi *_api
     # parser.http_parser* _cparser
     # cparser.http_parser_settings* _csettings
 
@@ -42,14 +42,17 @@ cdef class MdApi:
         用户登录请求
         :return:
         """
-        pass
+
+        self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>(ctypes.addressof(pReqUserLoginField)),nRequestID)
+
 
     def ReqUserLogout(self, pUserLogout, nRequestID):
         """
-         登出请求
+        登出请求
         :return:
         """
-        pass
+        self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>(ctypes.addressof(pUserLogout)),nRequestID)
+
 
     def GetTradingDay(self):
         """
@@ -60,7 +63,7 @@ cdef class MdApi:
         """
         pass
 
-    def RegisterFront(self, pszFrontAddress):
+    def RegisterFront(self, char *pszFrontAddress):
         """
         注册前置机网络地址
         @param pszFrontAddress：前置机网络地址。
@@ -68,9 +71,9 @@ cdef class MdApi:
         @remark “tcp”代表传输协议，“127.0.0.1”代表服务器地址。”17001”代表服务器端口号。
         :return:
         """
-        pass
+        self._api.RegisterNameServer(pszFrontAddress)
 
-    def RegisterNameServer(self, pszNsAddress):
+    def RegisterNameServer(self,char *pszNsAddress):
         """
         注册名字服务器网络地址
         @param pszNsAddress：名字服务器网络地址。
@@ -79,7 +82,8 @@ cdef class MdApi:
         @remark RegisterNameServer优先于RegisterFront
         :return:
         """
-        pass
+        self._api.RegisterNameServer(pszNsAddress)
+
 
     def RegisterFensUserInfo(self, pFensUserInfo):
         """
@@ -87,8 +91,8 @@ cdef class MdApi:
         @param pFensUserInfo：用户信息。
         :return:
         """
-        cdef Circle *_pt = <Circle*> PyMem_Malloc(sizeof(Circle))
-        pass
+        self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *><size_t>(ctypes.addressof(pFensUserInfo)))
+
 
     def SubscribeMarketData(self, pInstrumentID):
         """
