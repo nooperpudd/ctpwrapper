@@ -99,3 +99,5 @@ ENV/
 .mypy_cache/
 
 .idea/
+MdApi.cpp
+TraderApi.cpp
