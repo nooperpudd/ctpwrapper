@@ -2,12 +2,28 @@
 # cython: nonecheck=True
 # cython: profile=False
 
+from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
-from libc cimport stdlib
+from libc.stdlib cimport malloc, free
 
 from headers.cMdAPI cimport CMdSpi,CMdApi, GetApiVersion
+from headers.ThostFtdcUserApiStruct cimport (
+CThostFtdcRspUserLoginField,
+CThostFtdcRspInfoField,
+CThostFtdcUserLogoutField,
+CThostFtdcSpecificInstrumentField,
+CThostFtdcDepthMarketDataField,
+CThostFtdcFensUserInfoField,
+CThostFtdcReqUserLoginField
+)
 
-class MdApi(object):
+
+cdef class MdApi:
+
+    cdef CMdApi* _api
+    # parser.http_parser* _cparser
+    # cparser.http_parser_settings* _csettings
+
 
     def __cinit__(self):
         pass
@@ -18,6 +34,98 @@ class MdApi(object):
     def GetApiVersion(self):
 
         return GetApiVersion()
+
+
+
+    def ReqUserLogin(self, pReqUserLoginField, nRequestID):
+        """
+        用户登录请求
+        :return:
+        """
+        pass
+
+    def ReqUserLogout(self, pUserLogout, nRequestID):
+        """
+         登出请求
+        :return:
+        """
+        pass
+
+    def GetTradingDay(self):
+        """
+        获取当前交易日
+        @retrun 获取到的交易日
+        @remark 只有登录成功后,才能得到正确的交易日
+        :return:
+        """
+        pass
+
+    def RegisterFront(self, pszFrontAddress):
+        """
+        注册前置机网络地址
+        @param pszFrontAddress：前置机网络地址。
+        @remark 网络地址的格式为：“protocol://ipaddress:port”，如：”tcp://127.0.0.1:17001”。
+        @remark “tcp”代表传输协议，“127.0.0.1”代表服务器地址。”17001”代表服务器端口号。
+        :return:
+        """
+        pass
+
+    def RegisterNameServer(self, pszNsAddress):
+        """
+        注册名字服务器网络地址
+        @param pszNsAddress：名字服务器网络地址。
+        @remark 网络地址的格式为：“protocol://ipaddress:port”，如：”tcp://127.0.0.1:12001”。
+        @remark “tcp”代表传输协议，“127.0.0.1”代表服务器地址。”12001”代表服务器端口号。
+        @remark RegisterNameServer优先于RegisterFront
+        :return:
+        """
+        pass
+
+    def RegisterFensUserInfo(self, pFensUserInfo):
+        """
+        注册名字服务器用户信息
+        @param pFensUserInfo：用户信息。
+        :return:
+        """
+        cdef Circle *_pt = <Circle*> PyMem_Malloc(sizeof(Circle))
+        pass
+
+    def SubscribeMarketData(self, pInstrumentID):
+        """
+         订阅行情。
+        @param ppInstrumentID 合约ID
+        @param nCount 要订阅/退订行情的合约个数
+
+        :return:
+        """
+        pass
+
+    def UnSubscribeMarketData(self, pInstrumentID):
+        """
+        退订行情。
+        @param ppInstrumentID 合约ID
+        @param nCount 要订阅/退订行情的合约个数
+        :return:
+        """
+        pass
+
+    def SubscribeForQuoteRsp(self, pInstrumentID):
+        """
+        订阅询价。
+        :param pInstrumentID: 合约ID list
+
+        :return:
+        """
+        pass
+
+    def UnSubscribeForQuoteRsp(self, pInstrumentID):
+        """
+        退订询价。
+        :param pInstrumentID: 合约ID list
+        :return:
+        """
+        pass
+
 
 
 
@@ -37,10 +145,10 @@ class MdApi(object):
     # cpdef on_front_connected(self, ) except? -1:
     #     pass
     #
-    # cpdef on_front_disconnected(self, int reason) except? -1:
+    # cpdef on_front_disconnected(self, def reason) except? -1:
     #     pass
     #
-    # cpdef on_heart_beat_warning(self, int time_lapse) except? -1:
+    # cpdef on_heart_beat_warning(self, def time_lapse) except? -1:
     #     pass
     #
     # cpdef on_user_login(self,):
