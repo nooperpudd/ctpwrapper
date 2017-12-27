@@ -100,9 +100,26 @@ cdef class MdApi:
         @param ppInstrumentID 合约ID
         @param nCount 要订阅/退订行情的合约个数
 
+        #  https://www.quora.com/How-do-char-array-pointers-work-in-C++
+        # http://docs.cython.org/en/latest/src/userguide/language_basics.html#integer-for-loops
+        # https://stackoverflow.com/questions/15686890/how-to-allocate-array-of-pointers-for-strings-by-malloc-in-c
+
         :return:
         """
-        pass
+        cdef int count
+        cdef int result
+        cdef char **InstrumentIDs
+
+        count = len(pInstrumentID)
+
+        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+
+        for i from 0<= i <count:
+            InstrumentIDs[i] = pInstrumentID[i]
+
+        result = self._api.SubscribeMarketData(InstrumentIDs,count)
+        free(InstrumentIDs)
+        return result
 
     def UnSubscribeMarketData(self, pInstrumentID):
         """
