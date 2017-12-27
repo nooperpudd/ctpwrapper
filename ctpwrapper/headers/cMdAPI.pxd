@@ -144,5 +144,5 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     #@retrun 获取到的版本号
     const_char *GetApiVersion() nogil
 
-    CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath="", const bool bIsUsingUdp = False,
+    CMdApi *CreateFtdcMdApi(const_char *pszFlowPath="", const bool bIsUsingUdp = False,
                                  const bool bIsMulticast = False) nogil except +

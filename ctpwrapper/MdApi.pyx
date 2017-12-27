@@ -8,7 +8,7 @@ from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool
 
-from headers.cMdAPI cimport CMdSpi,CMdApi, GetApiVersion, CreateFtdcMdApi
+from headers.cMdAPI cimport CMdSpi,CMdApi,GetApiVersion,CreateFtdcMdApi
 from headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -22,9 +22,6 @@ import ctypes
 
 cdef class MdApi:
     cdef CMdApi *_api
-    # parser.http_parser* _cparser
-    # cparser.http_parser_settings* _csettings
-
     def __cinit__(self, const_char *pszFlowPath="",
                   bool bIsUsingUdp=False,
                   bool bIsMulticast=False):
@@ -40,10 +37,9 @@ cdef class MdApi:
     def __init__(self):
         pass
 
-    @classmethod
-    def GetApiVersion(cls):
+    @staticmethod
+    def GetApiVersion():
         return GetApiVersion()
-
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
         """
