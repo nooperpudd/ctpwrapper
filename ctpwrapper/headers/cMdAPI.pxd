@@ -143,3 +143,5 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     #获取API的版本信息
     #@retrun 获取到的版本号
     const_char *GetApiVersion() nogil
+
+    CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, bool bIsUsingUdp, bool bIsMulticast) nogil except +

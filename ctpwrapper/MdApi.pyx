@@ -5,8 +5,10 @@
 from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport malloc, free
+from libc.string cimport const_char
+from libcpp cimport bool
 
-from headers.cMdAPI cimport CMdSpi,CMdApi, GetApiVersion
+from headers.cMdAPI cimport CMdSpi,CMdApi, GetApiVersion, CreateFtdcMdApi
 from headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -21,15 +23,16 @@ import ctypes
 cdef class MdApi:
 
     cdef CMdApi *_api
-    # parser.http_parser* _cparser
-    # cparser.http_parser_settings* _csettings
 
+    def __cinit__(self, const_char *pszFlowPath="",
+                  bool bIsUsingUdp=False,
+                  bool bIsMulticast=False):
 
-    def __cinit__(self):
-        pass
+        self._api= CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
 
     def __dealloc__(self):
-        pass
+        self._api.Release()
+        self._api= NULL
 
     @classmethod
     def GetApiVersion(cls):
