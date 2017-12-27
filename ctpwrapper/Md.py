@@ -1,18 +1,19 @@
 # encoding:utf-8
 
-# from .MdApi import
+from .MdApi import MdApi
 
 
-class MdClass(object):
+class MdClass(MdApi):
     def __init__(self):
         pass
 
-    def GetApiVersion(self):
+    @classmethod
+    def GetApiVersion(cls):
         """
         获取API的版本信息
         :return:  获取到的版本号
         """
-        pass
+        return super(MdClass, cls).GetApiVersion()
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
         """

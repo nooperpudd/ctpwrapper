@@ -31,11 +31,9 @@ cdef class MdApi:
     def __dealloc__(self):
         pass
 
-    def GetApiVersion(self):
-
+    @classmethod
+    def GetApiVersion(cls):
         return GetApiVersion()
-
-
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
         """
