@@ -1,7 +1,7 @@
 # encoding:utf-8
 
 from libc.string cimport const_char
-from libcpp cimport bool
+from libcpp cimport bool as cbool
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -35,30 +35,30 @@ cdef extern from 'ThostFtdcMdApi.h':
         void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin,
                             CThostFtdcRspInfoField *pRspInfo,
                             int nRequestID,
-                            bool bIsLast) nogil except +
+                            cbool bIsLast) nogil except +
 
         # 登出请求响应
         void OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout,
                              CThostFtdcRspInfoField *pRspInfo,
                              int nRequestID,
-                             bool bIsLast) nogil except +
+                             cbool bIsLast) nogil except +
 
         # 错误应答
         void OnRspError(CThostFtdcRspInfoField *pRspInfo,
                         int nRequestID,
-                        bool bIsLast) nogil except +
+                        cbool bIsLast) nogil except +
 
         # 订阅行情应答
         void OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                 CThostFtdcRspInfoField *pRspInfo,
                                 int nRequestID,
-                                bool bIsLast) nogil except +
+                                cbool bIsLast) nogil except +
 
         # 取消订阅行情应答
         void OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                   CThostFtdcRspInfoField *pRspInfo,
                                   int nRequestID,
-                                  bool bIsLast) nogil except +
+                                  cbool bIsLast) nogil except +
 
         # 深度行情通知
         void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) nogil except +
