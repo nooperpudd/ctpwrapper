@@ -38,7 +38,8 @@ cdef class MdApi:
     def __init__(self):
         pass
 
-    def GetApiVersion(self):
+    @classmethod
+    def GetApiVersion(cls):
         return GetApiVersion()
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
@@ -189,7 +190,6 @@ cdef class MdApi:
         result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,count)
         free(InstrumentIDs)
         return result
-
 
 
 
