@@ -67,8 +67,7 @@ cdef extern from 'ThostFtdcMdApi.h':
     cdef cppclass CMdApi "CThostFtdcMdApi":
         # static CThostFtdcMdApi *CreateFtdcMdApi(const char *pszFlowPath = "", const bool bIsUsingUdp=false, const bool bIsMulticast=false);
         # todo fix issues
-        # CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath="", const bool bIsUsingUdp = False,
-        #                          const bool bIsMulticast = False) nogil except +
+
 
         #  删除接口对象本身
         #  @remark 不再使用本接口对象时,调用该函数删除接口对象
@@ -119,6 +118,18 @@ cdef extern from 'ThostFtdcMdApi.h':
         #  @param nCount 要订阅/退订行情的合约个数
         int UnSubscribeMarketData(char *ppInstrumentID[],
                                   int nCount) nogil except +
+        
+        #订阅询价。
+        #@param ppInstrumentID 合约ID
+        #@param nCount 要订阅/退订行情的合约个数
+
+        int SubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
+
+        #退订询价。
+        #@param ppInstrumentID 合约ID
+        #@param nCount 要订阅/退订行情的合约个数
+        int UnSubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
+
 
         #  用户登录请求
         int ReqUserLogin(CThostFtdcReqUserLoginField *pReqUserLoginField,
@@ -132,3 +143,6 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     #获取API的版本信息
     #@retrun 获取到的版本号
     const_char *GetApiVersion() nogil
+
+    CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath="", const bool bIsUsingUdp = False,
+                                 const bool bIsMulticast = False) nogil except +

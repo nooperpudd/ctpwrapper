@@ -5,8 +5,10 @@
 from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport malloc, free
+from libc.string cimport const_char
+from libcpp cimport bool
 
-from headers.cMdAPI cimport CMdSpi,CMdApi, GetApiVersion
+from headers.cMdAPI cimport CMdSpi,CMdApi, GetApiVersion, CreateFtdcMdApi
 from headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -19,22 +21,28 @@ CThostFtdcReqUserLoginField)
 import ctypes
 
 cdef class MdApi:
-
     cdef CMdApi *_api
     # parser.http_parser* _cparser
     # cparser.http_parser_settings* _csettings
 
+    def __cinit__(self, const_char *pszFlowPath="",
+                  bool bIsUsingUdp=False,
+                  bool bIsMulticast=False):
 
-    def __cinit__(self):
-        pass
+        self._api = CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
+
 
     def __dealloc__(self):
+
+        self._api.Release()
+        self._api = NULL
+
+    def __init__(self):
         pass
 
-    def GetApiVersion(self):
-
+    @classmethod
+    def GetApiVersion(cls):
         return GetApiVersion()
-
 
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
@@ -128,7 +136,20 @@ cdef class MdApi:
         @param nCount 要订阅/退订行情的合约个数
         :return:
         """
-        pass
+        cdef int count
+        cdef int result
+        cdef char **InstrumentIDs
+
+        count = len(pInstrumentID)
+
+        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+
+        for i from 0<= i <count:
+            InstrumentIDs[i] = pInstrumentID[i]
+
+        result = self._api.UnSubscribeMarketData(InstrumentIDs,count)
+        free(InstrumentIDs)
+        return result
 
     def SubscribeForQuoteRsp(self, pInstrumentID):
         """
@@ -137,7 +158,20 @@ cdef class MdApi:
 
         :return:
         """
-        pass
+        cdef int count
+        cdef int result
+        cdef char **InstrumentIDs
+
+        count = len(pInstrumentID)
+
+        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+
+        for i from 0<= i <count:
+            InstrumentIDs[i] = pInstrumentID[i]
+
+        result = self._api.SubscribeForQuoteRsp(InstrumentIDs,count)
+        free(InstrumentIDs)
+        return result
 
     def UnSubscribeForQuoteRsp(self, pInstrumentID):
         """
@@ -145,7 +179,22 @@ cdef class MdApi:
         :param pInstrumentID: 合约ID list
         :return:
         """
-        pass
+        cdef int count
+        cdef int result
+        cdef char **InstrumentIDs
+
+        count = len(pInstrumentID)
+
+        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+
+        for i from 0<= i <count:
+            InstrumentIDs[i] = pInstrumentID[i]
+
+        result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,count)
+        free(InstrumentIDs)
+        return result
+
+
 
 
 
