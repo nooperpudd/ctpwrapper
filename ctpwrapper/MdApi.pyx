@@ -128,7 +128,20 @@ cdef class MdApi:
         @param nCount 要订阅/退订行情的合约个数
         :return:
         """
-        pass
+        cdef int count
+        cdef int result
+        cdef char **InstrumentIDs
+
+        count = len(pInstrumentID)
+
+        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+
+        for i from 0<= i <count:
+            InstrumentIDs[i] = pInstrumentID[i]
+
+        result = self._api.UnSubscribeMarketData(InstrumentIDs,count)
+        free(InstrumentIDs)
+        return result
 
     def SubscribeForQuoteRsp(self, pInstrumentID):
         """
@@ -137,7 +150,21 @@ cdef class MdApi:
 
         :return:
         """
-        pass
+        cdef int count
+        cdef int result
+        cdef char **InstrumentIDs
+
+        count = len(pInstrumentID)
+
+        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+
+        for i from 0<= i <count:
+            InstrumentIDs[i] = pInstrumentID[i]
+
+        result = self._api.SubscribeForQuoteRsp(InstrumentIDs,count)
+        free(InstrumentIDs)
+        return result
+
 
     def UnSubscribeForQuoteRsp(self, pInstrumentID):
         """
@@ -145,7 +172,21 @@ cdef class MdApi:
         :param pInstrumentID: 合约ID list
         :return:
         """
-        pass
+        cdef int count
+        cdef int result
+        cdef char **InstrumentIDs
+
+        count = len(pInstrumentID)
+
+        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+
+        for i from 0<= i <count:
+            InstrumentIDs[i] = pInstrumentID[i]
+
+        result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,count)
+        free(InstrumentIDs)
+        return result
+
 
 
 
