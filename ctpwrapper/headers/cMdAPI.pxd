@@ -1,7 +1,7 @@
 # encoding:utf-8
 
 from libc.string cimport const_char
-from libcpp cimport bool
+from libcpp cimport bool as cbool
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -144,5 +144,4 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     #@retrun 获取到的版本号
     const_char *GetApiVersion() nogil
 
-    CMdApi *CreateFtdcMdApi(const_char *pszFlowPath="", const bool bIsUsingUdp = False,
-                                 const bool bIsMulticast = False) nogil except +
+    CMdApi *CreateFtdcMdApi(const_char *pszFlowPath = "", cbool bIsUsingUdp = False, cbool bIsMulticast = False) nogil except +

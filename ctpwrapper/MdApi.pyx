@@ -6,7 +6,7 @@ from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
-from libcpp cimport bool
+from libcpp cimport bool as cbool
 
 from headers.cMdAPI cimport CMdSpi,CMdApi,GetApiVersion
 from headers.ThostFtdcUserApiStruct cimport (
@@ -22,9 +22,10 @@ import ctypes
 
 cdef class MdApi:
     cdef CMdApi *_api
+
     def __cinit__(self, const_char *pszFlowPath="",
-                  bool bIsUsingUdp=False,
-                  bool bIsMulticast=False):
+                  cbool bIsUsingUdp=False,
+                  cbool bIsMulticast=False):
 
         # self._api = CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
         pass
@@ -37,8 +38,7 @@ cdef class MdApi:
     def __init__(self):
         pass
 
-    @staticmethod
-    def GetApiVersion():
+    def GetApiVersion(self):
         return GetApiVersion()
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
