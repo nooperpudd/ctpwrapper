@@ -120,10 +120,9 @@ cdef extern from 'ThostFtdcMdApi.h':
         int UnSubscribeMarketData(char *ppInstrumentID[],
                                   int nCount) nogil except +
 
-                #订阅询价。
+        #订阅询价。
         #@param ppInstrumentID 合约ID
         #@param nCount 要订阅/退订行情的合约个数
-
         int SubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
 
         #退订询价。
