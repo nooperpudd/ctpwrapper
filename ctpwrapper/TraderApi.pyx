@@ -3,8 +3,7 @@ from libc cimport stdlib
 
 from headers.cTraderApi cimport CTraderSpi,CTraderApi
 
-class MdApi(object):
-
+class TraderApiWrapper:
     def __cinit__(self):
         pass
 

@@ -1,4 +1,5 @@
 # encoding:utf-8
+# distutils: language = c++
 # cython: nonecheck=True
 # cython: profile=False
 
@@ -6,9 +7,10 @@ from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
-from libcpp cimport bool as cbool
+from libcpp cimport bool
+from libcpp.memory cimport shared_ptr
+from headers.cMdAPI cimport CMdSpi,CMdApi,GetApiVersion,CreateFtdcMdApi
 
-from headers.cMdAPI cimport CMdSpi,CMdApi,GetApiVersion
 from headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -20,34 +22,112 @@ CThostFtdcReqUserLoginField)
 
 import ctypes
 
-cdef class MdApi:
+
+cdef class MdSpiWrapper:
+
+    cdef CMdSpi *_spi
+    # https://github.com/ah-/kafka_arrow/blob/2b5dbfd61e594d505854b1e57aee8b8c2b16bd85/kafka_arrow.pyx
+
+    def __cinit__(self):
+        pass
+        # self._spi = new CMdSpi(self)
+    def __dealloc__(self):
+        pass
+
+    def OnFrontConnected(self):
+
+        # 当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
+        # @param nReason 错误原因
+        #  0x1001 网络读失败
+        #  0x1002 网络写失败
+        #  0x2001 接收心跳超时
+        #  0x2002 发送心跳失败
+        #  0x2003 收到错误报文
+        pass
+    def OnFrontDisconnected(self,int nReason):
+
+        # 心跳超时警告。当长时间未收到报文时，该方法被调用。
+        # @param nTimeLapse 距离上次接收报文的时间
+        pass
+    def OnHeartBeatWarning(self,int nTimeLapse):
+
+        # 登录请求响应
+        pass
+    def OnRspUserLogin(self,CThostFtdcRspUserLoginField *pRspUserLogin,
+                            CThostFtdcRspInfoField *pRspInfo,
+                            int nRequestID,
+                            bool bIsLast):
+
+        # 登出请求响应
+        pass
+    def OnRspUserLogout(self,CThostFtdcUserLogoutField *pUserLogout,
+                             CThostFtdcRspInfoField *pRspInfo,
+                             int nRequestID,
+                             bool bIsLast):
+
+        # 错误应答
+        pass
+    def OnRspError(self,CThostFtdcRspInfoField *pRspInfo,
+                        int nRequestID,
+                        bool bIsLast):
+
+        # 订阅行情应答
+        pass
+    def OnRspSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+                                CThostFtdcRspInfoField *pRspInfo,
+                                int nRequestID,
+                                bool bIsLast):
+
+        # 取消订阅行情应答
+        pass
+    def OnRspUnSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+                                  CThostFtdcRspInfoField *pRspInfo,
+                                  int nRequestID,
+                                  bool bIsLast):
+
+        # 深度行情通知
+        pass
+    def OnRtnDepthMarketData(self,CThostFtdcDepthMarketDataField *pDepthMarketData):
+
+        pass
+
+cdef class MdApiWrapper:
     cdef CMdApi *_api
 
-    def __cinit__(self, const_char *pszFlowPath="",
-                  cbool bIsUsingUdp=False,
-                  cbool bIsMulticast=False):
+    def __cinit__(self, const_char *pszFlowPath,
+                  bool bIsUsingUdp,
+                  bool bIsMulticast):
 
-        # self._api = CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
-        pass
+        self._api= CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
+        if not self._api:
+            raise MemoryError()
 
     def __dealloc__(self):
 
-        self._api.Release()
-        self._api = NULL
+        if self._api is not NULL:
+            self._api.Release()
+            self._api= NULL
 
-    def __init__(self):
+    def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
         pass
 
     @classmethod
     def GetApiVersion(cls):
         return GetApiVersion()
 
+
+    def Init(self):
+
+        return self.Init()
+
+    def Join(self):
+        pass
+
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
         """
         用户登录请求
         :return:
         """
-
         self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>(ctypes.addressof(pReqUserLoginField)),nRequestID)
 
 
@@ -66,7 +146,9 @@ cdef class MdApi:
         @remark 只有登录成功后,才能得到正确的交易日
         :return:
         """
-        pass
+        cdef const_char *result
+        result = self._api.GetTradingDay()
+        return result
 
     def RegisterFront(self, char *pszFrontAddress):
         """
@@ -116,14 +198,14 @@ cdef class MdApi:
         cdef char **InstrumentIDs
 
         count = len(pInstrumentID)
-
         InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
-        for i from 0<= i <count:
-            InstrumentIDs[i] = pInstrumentID[i]
-
-        result = self._api.SubscribeMarketData(InstrumentIDs,count)
-        free(InstrumentIDs)
+        try:
+            for i from 0<= i <count:
+                InstrumentIDs[i] = pInstrumentID[i]
+            result = self._api.SubscribeMarketData(InstrumentIDs,count)
+        finally:
+            free(InstrumentIDs)
         return result
 
     def UnSubscribeMarketData(self, pInstrumentID):
@@ -138,14 +220,14 @@ cdef class MdApi:
         cdef char **InstrumentIDs
 
         count = len(pInstrumentID)
-
         InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
-        for i from 0<= i <count:
-            InstrumentIDs[i] = pInstrumentID[i]
-
-        result = self._api.UnSubscribeMarketData(InstrumentIDs,count)
-        free(InstrumentIDs)
+        try:
+            for i from 0<= i <count:
+                InstrumentIDs[i] = pInstrumentID[i]
+            result = self._api.UnSubscribeMarketData(InstrumentIDs,count)
+        finally:
+            free(InstrumentIDs)
         return result
 
     def SubscribeForQuoteRsp(self, pInstrumentID):
@@ -158,16 +240,15 @@ cdef class MdApi:
         cdef int count
         cdef int result
         cdef char **InstrumentIDs
-
         count = len(pInstrumentID)
-
         InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
-        for i from 0<= i <count:
-            InstrumentIDs[i] = pInstrumentID[i]
-
-        result = self._api.SubscribeForQuoteRsp(InstrumentIDs,count)
-        free(InstrumentIDs)
+        try:
+            for i from 0<= i <count:
+                InstrumentIDs[i] = pInstrumentID[i]
+            result = self._api.SubscribeForQuoteRsp(InstrumentIDs,count)
+        finally:
+            free(InstrumentIDs)
         return result
 
     def UnSubscribeForQuoteRsp(self, pInstrumentID):
@@ -181,50 +262,13 @@ cdef class MdApi:
         cdef char **InstrumentIDs
 
         count = len(pInstrumentID)
-
         InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+        try:
+            for i from 0<= i <count:
+                InstrumentIDs[i] = pInstrumentID[i]
 
-        for i from 0<= i <count:
-            InstrumentIDs[i] = pInstrumentID[i]
-
-        result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,count)
-        free(InstrumentIDs)
+            result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,count)
+        finally:
+            free(InstrumentIDs)
         return result
-
-
-
-
-
-# cdef class CThostFtdcMdSpi:
-#     cdef CMdSpi*  _this_Ftdc_Md_Spi
-#
-#     def __cinit__(self):
-#         pass
-#
-#     def __dealloc__(self):
-#         pass
-#
-#     def
-
-
-
-    # cpdef on_front_connected(self, ) except? -1:
-    #     pass
-    #
-    # cpdef on_front_disconnected(self, def reason) except? -1:
-    #     pass
-    #
-    # cpdef on_heart_beat_warning(self, def time_lapse) except? -1:
-    #     pass
-    #
-    # cpdef on_user_login(self,):
-    #     pass
-
-# cdef class CThostFtdcMdApi:
-#     def __cinit__(self):
-#         pass
-#
-#     def __dealloc__(self):
-#         pass
-
 
