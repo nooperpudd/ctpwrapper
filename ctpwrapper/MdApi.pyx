@@ -33,8 +33,8 @@ cdef class MdApiWrapper:
     def __dealloc__(self):
         self._api.Release()
         self._api= NULL
-    
-    def __init__(self,pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
+
+    def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
         pass
 
     @classmethod

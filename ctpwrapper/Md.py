@@ -4,8 +4,8 @@ from ctpwrapper.MdApi import MdApiWrapper
 
 
 class MdApiPy(MdApiWrapper):
-    def __init__(self):
-        pass
+    def __init__(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
+        super(MdApiPy, self).__init__(pszFlowPath, bIsUsingUdp, bIsMulticast)
 
     @classmethod
     def GetApiVersion(cls):
