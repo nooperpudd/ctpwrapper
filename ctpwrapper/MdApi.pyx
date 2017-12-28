@@ -118,14 +118,13 @@ cdef class MdApiWrapper:
         cdef int count
         cdef int result
         cdef char **InstrumentIDs
+
+        count = len(pInstrumentID)
+        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+
         try:
-            count = len(pInstrumentID)
-
-            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
-
             for i from 0<= i <count:
                 InstrumentIDs[i] = pInstrumentID[i]
-
             result = self._api.SubscribeMarketData(InstrumentIDs,count)
         finally:
             free(InstrumentIDs)
@@ -141,13 +140,13 @@ cdef class MdApiWrapper:
         cdef int count
         cdef int result
         cdef char **InstrumentIDs
-        try:
-            count = len(pInstrumentID)
-            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
+        count = len(pInstrumentID)
+        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+
+        try:
             for i from 0<= i <count:
                 InstrumentIDs[i] = pInstrumentID[i]
-
             result = self._api.UnSubscribeMarketData(InstrumentIDs,count)
         finally:
             free(InstrumentIDs)
@@ -163,14 +162,12 @@ cdef class MdApiWrapper:
         cdef int count
         cdef int result
         cdef char **InstrumentIDs
+        count = len(pInstrumentID)
+        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
         try:
-            count = len(pInstrumentID)
-            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
-
             for i from 0<= i <count:
                 InstrumentIDs[i] = pInstrumentID[i]
-
             result = self._api.SubscribeForQuoteRsp(InstrumentIDs,count)
         finally:
             free(InstrumentIDs)
@@ -187,11 +184,9 @@ cdef class MdApiWrapper:
         cdef int result
         cdef char **InstrumentIDs
 
+        count = len(pInstrumentID)
+        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
         try:
-            count = len(pInstrumentID)
-
-            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
-
             for i from 0<= i <count:
                 InstrumentIDs[i] = pInstrumentID[i]
 
