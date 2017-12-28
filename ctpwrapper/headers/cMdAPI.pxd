@@ -1,7 +1,7 @@
 # encoding:utf-8
 
 from libc.string cimport const_char
-from libcpp cimport bool as cbool
+from libcpp cimport bool
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
