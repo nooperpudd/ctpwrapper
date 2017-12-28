@@ -1,4 +1,5 @@
 # encoding:utf-8
+# distutils: language = c++
 # cython: nonecheck=True
 # cython: profile=False
 
@@ -7,7 +8,7 @@ from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool
-
+from libcpp.memory cimport shared_ptr
 from headers.cMdAPI cimport CMdSpi,CMdApi,GetApiVersion,CreateFtdcMdApi
 from headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
@@ -19,6 +20,75 @@ CThostFtdcFensUserInfoField,
 CThostFtdcReqUserLoginField)
 
 import ctypes
+
+
+cdef class MdSpiWrapper:
+
+    cdef CMdSpi *_spi
+    # https://github.com/ah-/kafka_arrow/blob/2b5dbfd61e594d505854b1e57aee8b8c2b16bd85/kafka_arrow.pyx
+
+    def __cinit__(self):
+        pass
+        # self._spi = new CMdSpi(self)
+    def __dealloc__(self):
+        pass
+
+    def OnFrontConnected(self):
+
+        # 当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
+        # @param nReason 错误原因
+        #  0x1001 网络读失败
+        #  0x1002 网络写失败
+        #  0x2001 接收心跳超时
+        #  0x2002 发送心跳失败
+        #  0x2003 收到错误报文
+        pass
+    def OnFrontDisconnected(self,int nReason):
+
+        # 心跳超时警告。当长时间未收到报文时，该方法被调用。
+        # @param nTimeLapse 距离上次接收报文的时间
+        pass
+    def OnHeartBeatWarning(self,int nTimeLapse):
+
+        # 登录请求响应
+        pass
+    def OnRspUserLogin(self,CThostFtdcRspUserLoginField *pRspUserLogin,
+                            CThostFtdcRspInfoField *pRspInfo,
+                            int nRequestID,
+                            bool bIsLast):
+
+        # 登出请求响应
+        pass
+    def OnRspUserLogout(self,CThostFtdcUserLogoutField *pUserLogout,
+                             CThostFtdcRspInfoField *pRspInfo,
+                             int nRequestID,
+                             bool bIsLast):
+
+        # 错误应答
+        pass
+    def OnRspError(self,CThostFtdcRspInfoField *pRspInfo,
+                        int nRequestID,
+                        bool bIsLast):
+
+        # 订阅行情应答
+        pass
+    def OnRspSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+                                CThostFtdcRspInfoField *pRspInfo,
+                                int nRequestID,
+                                bool bIsLast):
+
+        # 取消订阅行情应答
+        pass
+    def OnRspUnSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+                                  CThostFtdcRspInfoField *pRspInfo,
+                                  int nRequestID,
+                                  bool bIsLast):
+
+        # 深度行情通知
+        pass
+    def OnRtnDepthMarketData(self,CThostFtdcDepthMarketDataField *pDepthMarketData):
+
+        pass
 
 cdef class MdApiWrapper:
 
@@ -44,6 +114,14 @@ cdef class MdApiWrapper:
     @classmethod
     def GetApiVersion(cls):
         return GetApiVersion()
+
+
+    def Init(self):
+
+        return self.Init()
+
+    def Join(self):
+        pass
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
         """
@@ -194,41 +272,4 @@ cdef class MdApiWrapper:
         finally:
             free(InstrumentIDs)
         return result
-
-
-
-
-
-# cdef class CThostFtdcMdSpi:
-#     cdef CMdSpi*  _this_Ftdc_Md_Spi
-#
-#     def __cinit__(self):
-#         pass
-#
-#     def __dealloc__(self):
-#         pass
-#
-#     def
-
-
-
-    # cpdef on_front_connected(self, ) except? -1:
-    #     pass
-    #
-    # cpdef on_front_disconnected(self, def reason) except? -1:
-    #     pass
-    #
-    # cpdef on_heart_beat_warning(self, def time_lapse) except? -1:
-    #     pass
-    #
-    # cpdef on_user_login(self,):
-    #     pass
-
-# cdef class CThostFtdcMdApi:
-#     def __cinit__(self):
-#         pass
-#
-#     def __dealloc__(self):
-#         pass
-
 
