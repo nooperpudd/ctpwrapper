@@ -10,6 +10,7 @@ from libc.string cimport const_char
 from libcpp cimport bool
 from libcpp.memory cimport shared_ptr
 from headers.cMdAPI cimport CMdSpi,CMdApi,GetApiVersion,CreateFtdcMdApi
+
 from headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -91,7 +92,6 @@ cdef class MdSpiWrapper:
         pass
 
 cdef class MdApiWrapper:
-
     cdef CMdApi *_api
 
     def __cinit__(self, const_char *pszFlowPath,
@@ -250,7 +250,6 @@ cdef class MdApiWrapper:
         finally:
             free(InstrumentIDs)
         return result
-
 
     def UnSubscribeForQuoteRsp(self, pInstrumentID):
         """
