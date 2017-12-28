@@ -52,41 +52,41 @@ cdef class MdSpiWrapper:
 
         # 登录请求响应
         pass
-    def OnRspUserLogin(self,CThostFtdcRspUserLoginField *pRspUserLogin,
+    cdef OnRspUserLogin(self,CThostFtdcRspUserLoginField *pRspUserLogin,
                             CThostFtdcRspInfoField *pRspInfo,
                             int nRequestID,
                             bool bIsLast):
 
         # 登出请求响应
         pass
-    def OnRspUserLogout(self,CThostFtdcUserLogoutField *pUserLogout,
+    cdef OnRspUserLogout(self,CThostFtdcUserLogoutField *pUserLogout,
                              CThostFtdcRspInfoField *pRspInfo,
                              int nRequestID,
                              bool bIsLast):
 
         # 错误应答
         pass
-    def OnRspError(self,CThostFtdcRspInfoField *pRspInfo,
+    cdef OnRspError(self,CThostFtdcRspInfoField *pRspInfo,
                         int nRequestID,
                         bool bIsLast):
 
         # 订阅行情应答
         pass
-    def OnRspSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+    cdef OnRspSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                 CThostFtdcRspInfoField *pRspInfo,
                                 int nRequestID,
                                 bool bIsLast):
 
         # 取消订阅行情应答
         pass
-    def OnRspUnSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+    cdef OnRspUnSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                   CThostFtdcRspInfoField *pRspInfo,
                                   int nRequestID,
                                   bool bIsLast):
 
         # 深度行情通知
         pass
-    def OnRtnDepthMarketData(self,CThostFtdcDepthMarketDataField *pDepthMarketData):
+    cdef OnRtnDepthMarketData(self,CThostFtdcDepthMarketDataField *pDepthMarketData):
 
         pass
 
