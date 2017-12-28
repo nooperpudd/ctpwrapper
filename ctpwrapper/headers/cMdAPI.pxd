@@ -2,6 +2,7 @@
 
 from libc.string cimport const_char
 from libcpp cimport bool
+from libcpp.memory cimport shared_ptr
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -102,7 +103,7 @@ cdef extern from 'ThostFtdcMdApi.h':
 
         #  注册回调接口
         #  @param pSpi 派生自回调接口类的实例
-        void RegisterSpi(CMdSpi *pSpi) nogil except +
+        void RegisterSpi(shared_ptr[CMdSpi] *pSpi) nogil except +
 
         #  订阅行情。
         #  @param ppInstrumentID 合约ID
