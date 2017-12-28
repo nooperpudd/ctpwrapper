@@ -1,7 +1,7 @@
 # encoding:utf-8
 
 from libc.string cimport const_char
-from libcpp cimport bool
+from libcpp cimport bool as cbool
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -115,6 +115,18 @@ cdef extern from 'ThostFtdcMdApi.h':
         #  @param nCount 要订阅/退订行情的合约个数
         int UnSubscribeMarketData(char *ppInstrumentID[],
                                   int nCount) nogil except +
+        
+        #订阅询价。
+        #@param ppInstrumentID 合约ID
+        #@param nCount 要订阅/退订行情的合约个数
+
+        int SubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
+
+        #退订询价。
+        #@param ppInstrumentID 合约ID
+        #@param nCount 要订阅/退订行情的合约个数
+        int UnSubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
+
 
         #订阅询价。
         #@param ppInstrumentID 合约ID
@@ -139,5 +151,5 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     #获取API的版本信息
     #@retrun 获取到的版本号
     const_char *GetApiVersion() nogil
-
     CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, bool bIsUsingUdp, bool bIsMulticast) nogil except +
+
