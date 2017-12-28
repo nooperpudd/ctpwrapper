@@ -29,10 +29,14 @@ cdef class MdApiWrapper:
                   bool bIsMulticast):
 
         self._api= CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
+        if not self._api:
+            raise MemoryError()
 
     def __dealloc__(self):
-        self._api.Release()
-        self._api= NULL
+
+        if self._api is not NULL:
+            self._api.Release()
+            self._api= NULL
 
     def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
         pass
@@ -46,7 +50,6 @@ cdef class MdApiWrapper:
         用户登录请求
         :return:
         """
-
         self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>(ctypes.addressof(pReqUserLoginField)),nRequestID)
 
 
@@ -65,7 +68,9 @@ cdef class MdApiWrapper:
         @remark 只有登录成功后,才能得到正确的交易日
         :return:
         """
-        pass
+        cdef const_char *result
+        result = self._api.GetTradingDay()
+        return result
 
     def RegisterFront(self, char *pszFrontAddress):
         """
@@ -113,16 +118,17 @@ cdef class MdApiWrapper:
         cdef int count
         cdef int result
         cdef char **InstrumentIDs
+        try:
+            count = len(pInstrumentID)
 
-        count = len(pInstrumentID)
+            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
-        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+            for i from 0<= i <count:
+                InstrumentIDs[i] = pInstrumentID[i]
 
-        for i from 0<= i <count:
-            InstrumentIDs[i] = pInstrumentID[i]
-
-        result = self._api.SubscribeMarketData(InstrumentIDs,count)
-        free(InstrumentIDs)
+            result = self._api.SubscribeMarketData(InstrumentIDs,count)
+        finally:
+            free(InstrumentIDs)
         return result
 
     def UnSubscribeMarketData(self, pInstrumentID):
@@ -135,16 +141,16 @@ cdef class MdApiWrapper:
         cdef int count
         cdef int result
         cdef char **InstrumentIDs
+        try:
+            count = len(pInstrumentID)
+            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
-        count = len(pInstrumentID)
+            for i from 0<= i <count:
+                InstrumentIDs[i] = pInstrumentID[i]
 
-        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
-
-        for i from 0<= i <count:
-            InstrumentIDs[i] = pInstrumentID[i]
-
-        result = self._api.UnSubscribeMarketData(InstrumentIDs,count)
-        free(InstrumentIDs)
+            result = self._api.UnSubscribeMarketData(InstrumentIDs,count)
+        finally:
+            free(InstrumentIDs)
         return result
 
     def SubscribeForQuoteRsp(self, pInstrumentID):
@@ -158,15 +164,16 @@ cdef class MdApiWrapper:
         cdef int result
         cdef char **InstrumentIDs
 
-        count = len(pInstrumentID)
+        try:
+            count = len(pInstrumentID)
+            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
-        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+            for i from 0<= i <count:
+                InstrumentIDs[i] = pInstrumentID[i]
 
-        for i from 0<= i <count:
-            InstrumentIDs[i] = pInstrumentID[i]
-
-        result = self._api.SubscribeForQuoteRsp(InstrumentIDs,count)
-        free(InstrumentIDs)
+            result = self._api.SubscribeForQuoteRsp(InstrumentIDs,count)
+        finally:
+            free(InstrumentIDs)
         return result
 
 
@@ -180,15 +187,17 @@ cdef class MdApiWrapper:
         cdef int result
         cdef char **InstrumentIDs
 
-        count = len(pInstrumentID)
+        try:
+            count = len(pInstrumentID)
 
-        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
-        for i from 0<= i <count:
-            InstrumentIDs[i] = pInstrumentID[i]
+            for i from 0<= i <count:
+                InstrumentIDs[i] = pInstrumentID[i]
 
-        result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,count)
-        free(InstrumentIDs)
+            result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,count)
+        finally:
+            free(InstrumentIDs)
         return result
 
 
