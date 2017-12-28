@@ -20,7 +20,7 @@ CThostFtdcReqUserLoginField)
 
 import ctypes
 
-cdef class MdApi:
+cdef class MdApiWrapper:
 
     cdef CMdApi *_api
 
