@@ -116,6 +116,18 @@ cdef extern from 'ThostFtdcMdApi.h':
         #  @param nCount 要订阅/退订行情的合约个数
         int UnSubscribeMarketData(char *ppInstrumentID[],
                                   int nCount) nogil except +
+        
+        #订阅询价。
+        #@param ppInstrumentID 合约ID
+        #@param nCount 要订阅/退订行情的合约个数
+
+        int SubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
+
+        #退订询价。
+        #@param ppInstrumentID 合约ID
+        #@param nCount 要订阅/退订行情的合约个数
+        int UnSubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
+
 
         #订阅询价。
         #@param ppInstrumentID 合约ID
@@ -142,3 +154,4 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     const_char *GetApiVersion() nogil
 
     CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +
+

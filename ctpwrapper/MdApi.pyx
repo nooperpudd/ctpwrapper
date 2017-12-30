@@ -10,6 +10,7 @@ from libc.string cimport const_char
 from libcpp cimport bool as cbool
 from libcpp.memory cimport shared_ptr
 from headers.cMdAPI cimport CMdSpi,CMdApi,GetApiVersion,CreateFtdcMdApi
+
 from headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -21,12 +22,11 @@ CThostFtdcReqUserLoginField)
 
 import ctypes
 
-
 cdef class MdSpiWrapper:
 
     cdef CMdSpi *_spi
     # https://github.com/ah-/kafka_arrow/blob/2b5dbfd61e594d505854b1e57aee8b8c2b16bd85/kafka_arrow.pyx
-
+    
     def __cinit__(self):
         pass
         # self._spi = new CMdSpi(self)
@@ -109,6 +109,7 @@ cdef class MdApiWrapper:
             self._api= NULL
 
     def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
+
         pass
 
     @classmethod
@@ -249,7 +250,6 @@ cdef class MdApiWrapper:
         finally:
             free(InstrumentIDs)
         return result
-
 
     def UnSubscribeForQuoteRsp(self, pInstrumentID):
         """
