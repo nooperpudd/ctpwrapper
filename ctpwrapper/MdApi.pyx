@@ -10,7 +10,7 @@ from libc.string cimport const_char
 from libcpp cimport bool as cbool
 from libcpp.memory cimport shared_ptr
 
-from headers.cMdAPI cimport CMdSpi,CMdApi,GetApiVersion,CreateFtdcMdApi
+from headers.cMdAPI cimport CMdSpi,CMdApi,CreateFtdcMdApi
 
 from headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
@@ -24,10 +24,13 @@ CThostFtdcReqUserLoginField)
 import ctypes
 
 
+
 cdef class MdSpiWrapper:
 
-    cdef shared_ptr[CMdSpi] *_spi
+    cdef CMdSpi *_spi
     # https://github.com/ah-/kafka_arrow/blob/2b5dbfd61e594d505854b1e57aee8b8c2b16bd85/kafka_arrow.pyx
+
+    # c++ must call python self fu
 
     def __cinit__(self):
         pass
@@ -113,9 +116,9 @@ cdef class MdApiWrapper:
     def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
         pass
     
-    @classmethod
-    def GetApiVersion(cls):
-        return GetApiVersion()
+    @staticmethod
+    def GetApiVersion():
+        return CMdApi.GetApiVersion()
 
 
     def Init(self):
