@@ -111,8 +111,8 @@ cdef class MdApiWrapper:
             self._api= NULL
 
     def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
-
-
+        pass
+    
     @classmethod
     def GetApiVersion(cls):
         return GetApiVersion()
