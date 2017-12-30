@@ -9,7 +9,9 @@ from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
 from libcpp.memory cimport shared_ptr
+
 from headers.cMdAPI cimport CMdSpi,CMdApi,GetApiVersion,CreateFtdcMdApi
+
 from headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -109,7 +111,7 @@ cdef class MdApiWrapper:
             self._api= NULL
 
     def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
-        pass
+
 
     @classmethod
     def GetApiVersion(cls):
@@ -249,7 +251,6 @@ cdef class MdApiWrapper:
         finally:
             free(InstrumentIDs)
         return result
-
 
     def UnSubscribeForQuoteRsp(self, pInstrumentID):
         """
