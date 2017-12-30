@@ -2,6 +2,8 @@
 
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
+from libcpp.memory cimport shared_ptr
+
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -16,7 +18,7 @@ cdef extern from 'ThostFtdcMdApi.h':
 
     cdef cppclass CMdSpi "CThostFtdcMdSpi":
         # 当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
-        void OnFrontConnected() nogil except +
+        void OnFrontConnected() except +
 
         # 当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
         # @param nReason 错误原因
@@ -25,48 +27,46 @@ cdef extern from 'ThostFtdcMdApi.h':
         #  0x2001 接收心跳超时
         #  0x2002 发送心跳失败
         #  0x2003 收到错误报文
-        void OnFrontDisconnected(int nReason) nogil except +
+        void OnFrontDisconnected(int nReason) except +
 
         # 心跳超时警告。当长时间未收到报文时，该方法被调用。
         # @param nTimeLapse 距离上次接收报文的时间
-        void OnHeartBeatWarning(int nTimeLapse) nogil except +
+        void OnHeartBeatWarning(int nTimeLapse) except +
 
         # 登录请求响应
         void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin,
                             CThostFtdcRspInfoField *pRspInfo,
                             int nRequestID,
-                            bool bIsLast) nogil except +
+                            cbool bIsLast) except +
 
         # 登出请求响应
         void OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout,
                              CThostFtdcRspInfoField *pRspInfo,
                              int nRequestID,
-                             bool bIsLast) nogil except +
+                             cbool bIsLast) except +
 
         # 错误应答
         void OnRspError(CThostFtdcRspInfoField *pRspInfo,
                         int nRequestID,
-                        bool bIsLast) nogil except +
+                        cbool bIsLast) except +
 
         # 订阅行情应答
         void OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                 CThostFtdcRspInfoField *pRspInfo,
                                 int nRequestID,
-                                bool bIsLast) nogil except +
+                                cbool bIsLast) except +
 
         # 取消订阅行情应答
         void OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                   CThostFtdcRspInfoField *pRspInfo,
                                   int nRequestID,
-                                  bool bIsLast) nogil except +
+                                  cbool bIsLast) except +
 
         # 深度行情通知
-        void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) nogil except +
+        void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) except +
 
 
     cdef cppclass CMdApi "CThostFtdcMdApi":
-        # static CThostFtdcMdApi *CreateFtdcMdApi(const char *pszFlowPath = "", const bool bIsUsingUdp=false, const bool bIsMulticast=false);
-        # todo fix issues
 
 
         #  删除接口对象本身
@@ -105,7 +105,7 @@ cdef extern from 'ThostFtdcMdApi.h':
 
         #  注册回调接口
         #  @param pSpi 派生自回调接口类的实例
-        void RegisterSpi(CMdSpi *pSpi) nogil except +
+        void RegisterSpi(shared_ptr[CMdSpi] *pSpi) nogil except +
 
         #  订阅行情。
         #  @param ppInstrumentID 合约ID
@@ -122,26 +122,12 @@ cdef extern from 'ThostFtdcMdApi.h':
         #订阅询价。
         #@param ppInstrumentID 合约ID
         #@param nCount 要订阅/退订行情的合约个数
-
         int SubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
 
         #退订询价。
         #@param ppInstrumentID 合约ID
         #@param nCount 要订阅/退订行情的合约个数
         int UnSubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
-
-
-                #订阅询价。
-        #@param ppInstrumentID 合约ID
-        #@param nCount 要订阅/退订行情的合约个数
-
-        int SubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
-
-        #退订询价。
-        #@param ppInstrumentID 合约ID
-        #@param nCount 要订阅/退订行情的合约个数
-        int UnSubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
-
 
         #  用户登录请求
         int ReqUserLogin(CThostFtdcReqUserLoginField *pReqUserLoginField,
@@ -156,4 +142,5 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     #@retrun 获取到的版本号
     const_char *GetApiVersion() nogil
 
-    CMdApi *CreateFtdcMdApi(const_char *pszFlowPath = "", cbool bIsUsingUdp = False, cbool bIsMulticast = False) nogil except +
+    CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +
+
