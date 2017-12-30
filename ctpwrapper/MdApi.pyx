@@ -9,6 +9,7 @@ from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
 from libcpp.memory cimport shared_ptr
+
 from headers.cMdAPI cimport CMdSpi,CMdApi,GetApiVersion,CreateFtdcMdApi
 
 from headers.ThostFtdcUserApiStruct cimport (
@@ -111,7 +112,7 @@ cdef class MdApiWrapper:
     def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
 
         pass
-
+    
     @classmethod
     def GetApiVersion(cls):
         return GetApiVersion()

@@ -4,6 +4,7 @@ from libc.string cimport const_char
 from libcpp cimport bool as cbool
 from libcpp.memory cimport shared_ptr
 
+
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
 CThostFtdcUserLogoutField,
@@ -67,6 +68,7 @@ cdef extern from 'ThostFtdcMdApi.h':
 
     cdef cppclass CMdApi "CThostFtdcMdApi":
 
+
         #  删除接口对象本身
         #  @remark 不再使用本接口对象时,调用该函数删除接口对象
         void Release() nogil
@@ -120,25 +122,12 @@ cdef extern from 'ThostFtdcMdApi.h':
         #订阅询价。
         #@param ppInstrumentID 合约ID
         #@param nCount 要订阅/退订行情的合约个数
-
         int SubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
 
         #退订询价。
         #@param ppInstrumentID 合约ID
         #@param nCount 要订阅/退订行情的合约个数
         int UnSubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
-
-
-        #订阅询价。
-        #@param ppInstrumentID 合约ID
-        #@param nCount 要订阅/退订行情的合约个数
-        int SubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
-
-        #退订询价。
-        #@param ppInstrumentID 合约ID
-        #@param nCount 要订阅/退订行情的合约个数
-        int UnSubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
-
 
         #  用户登录请求
         int ReqUserLogin(CThostFtdcReqUserLoginField *pReqUserLoginField,
