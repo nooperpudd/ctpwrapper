@@ -117,11 +117,10 @@ cdef class MdApiWrapper:
 
 
     def Init(self):
-
-        return self.Init()
+        return self._api.Init()
 
     def Join(self):
-        pass
+        return self._api.Join()
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
         """
