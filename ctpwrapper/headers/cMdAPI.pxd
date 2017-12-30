@@ -1,7 +1,7 @@
 # encoding:utf-8
 
 from libc.string cimport const_char
-from libcpp cimport bool
+from libcpp cimport bool as cbool
 from libcpp.memory cimport shared_ptr
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
@@ -36,30 +36,30 @@ cdef extern from 'ThostFtdcMdApi.h':
         void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin,
                             CThostFtdcRspInfoField *pRspInfo,
                             int nRequestID,
-                            bool bIsLast) except +
+                            cbool bIsLast) except +
 
         # 登出请求响应
         void OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout,
                              CThostFtdcRspInfoField *pRspInfo,
                              int nRequestID,
-                             bool bIsLast) except +
+                             cbool bIsLast) except +
 
         # 错误应答
         void OnRspError(CThostFtdcRspInfoField *pRspInfo,
                         int nRequestID,
-                        bool bIsLast) except +
+                        cbool bIsLast) except +
 
         # 订阅行情应答
         void OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                 CThostFtdcRspInfoField *pRspInfo,
                                 int nRequestID,
-                                bool bIsLast) except +
+                                cbool bIsLast) except +
 
         # 取消订阅行情应答
         void OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                   CThostFtdcRspInfoField *pRspInfo,
                                   int nRequestID,
-                                  bool bIsLast) except +
+                                  cbool bIsLast) except +
 
         # 深度行情通知
         void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) except +
@@ -141,4 +141,4 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     #@retrun 获取到的版本号
     const_char *GetApiVersion() nogil
 
-    CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, bool bIsUsingUdp, bool bIsMulticast) nogil except +
+    CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +

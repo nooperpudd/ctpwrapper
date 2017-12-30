@@ -7,7 +7,7 @@ from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
-from libcpp cimport bool
+from libcpp cimport bool as cbool
 from libcpp.memory cimport shared_ptr
 from headers.cMdAPI cimport CMdSpi,CMdApi,GetApiVersion,CreateFtdcMdApi
 from headers.ThostFtdcUserApiStruct cimport (
@@ -55,34 +55,34 @@ cdef class MdSpiWrapper:
     cdef OnRspUserLogin(self,CThostFtdcRspUserLoginField *pRspUserLogin,
                             CThostFtdcRspInfoField *pRspInfo,
                             int nRequestID,
-                            bool bIsLast):
+                            cbool bIsLast):
 
         # 登出请求响应
         pass
     cdef OnRspUserLogout(self,CThostFtdcUserLogoutField *pUserLogout,
                              CThostFtdcRspInfoField *pRspInfo,
                              int nRequestID,
-                             bool bIsLast):
+                             cbool bIsLast):
 
         # 错误应答
         pass
     cdef OnRspError(self,CThostFtdcRspInfoField *pRspInfo,
                         int nRequestID,
-                        bool bIsLast):
+                        cbool bIsLast):
 
         # 订阅行情应答
         pass
     cdef OnRspSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                 CThostFtdcRspInfoField *pRspInfo,
                                 int nRequestID,
-                                bool bIsLast):
+                                cbool bIsLast):
 
         # 取消订阅行情应答
         pass
     cdef OnRspUnSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                   CThostFtdcRspInfoField *pRspInfo,
                                   int nRequestID,
-                                  bool bIsLast):
+                                  cbool bIsLast):
 
         # 深度行情通知
         pass
@@ -95,8 +95,8 @@ cdef class MdApiWrapper:
     cdef CMdApi *_api
 
     def __cinit__(self, const_char *pszFlowPath,
-                  bool bIsUsingUdp,
-                  bool bIsMulticast):
+                  cbool bIsUsingUdp,
+                  cbool bIsMulticast):
 
         self._api= CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
         if not self._api:
