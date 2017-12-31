@@ -68,6 +68,8 @@ cdef extern from 'ThostFtdcMdApi.h':
 
     cdef cppclass CMdApi "CThostFtdcMdApi":
 
+        @staticmethod
+        const_char *GetApiVersion() nogil
 
         #  删除接口对象本身
         #  @remark 不再使用本接口对象时,调用该函数删除接口对象
@@ -140,7 +142,6 @@ cdef extern from 'ThostFtdcMdApi.h':
 cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     #获取API的版本信息
     #@retrun 获取到的版本号
-    const_char *GetApiVersion() nogil
 
     CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +
 

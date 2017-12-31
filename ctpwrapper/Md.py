@@ -7,14 +7,6 @@ class MdApiPy(MdApiWrapper):
     def __init__(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
         super(MdApiPy, self).__init__(pszFlowPath, bIsUsingUdp, bIsMulticast)
 
-    @classmethod
-    def GetApiVersion(cls):
-        """
-        获取API的版本信息
-        :return:  获取到的版本号
-        """
-        version = super(MdApiPy, cls).GetApiVersion()
-        return version.decode()
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
         """

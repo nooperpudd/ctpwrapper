@@ -71,15 +71,33 @@ class Parse(object):
                 result = re.findall("\w+", line)
                 field_type = result[0]
                 field_name = result[1].replace(";", "")
-
                 self.struct[name][field_name] = self.data_type[field_type]
+
 
 
 def generate_struct(struct, py_file):
     for item in struct:
         py_file.write("class {class_name}(Base):\n".format(class_name=item.replace("CThostFtdc", "")))
 
+        py_file.write("    _fields_ = [\n")
+
+        for field in struct[item]:
+            if struct[item][field]["type"] == "double":
+                py_file.write("        ('{field}', ctypes.c_double),\n".format(field=field))
+            if struct[item][field]["type"] == "int":
+                py_file.write("        ('{field}', ctypes.c_int),\n".format(field=field))
+            if struct[item][field]["type"] == "short":
+                py_file.write("        ('{field}', ctypes.c_short),\n".format(field=field))
+            if struct[item][field]["type"] == "str":
+                py_file.write("        ('{field}', ctypes.c_char),\n".format(field=field))
+            if struct[item][field]["type"] == "str" and "length" in struct[item][field]:
+                py_file.write("        ('{field}', ctypes.c_char*{length}),\n".format(field=field,
+                                                                             length=struct[item][field]["length"]))
+
+        py_file.write("    ]\n")
+
         py_file.write("    def __init__(self,%s):\n" % ",".join(["%s=''" % field for field in struct[item]]))
+        py_file.write("        super({class_name},self).__init__()\n".format(class_name=item.replace("CThostFtdc", "")))
 
         for field in struct[item]:
             if struct[item][field]["type"] == "double":
@@ -87,7 +105,7 @@ def generate_struct(struct, py_file):
             if struct[item][field]["type"] in ["int", "short"]:
                 py_file.write("        self.%s=int(%s)\n" % (field, field))
             if struct[item][field]["type"] == "str":
-                py_file.write("        self.%s=%s\n" % (field, field))
+                py_file.write("        self.%s=self._to_bytes(%s)\n" % (field, field))
 
 
 def generate_interface():
@@ -99,6 +117,7 @@ def generate_interface():
     py_file = codecs.open(GENERATE_FILE, "w")
 
     py_file.write('# encoding=utf-8\n')
+    py_file.write("import ctypes\n")
     py_file.write("from ctpwrapper.base import Base\n")
     py_file.write("\n" * 2)
 
