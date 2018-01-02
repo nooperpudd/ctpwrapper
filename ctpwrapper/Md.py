@@ -5,21 +5,23 @@ from ctpwrapper.MdApi import MdApiWrapper
 
 class MdApiPy(MdApiWrapper):
     def __init__(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
-        super(MdApiPy, self).__init__(pszFlowPath, bIsUsingUdp, bIsMulticast)
 
+        super(MdApiPy, self).__init__(pszFlowPath, bIsUsingUdp, bIsMulticast)
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
         """
         用户登录请求
         :return:
         """
-        pass
+        return super(MdApiPy,self).ReqUserLogin(pReqUserLoginField,nRequestID)
 
     def ReqUserLogout(self, pUserLogout, nRequestID):
         """
          登出请求
         :return:
         """
+        return super(MdApiPy,self).ReqUserLogout(pUserLogout, nRequestID)
+
         pass
 
     def GetTradingDay(self):
@@ -29,7 +31,7 @@ class MdApiPy(MdApiWrapper):
         @remark 只有登录成功后,才能得到正确的交易日
         :return:
         """
-        pass
+        return super(MdApiPy, self).GetTradingDay()
 
     def RegisterFront(self, pszFrontAddress):
         """
@@ -39,7 +41,8 @@ class MdApiPy(MdApiWrapper):
         @remark “tcp”代表传输协议，“127.0.0.1”代表服务器地址。”17001”代表服务器端口号。
         :return:
         """
-        pass
+        return super(MdApiPy, self).RegisterFront(pszFrontAddress)
+
 
     def RegisterNameServer(self, pszNsAddress):
         """
@@ -50,7 +53,8 @@ class MdApiPy(MdApiWrapper):
         @remark RegisterNameServer优先于RegisterFront
         :return:
         """
-        pass
+        return super(MdApiPy, self).RegisterNameServer(pszNsAddress)
+
 
     def RegisterFensUserInfo(self, pFensUserInfo):
         """
@@ -58,7 +62,7 @@ class MdApiPy(MdApiWrapper):
         @param pFensUserInfo：用户信息。
         :return:
         """
-        pass
+        return super(MdApiPy, self).RegisterFensUserInfo(pFensUserInfo)
 
     def SubscribeMarketData(self, pInstrumentID):
         """
@@ -68,7 +72,7 @@ class MdApiPy(MdApiWrapper):
 
         :return:
         """
-        pass
+        return super(MdApiPy, self).SubscribeMarketData(pInstrumentID)
 
     def UnSubscribeMarketData(self, pInstrumentID):
         """
@@ -77,7 +81,7 @@ class MdApiPy(MdApiWrapper):
         @param nCount 要订阅/退订行情的合约个数
         :return:
         """
-        pass
+        return super(MdApiPy, self).UnSubscribeMarketData(pInstrumentID)
 
     def SubscribeForQuoteRsp(self, pInstrumentID):
         """
@@ -86,7 +90,8 @@ class MdApiPy(MdApiWrapper):
 
         :return:
         """
-        pass
+        return super(MdApiPy, self).SubscribeForQuoteRsp(pInstrumentID)
+
 
     def UnSubscribeForQuoteRsp(self, pInstrumentID):
         """
@@ -94,4 +99,5 @@ class MdApiPy(MdApiWrapper):
         :param pInstrumentID: 合约ID list
         :return:
         """
-        pass
+        return super(MdApiPy, self).UnSubscribeForQuoteRsp(pInstrumentID)
+
