@@ -96,6 +96,8 @@ cdef class MdSpiWrapper:
 
 cdef class MdApiWrapper:
 
+    # todo add is login
+
     cdef CMdApi *_api
 
     def __cinit__(self, const_char *pszFlowPath,
@@ -161,10 +163,12 @@ cdef class MdApiWrapper:
         @remark 只有登录成功后,才能得到正确的交易日
         :return:
         """
+        cdef const_char *result
+
         if self._api is not NULL:
-            cdef const_char *result
             result = self._api.GetTradingDay()
             return result
+
 
     def RegisterFront(self, char *pszFrontAddress):
         """
@@ -212,10 +216,11 @@ cdef class MdApiWrapper:
 
         :return:
         """
+        cdef int count
+        cdef int result
+        cdef char **InstrumentIDs
+
         if self._api is not NULL:
-            cdef int count
-            cdef int result
-            cdef char **InstrumentIDs
 
             count = len(pInstrumentID)
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)
@@ -235,11 +240,11 @@ cdef class MdApiWrapper:
         @param nCount 要订阅/退订行情的合约个数
         :return:
         """
-        if self._api is not NULL:
-            cdef int count
-            cdef int result
-            cdef char **InstrumentIDs
+        cdef int count
+        cdef int result
+        cdef char **InstrumentIDs
 
+        if self._api is not NULL:
             count = len(pInstrumentID)
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
@@ -258,10 +263,13 @@ cdef class MdApiWrapper:
 
         :return:
         """
+
+        cdef int count
+        cdef int result
+        cdef char **InstrumentIDs
+
         if self._api is not NULL:
-            cdef int count
-            cdef int result
-            cdef char **InstrumentIDs
+
             count = len(pInstrumentID)
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
@@ -279,10 +287,11 @@ cdef class MdApiWrapper:
         :param pInstrumentID: 合约ID list
         :return:
         """
+        cdef int count
+        cdef int result
+        cdef char **InstrumentIDs
+
         if self._api is not NULL:
-            cdef int count
-            cdef int result
-            cdef char **InstrumentIDs
 
             count = len(pInstrumentID)
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)

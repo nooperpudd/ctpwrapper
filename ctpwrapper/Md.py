@@ -3,6 +3,7 @@
 from ctpwrapper.MdApi import MdApiWrapper
 
 
+
 class MdApiPy(MdApiWrapper):
     def __init__(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
 
@@ -22,7 +23,6 @@ class MdApiPy(MdApiWrapper):
         """
         return super(MdApiPy,self).ReqUserLogout(pUserLogout, nRequestID)
 
-        pass
 
     def GetTradingDay(self):
         """
@@ -68,8 +68,6 @@ class MdApiPy(MdApiWrapper):
         """
          订阅行情。
         @param ppInstrumentID 合约ID
-        @param nCount 要订阅/退订行情的合约个数
-
         :return:
         """
         return super(MdApiPy, self).SubscribeMarketData(pInstrumentID)
@@ -78,7 +76,6 @@ class MdApiPy(MdApiWrapper):
         """
         退订行情。
         @param ppInstrumentID 合约ID
-        @param nCount 要订阅/退订行情的合约个数
         :return:
         """
         return super(MdApiPy, self).UnSubscribeMarketData(pInstrumentID)
@@ -87,7 +84,6 @@ class MdApiPy(MdApiWrapper):
         """
         订阅询价。
         :param pInstrumentID: 合约ID list
-
         :return:
         """
         return super(MdApiPy, self).SubscribeForQuoteRsp(pInstrumentID)
