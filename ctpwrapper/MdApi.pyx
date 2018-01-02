@@ -23,19 +23,16 @@ CThostFtdcReqUserLoginField)
 
 import ctypes
 
-
-cdef class MdSpiWrapper:
+cdef class MdSpiWrapper[object MdSpiWrapper, type MdSpiWrapperType]:
 
     # cdef CMdSpi *_spi
     # https://github.com/ah-/kafka_arrow/blob/2b5dbfd61e594d505854b1e57aee8b8c2b16bd85/kafka_arrow.pyx
-
     # c++ must call python self fu
-
-    def __cinit__(self):
-        pass
-        # self._spi = new CMdSpi(self)
-    def __dealloc__(self):
-        pass
+    # def __cinit__(self):
+    #     pass
+    #     # self._spi = new CMdSpi(self)
+    # def __dealloc__(self):
+    #     pass
 
     def OnFrontConnected(self):
 
@@ -49,50 +46,83 @@ cdef class MdSpiWrapper:
         pass
     def OnFrontDisconnected(self,int nReason):
 
-        # 心跳超时警告。当长时间未收到报文时，该方法被调用。
-        # @param nTimeLapse 距离上次接收报文的时间
         pass
     def OnHeartBeatWarning(self,int nTimeLapse):
+        """
+        # 心跳超时警告。当长时间未收到报文时，该方法被调用。
+        # @param nTimeLapse 距离上次接收报文的时间
+        :param nTimeLapse:
+        :return:
+        """
 
-        # 登录请求响应
         pass
-    cdef OnRspUserLogin(self,CThostFtdcRspUserLoginField *pRspUserLogin,
+
+    cdef OnRspError(self,CThostFtdcRspInfoField *pRspInfo,
+                        int nRequestID,
+                        cbool bIsLast):
+
+        #错误应答
+        pass
+
+    def OnRspUserLogin(self,CThostFtdcRspUserLoginField *pRspUserLogin,
                             CThostFtdcRspInfoField *pRspInfo,
                             int nRequestID,
                             cbool bIsLast):
 
         # 登出请求响应
         pass
-    cdef OnRspUserLogout(self,CThostFtdcUserLogoutField *pUserLogout,
-                             CThostFtdcRspInfoField *pRspInfo,
-                             int nRequestID,
-                             cbool bIsLast):
+    # cdef OnRspUserLogout(self,CThostFtdcUserLogoutField *pUserLogout,
+    #                          CThostFtdcRspInfoField *pRspInfo,
+    #                          int nRequestID,
+    #                          cbool bIsLast):
+    #
+    #     #
+    #
+    #
+    #
+    #     # 订阅行情应答
+    #     pass
+    # cdef OnRspSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+    #                             CThostFtdcRspInfoField *pRspInfo,
+    #                             int nRequestID,
+    #                             cbool bIsLast):
+    #
+    #     # 取消订阅行情应答
+    #     pass
+    # cdef OnRspUnSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+    #                               CThostFtdcRspInfoField *pRspInfo,
+    #                               int nRequestID,
+    #                               cbool bIsLast):
+    #
+    #     # 深度行情通知
+    #     pass
+    # cdef OnRtnDepthMarketData(self,CThostFtdcDepthMarketDataField *pDepthMarketData):
+    #
+    #     pass
 
-        # 错误应答
-        pass
-    cdef OnRspError(self,CThostFtdcRspInfoField *pRspInfo,
-                        int nRequestID,
-                        cbool bIsLast):
+cdef public MdSpiWrapper buildMdSpiWrapper():
+    return MdSpiWrapper()
 
-        # 订阅行情应答
-        pass
-    cdef OnRspSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
-                                CThostFtdcRspInfoField *pRspInfo,
-                                int nRequestID,
-                                cbool bIsLast):
+cdef public void OnFrontConnected(MdSpiWrapper obj):
+    print("on pront connect cython")
+    obj.OnFrontConnected()
 
-        # 取消订阅行情应答
-        pass
-    cdef OnRspUnSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
-                                  CThostFtdcRspInfoField *pRspInfo,
-                                  int nRequestID,
-                                  cbool bIsLast):
+cdef public void OnFrontDisconnected(MdSpiWrapper obj,int nReason):
+    print("on pront connect cython")
+    obj.OnFrontDisconnected(nReason)
 
-        # 深度行情通知
-        pass
-    cdef OnRtnDepthMarketData(self,CThostFtdcDepthMarketDataField *pDepthMarketData):
+cdef public void OnHeartBeatWarning(MdSpiWrapper obj,int nTimeLapse):
+    print("on pront connect cython")
+    obj.OnHeartBeatWarning(nTimeLapse)
 
-        pass
+cdef public void OnRspError(MdSpiWrapper obj,
+                            CThostFtdcRspInfoField *pRspInfo,
+                            int nRequestID,
+                            cbool bIsLast):
+    print("hello")
+
+    # obj.OnRspError(CThostFtdcRspInfoField *pRspInfo, nRequestID, bIsLast)
+
 
 cdef class MdApiWrapper:
 
@@ -133,7 +163,6 @@ cdef class MdApiWrapper:
 
         # cdef PyObject p_spi
         # p_spi = spi
-        #
         # self._api.RegisterSpi(spi)
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
