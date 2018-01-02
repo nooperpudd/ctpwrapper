@@ -118,7 +118,7 @@ cdef class MdApiWrapper:
     
     @staticmethod
     def GetApiVersion():
-        return CMdApi.GetApiVersion()
+        return PyBytes_AsString(CMdApi.GetApiVersion())
 
 
     def Init(self):
