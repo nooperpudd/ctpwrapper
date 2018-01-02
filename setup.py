@@ -34,9 +34,7 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.join(base_dir, "ctpwrapper")
 ctp_dir = os.path.join(base_dir, "ctp")
 cython_headers = os.path.join(project_dir, "headers")
-header_dir =[os.path.join(ctp_dir, "header")]
-header_dir.append(os.path.join(project_dir,"ctpwrapper/include"))
-header_dir.append(os.path.join(project_dir,"ctpwrapper"))
+header_dir = os.path.join(ctp_dir, "header")
 lib_dir = None
 package_data = ["*.xml", "*.dtd"]
 extra_link_args = None
@@ -62,7 +60,7 @@ copy_tree(lib_dir, project_dir)
 
 common_args = {
     "cython_include_dirs": [cython_headers],
-    "include_dirs": header_dir,
+    "include_dirs": [header_dir],
     "library_dirs": [lib_dir],
     "language": "c++",
     "extra_compile_args": extra_compile_args,
@@ -71,7 +69,7 @@ common_args = {
 
 ext_modules = [
     Extension(name="ctpwrapper.MdApi",
-              sources=["ctpwrapper/MdApi.pyx","MdSpi.cpp"],
+              sources=["ctpwrapper/MdApi.pyx"],
               libraries=["thostmduserapi"],
               **common_args),
     Extension(name="ctpwrapper.TraderApi",
@@ -84,7 +82,7 @@ setup(
     name="ctpwrapper",
     version=find_version("ctpwrapper", "__init__.py"),
     packages=["ctpwrapper"],
-    include_dirs=header_dir,
+    include_dirs=[header_dir],
     platforms=["win32", "linux"],
     package_dir={"ctpwrapper": "ctpwrapper"},
     package_data={"": package_data},
