@@ -3,7 +3,7 @@
 # cython: nonecheck=True
 # cython: profile=False
 
-from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString
+from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString,PyObject
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
@@ -24,10 +24,9 @@ CThostFtdcReqUserLoginField)
 import ctypes
 
 
-
 cdef class MdSpiWrapper:
 
-    cdef CMdSpi *_spi
+    # cdef CMdSpi *_spi
     # https://github.com/ah-/kafka_arrow/blob/2b5dbfd61e594d505854b1e57aee8b8c2b16bd85/kafka_arrow.pyx
 
     # c++ must call python self fu
@@ -115,24 +114,35 @@ cdef class MdApiWrapper:
 
     def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
         pass
-    
+
     @staticmethod
     def GetApiVersion():
-        return PyBytes_AsString(CMdApi.GetApiVersion())
-
+        return CMdApi.GetApiVersion()
 
     def Init(self):
-        return self._api.Init()
+        if self._api is not NULL:
+            self._api.Init()
 
     def Join(self):
-        return self._api.Join()
+        if self._api is not NULL:
+            self._api.Join()
+
+    def RegisterSpi(self, spi):
+        # todo fix this problems
+        pass
+
+        # cdef PyObject p_spi
+        # p_spi = spi
+        #
+        # self._api.RegisterSpi(spi)
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
         """
         用户登录请求
         :return:
         """
-        self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>(ctypes.addressof(pReqUserLoginField)),nRequestID)
+        if self._api is not NULL:
+            self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>(ctypes.addressof(pReqUserLoginField)),nRequestID)
 
 
     def ReqUserLogout(self, pUserLogout, nRequestID):
@@ -140,7 +150,8 @@ cdef class MdApiWrapper:
         登出请求
         :return:
         """
-        self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>(ctypes.addressof(pUserLogout)),nRequestID)
+        if self._api is not NULL:
+            self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>(ctypes.addressof(pUserLogout)),nRequestID)
 
 
     def GetTradingDay(self):
@@ -150,9 +161,10 @@ cdef class MdApiWrapper:
         @remark 只有登录成功后,才能得到正确的交易日
         :return:
         """
-        cdef const_char *result
-        result = self._api.GetTradingDay()
-        return result
+        if self._api is not NULL:
+            cdef const_char *result
+            result = self._api.GetTradingDay()
+            return result
 
     def RegisterFront(self, char *pszFrontAddress):
         """
@@ -162,7 +174,8 @@ cdef class MdApiWrapper:
         @remark “tcp”代表传输协议，“127.0.0.1”代表服务器地址。”17001”代表服务器端口号。
         :return:
         """
-        self._api.RegisterNameServer(pszFrontAddress)
+        if self._api is not NULL:
+            self._api.RegisterNameServer(pszFrontAddress)
 
     def RegisterNameServer(self,char *pszNsAddress):
         """
@@ -173,7 +186,8 @@ cdef class MdApiWrapper:
         @remark RegisterNameServer优先于RegisterFront
         :return:
         """
-        self._api.RegisterNameServer(pszNsAddress)
+        if self._api is not NULL:
+            self._api.RegisterNameServer(pszNsAddress)
 
 
     def RegisterFensUserInfo(self, pFensUserInfo):
@@ -182,7 +196,8 @@ cdef class MdApiWrapper:
         @param pFensUserInfo：用户信息。
         :return:
         """
-        self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *><size_t>(ctypes.addressof(pFensUserInfo)))
+        if self._api is not NULL:
+            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *><size_t>(ctypes.addressof(pFensUserInfo)))
 
 
     def SubscribeMarketData(self, pInstrumentID):
@@ -197,20 +212,21 @@ cdef class MdApiWrapper:
 
         :return:
         """
-        cdef int count
-        cdef int result
-        cdef char **InstrumentIDs
+        if self._api is not NULL:
+            cdef int count
+            cdef int result
+            cdef char **InstrumentIDs
 
-        count = len(pInstrumentID)
-        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+            count = len(pInstrumentID)
+            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
-        try:
-            for i from 0<= i <count:
-                InstrumentIDs[i] = pInstrumentID[i]
-            result = self._api.SubscribeMarketData(InstrumentIDs,count)
-        finally:
-            free(InstrumentIDs)
-        return result
+            try:
+                for i from 0<= i <count:
+                    InstrumentIDs[i] = pInstrumentID[i]
+                result = self._api.SubscribeMarketData(InstrumentIDs,count)
+            finally:
+                free(InstrumentIDs)
+            return result
 
     def UnSubscribeMarketData(self, pInstrumentID):
         """
@@ -219,20 +235,21 @@ cdef class MdApiWrapper:
         @param nCount 要订阅/退订行情的合约个数
         :return:
         """
-        cdef int count
-        cdef int result
-        cdef char **InstrumentIDs
+        if self._api is not NULL:
+            cdef int count
+            cdef int result
+            cdef char **InstrumentIDs
 
-        count = len(pInstrumentID)
-        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+            count = len(pInstrumentID)
+            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
-        try:
-            for i from 0<= i <count:
-                InstrumentIDs[i] = pInstrumentID[i]
-            result = self._api.UnSubscribeMarketData(InstrumentIDs,count)
-        finally:
-            free(InstrumentIDs)
-        return result
+            try:
+                for i from 0<= i <count:
+                    InstrumentIDs[i] = pInstrumentID[i]
+                result = self._api.UnSubscribeMarketData(InstrumentIDs,count)
+            finally:
+                free(InstrumentIDs)
+            return result
 
     def SubscribeForQuoteRsp(self, pInstrumentID):
         """
@@ -241,19 +258,20 @@ cdef class MdApiWrapper:
 
         :return:
         """
-        cdef int count
-        cdef int result
-        cdef char **InstrumentIDs
-        count = len(pInstrumentID)
-        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+        if self._api is not NULL:
+            cdef int count
+            cdef int result
+            cdef char **InstrumentIDs
+            count = len(pInstrumentID)
+            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
-        try:
-            for i from 0<= i <count:
-                InstrumentIDs[i] = pInstrumentID[i]
-            result = self._api.SubscribeForQuoteRsp(InstrumentIDs,count)
-        finally:
-            free(InstrumentIDs)
-        return result
+            try:
+                for i from 0<= i <count:
+                    InstrumentIDs[i] = pInstrumentID[i]
+                result = self._api.SubscribeForQuoteRsp(InstrumentIDs,count)
+            finally:
+                free(InstrumentIDs)
+            return result
 
     def UnSubscribeForQuoteRsp(self, pInstrumentID):
         """
@@ -261,18 +279,19 @@ cdef class MdApiWrapper:
         :param pInstrumentID: 合约ID list
         :return:
         """
-        cdef int count
-        cdef int result
-        cdef char **InstrumentIDs
+        if self._api is not NULL:
+            cdef int count
+            cdef int result
+            cdef char **InstrumentIDs
 
-        count = len(pInstrumentID)
-        InstrumentIDs = <char **>malloc(sizeof(char*) *count)
-        try:
-            for i from 0<= i <count:
-                InstrumentIDs[i] = pInstrumentID[i]
+            count = len(pInstrumentID)
+            InstrumentIDs = <char **>malloc(sizeof(char*) *count)
+            try:
+                for i from 0<= i <count:
+                    InstrumentIDs[i] = pInstrumentID[i]
 
-            result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,count)
-        finally:
-            free(InstrumentIDs)
-        return result
+                result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,count)
+            finally:
+                free(InstrumentIDs)
+            return result
 
