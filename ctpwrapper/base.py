@@ -28,7 +28,7 @@ class Base(ctypes.Structure):
         for key, value in self._fields_:
             _value = getattr(self, key)
             if isinstance(_value, bytes):
-                results[key] = _value.decode()
+                results[key] = _value.decode("gbk")
             else:
                 results[key] = _value
         return results
