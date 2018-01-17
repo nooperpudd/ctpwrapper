@@ -46,7 +46,6 @@ class TestStructure(unittest.TestCase):
             ToCurrencyID="4334",
             ExchangeRate=11.0
         )
-        self.assertIs(result_field, field)
         self.assertEqual(result_field, field)
 
     def test_struct_missing_parameter(self):
@@ -79,5 +78,4 @@ class TestStructure(unittest.TestCase):
             ToCurrencyID="4334",
             ExchangeRate=11.0
         )
-        self.assertIs(result_field, field)
         self.assertEqual(result_field, field)
