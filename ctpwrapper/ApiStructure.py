@@ -10,7 +10,7 @@ class DisseminationField(Base):
         ('SequenceNo', ctypes.c_int),
     ]
 
-    def __init__(self, SequenceSeries='', SequenceNo=''):
+    def __init__(self, SequenceSeries=0, SequenceNo=0):
         super(DisseminationField, self).__init__()
         self.SequenceSeries = int(SequenceSeries)
         self.SequenceNo = int(SequenceNo)
@@ -64,7 +64,7 @@ class RspUserLoginField(Base):
         ('INETime', ctypes.c_char * 9),
     ]
 
-    def __init__(self, TradingDay='', LoginTime='', BrokerID='', UserID='', SystemName='', FrontID='', SessionID='',
+    def __init__(self, TradingDay='', LoginTime='', BrokerID='', UserID='', SystemName='', FrontID=0, SessionID=0,
                  MaxOrderRef='', SHFETime='', DCETime='', CZCETime='', FFEXTime='', INETime=''):
         super(RspUserLoginField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
@@ -145,7 +145,7 @@ class AuthenticationInfoField(Base):
         ('IsResult', ctypes.c_int),
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserProductInfo='', AuthInfo='', IsResult=''):
+    def __init__(self, BrokerID='', UserID='', UserProductInfo='', AuthInfo='', IsResult=0):
         super(AuthenticationInfoField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -172,7 +172,7 @@ class TransferHeaderField(Base):
     ]
 
     def __init__(self, Version='', TradeCode='', TradeDate='', TradeTime='', TradeSerial='', FutureID='', BankID='',
-                 BankBrchID='', OperNo='', DeviceID='', RecordNum='', SessionID='', RequestID=''):
+                 BankBrchID='', OperNo='', DeviceID='', RecordNum='', SessionID=0, RequestID=0):
         super(TransferHeaderField, self).__init__()
         self.Version = self._to_bytes(Version)
         self.TradeCode = self._to_bytes(TradeCode)
@@ -199,7 +199,7 @@ class TransferBankToFutureReqField(Base):
         ('CurrencyCode', ctypes.c_char * 4),
     ]
 
-    def __init__(self, FutureAccount='', FuturePwdFlag='', FutureAccPwd='', TradeAmt='', CustFee='', CurrencyCode=''):
+    def __init__(self, FutureAccount='', FuturePwdFlag='', FutureAccPwd='', TradeAmt=0.0, CustFee=0.0, CurrencyCode=''):
         super(TransferBankToFutureReqField, self).__init__()
         self.FutureAccount = self._to_bytes(FutureAccount)
         self.FuturePwdFlag = self._to_bytes(FuturePwdFlag)
@@ -219,7 +219,7 @@ class TransferBankToFutureRspField(Base):
         ('CurrencyCode', ctypes.c_char * 4),
     ]
 
-    def __init__(self, RetCode='', RetInfo='', FutureAccount='', TradeAmt='', CustFee='', CurrencyCode=''):
+    def __init__(self, RetCode='', RetInfo='', FutureAccount='', TradeAmt=0.0, CustFee=0.0, CurrencyCode=''):
         super(TransferBankToFutureRspField, self).__init__()
         self.RetCode = self._to_bytes(RetCode)
         self.RetInfo = self._to_bytes(RetInfo)
@@ -239,7 +239,7 @@ class TransferFutureToBankReqField(Base):
         ('CurrencyCode', ctypes.c_char * 4),
     ]
 
-    def __init__(self, FutureAccount='', FuturePwdFlag='', FutureAccPwd='', TradeAmt='', CustFee='', CurrencyCode=''):
+    def __init__(self, FutureAccount='', FuturePwdFlag='', FutureAccPwd='', TradeAmt=0.0, CustFee=0.0, CurrencyCode=''):
         super(TransferFutureToBankReqField, self).__init__()
         self.FutureAccount = self._to_bytes(FutureAccount)
         self.FuturePwdFlag = self._to_bytes(FuturePwdFlag)
@@ -259,7 +259,7 @@ class TransferFutureToBankRspField(Base):
         ('CurrencyCode', ctypes.c_char * 4),
     ]
 
-    def __init__(self, RetCode='', RetInfo='', FutureAccount='', TradeAmt='', CustFee='', CurrencyCode=''):
+    def __init__(self, RetCode='', RetInfo='', FutureAccount='', TradeAmt=0.0, CustFee=0.0, CurrencyCode=''):
         super(TransferFutureToBankRspField, self).__init__()
         self.RetCode = self._to_bytes(RetCode)
         self.RetInfo = self._to_bytes(RetInfo)
@@ -296,7 +296,8 @@ class TransferQryBankRspField(Base):
         ('CurrencyCode', ctypes.c_char * 4),
     ]
 
-    def __init__(self, RetCode='', RetInfo='', FutureAccount='', TradeAmt='', UseAmt='', FetchAmt='', CurrencyCode=''):
+    def __init__(self, RetCode='', RetInfo='', FutureAccount='', TradeAmt=0.0, UseAmt=0.0, FetchAmt=0.0,
+                 CurrencyCode=''):
         super(TransferQryBankRspField, self).__init__()
         self.RetCode = self._to_bytes(RetCode)
         self.RetInfo = self._to_bytes(RetInfo)
@@ -335,8 +336,8 @@ class TransferQryDetailRspField(Base):
         ('Flag', ctypes.c_char),
     ]
 
-    def __init__(self, TradeDate='', TradeTime='', TradeCode='', FutureSerial='', FutureID='', FutureAccount='',
-                 BankSerial='', BankID='', BankBrchID='', BankAccount='', CertCode='', CurrencyCode='', TxAmount='',
+    def __init__(self, TradeDate='', TradeTime='', TradeCode='', FutureSerial=0, FutureID='', FutureAccount='',
+                 BankSerial=0, BankID='', BankBrchID='', BankAccount='', CertCode='', CurrencyCode='', TxAmount=0.0,
                  Flag=''):
         super(TransferQryDetailRspField, self).__init__()
         self.TradeDate = self._to_bytes(TradeDate)
@@ -361,7 +362,7 @@ class RspInfoField(Base):
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
-    def __init__(self, ErrorID='', ErrorMsg=''):
+    def __init__(self, ErrorID=0, ErrorMsg=''):
         super(RspInfoField, self).__init__()
         self.ErrorID = int(ErrorID)
         self.ErrorMsg = self._to_bytes(ErrorMsg)
@@ -402,10 +403,10 @@ class ProductField(Base):
         ('UnderlyingMultiple', ctypes.c_double),
     ]
 
-    def __init__(self, ProductID='', ProductName='', ExchangeID='', ProductClass='', VolumeMultiple='', PriceTick='',
-                 MaxMarketOrderVolume='', MinMarketOrderVolume='', MaxLimitOrderVolume='', MinLimitOrderVolume='',
+    def __init__(self, ProductID='', ProductName='', ExchangeID='', ProductClass='', VolumeMultiple=0, PriceTick=0.0,
+                 MaxMarketOrderVolume=0, MinMarketOrderVolume=0, MaxLimitOrderVolume=0, MinLimitOrderVolume=0,
                  PositionType='', PositionDateType='', CloseDealType='', TradeCurrencyID='', MortgageFundUseRange='',
-                 ExchangeProductID='', UnderlyingMultiple=''):
+                 ExchangeProductID='', UnderlyingMultiple=0.0):
         super(ProductField, self).__init__()
         self.ProductID = self._to_bytes(ProductID)
         self.ProductName = self._to_bytes(ProductName)
@@ -462,12 +463,12 @@ class InstrumentField(Base):
     ]
 
     def __init__(self, InstrumentID='', ExchangeID='', InstrumentName='', ExchangeInstID='', ProductID='',
-                 ProductClass='', DeliveryYear='', DeliveryMonth='', MaxMarketOrderVolume='', MinMarketOrderVolume='',
-                 MaxLimitOrderVolume='', MinLimitOrderVolume='', VolumeMultiple='', PriceTick='', CreateDate='',
-                 OpenDate='', ExpireDate='', StartDelivDate='', EndDelivDate='', InstLifePhase='', IsTrading='',
-                 PositionType='', PositionDateType='', LongMarginRatio='', ShortMarginRatio='',
-                 MaxMarginSideAlgorithm='', UnderlyingInstrID='', StrikePrice='', OptionsType='', UnderlyingMultiple='',
-                 CombinationType=''):
+                 ProductClass='', DeliveryYear=0, DeliveryMonth=0, MaxMarketOrderVolume=0, MinMarketOrderVolume=0,
+                 MaxLimitOrderVolume=0, MinLimitOrderVolume=0, VolumeMultiple=0, PriceTick=0.0, CreateDate='',
+                 OpenDate='', ExpireDate='', StartDelivDate='', EndDelivDate='', InstLifePhase='', IsTrading=0,
+                 PositionType='', PositionDateType='', LongMarginRatio=0.0, ShortMarginRatio=0.0,
+                 MaxMarginSideAlgorithm='', UnderlyingInstrID='', StrikePrice=0.0, OptionsType='',
+                 UnderlyingMultiple=0.0, CombinationType=''):
         super(InstrumentField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -510,7 +511,7 @@ class BrokerField(Base):
         ('IsActive', ctypes.c_int),
     ]
 
-    def __init__(self, BrokerID='', BrokerAbbr='', BrokerName='', IsActive=''):
+    def __init__(self, BrokerID='', BrokerAbbr='', BrokerName='', IsActive=0):
         super(BrokerField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.BrokerAbbr = self._to_bytes(BrokerAbbr)
@@ -528,7 +529,7 @@ class TraderField(Base):
         ('BrokerID', ctypes.c_char * 11),
     ]
 
-    def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallCount='', BrokerID=''):
+    def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallCount=0, BrokerID=''):
         super(TraderField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.TraderID = self._to_bytes(TraderID)
@@ -556,7 +557,7 @@ class InvestorField(Base):
     ]
 
     def __init__(self, InvestorID='', BrokerID='', InvestorGroupID='', InvestorName='', IdentifiedCardType='',
-                 IdentifiedCardNo='', IsActive='', Telephone='', Address='', OpenDate='', Mobile='', CommModelID='',
+                 IdentifiedCardNo='', IsActive=0, Telephone='', Address='', OpenDate='', Mobile='', CommModelID='',
                  MarginModelID=''):
         super(InvestorField, self).__init__()
         self.InvestorID = self._to_bytes(InvestorID)
@@ -584,7 +585,7 @@ class TradingCodeField(Base):
         ('ClientIDType', ctypes.c_char),
     ]
 
-    def __init__(self, InvestorID='', BrokerID='', ExchangeID='', ClientID='', IsActive='', ClientIDType=''):
+    def __init__(self, InvestorID='', BrokerID='', ExchangeID='', ClientID='', IsActive=0, ClientIDType=''):
         super(TradingCodeField, self).__init__()
         self.InvestorID = self._to_bytes(InvestorID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -602,7 +603,7 @@ class PartBrokerField(Base):
         ('IsActive', ctypes.c_int),
     ]
 
-    def __init__(self, BrokerID='', ExchangeID='', ParticipantID='', IsActive=''):
+    def __init__(self, BrokerID='', ExchangeID='', ParticipantID='', IsActive=0):
         super(PartBrokerField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -618,7 +619,7 @@ class SuperUserField(Base):
         ('IsActive', ctypes.c_int),
     ]
 
-    def __init__(self, UserID='', UserName='', Password='', IsActive=''):
+    def __init__(self, UserID='', UserName='', Password='', IsActive=0):
         super(SuperUserField, self).__init__()
         self.UserID = self._to_bytes(UserID)
         self.UserName = self._to_bytes(UserName)
@@ -702,15 +703,16 @@ class TradingAccountField(Base):
         ('SpecProductExchangeMargin', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', AccountID='', PreMortgage='', PreCredit='', PreDeposit='', PreBalance='',
-                 PreMargin='', InterestBase='', Interest='', Deposit='', Withdraw='', FrozenMargin='', FrozenCash='',
-                 FrozenCommission='', CurrMargin='', CashIn='', Commission='', CloseProfit='', PositionProfit='',
-                 Balance='', Available='', WithdrawQuota='', Reserve='', TradingDay='', SettlementID='', Credit='',
-                 Mortgage='', ExchangeMargin='', DeliveryMargin='', ExchangeDeliveryMargin='', ReserveBalance='',
-                 CurrencyID='', PreFundMortgageIn='', PreFundMortgageOut='', FundMortgageIn='', FundMortgageOut='',
-                 FundMortgageAvailable='', MortgageableFund='', SpecProductMargin='', SpecProductFrozenMargin='',
-                 SpecProductCommission='', SpecProductFrozenCommission='', SpecProductPositionProfit='',
-                 SpecProductCloseProfit='', SpecProductPositionProfitByAlg='', SpecProductExchangeMargin=''):
+    def __init__(self, BrokerID='', AccountID='', PreMortgage=0.0, PreCredit=0.0, PreDeposit=0.0, PreBalance=0.0,
+                 PreMargin=0.0, InterestBase=0.0, Interest=0.0, Deposit=0.0, Withdraw=0.0, FrozenMargin=0.0,
+                 FrozenCash=0.0, FrozenCommission=0.0, CurrMargin=0.0, CashIn=0.0, Commission=0.0, CloseProfit=0.0,
+                 PositionProfit=0.0, Balance=0.0, Available=0.0, WithdrawQuota=0.0, Reserve=0.0, TradingDay='',
+                 SettlementID=0, Credit=0.0, Mortgage=0.0, ExchangeMargin=0.0, DeliveryMargin=0.0,
+                 ExchangeDeliveryMargin=0.0, ReserveBalance=0.0, CurrencyID='', PreFundMortgageIn=0.0,
+                 PreFundMortgageOut=0.0, FundMortgageIn=0.0, FundMortgageOut=0.0, FundMortgageAvailable=0.0,
+                 MortgageableFund=0.0, SpecProductMargin=0.0, SpecProductFrozenMargin=0.0, SpecProductCommission=0.0,
+                 SpecProductFrozenCommission=0.0, SpecProductPositionProfit=0.0, SpecProductCloseProfit=0.0,
+                 SpecProductPositionProfitByAlg=0.0, SpecProductExchangeMargin=0.0):
         super(TradingAccountField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.AccountID = self._to_bytes(AccountID)
@@ -808,13 +810,13 @@ class InvestorPositionField(Base):
     ]
 
     def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection='', HedgeFlag='', PositionDate='',
-                 YdPosition='', Position='', LongFrozen='', ShortFrozen='', LongFrozenAmount='', ShortFrozenAmount='',
-                 OpenVolume='', CloseVolume='', OpenAmount='', CloseAmount='', PositionCost='', PreMargin='',
-                 UseMargin='', FrozenMargin='', FrozenCash='', FrozenCommission='', CashIn='', Commission='',
-                 CloseProfit='', PositionProfit='', PreSettlementPrice='', SettlementPrice='', TradingDay='',
-                 SettlementID='', OpenCost='', ExchangeMargin='', CombPosition='', CombLongFrozen='',
-                 CombShortFrozen='', CloseProfitByDate='', CloseProfitByTrade='', TodayPosition='',
-                 MarginRateByMoney='', MarginRateByVolume='', StrikeFrozen='', StrikeFrozenAmount='', AbandonFrozen=''):
+                 YdPosition=0, Position=0, LongFrozen=0, ShortFrozen=0, LongFrozenAmount=0.0, ShortFrozenAmount=0.0,
+                 OpenVolume=0, CloseVolume=0, OpenAmount=0.0, CloseAmount=0.0, PositionCost=0.0, PreMargin=0.0,
+                 UseMargin=0.0, FrozenMargin=0.0, FrozenCash=0.0, FrozenCommission=0.0, CashIn=0.0, Commission=0.0,
+                 CloseProfit=0.0, PositionProfit=0.0, PreSettlementPrice=0.0, SettlementPrice=0.0, TradingDay='',
+                 SettlementID=0, OpenCost=0.0, ExchangeMargin=0.0, CombPosition=0, CombLongFrozen=0, CombShortFrozen=0,
+                 CloseProfitByDate=0.0, CloseProfitByTrade=0.0, TodayPosition=0, MarginRateByMoney=0.0,
+                 MarginRateByVolume=0.0, StrikeFrozen=0, StrikeFrozenAmount=0.0, AbandonFrozen=0):
         super(InvestorPositionField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -876,8 +878,8 @@ class InstrumentMarginRateField(Base):
     ]
 
     def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='',
-                 LongMarginRatioByMoney='', LongMarginRatioByVolume='', ShortMarginRatioByMoney='',
-                 ShortMarginRatioByVolume='', IsRelative=''):
+                 LongMarginRatioByMoney=0.0, LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0,
+                 ShortMarginRatioByVolume=0.0, IsRelative=0):
         super(InstrumentMarginRateField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -905,9 +907,9 @@ class InstrumentCommissionRateField(Base):
         ('CloseTodayRatioByVolume', ctypes.c_double),
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney='',
-                 OpenRatioByVolume='', CloseRatioByMoney='', CloseRatioByVolume='', CloseTodayRatioByMoney='',
-                 CloseTodayRatioByVolume=''):
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
+                 OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0, CloseTodayRatioByMoney=0.0,
+                 CloseTodayRatioByVolume=0.0):
         super(InstrumentCommissionRateField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -969,14 +971,14 @@ class DepthMarketDataField(Base):
         ('ActionDay', ctypes.c_char * 9),
     ]
 
-    def __init__(self, TradingDay='', InstrumentID='', ExchangeID='', ExchangeInstID='', LastPrice='',
-                 PreSettlementPrice='', PreClosePrice='', PreOpenInterest='', OpenPrice='', HighestPrice='',
-                 LowestPrice='', Volume='', Turnover='', OpenInterest='', ClosePrice='', SettlementPrice='',
-                 UpperLimitPrice='', LowerLimitPrice='', PreDelta='', CurrDelta='', UpdateTime='', UpdateMillisec='',
-                 BidPrice1='', BidVolume1='', AskPrice1='', AskVolume1='', BidPrice2='', BidVolume2='', AskPrice2='',
-                 AskVolume2='', BidPrice3='', BidVolume3='', AskPrice3='', AskVolume3='', BidPrice4='', BidVolume4='',
-                 AskPrice4='', AskVolume4='', BidPrice5='', BidVolume5='', AskPrice5='', AskVolume5='', AveragePrice='',
-                 ActionDay=''):
+    def __init__(self, TradingDay='', InstrumentID='', ExchangeID='', ExchangeInstID='', LastPrice=0.0,
+                 PreSettlementPrice=0.0, PreClosePrice=0.0, PreOpenInterest=0.0, OpenPrice=0.0, HighestPrice=0.0,
+                 LowestPrice=0.0, Volume=0, Turnover=0.0, OpenInterest=0.0, ClosePrice=0.0, SettlementPrice=0.0,
+                 UpperLimitPrice=0.0, LowerLimitPrice=0.0, PreDelta=0.0, CurrDelta=0.0, UpdateTime='', UpdateMillisec=0,
+                 BidPrice1=0.0, BidVolume1=0, AskPrice1=0.0, AskVolume1=0, BidPrice2=0.0, BidVolume2=0, AskPrice2=0.0,
+                 AskVolume2=0, BidPrice3=0.0, BidVolume3=0, AskPrice3=0.0, AskVolume3=0, BidPrice4=0.0, BidVolume4=0,
+                 AskPrice4=0.0, AskVolume4=0, BidPrice5=0.0, BidVolume5=0, AskPrice5=0.0, AskVolume5=0,
+                 AveragePrice=0.0, ActionDay=''):
         super(DepthMarketDataField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.InstrumentID = self._to_bytes(InstrumentID)
@@ -1052,7 +1054,7 @@ class BrokerUserField(Base):
         ('IsUsingOTP', ctypes.c_int),
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserName='', UserType='', IsActive='', IsUsingOTP=''):
+    def __init__(self, BrokerID='', UserID='', UserName='', UserType='', IsActive=0, IsUsingOTP=0):
         super(BrokerUserField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -1113,7 +1115,7 @@ class TraderOfferField(Base):
         ('MaxOrderMessageReference', ctypes.c_char * 7),
     ]
 
-    def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallID='', OrderLocalID='',
+    def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallID=0, OrderLocalID='',
                  TraderConnectStatus='', ConnectRequestDate='', ConnectRequestTime='', LastReportDate='',
                  LastReportTime='', ConnectDate='', ConnectTime='', StartDate='', StartTime='', TradingDay='',
                  BrokerID='', MaxTradeID='', MaxOrderMessageReference=''):
@@ -1149,7 +1151,7 @@ class SettlementInfoField(Base):
         ('Content', ctypes.c_char * 501),
     ]
 
-    def __init__(self, TradingDay='', SettlementID='', BrokerID='', InvestorID='', SequenceNo='', Content=''):
+    def __init__(self, TradingDay='', SettlementID=0, BrokerID='', InvestorID='', SequenceNo=0, Content=''):
         super(SettlementInfoField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.SettlementID = int(SettlementID)
@@ -1174,8 +1176,8 @@ class InstrumentMarginRateAdjustField(Base):
     ]
 
     def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='',
-                 LongMarginRatioByMoney='', LongMarginRatioByVolume='', ShortMarginRatioByMoney='',
-                 ShortMarginRatioByVolume='', IsRelative=''):
+                 LongMarginRatioByMoney=0.0, LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0,
+                 ShortMarginRatioByVolume=0.0, IsRelative=0):
         super(InstrumentMarginRateAdjustField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -1200,8 +1202,8 @@ class ExchangeMarginRateField(Base):
         ('ShortMarginRatioByVolume', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag='', LongMarginRatioByMoney='',
-                 LongMarginRatioByVolume='', ShortMarginRatioByMoney='', ShortMarginRatioByVolume=''):
+    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag='', LongMarginRatioByMoney=0.0,
+                 LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0, ShortMarginRatioByVolume=0.0):
         super(ExchangeMarginRateField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InstrumentID = self._to_bytes(InstrumentID)
@@ -1231,11 +1233,11 @@ class ExchangeMarginRateAdjustField(Base):
         ('NoShortMarginRatioByVolume', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag='', LongMarginRatioByMoney='',
-                 LongMarginRatioByVolume='', ShortMarginRatioByMoney='', ShortMarginRatioByVolume='',
-                 ExchLongMarginRatioByMoney='', ExchLongMarginRatioByVolume='', ExchShortMarginRatioByMoney='',
-                 ExchShortMarginRatioByVolume='', NoLongMarginRatioByMoney='', NoLongMarginRatioByVolume='',
-                 NoShortMarginRatioByMoney='', NoShortMarginRatioByVolume=''):
+    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag='', LongMarginRatioByMoney=0.0,
+                 LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0, ShortMarginRatioByVolume=0.0,
+                 ExchLongMarginRatioByMoney=0.0, ExchLongMarginRatioByVolume=0.0, ExchShortMarginRatioByMoney=0.0,
+                 ExchShortMarginRatioByVolume=0.0, NoLongMarginRatioByMoney=0.0, NoLongMarginRatioByVolume=0.0,
+                 NoShortMarginRatioByMoney=0.0, NoShortMarginRatioByVolume=0.0):
         super(ExchangeMarginRateAdjustField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InstrumentID = self._to_bytes(InstrumentID)
@@ -1263,7 +1265,7 @@ class ExchangeRateField(Base):
         ('ExchangeRate', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', FromCurrencyID='', FromCurrencyUnit='', ToCurrencyID='', ExchangeRate=''):
+    def __init__(self, BrokerID='', FromCurrencyID='', FromCurrencyUnit=0.0, ToCurrencyID='', ExchangeRate=0.0):
         super(ExchangeRateField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.FromCurrencyID = self._to_bytes(FromCurrencyID)
@@ -1278,7 +1280,7 @@ class SettlementRefField(Base):
         ('SettlementID', ctypes.c_int),
     ]
 
-    def __init__(self, TradingDay='', SettlementID=''):
+    def __init__(self, TradingDay='', SettlementID=0):
         super(SettlementRefField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.SettlementID = int(SettlementID)
@@ -1292,7 +1294,7 @@ class CurrentTimeField(Base):
         ('ActionDay', ctypes.c_char * 9),
     ]
 
-    def __init__(self, CurrDate='', CurrTime='', CurrMillisec='', ActionDay=''):
+    def __init__(self, CurrDate='', CurrTime='', CurrMillisec=0, ActionDay=''):
         super(CurrentTimeField, self).__init__()
         self.CurrDate = self._to_bytes(CurrDate)
         self.CurrTime = self._to_bytes(CurrTime)
@@ -1307,7 +1309,7 @@ class CommPhaseField(Base):
         ('SystemID', ctypes.c_char * 21),
     ]
 
-    def __init__(self, TradingDay='', CommPhaseNo='', SystemID=''):
+    def __init__(self, TradingDay='', CommPhaseNo=0, SystemID=''):
         super(CommPhaseField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.CommPhaseNo = int(CommPhaseNo)
@@ -1340,10 +1342,10 @@ class LoginInfoField(Base):
         ('LoginRemark', ctypes.c_char * 36),
     ]
 
-    def __init__(self, FrontID='', SessionID='', BrokerID='', UserID='', LoginDate='', LoginTime='', IPAddress='',
+    def __init__(self, FrontID=0, SessionID=0, BrokerID='', UserID='', LoginDate='', LoginTime='', IPAddress='',
                  UserProductInfo='', InterfaceProductInfo='', ProtocolInfo='', SystemName='', Password='',
                  MaxOrderRef='', SHFETime='', DCETime='', CZCETime='', FFEXTime='', MacAddress='', OneTimePassword='',
-                 INETime='', IsQryControl='', LoginRemark=''):
+                 INETime='', IsQryControl=0, LoginRemark=''):
         super(LoginInfoField, self).__init__()
         self.FrontID = int(FrontID)
         self.SessionID = int(SessionID)
@@ -1376,7 +1378,7 @@ class LogoutAllField(Base):
         ('SystemName', ctypes.c_char * 41),
     ]
 
-    def __init__(self, FrontID='', SessionID='', SystemName=''):
+    def __init__(self, FrontID=0, SessionID=0, SystemName=''):
         super(LogoutAllField, self).__init__()
         self.FrontID = int(FrontID)
         self.SessionID = int(SessionID)
@@ -1391,7 +1393,7 @@ class FrontStatusField(Base):
         ('IsActive', ctypes.c_int),
     ]
 
-    def __init__(self, FrontID='', LastReportDate='', LastReportTime='', IsActive=''):
+    def __init__(self, FrontID=0, LastReportDate='', LastReportTime='', IsActive=0):
         super(FrontStatusField, self).__init__()
         self.FrontID = int(FrontID)
         self.LastReportDate = self._to_bytes(LastReportDate)
@@ -1450,11 +1452,10 @@ class InputOrderField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType='',
-                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice='', VolumeTotalOriginal='',
-                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume='', ContingentCondition='', StopPrice='',
-                 ForceCloseReason='', IsAutoSuspend='', BusinessUnit='', RequestID='', UserForceClose='',
-                 IsSwapOrder='', ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='', ClientID='', IPAddress='',
-                 MacAddress=''):
+                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
+                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0, ContingentCondition='', StopPrice=0.0,
+                 ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='', RequestID=0, UserForceClose=0, IsSwapOrder=0,
+                 ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='', ClientID='', IPAddress='', MacAddress=''):
         super(InputOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -1556,15 +1557,15 @@ class OrderField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType='',
-                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice='', VolumeTotalOriginal='',
-                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume='', ContingentCondition='', StopPrice='',
-                 ForceCloseReason='', IsAutoSuspend='', BusinessUnit='', RequestID='', OrderLocalID='', ExchangeID='',
-                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID='', OrderSubmitStatus='',
-                 NotifySequence='', TradingDay='', SettlementID='', OrderSysID='', OrderSource='', OrderStatus='',
-                 OrderType='', VolumeTraded='', VolumeTotal='', InsertDate='', InsertTime='', ActiveTime='',
-                 SuspendTime='', UpdateTime='', CancelTime='', ActiveTraderID='', ClearingPartID='', SequenceNo='',
-                 FrontID='', SessionID='', UserProductInfo='', StatusMsg='', UserForceClose='', ActiveUserID='',
-                 BrokerOrderSeq='', RelativeOrderSysID='', ZCETotalTradedVolume='', IsSwapOrder='', BranchID='',
+                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
+                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0, ContingentCondition='', StopPrice=0.0,
+                 ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='', RequestID=0, OrderLocalID='', ExchangeID='',
+                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, OrderSubmitStatus='',
+                 NotifySequence=0, TradingDay='', SettlementID=0, OrderSysID='', OrderSource='', OrderStatus='',
+                 OrderType='', VolumeTraded=0, VolumeTotal=0, InsertDate='', InsertTime='', ActiveTime='',
+                 SuspendTime='', UpdateTime='', CancelTime='', ActiveTraderID='', ClearingPartID='', SequenceNo=0,
+                 FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='', UserForceClose=0, ActiveUserID='',
+                 BrokerOrderSeq=0, RelativeOrderSysID='', ZCETotalTradedVolume=0, IsSwapOrder=0, BranchID='',
                  InvestUnitID='', AccountID='', CurrencyID='', IPAddress='', MacAddress=''):
         super(OrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -1681,14 +1682,14 @@ class ExchangeOrderField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, OrderPriceType='', Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice='',
-                 VolumeTotalOriginal='', TimeCondition='', GTDDate='', VolumeCondition='', MinVolume='',
-                 ContingentCondition='', StopPrice='', ForceCloseReason='', IsAutoSuspend='', BusinessUnit='',
-                 RequestID='', OrderLocalID='', ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='',
-                 TraderID='', InstallID='', OrderSubmitStatus='', NotifySequence='', TradingDay='', SettlementID='',
-                 OrderSysID='', OrderSource='', OrderStatus='', OrderType='', VolumeTraded='', VolumeTotal='',
+    def __init__(self, OrderPriceType='', Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0,
+                 VolumeTotalOriginal=0, TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0,
+                 ContingentCondition='', StopPrice=0.0, ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='',
+                 RequestID=0, OrderLocalID='', ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='',
+                 TraderID='', InstallID=0, OrderSubmitStatus='', NotifySequence=0, TradingDay='', SettlementID=0,
+                 OrderSysID='', OrderSource='', OrderStatus='', OrderType='', VolumeTraded=0, VolumeTotal=0,
                  InsertDate='', InsertTime='', ActiveTime='', SuspendTime='', UpdateTime='', CancelTime='',
-                 ActiveTraderID='', ClearingPartID='', SequenceNo='', BranchID='', IPAddress='', MacAddress=''):
+                 ActiveTraderID='', ClearingPartID='', SequenceNo=0, BranchID='', IPAddress='', MacAddress=''):
         super(ExchangeOrderField, self).__init__()
         self.OrderPriceType = self._to_bytes(OrderPriceType)
         self.Direction = self._to_bytes(Direction)
@@ -1748,7 +1749,7 @@ class ExchangeOrderInsertErrorField(Base):
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
-    def __init__(self, ExchangeID='', ParticipantID='', TraderID='', InstallID='', OrderLocalID='', ErrorID='',
+    def __init__(self, ExchangeID='', ParticipantID='', TraderID='', InstallID=0, OrderLocalID='', ErrorID=0,
                  ErrorMsg=''):
         super(ExchangeOrderInsertErrorField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -1781,8 +1782,8 @@ class InputOrderActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', OrderActionRef='', OrderRef='', RequestID='', FrontID='',
-                 SessionID='', ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice='', VolumeChange='', UserID='',
+    def __init__(self, BrokerID='', InvestorID='', OrderActionRef=0, OrderRef='', RequestID=0, FrontID=0, SessionID=0,
+                 ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice=0.0, VolumeChange=0, UserID='',
                  InstrumentID='', InvestUnitID='', IPAddress='', MacAddress=''):
         super(InputOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -1837,11 +1838,11 @@ class OrderActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', OrderActionRef='', OrderRef='', RequestID='', FrontID='',
-                 SessionID='', ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice='', VolumeChange='',
-                 ActionDate='', ActionTime='', TraderID='', InstallID='', OrderLocalID='', ActionLocalID='',
-                 ParticipantID='', ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', StatusMsg='',
-                 InstrumentID='', BranchID='', InvestUnitID='', IPAddress='', MacAddress=''):
+    def __init__(self, BrokerID='', InvestorID='', OrderActionRef=0, OrderRef='', RequestID=0, FrontID=0, SessionID=0,
+                 ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice=0.0, VolumeChange=0, ActionDate='',
+                 ActionTime='', TraderID='', InstallID=0, OrderLocalID='', ActionLocalID='', ParticipantID='',
+                 ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', StatusMsg='', InstrumentID='',
+                 BranchID='', InvestUnitID='', IPAddress='', MacAddress=''):
         super(OrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -1897,8 +1898,8 @@ class ExchangeOrderActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice='', VolumeChange='', ActionDate='',
-                 ActionTime='', TraderID='', InstallID='', OrderLocalID='', ActionLocalID='', ParticipantID='',
+    def __init__(self, ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice=0.0, VolumeChange=0, ActionDate='',
+                 ActionTime='', TraderID='', InstallID=0, OrderLocalID='', ActionLocalID='', ParticipantID='',
                  ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', BranchID='', IPAddress='',
                  MacAddress=''):
         super(ExchangeOrderActionField, self).__init__()
@@ -1935,8 +1936,8 @@ class ExchangeOrderActionErrorField(Base):
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
-    def __init__(self, ExchangeID='', OrderSysID='', TraderID='', InstallID='', OrderLocalID='', ActionLocalID='',
-                 ErrorID='', ErrorMsg=''):
+    def __init__(self, ExchangeID='', OrderSysID='', TraderID='', InstallID=0, OrderLocalID='', ActionLocalID='',
+                 ErrorID=0, ErrorMsg=''):
         super(ExchangeOrderActionErrorField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.OrderSysID = self._to_bytes(OrderSysID)
@@ -1975,9 +1976,9 @@ class ExchangeTradeField(Base):
     ]
 
     def __init__(self, ExchangeID='', TradeID='', Direction='', OrderSysID='', ParticipantID='', ClientID='',
-                 TradingRole='', ExchangeInstID='', OffsetFlag='', HedgeFlag='', Price='', Volume='', TradeDate='',
+                 TradingRole='', ExchangeInstID='', OffsetFlag='', HedgeFlag='', Price=0.0, Volume=0, TradeDate='',
                  TradeTime='', TradeType='', PriceSource='', TraderID='', OrderLocalID='', ClearingPartID='',
-                 BusinessUnit='', SequenceNo='', TradeSource=''):
+                 BusinessUnit='', SequenceNo=0, TradeSource=''):
         super(ExchangeTradeField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.TradeID = self._to_bytes(TradeID)
@@ -2039,9 +2040,9 @@ class TradeField(Base):
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', ExchangeID='', TradeID='',
                  Direction='', OrderSysID='', ParticipantID='', ClientID='', TradingRole='', ExchangeInstID='',
-                 OffsetFlag='', HedgeFlag='', Price='', Volume='', TradeDate='', TradeTime='', TradeType='',
-                 PriceSource='', TraderID='', OrderLocalID='', ClearingPartID='', BusinessUnit='', SequenceNo='',
-                 TradingDay='', SettlementID='', BrokerOrderSeq='', TradeSource=''):
+                 OffsetFlag='', HedgeFlag='', Price=0.0, Volume=0, TradeDate='', TradeTime='', TradeType='',
+                 PriceSource='', TraderID='', OrderLocalID='', ClearingPartID='', BusinessUnit='', SequenceNo=0,
+                 TradingDay='', SettlementID=0, BrokerOrderSeq=0, TradeSource=''):
         super(TradeField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -2091,7 +2092,7 @@ class UserSessionField(Base):
         ('LoginRemark', ctypes.c_char * 36),
     ]
 
-    def __init__(self, FrontID='', SessionID='', BrokerID='', UserID='', LoginDate='', LoginTime='', IPAddress='',
+    def __init__(self, FrontID=0, SessionID=0, BrokerID='', UserID='', LoginDate='', LoginTime='', IPAddress='',
                  UserProductInfo='', InterfaceProductInfo='', ProtocolInfo='', MacAddress='', LoginRemark=''):
         super(UserSessionField, self).__init__()
         self.FrontID = int(FrontID)
@@ -2120,7 +2121,7 @@ class QueryMaxOrderVolumeField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', Direction='', OffsetFlag='', HedgeFlag='',
-                 MaxVolume=''):
+                 MaxVolume=0):
         super(QueryMaxOrderVolumeField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -2157,7 +2158,7 @@ class SyncDepositField(Base):
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
-    def __init__(self, DepositSeqNo='', BrokerID='', InvestorID='', Deposit='', IsForce='', CurrencyID=''):
+    def __init__(self, DepositSeqNo='', BrokerID='', InvestorID='', Deposit=0.0, IsForce=0, CurrencyID=''):
         super(SyncDepositField, self).__init__()
         self.DepositSeqNo = self._to_bytes(DepositSeqNo)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -2177,7 +2178,7 @@ class SyncFundMortgageField(Base):
         ('ToCurrencyID', ctypes.c_char * 4),
     ]
 
-    def __init__(self, MortgageSeqNo='', BrokerID='', InvestorID='', FromCurrencyID='', MortgageAmount='',
+    def __init__(self, MortgageSeqNo='', BrokerID='', InvestorID='', FromCurrencyID='', MortgageAmount=0.0,
                  ToCurrencyID=''):
         super(SyncFundMortgageField, self).__init__()
         self.MortgageSeqNo = self._to_bytes(MortgageSeqNo)
@@ -2216,7 +2217,7 @@ class SyncingInvestorField(Base):
     ]
 
     def __init__(self, InvestorID='', BrokerID='', InvestorGroupID='', InvestorName='', IdentifiedCardType='',
-                 IdentifiedCardNo='', IsActive='', Telephone='', Address='', OpenDate='', Mobile='', CommModelID='',
+                 IdentifiedCardNo='', IsActive=0, Telephone='', Address='', OpenDate='', Mobile='', CommModelID='',
                  MarginModelID=''):
         super(SyncingInvestorField, self).__init__()
         self.InvestorID = self._to_bytes(InvestorID)
@@ -2244,7 +2245,7 @@ class SyncingTradingCodeField(Base):
         ('ClientIDType', ctypes.c_char),
     ]
 
-    def __init__(self, InvestorID='', BrokerID='', ExchangeID='', ClientID='', IsActive='', ClientIDType=''):
+    def __init__(self, InvestorID='', BrokerID='', ExchangeID='', ClientID='', IsActive=0, ClientIDType=''):
         super(SyncingTradingCodeField, self).__init__()
         self.InvestorID = self._to_bytes(InvestorID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -2318,15 +2319,16 @@ class SyncingTradingAccountField(Base):
         ('SpecProductExchangeMargin', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', AccountID='', PreMortgage='', PreCredit='', PreDeposit='', PreBalance='',
-                 PreMargin='', InterestBase='', Interest='', Deposit='', Withdraw='', FrozenMargin='', FrozenCash='',
-                 FrozenCommission='', CurrMargin='', CashIn='', Commission='', CloseProfit='', PositionProfit='',
-                 Balance='', Available='', WithdrawQuota='', Reserve='', TradingDay='', SettlementID='', Credit='',
-                 Mortgage='', ExchangeMargin='', DeliveryMargin='', ExchangeDeliveryMargin='', ReserveBalance='',
-                 CurrencyID='', PreFundMortgageIn='', PreFundMortgageOut='', FundMortgageIn='', FundMortgageOut='',
-                 FundMortgageAvailable='', MortgageableFund='', SpecProductMargin='', SpecProductFrozenMargin='',
-                 SpecProductCommission='', SpecProductFrozenCommission='', SpecProductPositionProfit='',
-                 SpecProductCloseProfit='', SpecProductPositionProfitByAlg='', SpecProductExchangeMargin=''):
+    def __init__(self, BrokerID='', AccountID='', PreMortgage=0.0, PreCredit=0.0, PreDeposit=0.0, PreBalance=0.0,
+                 PreMargin=0.0, InterestBase=0.0, Interest=0.0, Deposit=0.0, Withdraw=0.0, FrozenMargin=0.0,
+                 FrozenCash=0.0, FrozenCommission=0.0, CurrMargin=0.0, CashIn=0.0, Commission=0.0, CloseProfit=0.0,
+                 PositionProfit=0.0, Balance=0.0, Available=0.0, WithdrawQuota=0.0, Reserve=0.0, TradingDay='',
+                 SettlementID=0, Credit=0.0, Mortgage=0.0, ExchangeMargin=0.0, DeliveryMargin=0.0,
+                 ExchangeDeliveryMargin=0.0, ReserveBalance=0.0, CurrencyID='', PreFundMortgageIn=0.0,
+                 PreFundMortgageOut=0.0, FundMortgageIn=0.0, FundMortgageOut=0.0, FundMortgageAvailable=0.0,
+                 MortgageableFund=0.0, SpecProductMargin=0.0, SpecProductFrozenMargin=0.0, SpecProductCommission=0.0,
+                 SpecProductFrozenCommission=0.0, SpecProductPositionProfit=0.0, SpecProductCloseProfit=0.0,
+                 SpecProductPositionProfitByAlg=0.0, SpecProductExchangeMargin=0.0):
         super(SyncingTradingAccountField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.AccountID = self._to_bytes(AccountID)
@@ -2424,13 +2426,13 @@ class SyncingInvestorPositionField(Base):
     ]
 
     def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection='', HedgeFlag='', PositionDate='',
-                 YdPosition='', Position='', LongFrozen='', ShortFrozen='', LongFrozenAmount='', ShortFrozenAmount='',
-                 OpenVolume='', CloseVolume='', OpenAmount='', CloseAmount='', PositionCost='', PreMargin='',
-                 UseMargin='', FrozenMargin='', FrozenCash='', FrozenCommission='', CashIn='', Commission='',
-                 CloseProfit='', PositionProfit='', PreSettlementPrice='', SettlementPrice='', TradingDay='',
-                 SettlementID='', OpenCost='', ExchangeMargin='', CombPosition='', CombLongFrozen='',
-                 CombShortFrozen='', CloseProfitByDate='', CloseProfitByTrade='', TodayPosition='',
-                 MarginRateByMoney='', MarginRateByVolume='', StrikeFrozen='', StrikeFrozenAmount='', AbandonFrozen=''):
+                 YdPosition=0, Position=0, LongFrozen=0, ShortFrozen=0, LongFrozenAmount=0.0, ShortFrozenAmount=0.0,
+                 OpenVolume=0, CloseVolume=0, OpenAmount=0.0, CloseAmount=0.0, PositionCost=0.0, PreMargin=0.0,
+                 UseMargin=0.0, FrozenMargin=0.0, FrozenCash=0.0, FrozenCommission=0.0, CashIn=0.0, Commission=0.0,
+                 CloseProfit=0.0, PositionProfit=0.0, PreSettlementPrice=0.0, SettlementPrice=0.0, TradingDay='',
+                 SettlementID=0, OpenCost=0.0, ExchangeMargin=0.0, CombPosition=0, CombLongFrozen=0, CombShortFrozen=0,
+                 CloseProfitByDate=0.0, CloseProfitByTrade=0.0, TodayPosition=0, MarginRateByMoney=0.0,
+                 MarginRateByVolume=0.0, StrikeFrozen=0, StrikeFrozenAmount=0.0, AbandonFrozen=0):
         super(SyncingInvestorPositionField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -2492,8 +2494,8 @@ class SyncingInstrumentMarginRateField(Base):
     ]
 
     def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='',
-                 LongMarginRatioByMoney='', LongMarginRatioByVolume='', ShortMarginRatioByMoney='',
-                 ShortMarginRatioByVolume='', IsRelative=''):
+                 LongMarginRatioByMoney=0.0, LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0,
+                 ShortMarginRatioByVolume=0.0, IsRelative=0):
         super(SyncingInstrumentMarginRateField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -2521,9 +2523,9 @@ class SyncingInstrumentCommissionRateField(Base):
         ('CloseTodayRatioByVolume', ctypes.c_double),
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney='',
-                 OpenRatioByVolume='', CloseRatioByMoney='', CloseRatioByVolume='', CloseTodayRatioByMoney='',
-                 CloseTodayRatioByVolume=''):
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
+                 OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0, CloseTodayRatioByMoney=0.0,
+                 CloseTodayRatioByVolume=0.0):
         super(SyncingInstrumentCommissionRateField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -2755,7 +2757,7 @@ class QryUserSessionField(Base):
         ('UserID', ctypes.c_char * 16),
     ]
 
-    def __init__(self, FrontID='', SessionID='', BrokerID='', UserID=''):
+    def __init__(self, FrontID=0, SessionID=0, BrokerID='', UserID=''):
         super(QryUserSessionField, self).__init__()
         self.FrontID = int(FrontID)
         self.SessionID = int(SessionID)
@@ -2782,7 +2784,7 @@ class QryFrontStatusField(Base):
         ('FrontID', ctypes.c_int),
     ]
 
-    def __init__(self, FrontID=''):
+    def __init__(self, FrontID=0):
         super(QryFrontStatusField, self).__init__()
         self.FrontID = int(FrontID)
 
@@ -3025,7 +3027,7 @@ class QryHisOrderField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ExchangeID='', OrderSysID='', InsertTimeStart='',
-                 InsertTimeEnd='', TradingDay='', SettlementID=''):
+                 InsertTimeEnd='', TradingDay='', SettlementID=0):
         super(QryHisOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -3049,8 +3051,8 @@ class OptionInstrMiniMarginField(Base):
         ('IsRelative', ctypes.c_int),
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', MinMargin='', ValueMethod='',
-                 IsRelative=''):
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', MinMargin=0.0, ValueMethod='',
+                 IsRelative=0):
         super(OptionInstrMiniMarginField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -3078,10 +3080,10 @@ class OptionInstrMarginAdjustField(Base):
         ('MShortMarginRatioByVolume', ctypes.c_double),
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', SShortMarginRatioByMoney='',
-                 SShortMarginRatioByVolume='', HShortMarginRatioByMoney='', HShortMarginRatioByVolume='',
-                 AShortMarginRatioByMoney='', AShortMarginRatioByVolume='', IsRelative='', MShortMarginRatioByMoney='',
-                 MShortMarginRatioByVolume=''):
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', SShortMarginRatioByMoney=0.0,
+                 SShortMarginRatioByVolume=0.0, HShortMarginRatioByMoney=0.0, HShortMarginRatioByVolume=0.0,
+                 AShortMarginRatioByMoney=0.0, AShortMarginRatioByVolume=0.0, IsRelative=0,
+                 MShortMarginRatioByMoney=0.0, MShortMarginRatioByVolume=0.0):
         super(OptionInstrMarginAdjustField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -3114,9 +3116,9 @@ class OptionInstrCommRateField(Base):
         ('StrikeRatioByVolume', ctypes.c_double),
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney='',
-                 OpenRatioByVolume='', CloseRatioByMoney='', CloseRatioByVolume='', CloseTodayRatioByMoney='',
-                 CloseTodayRatioByVolume='', StrikeRatioByMoney='', StrikeRatioByVolume=''):
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
+                 OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0, CloseTodayRatioByMoney=0.0,
+                 CloseTodayRatioByVolume=0.0, StrikeRatioByMoney=0.0, StrikeRatioByVolume=0.0):
         super(OptionInstrCommRateField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -3145,8 +3147,8 @@ class OptionInstrTradeCostField(Base):
         ('ExchMiniMargin', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', HedgeFlag='', FixedMargin='', MiniMargin='',
-                 Royalty='', ExchFixedMargin='', ExchMiniMargin=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', HedgeFlag='', FixedMargin=0.0, MiniMargin=0.0,
+                 Royalty=0.0, ExchFixedMargin=0.0, ExchMiniMargin=0.0):
         super(OptionInstrTradeCostField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -3169,7 +3171,7 @@ class QryOptionInstrTradeCostField(Base):
         ('UnderlyingPrice', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', HedgeFlag='', InputPrice='', UnderlyingPrice=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', HedgeFlag='', InputPrice=0.0, UnderlyingPrice=0.0):
         super(QryOptionInstrTradeCostField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -3200,7 +3202,7 @@ class IndexPriceField(Base):
         ('ClosePrice', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', InstrumentID='', ClosePrice=''):
+    def __init__(self, BrokerID='', InstrumentID='', ClosePrice=0.0):
         super(IndexPriceField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InstrumentID = self._to_bytes(InstrumentID)
@@ -3232,7 +3234,7 @@ class InputExecOrderField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ExecOrderRef='', UserID='', Volume='', RequestID='',
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ExecOrderRef='', UserID='', Volume=0, RequestID=0,
                  BusinessUnit='', OffsetFlag='', HedgeFlag='', ActionType='', PosiDirection='', ReservePositionFlag='',
                  CloseFlag='', ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='', ClientID='', IPAddress='',
                  MacAddress=''):
@@ -3279,8 +3281,8 @@ class InputExecOrderActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', ExecOrderActionRef='', ExecOrderRef='', RequestID='', FrontID='',
-                 SessionID='', ExchangeID='', ExecOrderSysID='', ActionFlag='', UserID='', InstrumentID='',
+    def __init__(self, BrokerID='', InvestorID='', ExecOrderActionRef=0, ExecOrderRef='', RequestID=0, FrontID=0,
+                 SessionID=0, ExchangeID='', ExecOrderSysID='', ActionFlag='', UserID='', InstrumentID='',
                  InvestUnitID='', IPAddress='', MacAddress=''):
         super(InputExecOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -3348,13 +3350,13 @@ class ExecOrderField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ExecOrderRef='', UserID='', Volume='', RequestID='',
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ExecOrderRef='', UserID='', Volume=0, RequestID=0,
                  BusinessUnit='', OffsetFlag='', HedgeFlag='', ActionType='', PosiDirection='', ReservePositionFlag='',
                  CloseFlag='', ExecOrderLocalID='', ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='',
-                 TraderID='', InstallID='', OrderSubmitStatus='', NotifySequence='', TradingDay='', SettlementID='',
+                 TraderID='', InstallID=0, OrderSubmitStatus='', NotifySequence=0, TradingDay='', SettlementID=0,
                  ExecOrderSysID='', InsertDate='', InsertTime='', CancelTime='', ExecResult='', ClearingPartID='',
-                 SequenceNo='', FrontID='', SessionID='', UserProductInfo='', StatusMsg='', ActiveUserID='',
-                 BrokerExecOrderSeq='', BranchID='', InvestUnitID='', AccountID='', CurrencyID='', IPAddress='',
+                 SequenceNo=0, FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='', ActiveUserID='',
+                 BrokerExecOrderSeq=0, BranchID='', InvestUnitID='', AccountID='', CurrencyID='', IPAddress='',
                  MacAddress=''):
         super(ExecOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -3435,9 +3437,9 @@ class ExecOrderActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', ExecOrderActionRef='', ExecOrderRef='', RequestID='', FrontID='',
-                 SessionID='', ExchangeID='', ExecOrderSysID='', ActionFlag='', ActionDate='', ActionTime='',
-                 TraderID='', InstallID='', ExecOrderLocalID='', ActionLocalID='', ParticipantID='', ClientID='',
+    def __init__(self, BrokerID='', InvestorID='', ExecOrderActionRef=0, ExecOrderRef='', RequestID=0, FrontID=0,
+                 SessionID=0, ExchangeID='', ExecOrderSysID='', ActionFlag='', ActionDate='', ActionTime='',
+                 TraderID='', InstallID=0, ExecOrderLocalID='', ActionLocalID='', ParticipantID='', ClientID='',
                  BusinessUnit='', OrderActionStatus='', UserID='', ActionType='', StatusMsg='', InstrumentID='',
                  BranchID='', InvestUnitID='', IPAddress='', MacAddress=''):
         super(ExecOrderActionField, self).__init__()
@@ -3528,11 +3530,11 @@ class ExchangeExecOrderField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, Volume='', RequestID='', BusinessUnit='', OffsetFlag='', HedgeFlag='', ActionType='',
+    def __init__(self, Volume=0, RequestID=0, BusinessUnit='', OffsetFlag='', HedgeFlag='', ActionType='',
                  PosiDirection='', ReservePositionFlag='', CloseFlag='', ExecOrderLocalID='', ExchangeID='',
-                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID='', OrderSubmitStatus='',
-                 NotifySequence='', TradingDay='', SettlementID='', ExecOrderSysID='', InsertDate='', InsertTime='',
-                 CancelTime='', ExecResult='', ClearingPartID='', SequenceNo='', BranchID='', IPAddress='',
+                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, OrderSubmitStatus='',
+                 NotifySequence=0, TradingDay='', SettlementID=0, ExecOrderSysID='', InsertDate='', InsertTime='',
+                 CancelTime='', ExecResult='', ClearingPartID='', SequenceNo=0, BranchID='', IPAddress='',
                  MacAddress=''):
         super(ExchangeExecOrderField, self).__init__()
         self.Volume = int(Volume)
@@ -3622,7 +3624,7 @@ class ExchangeExecOrderActionField(Base):
     ]
 
     def __init__(self, ExchangeID='', ExecOrderSysID='', ActionFlag='', ActionDate='', ActionTime='', TraderID='',
-                 InstallID='', ExecOrderLocalID='', ActionLocalID='', ParticipantID='', ClientID='', BusinessUnit='',
+                 InstallID=0, ExecOrderLocalID='', ActionLocalID='', ParticipantID='', ClientID='', BusinessUnit='',
                  OrderActionStatus='', UserID='', ActionType='', BranchID='', IPAddress='', MacAddress=''):
         super(ExchangeExecOrderActionField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -3688,10 +3690,10 @@ class ErrExecOrderField(Base):
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ExecOrderRef='', UserID='', Volume='', RequestID='',
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ExecOrderRef='', UserID='', Volume=0, RequestID=0,
                  BusinessUnit='', OffsetFlag='', HedgeFlag='', ActionType='', PosiDirection='', ReservePositionFlag='',
                  CloseFlag='', ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='', ClientID='', IPAddress='',
-                 MacAddress='', ErrorID='', ErrorMsg=''):
+                 MacAddress='', ErrorID=0, ErrorMsg=''):
         super(ErrExecOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -3751,9 +3753,9 @@ class ErrExecOrderActionField(Base):
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', ExecOrderActionRef='', ExecOrderRef='', RequestID='', FrontID='',
-                 SessionID='', ExchangeID='', ExecOrderSysID='', ActionFlag='', UserID='', InstrumentID='',
-                 InvestUnitID='', IPAddress='', MacAddress='', ErrorID='', ErrorMsg=''):
+    def __init__(self, BrokerID='', InvestorID='', ExecOrderActionRef=0, ExecOrderRef='', RequestID=0, FrontID=0,
+                 SessionID=0, ExchangeID='', ExecOrderSysID='', ActionFlag='', UserID='', InstrumentID='',
+                 InvestUnitID='', IPAddress='', MacAddress='', ErrorID=0, ErrorMsg=''):
         super(ErrExecOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -3877,9 +3879,9 @@ class ForQuoteField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ForQuoteRef='', UserID='', ForQuoteLocalID='',
-                 ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID='',
-                 InsertDate='', InsertTime='', ForQuoteStatus='', FrontID='', SessionID='', StatusMsg='',
-                 ActiveUserID='', BrokerForQutoSeq='', InvestUnitID='', IPAddress='', MacAddress=''):
+                 ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0,
+                 InsertDate='', InsertTime='', ForQuoteStatus='', FrontID=0, SessionID=0, StatusMsg='', ActiveUserID='',
+                 BrokerForQutoSeq=0, InvestUnitID='', IPAddress='', MacAddress=''):
         super(ForQuoteField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -3944,7 +3946,7 @@ class ExchangeForQuoteField(Base):
     ]
 
     def __init__(self, ForQuoteLocalID='', ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='', TraderID='',
-                 InstallID='', InsertDate='', InsertTime='', ForQuoteStatus='', IPAddress='', MacAddress=''):
+                 InstallID=0, InsertDate='', InsertTime='', ForQuoteStatus='', IPAddress='', MacAddress=''):
         super(ExchangeForQuoteField, self).__init__()
         self.ForQuoteLocalID = self._to_bytes(ForQuoteLocalID)
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -4005,8 +4007,8 @@ class InputQuoteField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', QuoteRef='', UserID='', AskPrice='', BidPrice='',
-                 AskVolume='', BidVolume='', RequestID='', BusinessUnit='', AskOffsetFlag='', BidOffsetFlag='',
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', QuoteRef='', UserID='', AskPrice=0.0, BidPrice=0.0,
+                 AskVolume=0, BidVolume=0, RequestID=0, BusinessUnit='', AskOffsetFlag='', BidOffsetFlag='',
                  AskHedgeFlag='', BidHedgeFlag='', AskOrderRef='', BidOrderRef='', ForQuoteSysID='', ExchangeID='',
                  InvestUnitID='', ClientID='', IPAddress='', MacAddress=''):
         super(InputQuoteField, self).__init__()
@@ -4055,9 +4057,9 @@ class InputQuoteActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', QuoteActionRef='', QuoteRef='', RequestID='', FrontID='',
-                 SessionID='', ExchangeID='', QuoteSysID='', ActionFlag='', UserID='', InstrumentID='', InvestUnitID='',
-                 ClientID='', IPAddress='', MacAddress=''):
+    def __init__(self, BrokerID='', InvestorID='', QuoteActionRef=0, QuoteRef='', RequestID=0, FrontID=0, SessionID=0,
+                 ExchangeID='', QuoteSysID='', ActionFlag='', UserID='', InstrumentID='', InvestUnitID='', ClientID='',
+                 IPAddress='', MacAddress=''):
         super(InputQuoteActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -4131,13 +4133,13 @@ class QuoteField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', QuoteRef='', UserID='', AskPrice='', BidPrice='',
-                 AskVolume='', BidVolume='', RequestID='', BusinessUnit='', AskOffsetFlag='', BidOffsetFlag='',
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', QuoteRef='', UserID='', AskPrice=0.0, BidPrice=0.0,
+                 AskVolume=0, BidVolume=0, RequestID=0, BusinessUnit='', AskOffsetFlag='', BidOffsetFlag='',
                  AskHedgeFlag='', BidHedgeFlag='', QuoteLocalID='', ExchangeID='', ParticipantID='', ClientID='',
-                 ExchangeInstID='', TraderID='', InstallID='', NotifySequence='', OrderSubmitStatus='', TradingDay='',
-                 SettlementID='', QuoteSysID='', InsertDate='', InsertTime='', CancelTime='', QuoteStatus='',
-                 ClearingPartID='', SequenceNo='', AskOrderSysID='', BidOrderSysID='', FrontID='', SessionID='',
-                 UserProductInfo='', StatusMsg='', ActiveUserID='', BrokerQuoteSeq='', AskOrderRef='', BidOrderRef='',
+                 ExchangeInstID='', TraderID='', InstallID=0, NotifySequence=0, OrderSubmitStatus='', TradingDay='',
+                 SettlementID=0, QuoteSysID='', InsertDate='', InsertTime='', CancelTime='', QuoteStatus='',
+                 ClearingPartID='', SequenceNo=0, AskOrderSysID='', BidOrderSysID='', FrontID=0, SessionID=0,
+                 UserProductInfo='', StatusMsg='', ActiveUserID='', BrokerQuoteSeq=0, AskOrderRef='', BidOrderRef='',
                  ForQuoteSysID='', BranchID='', InvestUnitID='', AccountID='', CurrencyID='', IPAddress='',
                  MacAddress=''):
         super(QuoteField, self).__init__()
@@ -4224,9 +4226,9 @@ class QuoteActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', QuoteActionRef='', QuoteRef='', RequestID='', FrontID='',
-                 SessionID='', ExchangeID='', QuoteSysID='', ActionFlag='', ActionDate='', ActionTime='', TraderID='',
-                 InstallID='', QuoteLocalID='', ActionLocalID='', ParticipantID='', ClientID='', BusinessUnit='',
+    def __init__(self, BrokerID='', InvestorID='', QuoteActionRef=0, QuoteRef='', RequestID=0, FrontID=0, SessionID=0,
+                 ExchangeID='', QuoteSysID='', ActionFlag='', ActionDate='', ActionTime='', TraderID='', InstallID=0,
+                 QuoteLocalID='', ActionLocalID='', ParticipantID='', ClientID='', BusinessUnit='',
                  OrderActionStatus='', UserID='', StatusMsg='', InstrumentID='', BranchID='', InvestUnitID='',
                  IPAddress='', MacAddress=''):
         super(QuoteActionField, self).__init__()
@@ -4320,11 +4322,11 @@ class ExchangeQuoteField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, AskPrice='', BidPrice='', AskVolume='', BidVolume='', RequestID='', BusinessUnit='',
+    def __init__(self, AskPrice=0.0, BidPrice=0.0, AskVolume=0, BidVolume=0, RequestID=0, BusinessUnit='',
                  AskOffsetFlag='', BidOffsetFlag='', AskHedgeFlag='', BidHedgeFlag='', QuoteLocalID='', ExchangeID='',
-                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID='', NotifySequence='',
-                 OrderSubmitStatus='', TradingDay='', SettlementID='', QuoteSysID='', InsertDate='', InsertTime='',
-                 CancelTime='', QuoteStatus='', ClearingPartID='', SequenceNo='', AskOrderSysID='', BidOrderSysID='',
+                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, NotifySequence=0,
+                 OrderSubmitStatus='', TradingDay='', SettlementID=0, QuoteSysID='', InsertDate='', InsertTime='',
+                 CancelTime='', QuoteStatus='', ClearingPartID='', SequenceNo=0, AskOrderSysID='', BidOrderSysID='',
                  ForQuoteSysID='', BranchID='', IPAddress='', MacAddress=''):
         super(ExchangeQuoteField, self).__init__()
         self.AskPrice = float(AskPrice)
@@ -4416,7 +4418,7 @@ class ExchangeQuoteActionField(Base):
     ]
 
     def __init__(self, ExchangeID='', QuoteSysID='', ActionFlag='', ActionDate='', ActionTime='', TraderID='',
-                 InstallID='', QuoteLocalID='', ActionLocalID='', ParticipantID='', ClientID='', BusinessUnit='',
+                 InstallID=0, QuoteLocalID='', ActionLocalID='', ParticipantID='', ClientID='', BusinessUnit='',
                  OrderActionStatus='', UserID='', IPAddress='', MacAddress=''):
         super(ExchangeQuoteActionField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -4462,7 +4464,7 @@ class OptionInstrDeltaField(Base):
         ('Delta', ctypes.c_double),
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', Delta=''):
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', Delta=0.0):
         super(OptionInstrDeltaField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -4501,7 +4503,7 @@ class StrikeOffsetField(Base):
         ('OffsetType', ctypes.c_char),
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', Offset='', OffsetType=''):
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', Offset=0.0, OffsetType=''):
         super(StrikeOffsetField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -4540,8 +4542,8 @@ class InputBatchOrderActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', OrderActionRef='', RequestID='', FrontID='', SessionID='',
-                 ExchangeID='', UserID='', InvestUnitID='', IPAddress='', MacAddress=''):
+    def __init__(self, BrokerID='', InvestorID='', OrderActionRef=0, RequestID=0, FrontID=0, SessionID=0, ExchangeID='',
+                 UserID='', InvestUnitID='', IPAddress='', MacAddress=''):
         super(InputBatchOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -4581,10 +4583,10 @@ class BatchOrderActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', OrderActionRef='', RequestID='', FrontID='', SessionID='',
-                 ExchangeID='', ActionDate='', ActionTime='', TraderID='', InstallID='', ActionLocalID='',
-                 ParticipantID='', ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', StatusMsg='',
-                 InvestUnitID='', IPAddress='', MacAddress=''):
+    def __init__(self, BrokerID='', InvestorID='', OrderActionRef=0, RequestID=0, FrontID=0, SessionID=0, ExchangeID='',
+                 ActionDate='', ActionTime='', TraderID='', InstallID=0, ActionLocalID='', ParticipantID='',
+                 ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', StatusMsg='', InvestUnitID='',
+                 IPAddress='', MacAddress=''):
         super(BatchOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -4626,7 +4628,7 @@ class ExchangeBatchOrderActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, ExchangeID='', ActionDate='', ActionTime='', TraderID='', InstallID='', ActionLocalID='',
+    def __init__(self, ExchangeID='', ActionDate='', ActionTime='', TraderID='', InstallID=0, ActionLocalID='',
                  ParticipantID='', ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', IPAddress='',
                  MacAddress=''):
         super(ExchangeBatchOrderActionField, self).__init__()
@@ -4666,7 +4668,7 @@ class CombInstrumentGuardField(Base):
         ('GuarantRatio', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', InstrumentID='', GuarantRatio=''):
+    def __init__(self, BrokerID='', InstrumentID='', GuarantRatio=0.0):
         super(CombInstrumentGuardField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InstrumentID = self._to_bytes(InstrumentID)
@@ -4701,8 +4703,8 @@ class InputCombActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', CombActionRef='', UserID='', Direction='',
-                 Volume='', CombDirection='', HedgeFlag='', ExchangeID='', IPAddress='', MacAddress=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', CombActionRef='', UserID='', Direction='', Volume=0,
+                 CombDirection='', HedgeFlag='', ExchangeID='', IPAddress='', MacAddress=''):
         super(InputCombActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -4749,11 +4751,11 @@ class CombActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', CombActionRef='', UserID='', Direction='',
-                 Volume='', CombDirection='', HedgeFlag='', ActionLocalID='', ExchangeID='', ParticipantID='',
-                 ClientID='', ExchangeInstID='', TraderID='', InstallID='', ActionStatus='', NotifySequence='',
-                 TradingDay='', SettlementID='', SequenceNo='', FrontID='', SessionID='', UserProductInfo='',
-                 StatusMsg='', IPAddress='', MacAddress=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', CombActionRef='', UserID='', Direction='', Volume=0,
+                 CombDirection='', HedgeFlag='', ActionLocalID='', ExchangeID='', ParticipantID='', ClientID='',
+                 ExchangeInstID='', TraderID='', InstallID=0, ActionStatus='', NotifySequence=0, TradingDay='',
+                 SettlementID=0, SequenceNo=0, FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='', IPAddress='',
+                 MacAddress=''):
         super(CombActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -4822,9 +4824,9 @@ class ExchangeCombActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, Direction='', Volume='', CombDirection='', HedgeFlag='', ActionLocalID='', ExchangeID='',
-                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID='', ActionStatus='',
-                 NotifySequence='', TradingDay='', SettlementID='', SequenceNo='', IPAddress='', MacAddress=''):
+    def __init__(self, Direction='', Volume=0, CombDirection='', HedgeFlag='', ActionLocalID='', ExchangeID='',
+                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, ActionStatus='',
+                 NotifySequence=0, TradingDay='', SettlementID=0, SequenceNo=0, IPAddress='', MacAddress=''):
         super(ExchangeCombActionField, self).__init__()
         self.Direction = self._to_bytes(Direction)
         self.Volume = int(Volume)
@@ -4871,7 +4873,7 @@ class ProductExchRateField(Base):
         ('ExchangeRate', ctypes.c_double),
     ]
 
-    def __init__(self, ProductID='', QuoteCurrencyID='', ExchangeRate=''):
+    def __init__(self, ProductID='', QuoteCurrencyID='', ExchangeRate=0.0):
         super(ProductExchRateField, self).__init__()
         self.ProductID = self._to_bytes(ProductID)
         self.QuoteCurrencyID = self._to_bytes(QuoteCurrencyID)
@@ -4911,7 +4913,7 @@ class ForQuoteParamField(Base):
         ('PriceInterval', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', InstrumentID='', ExchangeID='', LastPrice='', PriceInterval=''):
+    def __init__(self, BrokerID='', InstrumentID='', ExchangeID='', LastPrice=0.0, PriceInterval=0.0):
         super(ForQuoteParamField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InstrumentID = self._to_bytes(InstrumentID)
@@ -4936,9 +4938,9 @@ class MMOptionInstrCommRateField(Base):
         ('StrikeRatioByVolume', ctypes.c_double),
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney='',
-                 OpenRatioByVolume='', CloseRatioByMoney='', CloseRatioByVolume='', CloseTodayRatioByMoney='',
-                 CloseTodayRatioByVolume='', StrikeRatioByMoney='', StrikeRatioByVolume=''):
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
+                 OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0, CloseTodayRatioByMoney=0.0,
+                 CloseTodayRatioByVolume=0.0, StrikeRatioByMoney=0.0, StrikeRatioByVolume=0.0):
         super(MMOptionInstrCommRateField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -4982,9 +4984,9 @@ class MMInstrumentCommissionRateField(Base):
         ('CloseTodayRatioByVolume', ctypes.c_double),
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney='',
-                 OpenRatioByVolume='', CloseRatioByMoney='', CloseRatioByVolume='', CloseTodayRatioByMoney='',
-                 CloseTodayRatioByVolume=''):
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
+                 OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0, CloseTodayRatioByMoney=0.0,
+                 CloseTodayRatioByVolume=0.0):
         super(MMInstrumentCommissionRateField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -5024,7 +5026,7 @@ class InstrumentOrderCommRateField(Base):
     ]
 
     def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='',
-                 OrderCommByVolume='', OrderActionCommByVolume=''):
+                 OrderCommByVolume=0.0, OrderActionCommByVolume=0.0):
         super(InstrumentOrderCommRateField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -5076,10 +5078,10 @@ class MarketDataField(Base):
         ('ActionDay', ctypes.c_char * 9),
     ]
 
-    def __init__(self, TradingDay='', InstrumentID='', ExchangeID='', ExchangeInstID='', LastPrice='',
-                 PreSettlementPrice='', PreClosePrice='', PreOpenInterest='', OpenPrice='', HighestPrice='',
-                 LowestPrice='', Volume='', Turnover='', OpenInterest='', ClosePrice='', SettlementPrice='',
-                 UpperLimitPrice='', LowerLimitPrice='', PreDelta='', CurrDelta='', UpdateTime='', UpdateMillisec='',
+    def __init__(self, TradingDay='', InstrumentID='', ExchangeID='', ExchangeInstID='', LastPrice=0.0,
+                 PreSettlementPrice=0.0, PreClosePrice=0.0, PreOpenInterest=0.0, OpenPrice=0.0, HighestPrice=0.0,
+                 LowestPrice=0.0, Volume=0, Turnover=0.0, OpenInterest=0.0, ClosePrice=0.0, SettlementPrice=0.0,
+                 UpperLimitPrice=0.0, LowerLimitPrice=0.0, PreDelta=0.0, CurrDelta=0.0, UpdateTime='', UpdateMillisec=0,
                  ActionDay=''):
         super(MarketDataField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
@@ -5116,7 +5118,7 @@ class MarketDataBaseField(Base):
         ('PreDelta', ctypes.c_double),
     ]
 
-    def __init__(self, TradingDay='', PreSettlementPrice='', PreClosePrice='', PreOpenInterest='', PreDelta=''):
+    def __init__(self, TradingDay='', PreSettlementPrice=0.0, PreClosePrice=0.0, PreOpenInterest=0.0, PreDelta=0.0):
         super(MarketDataBaseField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.PreSettlementPrice = float(PreSettlementPrice)
@@ -5137,8 +5139,8 @@ class MarketDataStaticField(Base):
         ('CurrDelta', ctypes.c_double),
     ]
 
-    def __init__(self, OpenPrice='', HighestPrice='', LowestPrice='', ClosePrice='', UpperLimitPrice='',
-                 LowerLimitPrice='', SettlementPrice='', CurrDelta=''):
+    def __init__(self, OpenPrice=0.0, HighestPrice=0.0, LowestPrice=0.0, ClosePrice=0.0, UpperLimitPrice=0.0,
+                 LowerLimitPrice=0.0, SettlementPrice=0.0, CurrDelta=0.0):
         super(MarketDataStaticField, self).__init__()
         self.OpenPrice = float(OpenPrice)
         self.HighestPrice = float(HighestPrice)
@@ -5158,7 +5160,7 @@ class MarketDataLastMatchField(Base):
         ('OpenInterest', ctypes.c_double),
     ]
 
-    def __init__(self, LastPrice='', Volume='', Turnover='', OpenInterest=''):
+    def __init__(self, LastPrice=0.0, Volume=0, Turnover=0.0, OpenInterest=0.0):
         super(MarketDataLastMatchField, self).__init__()
         self.LastPrice = float(LastPrice)
         self.Volume = int(Volume)
@@ -5174,7 +5176,7 @@ class MarketDataBestPriceField(Base):
         ('AskVolume1', ctypes.c_int),
     ]
 
-    def __init__(self, BidPrice1='', BidVolume1='', AskPrice1='', AskVolume1=''):
+    def __init__(self, BidPrice1=0.0, BidVolume1=0, AskPrice1=0.0, AskVolume1=0):
         super(MarketDataBestPriceField, self).__init__()
         self.BidPrice1 = float(BidPrice1)
         self.BidVolume1 = int(BidVolume1)
@@ -5190,7 +5192,7 @@ class MarketDataBid23Field(Base):
         ('BidVolume3', ctypes.c_int),
     ]
 
-    def __init__(self, BidPrice2='', BidVolume2='', BidPrice3='', BidVolume3=''):
+    def __init__(self, BidPrice2=0.0, BidVolume2=0, BidPrice3=0.0, BidVolume3=0):
         super(MarketDataBid23Field, self).__init__()
         self.BidPrice2 = float(BidPrice2)
         self.BidVolume2 = int(BidVolume2)
@@ -5206,7 +5208,7 @@ class MarketDataAsk23Field(Base):
         ('AskVolume3', ctypes.c_int),
     ]
 
-    def __init__(self, AskPrice2='', AskVolume2='', AskPrice3='', AskVolume3=''):
+    def __init__(self, AskPrice2=0.0, AskVolume2=0, AskPrice3=0.0, AskVolume3=0):
         super(MarketDataAsk23Field, self).__init__()
         self.AskPrice2 = float(AskPrice2)
         self.AskVolume2 = int(AskVolume2)
@@ -5222,7 +5224,7 @@ class MarketDataBid45Field(Base):
         ('BidVolume5', ctypes.c_int),
     ]
 
-    def __init__(self, BidPrice4='', BidVolume4='', BidPrice5='', BidVolume5=''):
+    def __init__(self, BidPrice4=0.0, BidVolume4=0, BidPrice5=0.0, BidVolume5=0):
         super(MarketDataBid45Field, self).__init__()
         self.BidPrice4 = float(BidPrice4)
         self.BidVolume4 = int(BidVolume4)
@@ -5238,7 +5240,7 @@ class MarketDataAsk45Field(Base):
         ('AskVolume5', ctypes.c_int),
     ]
 
-    def __init__(self, AskPrice4='', AskVolume4='', AskPrice5='', AskVolume5=''):
+    def __init__(self, AskPrice4=0.0, AskVolume4=0, AskPrice5=0.0, AskVolume5=0):
         super(MarketDataAsk45Field, self).__init__()
         self.AskPrice4 = float(AskPrice4)
         self.AskVolume4 = int(AskVolume4)
@@ -5254,7 +5256,7 @@ class MarketDataUpdateTimeField(Base):
         ('ActionDay', ctypes.c_char * 9),
     ]
 
-    def __init__(self, InstrumentID='', UpdateTime='', UpdateMillisec='', ActionDay=''):
+    def __init__(self, InstrumentID='', UpdateTime='', UpdateMillisec=0, ActionDay=''):
         super(MarketDataUpdateTimeField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.UpdateTime = self._to_bytes(UpdateTime)
@@ -5295,7 +5297,7 @@ class InstrumentStatusField(Base):
     ]
 
     def __init__(self, ExchangeID='', ExchangeInstID='', SettlementGroupID='', InstrumentID='', InstrumentStatus='',
-                 TradingSegmentSN='', EnterTime='', EnterReason=''):
+                 TradingSegmentSN=0, EnterTime='', EnterReason=''):
         super(InstrumentStatusField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.ExchangeInstID = self._to_bytes(ExchangeInstID)
@@ -5361,7 +5363,7 @@ class DiscountField(Base):
         ('Discount', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', InvestorRange='', InvestorID='', Discount=''):
+    def __init__(self, BrokerID='', InvestorRange='', InvestorID='', Discount=0.0):
         super(DiscountField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -5389,7 +5391,7 @@ class TransferBankField(Base):
         ('IsActive', ctypes.c_int),
     ]
 
-    def __init__(self, BankID='', BankBrchID='', BankName='', IsActive=''):
+    def __init__(self, BankID='', BankBrchID='', BankName='', IsActive=0):
         super(TransferBankField, self).__init__()
         self.BankID = self._to_bytes(BankID)
         self.BankBrchID = self._to_bytes(BankBrchID)
@@ -5442,10 +5444,10 @@ class InvestorPositionDetailField(Base):
     ]
 
     def __init__(self, InstrumentID='', BrokerID='', InvestorID='', HedgeFlag='', Direction='', OpenDate='', TradeID='',
-                 Volume='', OpenPrice='', TradingDay='', SettlementID='', TradeType='', CombInstrumentID='',
-                 ExchangeID='', CloseProfitByDate='', CloseProfitByTrade='', PositionProfitByDate='',
-                 PositionProfitByTrade='', Margin='', ExchMargin='', MarginRateByMoney='', MarginRateByVolume='',
-                 LastSettlementPrice='', SettlementPrice='', CloseVolume='', CloseAmount=''):
+                 Volume=0, OpenPrice=0.0, TradingDay='', SettlementID=0, TradeType='', CombInstrumentID='',
+                 ExchangeID='', CloseProfitByDate=0.0, CloseProfitByTrade=0.0, PositionProfitByDate=0.0,
+                 PositionProfitByTrade=0.0, Margin=0.0, ExchMargin=0.0, MarginRateByMoney=0.0, MarginRateByVolume=0.0,
+                 LastSettlementPrice=0.0, SettlementPrice=0.0, CloseVolume=0, CloseAmount=0.0):
         super(InvestorPositionDetailField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -5514,7 +5516,7 @@ class MDTraderOfferField(Base):
         ('MaxOrderMessageReference', ctypes.c_char * 7),
     ]
 
-    def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallID='', OrderLocalID='',
+    def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallID=0, OrderLocalID='',
                  TraderConnectStatus='', ConnectRequestDate='', ConnectRequestTime='', LastReportDate='',
                  LastReportTime='', ConnectDate='', ConnectTime='', StartDate='', StartTime='', TradingDay='',
                  BrokerID='', MaxTradeID='', MaxOrderMessageReference=''):
@@ -5586,7 +5588,7 @@ class UserRightField(Base):
         ('IsForbidden', ctypes.c_int),
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserRightType='', IsForbidden=''):
+    def __init__(self, BrokerID='', UserID='', UserRightType='', IsForbidden=0):
         super(UserRightField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -5630,8 +5632,8 @@ class BrokerWithdrawAlgorithmField(Base):
         ('BalanceAlgorithm', ctypes.c_char),
     ]
 
-    def __init__(self, BrokerID='', WithdrawAlgorithm='', UsingRatio='', IncludeCloseProfit='', AllWithoutTrade='',
-                 AvailIncludeCloseProfit='', IsBrokerUserEvent='', CurrencyID='', FundMortgageRatio='',
+    def __init__(self, BrokerID='', WithdrawAlgorithm='', UsingRatio=0.0, IncludeCloseProfit='', AllWithoutTrade='',
+                 AvailIncludeCloseProfit='', IsBrokerUserEvent=0, CurrencyID='', FundMortgageRatio=0.0,
                  BalanceAlgorithm=''):
         super(BrokerWithdrawAlgorithmField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -5687,7 +5689,7 @@ class QryCombinationLegField(Base):
         ('LegInstrumentID', ctypes.c_char * 31),
     ]
 
-    def __init__(self, CombInstrumentID='', LegID='', LegInstrumentID=''):
+    def __init__(self, CombInstrumentID='', LegID=0, LegInstrumentID=''):
         super(QryCombinationLegField, self).__init__()
         self.CombInstrumentID = self._to_bytes(CombInstrumentID)
         self.LegID = int(LegID)
@@ -5714,7 +5716,7 @@ class CombinationLegField(Base):
         ('ImplyLevel', ctypes.c_int),
     ]
 
-    def __init__(self, CombInstrumentID='', LegID='', LegInstrumentID='', Direction='', LegMultiple='', ImplyLevel=''):
+    def __init__(self, CombInstrumentID='', LegID=0, LegInstrumentID='', Direction='', LegMultiple=0, ImplyLevel=0):
         super(CombinationLegField, self).__init__()
         self.CombInstrumentID = self._to_bytes(CombInstrumentID)
         self.LegID = int(LegID)
@@ -5765,7 +5767,7 @@ class LinkManField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', PersonType='', IdentifiedCardType='', IdentifiedCardNo='',
-                 PersonName='', Telephone='', Address='', ZipCode='', Priority='', UOAZipCode='', PersonFullName=''):
+                 PersonName='', Telephone='', Address='', ZipCode='', Priority=0, UOAZipCode='', PersonFullName=''):
         super(LinkManField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -5808,7 +5810,7 @@ class BrokerUserEventField(Base):
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserEventType='', EventSequenceNo='', EventDate='', EventTime='',
+    def __init__(self, BrokerID='', UserID='', UserEventType='', EventSequenceNo=0, EventDate='', EventTime='',
                  UserEventInfo='', InvestorID='', InstrumentID=''):
         super(BrokerUserEventField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -5876,10 +5878,10 @@ class InvestorPositionCombineDetailField(Base):
         ('TradeGroupID', ctypes.c_int),
     ]
 
-    def __init__(self, TradingDay='', OpenDate='', ExchangeID='', SettlementID='', BrokerID='', InvestorID='',
-                 ComTradeID='', TradeID='', InstrumentID='', HedgeFlag='', Direction='', TotalAmt='', Margin='',
-                 ExchMargin='', MarginRateByMoney='', MarginRateByVolume='', LegID='', LegMultiple='',
-                 CombInstrumentID='', TradeGroupID=''):
+    def __init__(self, TradingDay='', OpenDate='', ExchangeID='', SettlementID=0, BrokerID='', InvestorID='',
+                 ComTradeID='', TradeID='', InstrumentID='', HedgeFlag='', Direction='', TotalAmt=0, Margin=0.0,
+                 ExchMargin=0.0, MarginRateByMoney=0.0, MarginRateByVolume=0.0, LegID=0, LegMultiple=0,
+                 CombInstrumentID='', TradeGroupID=0):
         super(InvestorPositionCombineDetailField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.OpenDate = self._to_bytes(OpenDate)
@@ -5943,10 +5945,10 @@ class ParkedOrderField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType='',
-                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice='', VolumeTotalOriginal='',
-                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume='', ContingentCondition='', StopPrice='',
-                 ForceCloseReason='', IsAutoSuspend='', BusinessUnit='', RequestID='', UserForceClose='', ExchangeID='',
-                 ParkedOrderID='', UserType='', Status='', ErrorID='', ErrorMsg='', IsSwapOrder='', AccountID='',
+                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
+                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0, ContingentCondition='', StopPrice=0.0,
+                 ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='', RequestID=0, UserForceClose=0, ExchangeID='',
+                 ParkedOrderID='', UserType='', Status='', ErrorID=0, ErrorMsg='', IsSwapOrder=0, AccountID='',
                  CurrencyID='', ClientID='', InvestUnitID='', IPAddress='', MacAddress=''):
         super(ParkedOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -6012,9 +6014,9 @@ class ParkedOrderActionField(Base):
         ('MacAddress', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', OrderActionRef='', OrderRef='', RequestID='', FrontID='',
-                 SessionID='', ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice='', VolumeChange='', UserID='',
-                 InstrumentID='', ParkedOrderActionID='', UserType='', Status='', ErrorID='', ErrorMsg='',
+    def __init__(self, BrokerID='', InvestorID='', OrderActionRef=0, OrderRef='', RequestID=0, FrontID=0, SessionID=0,
+                 ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice=0.0, VolumeChange=0, UserID='',
+                 InstrumentID='', ParkedOrderActionID='', UserType='', Status='', ErrorID=0, ErrorMsg='',
                  InvestUnitID='', IPAddress='', MacAddress=''):
         super(ParkedOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -6111,8 +6113,8 @@ class InvestorWithdrawAlgorithmField(Base):
         ('FundMortgageRatio', ctypes.c_double),
     ]
 
-    def __init__(self, BrokerID='', InvestorRange='', InvestorID='', UsingRatio='', CurrencyID='',
-                 FundMortgageRatio=''):
+    def __init__(self, BrokerID='', InvestorRange='', InvestorID='', UsingRatio=0.0, CurrencyID='',
+                 FundMortgageRatio=0.0):
         super(InvestorWithdrawAlgorithmField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -6141,7 +6143,7 @@ class MarketDataAveragePriceField(Base):
         ('AveragePrice', ctypes.c_double),
     ]
 
-    def __init__(self, AveragePrice=''):
+    def __init__(self, AveragePrice=0.0):
         super(MarketDataAveragePriceField, self).__init__()
         self.AveragePrice = float(AveragePrice)
 
@@ -6188,7 +6190,7 @@ class TradingNoticeInfoField(Base):
         ('SequenceNo', ctypes.c_int),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', SendTime='', FieldContent='', SequenceSeries='', SequenceNo=''):
+    def __init__(self, BrokerID='', InvestorID='', SendTime='', FieldContent='', SequenceSeries=0, SequenceNo=0):
         super(TradingNoticeInfoField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -6210,8 +6212,8 @@ class TradingNoticeField(Base):
         ('FieldContent', ctypes.c_char * 501),
     ]
 
-    def __init__(self, BrokerID='', InvestorRange='', InvestorID='', SequenceSeries='', UserID='', SendTime='',
-                 SequenceNo='', FieldContent=''):
+    def __init__(self, BrokerID='', InvestorRange='', InvestorID='', SequenceSeries=0, UserID='', SendTime='',
+                 SequenceNo=0, FieldContent=''):
         super(TradingNoticeField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -6284,10 +6286,10 @@ class ErrOrderField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType='',
-                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice='', VolumeTotalOriginal='',
-                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume='', ContingentCondition='', StopPrice='',
-                 ForceCloseReason='', IsAutoSuspend='', BusinessUnit='', RequestID='', UserForceClose='', ErrorID='',
-                 ErrorMsg='', IsSwapOrder='', ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='', ClientID='',
+                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
+                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0, ContingentCondition='', StopPrice=0.0,
+                 ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='', RequestID=0, UserForceClose=0, ErrorID=0,
+                 ErrorMsg='', IsSwapOrder=0, ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='', ClientID='',
                  IPAddress='', MacAddress=''):
         super(ErrOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -6394,17 +6396,16 @@ class ErrorConditionalOrderField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType='',
-                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice='', VolumeTotalOriginal='',
-                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume='', ContingentCondition='', StopPrice='',
-                 ForceCloseReason='', IsAutoSuspend='', BusinessUnit='', RequestID='', OrderLocalID='', ExchangeID='',
-                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID='', OrderSubmitStatus='',
-                 NotifySequence='', TradingDay='', SettlementID='', OrderSysID='', OrderSource='', OrderStatus='',
-                 OrderType='', VolumeTraded='', VolumeTotal='', InsertDate='', InsertTime='', ActiveTime='',
-                 SuspendTime='', UpdateTime='', CancelTime='', ActiveTraderID='', ClearingPartID='', SequenceNo='',
-                 FrontID='', SessionID='', UserProductInfo='', StatusMsg='', UserForceClose='', ActiveUserID='',
-                 BrokerOrderSeq='', RelativeOrderSysID='', ZCETotalTradedVolume='', ErrorID='', ErrorMsg='',
-                 IsSwapOrder='', BranchID='', InvestUnitID='', AccountID='', CurrencyID='', IPAddress='',
-                 MacAddress=''):
+                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
+                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0, ContingentCondition='', StopPrice=0.0,
+                 ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='', RequestID=0, OrderLocalID='', ExchangeID='',
+                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, OrderSubmitStatus='',
+                 NotifySequence=0, TradingDay='', SettlementID=0, OrderSysID='', OrderSource='', OrderStatus='',
+                 OrderType='', VolumeTraded=0, VolumeTotal=0, InsertDate='', InsertTime='', ActiveTime='',
+                 SuspendTime='', UpdateTime='', CancelTime='', ActiveTraderID='', ClearingPartID='', SequenceNo=0,
+                 FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='', UserForceClose=0, ActiveUserID='',
+                 BrokerOrderSeq=0, RelativeOrderSysID='', ZCETotalTradedVolume=0, ErrorID=0, ErrorMsg='', IsSwapOrder=0,
+                 BranchID='', InvestUnitID='', AccountID='', CurrencyID='', IPAddress='', MacAddress=''):
         super(ErrorConditionalOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -6520,11 +6521,11 @@ class ErrOrderActionField(Base):
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', OrderActionRef='', OrderRef='', RequestID='', FrontID='',
-                 SessionID='', ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice='', VolumeChange='',
-                 ActionDate='', ActionTime='', TraderID='', InstallID='', OrderLocalID='', ActionLocalID='',
-                 ParticipantID='', ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', StatusMsg='',
-                 InstrumentID='', BranchID='', InvestUnitID='', IPAddress='', MacAddress='', ErrorID='', ErrorMsg=''):
+    def __init__(self, BrokerID='', InvestorID='', OrderActionRef=0, OrderRef='', RequestID=0, FrontID=0, SessionID=0,
+                 ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice=0.0, VolumeChange=0, ActionDate='',
+                 ActionTime='', TraderID='', InstallID=0, OrderLocalID='', ActionLocalID='', ParticipantID='',
+                 ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', StatusMsg='', InstrumentID='',
+                 BranchID='', InvestUnitID='', IPAddress='', MacAddress='', ErrorID=0, ErrorMsg=''):
         super(ErrOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -6576,7 +6577,7 @@ class ExchangeSequenceField(Base):
         ('MarketStatus', ctypes.c_char),
     ]
 
-    def __init__(self, ExchangeID='', SequenceNo='', MarketStatus=''):
+    def __init__(self, ExchangeID='', SequenceNo=0, MarketStatus=''):
         super(ExchangeSequenceField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.SequenceNo = int(SequenceNo)
@@ -6596,7 +6597,7 @@ class QueryMaxOrderVolumeWithPriceField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', Direction='', OffsetFlag='', HedgeFlag='',
-                 MaxVolume='', Price=''):
+                 MaxVolume=0, Price=0.0):
         super(QueryMaxOrderVolumeWithPriceField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -6709,8 +6710,8 @@ class BrokerDepositField(Base):
         ('FrozenMargin', ctypes.c_double),
     ]
 
-    def __init__(self, TradingDay='', BrokerID='', ParticipantID='', ExchangeID='', PreBalance='', CurrMargin='',
-                 CloseProfit='', Balance='', Deposit='', Withdraw='', Available='', Reserve='', FrozenMargin=''):
+    def __init__(self, TradingDay='', BrokerID='', ParticipantID='', ExchangeID='', PreBalance=0.0, CurrMargin=0.0,
+                 CloseProfit=0.0, Balance=0.0, Deposit=0.0, Withdraw=0.0, Available=0.0, Reserve=0.0, FrozenMargin=0.0):
         super(BrokerDepositField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -6748,8 +6749,7 @@ class CFMMCBrokerKeyField(Base):
         ('KeyKind', ctypes.c_char),
     ]
 
-    def __init__(self, BrokerID='', ParticipantID='', CreateDate='', CreateTime='', KeyID='', CurrentKey='',
-                 KeyKind=''):
+    def __init__(self, BrokerID='', ParticipantID='', CreateDate='', CreateTime='', KeyID=0, CurrentKey='', KeyKind=''):
         super(CFMMCBrokerKeyField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.ParticipantID = self._to_bytes(ParticipantID)
@@ -6769,7 +6769,7 @@ class CFMMCTradingAccountKeyField(Base):
         ('CurrentKey', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', ParticipantID='', AccountID='', KeyID='', CurrentKey=''):
+    def __init__(self, BrokerID='', ParticipantID='', AccountID='', KeyID=0, CurrentKey=''):
         super(CFMMCTradingAccountKeyField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.ParticipantID = self._to_bytes(ParticipantID)
@@ -6802,8 +6802,8 @@ class BrokerUserOTPParamField(Base):
         ('OTPType', ctypes.c_char),
     ]
 
-    def __init__(self, BrokerID='', UserID='', OTPVendorsID='', SerialNumber='', AuthKey='', LastDrift='',
-                 LastSuccess='', OTPType=''):
+    def __init__(self, BrokerID='', UserID='', OTPVendorsID='', SerialNumber='', AuthKey='', LastDrift=0, LastSuccess=0,
+                 OTPType=''):
         super(BrokerUserOTPParamField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -6898,7 +6898,7 @@ class EWarrantOffsetField(Base):
     ]
 
     def __init__(self, TradingDay='', BrokerID='', InvestorID='', ExchangeID='', InstrumentID='', Direction='',
-                 HedgeFlag='', Volume=''):
+                 HedgeFlag='', Volume=0):
         super(EWarrantOffsetField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -6973,11 +6973,11 @@ class InvestorProductGroupMarginField(Base):
         ('HedgeFlag', ctypes.c_char),
     ]
 
-    def __init__(self, ProductGroupID='', BrokerID='', InvestorID='', TradingDay='', SettlementID='', FrozenMargin='',
-                 LongFrozenMargin='', ShortFrozenMargin='', UseMargin='', LongUseMargin='', ShortUseMargin='',
-                 ExchMargin='', LongExchMargin='', ShortExchMargin='', CloseProfit='', FrozenCommission='',
-                 Commission='', FrozenCash='', CashIn='', PositionProfit='', OffsetAmount='', LongOffsetAmount='',
-                 ShortOffsetAmount='', ExchOffsetAmount='', LongExchOffsetAmount='', ShortExchOffsetAmount='',
+    def __init__(self, ProductGroupID='', BrokerID='', InvestorID='', TradingDay='', SettlementID=0, FrozenMargin=0.0,
+                 LongFrozenMargin=0.0, ShortFrozenMargin=0.0, UseMargin=0.0, LongUseMargin=0.0, ShortUseMargin=0.0,
+                 ExchMargin=0.0, LongExchMargin=0.0, ShortExchMargin=0.0, CloseProfit=0.0, FrozenCommission=0.0,
+                 Commission=0.0, FrozenCash=0.0, CashIn=0.0, PositionProfit=0.0, OffsetAmount=0.0, LongOffsetAmount=0.0,
+                 ShortOffsetAmount=0.0, ExchOffsetAmount=0.0, LongExchOffsetAmount=0.0, ShortExchOffsetAmount=0.0,
                  HedgeFlag=''):
         super(InvestorProductGroupMarginField, self).__init__()
         self.ProductGroupID = self._to_bytes(ProductGroupID)
@@ -7030,7 +7030,7 @@ class CFMMCTradingAccountTokenField(Base):
         ('Token', ctypes.c_char * 21),
     ]
 
-    def __init__(self, BrokerID='', ParticipantID='', AccountID='', KeyID='', Token=''):
+    def __init__(self, BrokerID='', ParticipantID='', AccountID='', KeyID=0, Token=''):
         super(CFMMCTradingAccountTokenField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.ParticipantID = self._to_bytes(ParticipantID)
@@ -7081,7 +7081,7 @@ class BulletinField(Base):
         ('MarketID', ctypes.c_char * 31),
     ]
 
-    def __init__(self, ExchangeID='', TradingDay='', BulletinID='', SequenceNo='', NewsType='', NewsUrgency='',
+    def __init__(self, ExchangeID='', TradingDay='', BulletinID=0, SequenceNo=0, NewsType='', NewsUrgency='',
                  SendTime='', Abstract='', ComeFrom='', Content='', URLLink='', MarketID=''):
         super(BulletinField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -7107,7 +7107,7 @@ class QryBulletinField(Base):
         ('NewsUrgency', ctypes.c_char),
     ]
 
-    def __init__(self, ExchangeID='', BulletinID='', SequenceNo='', NewsType='', NewsUrgency=''):
+    def __init__(self, ExchangeID='', BulletinID=0, SequenceNo=0, NewsType='', NewsUrgency=''):
         super(QryBulletinField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.BulletinID = int(BulletinID)
@@ -7166,12 +7166,12 @@ class ReqOpenAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
                  Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID='', VerifyCertNoFlag='',
+                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag='',
                  CurrencyID='', CashExchangeCode='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='',
-                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID='', UserID='',
+                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID=0, UserID='',
                  LongCustomerName=''):
         super(ReqOpenAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -7271,12 +7271,12 @@ class ReqCancelAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
                  Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID='', VerifyCertNoFlag='',
+                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag='',
                  CurrencyID='', CashExchangeCode='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='',
-                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID='', UserID='',
+                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID=0, UserID='',
                  LongCustomerName=''):
         super(ReqCancelAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -7372,12 +7372,12 @@ class ReqChangeAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
                  Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
                  BankAccount='', BankPassWord='', NewBankAccount='', NewBankPassWord='', AccountID='', Password='',
-                 BankAccType='', InstallID='', VerifyCertNoFlag='', CurrencyID='', BrokerIDByBank='', BankPwdFlag='',
-                 SecuPwdFlag='', TID='', Digest='', LongCustomerName=''):
+                 BankAccType='', InstallID=0, VerifyCertNoFlag='', CurrencyID='', BrokerIDByBank='', BankPwdFlag='',
+                 SecuPwdFlag='', TID=0, Digest='', LongCustomerName=''):
         super(ReqChangeAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -7471,13 +7471,12 @@ class ReqTransferField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='',
-                 AccountID='', Password='', InstallID='', FutureSerial='', UserID='', VerifyCertNoFlag='',
-                 CurrencyID='', TradeAmount='', FutureFetchAmount='', FeePayFlag='', CustFee='', BrokerFee='',
-                 Message='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='',
-                 BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID='', TID='', TransferStatus='',
-                 LongCustomerName=''):
+                 AccountID='', Password='', InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag='', CurrencyID='',
+                 TradeAmount=0.0, FutureFetchAmount=0.0, FeePayFlag='', CustFee=0.0, BrokerFee=0.0, Message='',
+                 Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='',
+                 BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID=0, TID=0, TransferStatus='', LongCustomerName=''):
         super(ReqTransferField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -7576,13 +7575,13 @@ class RspTransferField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='',
-                 AccountID='', Password='', InstallID='', FutureSerial='', UserID='', VerifyCertNoFlag='',
-                 CurrencyID='', TradeAmount='', FutureFetchAmount='', FeePayFlag='', CustFee='', BrokerFee='',
-                 Message='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='',
-                 BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID='', TID='', TransferStatus='',
-                 ErrorID='', ErrorMsg='', LongCustomerName=''):
+                 AccountID='', Password='', InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag='', CurrencyID='',
+                 TradeAmount=0.0, FutureFetchAmount=0.0, FeePayFlag='', CustFee=0.0, BrokerFee=0.0, Message='',
+                 Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='',
+                 BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID=0, TID=0, TransferStatus='', ErrorID=0,
+                 ErrorMsg='', LongCustomerName=''):
         super(RspTransferField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -7687,15 +7686,15 @@ class ReqRepealField(Base):
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
-    def __init__(self, RepealTimeInterval='', RepealedTimes='', BankRepealFlag='', BrokerRepealFlag='',
-                 PlateRepealSerial='', BankRepealSerial='', FutureRepealSerial='', TradeCode='', BankID='',
+    def __init__(self, RepealTimeInterval=0, RepealedTimes=0, BankRepealFlag='', BrokerRepealFlag='',
+                 PlateRepealSerial=0, BankRepealSerial='', FutureRepealSerial=0, TradeCode='', BankID='',
                  BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='', TradeTime='', BankSerial='',
-                 TradingDay='', PlateSerial='', LastFragment='', SessionID='', CustomerName='', IdCardType='',
+                 TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, CustomerName='', IdCardType='',
                  IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='', AccountID='', Password='',
-                 InstallID='', FutureSerial='', UserID='', VerifyCertNoFlag='', CurrencyID='', TradeAmount='',
-                 FutureFetchAmount='', FeePayFlag='', CustFee='', BrokerFee='', Message='', Digest='', BankAccType='',
-                 DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='',
-                 OperNo='', RequestID='', TID='', TransferStatus='', LongCustomerName=''):
+                 InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag='', CurrencyID='', TradeAmount=0.0,
+                 FutureFetchAmount=0.0, FeePayFlag='', CustFee=0.0, BrokerFee=0.0, Message='', Digest='',
+                 BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='',
+                 SecuPwdFlag='', OperNo='', RequestID=0, TID=0, TransferStatus='', LongCustomerName=''):
         super(ReqRepealField, self).__init__()
         self.RepealTimeInterval = int(RepealTimeInterval)
         self.RepealedTimes = int(RepealedTimes)
@@ -7807,15 +7806,16 @@ class RspRepealField(Base):
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
-    def __init__(self, RepealTimeInterval='', RepealedTimes='', BankRepealFlag='', BrokerRepealFlag='',
-                 PlateRepealSerial='', BankRepealSerial='', FutureRepealSerial='', TradeCode='', BankID='',
+    def __init__(self, RepealTimeInterval=0, RepealedTimes=0, BankRepealFlag='', BrokerRepealFlag='',
+                 PlateRepealSerial=0, BankRepealSerial='', FutureRepealSerial=0, TradeCode='', BankID='',
                  BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='', TradeTime='', BankSerial='',
-                 TradingDay='', PlateSerial='', LastFragment='', SessionID='', CustomerName='', IdCardType='',
+                 TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, CustomerName='', IdCardType='',
                  IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='', AccountID='', Password='',
-                 InstallID='', FutureSerial='', UserID='', VerifyCertNoFlag='', CurrencyID='', TradeAmount='',
-                 FutureFetchAmount='', FeePayFlag='', CustFee='', BrokerFee='', Message='', Digest='', BankAccType='',
-                 DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='',
-                 OperNo='', RequestID='', TID='', TransferStatus='', ErrorID='', ErrorMsg='', LongCustomerName=''):
+                 InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag='', CurrencyID='', TradeAmount=0.0,
+                 FutureFetchAmount=0.0, FeePayFlag='', CustFee=0.0, BrokerFee=0.0, Message='', Digest='',
+                 BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='',
+                 SecuPwdFlag='', OperNo='', RequestID=0, TID=0, TransferStatus='', ErrorID=0, ErrorMsg='',
+                 LongCustomerName=''):
         super(RspRepealField, self).__init__()
         self.RepealTimeInterval = int(RepealTimeInterval)
         self.RepealedTimes = int(RepealedTimes)
@@ -7914,11 +7914,11 @@ class ReqQueryAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='',
-                 AccountID='', Password='', FutureSerial='', InstallID='', UserID='', VerifyCertNoFlag='',
-                 CurrencyID='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='',
-                 BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID='', TID='', LongCustomerName=''):
+                 AccountID='', Password='', FutureSerial=0, InstallID=0, UserID='', VerifyCertNoFlag='', CurrencyID='',
+                 Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='',
+                 BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID=0, TID=0, LongCustomerName=''):
         super(ReqQueryAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8003,12 +8003,12 @@ class RspQueryAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='',
-                 AccountID='', Password='', FutureSerial='', InstallID='', UserID='', VerifyCertNoFlag='',
-                 CurrencyID='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='',
-                 BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID='', TID='', BankUseAmount='',
-                 BankFetchAmount='', LongCustomerName=''):
+                 AccountID='', Password='', FutureSerial=0, InstallID=0, UserID='', VerifyCertNoFlag='', CurrencyID='',
+                 Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='',
+                 BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID=0, TID=0, BankUseAmount=0.0, BankFetchAmount=0.0,
+                 LongCustomerName=''):
         super(RspQueryAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8077,9 +8077,8 @@ class FutureSignIOField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
-                 InstallID='', UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='',
-                 RequestID='', TID=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0):
         super(FutureSignIOField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8134,9 +8133,9 @@ class RspFutureSignInField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
-                 InstallID='', UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='',
-                 RequestID='', TID='', ErrorID='', ErrorMsg='', PinKey='', MacKey=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0,
+                 ErrorID=0, ErrorMsg='', PinKey='', MacKey=''):
         super(RspFutureSignInField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8191,9 +8190,8 @@ class ReqFutureSignOutField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
-                 InstallID='', UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='',
-                 RequestID='', TID=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0):
         super(ReqFutureSignOutField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8246,9 +8244,9 @@ class RspFutureSignOutField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
-                 InstallID='', UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='',
-                 RequestID='', TID='', ErrorID='', ErrorMsg=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0,
+                 ErrorID=0, ErrorMsg=''):
         super(RspFutureSignOutField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8307,10 +8305,10 @@ class ReqQueryTradeResultBySerialField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
-                 Reference='', RefrenceIssureType='', RefrenceIssure='', CustomerName='', IdCardType='',
-                 IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='', AccountID='', Password='',
-                 CurrencyID='', TradeAmount='', Digest='', LongCustomerName=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, Reference=0,
+                 RefrenceIssureType='', RefrenceIssure='', CustomerName='', IdCardType='', IdentifiedCardNo='',
+                 CustType='', BankAccount='', BankPassWord='', AccountID='', Password='', CurrencyID='',
+                 TradeAmount=0.0, Digest='', LongCustomerName=''):
         super(ReqQueryTradeResultBySerialField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8372,10 +8370,10 @@ class RspQueryTradeResultBySerialField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='', ErrorID='',
-                 ErrorMsg='', Reference='', RefrenceIssureType='', RefrenceIssure='', OriginReturnCode='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, ErrorID=0,
+                 ErrorMsg='', Reference=0, RefrenceIssureType='', RefrenceIssure='', OriginReturnCode='',
                  OriginDescrInfoForReturnCode='', BankAccount='', BankPassWord='', AccountID='', Password='',
-                 CurrencyID='', TradeAmount='', Digest=''):
+                 CurrencyID='', TradeAmount=0.0, Digest=''):
         super(RspQueryTradeResultBySerialField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8424,7 +8422,7 @@ class ReqDayEndFileReadyField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  FileBusinessCode='', Digest=''):
         super(ReqDayEndFileReadyField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -8479,8 +8477,8 @@ class VerifyFuturePasswordField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
-                 AccountID='', Password='', BankAccount='', BankPassWord='', InstallID='', TID='', CurrencyID=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, AccountID='',
+                 Password='', BankAccount='', BankPassWord='', InstallID=0, TID=0, CurrencyID=''):
         super(VerifyFuturePasswordField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8557,7 +8555,7 @@ class DepositResultInformField(Base):
         ('DescrInfoForReturnCode', ctypes.c_char * 129),
     ]
 
-    def __init__(self, DepositSeqNo='', BrokerID='', InvestorID='', Deposit='', RequestID='', ReturnCode='',
+    def __init__(self, DepositSeqNo='', BrokerID='', InvestorID='', Deposit=0.0, RequestID=0, ReturnCode='',
                  DescrInfoForReturnCode=''):
         super(DepositResultInformField, self).__init__()
         self.DepositSeqNo = self._to_bytes(DepositSeqNo)
@@ -8594,8 +8592,8 @@ class ReqSyncKeyField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
-                 InstallID='', UserID='', Message='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID='', TID=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 UserID='', Message='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0):
         super(ReqSyncKeyField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8646,9 +8644,9 @@ class RspSyncKeyField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
-                 InstallID='', UserID='', Message='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID='', TID='',
-                 ErrorID='', ErrorMsg=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 UserID='', Message='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0, ErrorID=0,
+                 ErrorMsg=''):
         super(RspSyncKeyField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8720,12 +8718,12 @@ class NotifyQueryAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='',
-                 AccountID='', Password='', FutureSerial='', InstallID='', UserID='', VerifyCertNoFlag='',
-                 CurrencyID='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='',
-                 BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID='', TID='', BankUseAmount='',
-                 BankFetchAmount='', ErrorID='', ErrorMsg='', LongCustomerName=''):
+                 AccountID='', Password='', FutureSerial=0, InstallID=0, UserID='', VerifyCertNoFlag='', CurrencyID='',
+                 Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='',
+                 BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID=0, TID=0, BankUseAmount=0.0, BankFetchAmount=0.0,
+                 ErrorID=0, ErrorMsg='', LongCustomerName=''):
         super(NotifyQueryAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8802,11 +8800,11 @@ class TransferSerialField(Base):
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
-    def __init__(self, PlateSerial='', TradeDate='', TradingDay='', TradeTime='', TradeCode='', SessionID='', BankID='',
+    def __init__(self, PlateSerial=0, TradeDate='', TradingDay='', TradeTime='', TradeCode='', SessionID=0, BankID='',
                  BankBranchID='', BankAccType='', BankAccount='', BankSerial='', BrokerID='', BrokerBranchID='',
-                 FutureAccType='', AccountID='', InvestorID='', FutureSerial='', IdCardType='', IdentifiedCardNo='',
-                 CurrencyID='', TradeAmount='', CustFee='', BrokerFee='', AvailabilityFlag='', OperatorCode='',
-                 BankNewAccount='', ErrorID='', ErrorMsg=''):
+                 FutureAccType='', AccountID='', InvestorID='', FutureSerial=0, IdCardType='', IdentifiedCardNo='',
+                 CurrencyID='', TradeAmount=0.0, CustFee=0.0, BrokerFee=0.0, AvailabilityFlag='', OperatorCode='',
+                 BankNewAccount='', ErrorID=0, ErrorMsg=''):
         super(TransferSerialField, self).__init__()
         self.PlateSerial = int(PlateSerial)
         self.TradeDate = self._to_bytes(TradeDate)
@@ -8884,9 +8882,9 @@ class NotifyFutureSignInField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
-                 InstallID='', UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='',
-                 RequestID='', TID='', ErrorID='', ErrorMsg='', PinKey='', MacKey=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0,
+                 ErrorID=0, ErrorMsg='', PinKey='', MacKey=''):
         super(NotifyFutureSignInField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8943,9 +8941,9 @@ class NotifyFutureSignOutField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
-                 InstallID='', UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='',
-                 RequestID='', TID='', ErrorID='', ErrorMsg=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0,
+                 ErrorID=0, ErrorMsg=''):
         super(NotifyFutureSignOutField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8999,9 +8997,9 @@ class NotifySyncKeyField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
-                 InstallID='', UserID='', Message='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID='', TID='',
-                 ErrorID='', ErrorMsg=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 UserID='', Message='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0, ErrorID=0,
+                 ErrorMsg=''):
         super(NotifySyncKeyField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -9069,7 +9067,7 @@ class AccountregisterField(Base):
 
     def __init__(self, TradeDay='', BankID='', BankBranchID='', BankAccount='', BrokerID='', BrokerBranchID='',
                  AccountID='', IdCardType='', IdentifiedCardNo='', CustomerName='', CurrencyID='', OpenOrDestroy='',
-                 RegDate='', OutDate='', TID='', CustType='', BankAccType='', LongCustomerName=''):
+                 RegDate='', OutDate='', TID=0, CustType='', BankAccType='', LongCustomerName=''):
         super(AccountregisterField, self).__init__()
         self.TradeDay = self._to_bytes(TradeDay)
         self.BankID = self._to_bytes(BankID)
@@ -9143,13 +9141,13 @@ class OpenAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
                  Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID='', VerifyCertNoFlag='',
+                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag='',
                  CurrencyID='', CashExchangeCode='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='',
-                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID='', UserID='',
-                 ErrorID='', ErrorMsg='', LongCustomerName=''):
+                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID=0, UserID='',
+                 ErrorID=0, ErrorMsg='', LongCustomerName=''):
         super(OpenAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -9252,13 +9250,13 @@ class CancelAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
                  Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID='', VerifyCertNoFlag='',
+                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag='',
                  CurrencyID='', CashExchangeCode='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='',
-                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID='', UserID='',
-                 ErrorID='', ErrorMsg='', LongCustomerName=''):
+                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID=0, UserID='',
+                 ErrorID=0, ErrorMsg='', LongCustomerName=''):
         super(CancelAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -9357,12 +9355,12 @@ class ChangeAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
                  Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
                  BankAccount='', BankPassWord='', NewBankAccount='', NewBankPassWord='', AccountID='', Password='',
-                 BankAccType='', InstallID='', VerifyCertNoFlag='', CurrencyID='', BrokerIDByBank='', BankPwdFlag='',
-                 SecuPwdFlag='', TID='', Digest='', ErrorID='', ErrorMsg='', LongCustomerName=''):
+                 BankAccType='', InstallID=0, VerifyCertNoFlag='', CurrencyID='', BrokerIDByBank='', BankPwdFlag='',
+                 SecuPwdFlag='', TID=0, Digest='', ErrorID=0, ErrorMsg='', LongCustomerName=''):
         super(ChangeAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -9450,7 +9448,7 @@ class UserRightsAssignField(Base):
         ('DRIdentityID', ctypes.c_int),
     ]
 
-    def __init__(self, BrokerID='', UserID='', DRIdentityID=''):
+    def __init__(self, BrokerID='', UserID='', DRIdentityID=0):
         super(UserRightsAssignField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -9464,7 +9462,7 @@ class BrokerUserRightAssignField(Base):
         ('Tradeable', ctypes.c_int),
     ]
 
-    def __init__(self, BrokerID='', DRIdentityID='', Tradeable=''):
+    def __init__(self, BrokerID='', DRIdentityID=0, Tradeable=0):
         super(BrokerUserRightAssignField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.DRIdentityID = int(DRIdentityID)
@@ -9479,7 +9477,7 @@ class DRTransferField(Base):
         ('DestBrokerID', ctypes.c_char * 11),
     ]
 
-    def __init__(self, OrigDRIdentityID='', DestDRIdentityID='', OrigBrokerID='', DestBrokerID=''):
+    def __init__(self, OrigDRIdentityID=0, DestDRIdentityID=0, OrigBrokerID='', DestBrokerID=''):
         super(DRTransferField, self).__init__()
         self.OrigDRIdentityID = int(OrigDRIdentityID)
         self.DestDRIdentityID = int(DestDRIdentityID)
@@ -9506,7 +9504,7 @@ class CurrTransferIdentityField(Base):
         ('IdentityID', ctypes.c_int),
     ]
 
-    def __init__(self, IdentityID=''):
+    def __init__(self, IdentityID=0):
         super(CurrTransferIdentityField, self).__init__()
         self.IdentityID = int(IdentityID)
 
@@ -9544,7 +9542,7 @@ class MulticastGroupInfoField(Base):
         ('SourceIP', ctypes.c_char * 16),
     ]
 
-    def __init__(self, GroupIP='', GroupPort='', SourceIP=''):
+    def __init__(self, GroupIP='', GroupPort=0, SourceIP=''):
         super(MulticastGroupInfoField, self).__init__()
         self.GroupIP = self._to_bytes(GroupIP)
         self.GroupPort = int(GroupPort)
@@ -9559,7 +9557,7 @@ class TradingAccountReserveField(Base):
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
-    def __init__(self, BrokerID='', AccountID='', Reserve='', CurrencyID=''):
+    def __init__(self, BrokerID='', AccountID='', Reserve=0.0, CurrencyID=''):
         super(TradingAccountReserveField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.AccountID = self._to_bytes(AccountID)
@@ -9613,12 +9611,12 @@ class ReserveOpenAccountConfirmField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
                  Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', InstallID='', VerifyCertNoFlag='', CurrencyID='', Digest='',
-                 BankAccType='', BrokerIDByBank='', TID='', AccountID='', Password='', BankReserveOpenSeq='',
-                 BookDate='', BookPsw='', ErrorID='', ErrorMsg=''):
+                 BankAccount='', BankPassWord='', InstallID=0, VerifyCertNoFlag='', CurrencyID='', Digest='',
+                 BankAccType='', BrokerIDByBank='', TID=0, AccountID='', Password='', BankReserveOpenSeq='',
+                 BookDate='', BookPsw='', ErrorID=0, ErrorMsg=''):
         super(ReserveOpenAccountConfirmField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -9705,11 +9703,11 @@ class ReserveOpenAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial='', LastFragment='', SessionID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
                  CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
                  Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', InstallID='', VerifyCertNoFlag='', CurrencyID='', Digest='',
-                 BankAccType='', BrokerIDByBank='', TID='', ReserveOpenAccStas='', ErrorID='', ErrorMsg=''):
+                 BankAccount='', BankPassWord='', InstallID=0, VerifyCertNoFlag='', CurrencyID='', Digest='',
+                 BankAccType='', BrokerIDByBank='', TID=0, ReserveOpenAccStas='', ErrorID=0, ErrorMsg=''):
         super(ReserveOpenAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
