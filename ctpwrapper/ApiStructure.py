@@ -18,27 +18,16 @@ class DisseminationField(Base):
 
 class ReqUserLoginField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
-        ('UserProductInfo', ctypes.c_char),
         ('UserProductInfo', ctypes.c_char * 11),
-        ('InterfaceProductInfo', ctypes.c_char),
         ('InterfaceProductInfo', ctypes.c_char * 11),
-        ('ProtocolInfo', ctypes.c_char),
         ('ProtocolInfo', ctypes.c_char * 11),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
-        ('OneTimePassword', ctypes.c_char),
         ('OneTimePassword', ctypes.c_char * 41),
-        ('ClientIPAddress', ctypes.c_char),
         ('ClientIPAddress', ctypes.c_char * 16),
-        ('LoginRemark', ctypes.c_char),
         ('LoginRemark', ctypes.c_char * 36),
     ]
 
@@ -60,29 +49,18 @@ class ReqUserLoginField(Base):
 
 class RspUserLoginField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
-        ('LoginTime', ctypes.c_char),
         ('LoginTime', ctypes.c_char * 9),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('SystemName', ctypes.c_char),
         ('SystemName', ctypes.c_char * 41),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('MaxOrderRef', ctypes.c_char),
         ('MaxOrderRef', ctypes.c_char * 13),
-        ('SHFETime', ctypes.c_char),
         ('SHFETime', ctypes.c_char * 9),
-        ('DCETime', ctypes.c_char),
         ('DCETime', ctypes.c_char * 9),
-        ('CZCETime', ctypes.c_char),
         ('CZCETime', ctypes.c_char * 9),
-        ('FFEXTime', ctypes.c_char),
         ('FFEXTime', ctypes.c_char * 9),
-        ('INETime', ctypes.c_char),
         ('INETime', ctypes.c_char * 9),
     ]
 
@@ -106,9 +84,7 @@ class RspUserLoginField(Base):
 
 class UserLogoutField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
     ]
 
@@ -120,9 +96,7 @@ class UserLogoutField(Base):
 
 class ForceUserLogoutField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
     ]
 
@@ -134,13 +108,9 @@ class ForceUserLogoutField(Base):
 
 class ReqAuthenticateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('UserProductInfo', ctypes.c_char),
         ('UserProductInfo', ctypes.c_char * 11),
-        ('AuthCode', ctypes.c_char),
         ('AuthCode', ctypes.c_char * 17),
     ]
 
@@ -154,11 +124,8 @@ class ReqAuthenticateField(Base):
 
 class RspAuthenticateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('UserProductInfo', ctypes.c_char),
         ('UserProductInfo', ctypes.c_char * 11),
     ]
 
@@ -171,13 +138,9 @@ class RspAuthenticateField(Base):
 
 class AuthenticationInfoField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('UserProductInfo', ctypes.c_char),
         ('UserProductInfo', ctypes.c_char * 11),
-        ('AuthInfo', ctypes.c_char),
         ('AuthInfo', ctypes.c_char * 129),
         ('IsResult', ctypes.c_int),
     ]
@@ -193,27 +156,16 @@ class AuthenticationInfoField(Base):
 
 class TransferHeaderField(Base):
     _fields_ = [
-        ('Version', ctypes.c_char),
         ('Version', ctypes.c_char * 4),
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('TradeSerial', ctypes.c_char),
         ('TradeSerial', ctypes.c_char * 9),
-        ('FutureID', ctypes.c_char),
         ('FutureID', ctypes.c_char * 11),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBrchID', ctypes.c_char),
         ('BankBrchID', ctypes.c_char * 5),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
-        ('RecordNum', ctypes.c_char),
         ('RecordNum', ctypes.c_char * 7),
         ('SessionID', ctypes.c_int),
         ('RequestID', ctypes.c_int),
@@ -239,14 +191,11 @@ class TransferHeaderField(Base):
 
 class TransferBankToFutureReqField(Base):
     _fields_ = [
-        ('FutureAccount', ctypes.c_char),
         ('FutureAccount', ctypes.c_char * 13),
         ('FuturePwdFlag', ctypes.c_char),
-        ('FutureAccPwd', ctypes.c_char),
         ('FutureAccPwd', ctypes.c_char * 17),
         ('TradeAmt', ctypes.c_double),
         ('CustFee', ctypes.c_double),
-        ('CurrencyCode', ctypes.c_char),
         ('CurrencyCode', ctypes.c_char * 4),
     ]
 
@@ -262,15 +211,11 @@ class TransferBankToFutureReqField(Base):
 
 class TransferBankToFutureRspField(Base):
     _fields_ = [
-        ('RetCode', ctypes.c_char),
         ('RetCode', ctypes.c_char * 5),
-        ('RetInfo', ctypes.c_char),
         ('RetInfo', ctypes.c_char * 129),
-        ('FutureAccount', ctypes.c_char),
         ('FutureAccount', ctypes.c_char * 13),
         ('TradeAmt', ctypes.c_double),
         ('CustFee', ctypes.c_double),
-        ('CurrencyCode', ctypes.c_char),
         ('CurrencyCode', ctypes.c_char * 4),
     ]
 
@@ -286,14 +231,11 @@ class TransferBankToFutureRspField(Base):
 
 class TransferFutureToBankReqField(Base):
     _fields_ = [
-        ('FutureAccount', ctypes.c_char),
         ('FutureAccount', ctypes.c_char * 13),
         ('FuturePwdFlag', ctypes.c_char),
-        ('FutureAccPwd', ctypes.c_char),
         ('FutureAccPwd', ctypes.c_char * 17),
         ('TradeAmt', ctypes.c_double),
         ('CustFee', ctypes.c_double),
-        ('CurrencyCode', ctypes.c_char),
         ('CurrencyCode', ctypes.c_char * 4),
     ]
 
@@ -309,15 +251,11 @@ class TransferFutureToBankReqField(Base):
 
 class TransferFutureToBankRspField(Base):
     _fields_ = [
-        ('RetCode', ctypes.c_char),
         ('RetCode', ctypes.c_char * 5),
-        ('RetInfo', ctypes.c_char),
         ('RetInfo', ctypes.c_char * 129),
-        ('FutureAccount', ctypes.c_char),
         ('FutureAccount', ctypes.c_char * 13),
         ('TradeAmt', ctypes.c_double),
         ('CustFee', ctypes.c_double),
-        ('CurrencyCode', ctypes.c_char),
         ('CurrencyCode', ctypes.c_char * 4),
     ]
 
@@ -333,12 +271,9 @@ class TransferFutureToBankRspField(Base):
 
 class TransferQryBankReqField(Base):
     _fields_ = [
-        ('FutureAccount', ctypes.c_char),
         ('FutureAccount', ctypes.c_char * 13),
         ('FuturePwdFlag', ctypes.c_char),
-        ('FutureAccPwd', ctypes.c_char),
         ('FutureAccPwd', ctypes.c_char * 17),
-        ('CurrencyCode', ctypes.c_char),
         ('CurrencyCode', ctypes.c_char * 4),
     ]
 
@@ -352,16 +287,12 @@ class TransferQryBankReqField(Base):
 
 class TransferQryBankRspField(Base):
     _fields_ = [
-        ('RetCode', ctypes.c_char),
         ('RetCode', ctypes.c_char * 5),
-        ('RetInfo', ctypes.c_char),
         ('RetInfo', ctypes.c_char * 129),
-        ('FutureAccount', ctypes.c_char),
         ('FutureAccount', ctypes.c_char * 13),
         ('TradeAmt', ctypes.c_double),
         ('UseAmt', ctypes.c_double),
         ('FetchAmt', ctypes.c_double),
-        ('CurrencyCode', ctypes.c_char),
         ('CurrencyCode', ctypes.c_char * 4),
     ]
 
@@ -378,7 +309,6 @@ class TransferQryBankRspField(Base):
 
 class TransferQryDetailReqField(Base):
     _fields_ = [
-        ('FutureAccount', ctypes.c_char),
         ('FutureAccount', ctypes.c_char * 13),
     ]
 
@@ -389,27 +319,17 @@ class TransferQryDetailReqField(Base):
 
 class TransferQryDetailRspField(Base):
     _fields_ = [
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
         ('FutureSerial', ctypes.c_int),
-        ('FutureID', ctypes.c_char),
         ('FutureID', ctypes.c_char * 11),
-        ('FutureAccount', ctypes.c_char),
         ('FutureAccount', ctypes.c_char * 22),
         ('BankSerial', ctypes.c_int),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBrchID', ctypes.c_char),
         ('BankBrchID', ctypes.c_char * 5),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('CertCode', ctypes.c_char),
         ('CertCode', ctypes.c_char * 21),
-        ('CurrencyCode', ctypes.c_char),
         ('CurrencyCode', ctypes.c_char * 4),
         ('TxAmount', ctypes.c_double),
         ('Flag', ctypes.c_char),
@@ -438,7 +358,6 @@ class TransferQryDetailRspField(Base):
 class RspInfoField(Base):
     _fields_ = [
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -450,9 +369,7 @@ class RspInfoField(Base):
 
 class ExchangeField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ExchangeName', ctypes.c_char),
         ('ExchangeName', ctypes.c_char * 61),
         ('ExchangeProperty', ctypes.c_char),
     ]
@@ -466,11 +383,8 @@ class ExchangeField(Base):
 
 class ProductField(Base):
     _fields_ = [
-        ('ProductID', ctypes.c_char),
         ('ProductID', ctypes.c_char * 31),
-        ('ProductName', ctypes.c_char),
         ('ProductName', ctypes.c_char * 21),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
         ('ProductClass', ctypes.c_char),
         ('VolumeMultiple', ctypes.c_int),
@@ -482,10 +396,8 @@ class ProductField(Base):
         ('PositionType', ctypes.c_char),
         ('PositionDateType', ctypes.c_char),
         ('CloseDealType', ctypes.c_char),
-        ('TradeCurrencyID', ctypes.c_char),
         ('TradeCurrencyID', ctypes.c_char * 4),
         ('MortgageFundUseRange', ctypes.c_char),
-        ('ExchangeProductID', ctypes.c_char),
         ('ExchangeProductID', ctypes.c_char * 31),
         ('UnderlyingMultiple', ctypes.c_double),
     ]
@@ -516,15 +428,10 @@ class ProductField(Base):
 
 class InstrumentField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InstrumentName', ctypes.c_char),
         ('InstrumentName', ctypes.c_char * 21),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('ProductID', ctypes.c_char),
         ('ProductID', ctypes.c_char * 31),
         ('ProductClass', ctypes.c_char),
         ('DeliveryYear', ctypes.c_int),
@@ -535,15 +442,10 @@ class InstrumentField(Base):
         ('MinLimitOrderVolume', ctypes.c_int),
         ('VolumeMultiple', ctypes.c_int),
         ('PriceTick', ctypes.c_double),
-        ('CreateDate', ctypes.c_char),
         ('CreateDate', ctypes.c_char * 9),
-        ('OpenDate', ctypes.c_char),
         ('OpenDate', ctypes.c_char * 9),
-        ('ExpireDate', ctypes.c_char),
         ('ExpireDate', ctypes.c_char * 9),
-        ('StartDelivDate', ctypes.c_char),
         ('StartDelivDate', ctypes.c_char * 9),
-        ('EndDelivDate', ctypes.c_char),
         ('EndDelivDate', ctypes.c_char * 9),
         ('InstLifePhase', ctypes.c_char),
         ('IsTrading', ctypes.c_int),
@@ -552,7 +454,6 @@ class InstrumentField(Base):
         ('LongMarginRatio', ctypes.c_double),
         ('ShortMarginRatio', ctypes.c_double),
         ('MaxMarginSideAlgorithm', ctypes.c_char),
-        ('UnderlyingInstrID', ctypes.c_char),
         ('UnderlyingInstrID', ctypes.c_char * 31),
         ('StrikePrice', ctypes.c_double),
         ('OptionsType', ctypes.c_char),
@@ -603,11 +504,8 @@ class InstrumentField(Base):
 
 class BrokerField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerAbbr', ctypes.c_char),
         ('BrokerAbbr', ctypes.c_char * 9),
-        ('BrokerName', ctypes.c_char),
         ('BrokerName', ctypes.c_char * 81),
         ('IsActive', ctypes.c_int),
     ]
@@ -622,16 +520,11 @@ class BrokerField(Base):
 
 class TraderField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('InstallCount', ctypes.c_int),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
     ]
 
@@ -647,29 +540,18 @@ class TraderField(Base):
 
 class InvestorField(Base):
     _fields_ = [
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorGroupID', ctypes.c_char),
         ('InvestorGroupID', ctypes.c_char * 13),
-        ('InvestorName', ctypes.c_char),
         ('InvestorName', ctypes.c_char * 81),
         ('IdentifiedCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('IsActive', ctypes.c_int),
-        ('Telephone', ctypes.c_char),
         ('Telephone', ctypes.c_char * 41),
-        ('Address', ctypes.c_char),
         ('Address', ctypes.c_char * 101),
-        ('OpenDate', ctypes.c_char),
         ('OpenDate', ctypes.c_char * 9),
-        ('Mobile', ctypes.c_char),
         ('Mobile', ctypes.c_char * 41),
-        ('CommModelID', ctypes.c_char),
         ('CommModelID', ctypes.c_char * 13),
-        ('MarginModelID', ctypes.c_char),
         ('MarginModelID', ctypes.c_char * 13),
     ]
 
@@ -694,13 +576,9 @@ class InvestorField(Base):
 
 class TradingCodeField(Base):
     _fields_ = [
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
         ('IsActive', ctypes.c_int),
         ('ClientIDType', ctypes.c_char),
@@ -718,11 +596,8 @@ class TradingCodeField(Base):
 
 class PartBrokerField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
         ('IsActive', ctypes.c_int),
     ]
@@ -737,11 +612,8 @@ class PartBrokerField(Base):
 
 class SuperUserField(Base):
     _fields_ = [
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('UserName', ctypes.c_char),
         ('UserName', ctypes.c_char * 81),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('IsActive', ctypes.c_int),
     ]
@@ -756,7 +628,6 @@ class SuperUserField(Base):
 
 class SuperUserFunctionField(Base):
     _fields_ = [
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('FunctionCode', ctypes.c_char),
     ]
@@ -769,11 +640,8 @@ class SuperUserFunctionField(Base):
 
 class InvestorGroupField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorGroupID', ctypes.c_char),
         ('InvestorGroupID', ctypes.c_char * 13),
-        ('InvestorGroupName', ctypes.c_char),
         ('InvestorGroupName', ctypes.c_char * 41),
     ]
 
@@ -786,9 +654,7 @@ class InvestorGroupField(Base):
 
 class TradingAccountField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
         ('PreMortgage', ctypes.c_double),
         ('PreCredit', ctypes.c_double),
@@ -811,7 +677,6 @@ class TradingAccountField(Base):
         ('Available', ctypes.c_double),
         ('WithdrawQuota', ctypes.c_double),
         ('Reserve', ctypes.c_double),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
         ('Credit', ctypes.c_double),
@@ -820,7 +685,6 @@ class TradingAccountField(Base):
         ('DeliveryMargin', ctypes.c_double),
         ('ExchangeDeliveryMargin', ctypes.c_double),
         ('ReserveBalance', ctypes.c_double),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('PreFundMortgageIn', ctypes.c_double),
         ('PreFundMortgageOut', ctypes.c_double),
@@ -898,11 +762,8 @@ class TradingAccountField(Base):
 
 class InvestorPositionField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('PosiDirection', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
@@ -929,7 +790,6 @@ class InvestorPositionField(Base):
         ('PositionProfit', ctypes.c_double),
         ('PreSettlementPrice', ctypes.c_double),
         ('SettlementPrice', ctypes.c_double),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
         ('OpenCost', ctypes.c_double),
@@ -1003,12 +863,9 @@ class InvestorPositionField(Base):
 
 class InstrumentMarginRateField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('HedgeFlag', ctypes.c_char),
         ('LongMarginRatioByMoney', ctypes.c_double),
@@ -1036,12 +893,9 @@ class InstrumentMarginRateField(Base):
 
 class InstrumentCommissionRateField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('OpenRatioByMoney', ctypes.c_double),
         ('OpenRatioByVolume', ctypes.c_double),
@@ -1069,13 +923,9 @@ class InstrumentCommissionRateField(Base):
 
 class DepthMarketDataField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
         ('LastPrice', ctypes.c_double),
         ('PreSettlementPrice', ctypes.c_double),
@@ -1093,7 +943,6 @@ class DepthMarketDataField(Base):
         ('LowerLimitPrice', ctypes.c_double),
         ('PreDelta', ctypes.c_double),
         ('CurrDelta', ctypes.c_double),
-        ('UpdateTime', ctypes.c_char),
         ('UpdateTime', ctypes.c_char * 9),
         ('UpdateMillisec', ctypes.c_int),
         ('BidPrice1', ctypes.c_double),
@@ -1117,7 +966,6 @@ class DepthMarketDataField(Base):
         ('AskPrice5', ctypes.c_double),
         ('AskVolume5', ctypes.c_int),
         ('AveragePrice', ctypes.c_double),
-        ('ActionDay', ctypes.c_char),
         ('ActionDay', ctypes.c_char * 9),
     ]
 
@@ -1178,12 +1026,9 @@ class DepthMarketDataField(Base):
 
 class InstrumentTradingRightField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('TradingRight', ctypes.c_char),
     ]
@@ -1199,11 +1044,8 @@ class InstrumentTradingRightField(Base):
 
 class BrokerUserField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('UserName', ctypes.c_char),
         ('UserName', ctypes.c_char * 81),
         ('UserType', ctypes.c_char),
         ('IsActive', ctypes.c_int),
@@ -1222,11 +1064,8 @@ class BrokerUserField(Base):
 
 class BrokerUserPasswordField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
     ]
 
@@ -1239,9 +1078,7 @@ class BrokerUserPasswordField(Base):
 
 class BrokerUserFunctionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('BrokerFunctionCode', ctypes.c_char),
     ]
@@ -1255,41 +1092,24 @@ class BrokerUserFunctionField(Base):
 
 class TraderOfferField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
         ('TraderConnectStatus', ctypes.c_char),
-        ('ConnectRequestDate', ctypes.c_char),
         ('ConnectRequestDate', ctypes.c_char * 9),
-        ('ConnectRequestTime', ctypes.c_char),
         ('ConnectRequestTime', ctypes.c_char * 9),
-        ('LastReportDate', ctypes.c_char),
         ('LastReportDate', ctypes.c_char * 9),
-        ('LastReportTime', ctypes.c_char),
         ('LastReportTime', ctypes.c_char * 9),
-        ('ConnectDate', ctypes.c_char),
         ('ConnectDate', ctypes.c_char * 9),
-        ('ConnectTime', ctypes.c_char),
         ('ConnectTime', ctypes.c_char * 9),
-        ('StartDate', ctypes.c_char),
         ('StartDate', ctypes.c_char * 9),
-        ('StartTime', ctypes.c_char),
         ('StartTime', ctypes.c_char * 9),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('MaxTradeID', ctypes.c_char),
         ('MaxTradeID', ctypes.c_char * 21),
-        ('MaxOrderMessageReference', ctypes.c_char),
         ('MaxOrderMessageReference', ctypes.c_char * 7),
     ]
 
@@ -1321,15 +1141,11 @@ class TraderOfferField(Base):
 
 class SettlementInfoField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('SequenceNo', ctypes.c_int),
-        ('Content', ctypes.c_char),
         ('Content', ctypes.c_char * 501),
     ]
 
@@ -1345,12 +1161,9 @@ class SettlementInfoField(Base):
 
 class InstrumentMarginRateAdjustField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('HedgeFlag', ctypes.c_char),
         ('LongMarginRatioByMoney', ctypes.c_double),
@@ -1378,9 +1191,7 @@ class InstrumentMarginRateAdjustField(Base):
 
 class ExchangeMarginRateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('HedgeFlag', ctypes.c_char),
         ('LongMarginRatioByMoney', ctypes.c_double),
@@ -1403,9 +1214,7 @@ class ExchangeMarginRateField(Base):
 
 class ExchangeMarginRateAdjustField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('HedgeFlag', ctypes.c_char),
         ('LongMarginRatioByMoney', ctypes.c_double),
@@ -1447,12 +1256,9 @@ class ExchangeMarginRateAdjustField(Base):
 
 class ExchangeRateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('FromCurrencyID', ctypes.c_char),
         ('FromCurrencyID', ctypes.c_char * 4),
         ('FromCurrencyUnit', ctypes.c_double),
-        ('ToCurrencyID', ctypes.c_char),
         ('ToCurrencyID', ctypes.c_char * 4),
         ('ExchangeRate', ctypes.c_double),
     ]
@@ -1468,7 +1274,6 @@ class ExchangeRateField(Base):
 
 class SettlementRefField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
     ]
@@ -1481,12 +1286,9 @@ class SettlementRefField(Base):
 
 class CurrentTimeField(Base):
     _fields_ = [
-        ('CurrDate', ctypes.c_char),
         ('CurrDate', ctypes.c_char * 9),
-        ('CurrTime', ctypes.c_char),
         ('CurrTime', ctypes.c_char * 9),
         ('CurrMillisec', ctypes.c_int),
-        ('ActionDay', ctypes.c_char),
         ('ActionDay', ctypes.c_char * 9),
     ]
 
@@ -1500,10 +1302,8 @@ class CurrentTimeField(Base):
 
 class CommPhaseField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('CommPhaseNo', ctypes.c_short),
-        ('SystemID', ctypes.c_char),
         ('SystemID', ctypes.c_char * 21),
     ]
 
@@ -1518,44 +1318,25 @@ class LoginInfoField(Base):
     _fields_ = [
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('LoginDate', ctypes.c_char),
         ('LoginDate', ctypes.c_char * 9),
-        ('LoginTime', ctypes.c_char),
         ('LoginTime', ctypes.c_char * 9),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('UserProductInfo', ctypes.c_char),
         ('UserProductInfo', ctypes.c_char * 11),
-        ('InterfaceProductInfo', ctypes.c_char),
         ('InterfaceProductInfo', ctypes.c_char * 11),
-        ('ProtocolInfo', ctypes.c_char),
         ('ProtocolInfo', ctypes.c_char * 11),
-        ('SystemName', ctypes.c_char),
         ('SystemName', ctypes.c_char * 41),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
-        ('MaxOrderRef', ctypes.c_char),
         ('MaxOrderRef', ctypes.c_char * 13),
-        ('SHFETime', ctypes.c_char),
         ('SHFETime', ctypes.c_char * 9),
-        ('DCETime', ctypes.c_char),
         ('DCETime', ctypes.c_char * 9),
-        ('CZCETime', ctypes.c_char),
         ('CZCETime', ctypes.c_char * 9),
-        ('FFEXTime', ctypes.c_char),
         ('FFEXTime', ctypes.c_char * 9),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
-        ('OneTimePassword', ctypes.c_char),
         ('OneTimePassword', ctypes.c_char * 41),
-        ('INETime', ctypes.c_char),
         ('INETime', ctypes.c_char * 9),
         ('IsQryControl', ctypes.c_int),
-        ('LoginRemark', ctypes.c_char),
         ('LoginRemark', ctypes.c_char * 36),
     ]
 
@@ -1592,7 +1373,6 @@ class LogoutAllField(Base):
     _fields_ = [
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('SystemName', ctypes.c_char),
         ('SystemName', ctypes.c_char * 41),
     ]
 
@@ -1606,9 +1386,7 @@ class LogoutAllField(Base):
 class FrontStatusField(Base):
     _fields_ = [
         ('FrontID', ctypes.c_int),
-        ('LastReportDate', ctypes.c_char),
         ('LastReportDate', ctypes.c_char * 9),
-        ('LastReportTime', ctypes.c_char),
         ('LastReportTime', ctypes.c_char * 9),
         ('IsActive', ctypes.c_int),
     ]
@@ -1623,13 +1401,9 @@ class FrontStatusField(Base):
 
 class UserPasswordUpdateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('OldPassword', ctypes.c_char),
         ('OldPassword', ctypes.c_char * 41),
-        ('NewPassword', ctypes.c_char),
         ('NewPassword', ctypes.c_char * 41),
     ]
 
@@ -1643,26 +1417,18 @@ class UserPasswordUpdateField(Base):
 
 class InputOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('OrderRef', ctypes.c_char),
         ('OrderRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('OrderPriceType', ctypes.c_char),
         ('Direction', ctypes.c_char),
-        ('CombOffsetFlag', ctypes.c_char),
         ('CombOffsetFlag', ctypes.c_char * 5),
-        ('CombHedgeFlag', ctypes.c_char),
         ('CombHedgeFlag', ctypes.c_char * 5),
         ('LimitPrice', ctypes.c_double),
         ('VolumeTotalOriginal', ctypes.c_int),
         ('TimeCondition', ctypes.c_char),
-        ('GTDDate', ctypes.c_char),
         ('GTDDate', ctypes.c_char * 9),
         ('VolumeCondition', ctypes.c_char),
         ('MinVolume', ctypes.c_int),
@@ -1670,24 +1436,16 @@ class InputOrderField(Base):
         ('StopPrice', ctypes.c_double),
         ('ForceCloseReason', ctypes.c_char),
         ('IsAutoSuspend', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('RequestID', ctypes.c_int),
         ('UserForceClose', ctypes.c_int),
         ('IsSwapOrder', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -1732,26 +1490,18 @@ class InputOrderField(Base):
 
 class OrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('OrderRef', ctypes.c_char),
         ('OrderRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('OrderPriceType', ctypes.c_char),
         ('Direction', ctypes.c_char),
-        ('CombOffsetFlag', ctypes.c_char),
         ('CombOffsetFlag', ctypes.c_char * 5),
-        ('CombHedgeFlag', ctypes.c_char),
         ('CombHedgeFlag', ctypes.c_char * 5),
         ('LimitPrice', ctypes.c_double),
         ('VolumeTotalOriginal', ctypes.c_int),
         ('TimeCondition', ctypes.c_char),
-        ('GTDDate', ctypes.c_char),
         ('GTDDate', ctypes.c_char * 9),
         ('VolumeCondition', ctypes.c_char),
         ('MinVolume', ctypes.c_int),
@@ -1759,76 +1509,49 @@ class OrderField(Base):
         ('StopPrice', ctypes.c_double),
         ('ForceCloseReason', ctypes.c_char),
         ('IsAutoSuspend', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('RequestID', ctypes.c_int),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
         ('OrderSubmitStatus', ctypes.c_char),
         ('NotifySequence', ctypes.c_int),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
         ('OrderSource', ctypes.c_char),
         ('OrderStatus', ctypes.c_char),
         ('OrderType', ctypes.c_char),
         ('VolumeTraded', ctypes.c_int),
         ('VolumeTotal', ctypes.c_int),
-        ('InsertDate', ctypes.c_char),
         ('InsertDate', ctypes.c_char * 9),
-        ('InsertTime', ctypes.c_char),
         ('InsertTime', ctypes.c_char * 9),
-        ('ActiveTime', ctypes.c_char),
         ('ActiveTime', ctypes.c_char * 9),
-        ('SuspendTime', ctypes.c_char),
         ('SuspendTime', ctypes.c_char * 9),
-        ('UpdateTime', ctypes.c_char),
         ('UpdateTime', ctypes.c_char * 9),
-        ('CancelTime', ctypes.c_char),
         ('CancelTime', ctypes.c_char * 9),
-        ('ActiveTraderID', ctypes.c_char),
         ('ActiveTraderID', ctypes.c_char * 21),
-        ('ClearingPartID', ctypes.c_char),
         ('ClearingPartID', ctypes.c_char * 11),
         ('SequenceNo', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('UserProductInfo', ctypes.c_char),
         ('UserProductInfo', ctypes.c_char * 11),
-        ('StatusMsg', ctypes.c_char),
         ('StatusMsg', ctypes.c_char * 81),
         ('UserForceClose', ctypes.c_int),
-        ('ActiveUserID', ctypes.c_char),
         ('ActiveUserID', ctypes.c_char * 16),
         ('BrokerOrderSeq', ctypes.c_int),
-        ('RelativeOrderSysID', ctypes.c_char),
         ('RelativeOrderSysID', ctypes.c_char * 21),
         ('ZCETotalTradedVolume', ctypes.c_int),
         ('IsSwapOrder', ctypes.c_int),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -1913,14 +1636,11 @@ class ExchangeOrderField(Base):
     _fields_ = [
         ('OrderPriceType', ctypes.c_char),
         ('Direction', ctypes.c_char),
-        ('CombOffsetFlag', ctypes.c_char),
         ('CombOffsetFlag', ctypes.c_char * 5),
-        ('CombHedgeFlag', ctypes.c_char),
         ('CombHedgeFlag', ctypes.c_char * 5),
         ('LimitPrice', ctypes.c_double),
         ('VolumeTotalOriginal', ctypes.c_int),
         ('TimeCondition', ctypes.c_char),
-        ('GTDDate', ctypes.c_char),
         ('GTDDate', ctypes.c_char * 9),
         ('VolumeCondition', ctypes.c_char),
         ('MinVolume', ctypes.c_int),
@@ -1928,56 +1648,36 @@ class ExchangeOrderField(Base):
         ('StopPrice', ctypes.c_double),
         ('ForceCloseReason', ctypes.c_char),
         ('IsAutoSuspend', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('RequestID', ctypes.c_int),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
         ('OrderSubmitStatus', ctypes.c_char),
         ('NotifySequence', ctypes.c_int),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
         ('OrderSource', ctypes.c_char),
         ('OrderStatus', ctypes.c_char),
         ('OrderType', ctypes.c_char),
         ('VolumeTraded', ctypes.c_int),
         ('VolumeTotal', ctypes.c_int),
-        ('InsertDate', ctypes.c_char),
         ('InsertDate', ctypes.c_char * 9),
-        ('InsertTime', ctypes.c_char),
         ('InsertTime', ctypes.c_char * 9),
-        ('ActiveTime', ctypes.c_char),
         ('ActiveTime', ctypes.c_char * 9),
-        ('SuspendTime', ctypes.c_char),
         ('SuspendTime', ctypes.c_char * 9),
-        ('UpdateTime', ctypes.c_char),
         ('UpdateTime', ctypes.c_char * 9),
-        ('CancelTime', ctypes.c_char),
         ('CancelTime', ctypes.c_char * 9),
-        ('ActiveTraderID', ctypes.c_char),
         ('ActiveTraderID', ctypes.c_char * 21),
-        ('ClearingPartID', ctypes.c_char),
         ('ClearingPartID', ctypes.c_char * 11),
         ('SequenceNo', ctypes.c_int),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -2039,17 +1739,12 @@ class ExchangeOrderField(Base):
 
 class ExchangeOrderInsertErrorField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -2067,32 +1762,22 @@ class ExchangeOrderInsertErrorField(Base):
 
 class InputOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('OrderActionRef', ctypes.c_int),
-        ('OrderRef', ctypes.c_char),
         ('OrderRef', ctypes.c_char * 13),
         ('RequestID', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
         ('LimitPrice', ctypes.c_double),
         ('VolumeChange', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -2121,54 +1806,34 @@ class InputOrderActionField(Base):
 
 class OrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('OrderActionRef', ctypes.c_int),
-        ('OrderRef', ctypes.c_char),
         ('OrderRef', ctypes.c_char * 13),
         ('RequestID', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
         ('LimitPrice', ctypes.c_double),
         ('VolumeChange', ctypes.c_int),
-        ('ActionDate', ctypes.c_char),
         ('ActionDate', ctypes.c_char * 9),
-        ('ActionTime', ctypes.c_char),
         ('ActionTime', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OrderActionStatus', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('StatusMsg', ctypes.c_char),
         ('StatusMsg', ctypes.c_char * 81),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -2211,38 +1876,24 @@ class OrderActionField(Base):
 
 class ExchangeOrderActionField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
         ('LimitPrice', ctypes.c_double),
         ('VolumeChange', ctypes.c_int),
-        ('ActionDate', ctypes.c_char),
         ('ActionDate', ctypes.c_char * 9),
-        ('ActionTime', ctypes.c_char),
         ('ActionTime', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OrderActionStatus', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -2274,19 +1925,13 @@ class ExchangeOrderActionField(Base):
 
 class ExchangeOrderActionErrorField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -2305,37 +1950,25 @@ class ExchangeOrderActionErrorField(Base):
 
 class ExchangeTradeField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TradeID', ctypes.c_char),
         ('TradeID', ctypes.c_char * 21),
         ('Direction', ctypes.c_char),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
         ('TradingRole', ctypes.c_char),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
         ('OffsetFlag', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
         ('Price', ctypes.c_double),
         ('Volume', ctypes.c_int),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
         ('TradeType', ctypes.c_char),
         ('PriceSource', ctypes.c_char),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
-        ('ClearingPartID', ctypes.c_char),
         ('ClearingPartID', ctypes.c_char * 11),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('SequenceNo', ctypes.c_int),
         ('TradeSource', ctypes.c_char),
@@ -2372,50 +2005,32 @@ class ExchangeTradeField(Base):
 
 class TradeField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('OrderRef', ctypes.c_char),
         ('OrderRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TradeID', ctypes.c_char),
         ('TradeID', ctypes.c_char * 21),
         ('Direction', ctypes.c_char),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
         ('TradingRole', ctypes.c_char),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
         ('OffsetFlag', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
         ('Price', ctypes.c_double),
         ('Volume', ctypes.c_int),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
         ('TradeType', ctypes.c_char),
         ('PriceSource', ctypes.c_char),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
-        ('ClearingPartID', ctypes.c_char),
         ('ClearingPartID', ctypes.c_char * 11),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('SequenceNo', ctypes.c_int),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
         ('BrokerOrderSeq', ctypes.c_int),
@@ -2464,25 +2079,15 @@ class UserSessionField(Base):
     _fields_ = [
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('LoginDate', ctypes.c_char),
         ('LoginDate', ctypes.c_char * 9),
-        ('LoginTime', ctypes.c_char),
         ('LoginTime', ctypes.c_char * 9),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('UserProductInfo', ctypes.c_char),
         ('UserProductInfo', ctypes.c_char * 11),
-        ('InterfaceProductInfo', ctypes.c_char),
         ('InterfaceProductInfo', ctypes.c_char * 11),
-        ('ProtocolInfo', ctypes.c_char),
         ('ProtocolInfo', ctypes.c_char * 11),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
-        ('LoginRemark', ctypes.c_char),
         ('LoginRemark', ctypes.c_char * 36),
     ]
 
@@ -2505,11 +2110,8 @@ class UserSessionField(Base):
 
 class QueryMaxOrderVolumeField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('Direction', ctypes.c_char),
         ('OffsetFlag', ctypes.c_char),
@@ -2531,13 +2133,9 @@ class QueryMaxOrderVolumeField(Base):
 
 class SettlementInfoConfirmField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ConfirmDate', ctypes.c_char),
         ('ConfirmDate', ctypes.c_char * 9),
-        ('ConfirmTime', ctypes.c_char),
         ('ConfirmTime', ctypes.c_char * 9),
     ]
 
@@ -2551,15 +2149,11 @@ class SettlementInfoConfirmField(Base):
 
 class SyncDepositField(Base):
     _fields_ = [
-        ('DepositSeqNo', ctypes.c_char),
         ('DepositSeqNo', ctypes.c_char * 15),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('Deposit', ctypes.c_double),
         ('IsForce', ctypes.c_int),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -2575,16 +2169,11 @@ class SyncDepositField(Base):
 
 class SyncFundMortgageField(Base):
     _fields_ = [
-        ('MortgageSeqNo', ctypes.c_char),
         ('MortgageSeqNo', ctypes.c_char * 15),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('FromCurrencyID', ctypes.c_char),
         ('FromCurrencyID', ctypes.c_char * 4),
         ('MortgageAmount', ctypes.c_double),
-        ('ToCurrencyID', ctypes.c_char),
         ('ToCurrencyID', ctypes.c_char * 4),
     ]
 
@@ -2601,7 +2190,6 @@ class SyncFundMortgageField(Base):
 
 class BrokerSyncField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
     ]
 
@@ -2612,29 +2200,18 @@ class BrokerSyncField(Base):
 
 class SyncingInvestorField(Base):
     _fields_ = [
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorGroupID', ctypes.c_char),
         ('InvestorGroupID', ctypes.c_char * 13),
-        ('InvestorName', ctypes.c_char),
         ('InvestorName', ctypes.c_char * 81),
         ('IdentifiedCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('IsActive', ctypes.c_int),
-        ('Telephone', ctypes.c_char),
         ('Telephone', ctypes.c_char * 41),
-        ('Address', ctypes.c_char),
         ('Address', ctypes.c_char * 101),
-        ('OpenDate', ctypes.c_char),
         ('OpenDate', ctypes.c_char * 9),
-        ('Mobile', ctypes.c_char),
         ('Mobile', ctypes.c_char * 41),
-        ('CommModelID', ctypes.c_char),
         ('CommModelID', ctypes.c_char * 13),
-        ('MarginModelID', ctypes.c_char),
         ('MarginModelID', ctypes.c_char * 13),
     ]
 
@@ -2659,13 +2236,9 @@ class SyncingInvestorField(Base):
 
 class SyncingTradingCodeField(Base):
     _fields_ = [
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
         ('IsActive', ctypes.c_int),
         ('ClientIDType', ctypes.c_char),
@@ -2683,11 +2256,8 @@ class SyncingTradingCodeField(Base):
 
 class SyncingInvestorGroupField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorGroupID', ctypes.c_char),
         ('InvestorGroupID', ctypes.c_char * 13),
-        ('InvestorGroupName', ctypes.c_char),
         ('InvestorGroupName', ctypes.c_char * 41),
     ]
 
@@ -2700,9 +2270,7 @@ class SyncingInvestorGroupField(Base):
 
 class SyncingTradingAccountField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
         ('PreMortgage', ctypes.c_double),
         ('PreCredit', ctypes.c_double),
@@ -2725,7 +2293,6 @@ class SyncingTradingAccountField(Base):
         ('Available', ctypes.c_double),
         ('WithdrawQuota', ctypes.c_double),
         ('Reserve', ctypes.c_double),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
         ('Credit', ctypes.c_double),
@@ -2734,7 +2301,6 @@ class SyncingTradingAccountField(Base):
         ('DeliveryMargin', ctypes.c_double),
         ('ExchangeDeliveryMargin', ctypes.c_double),
         ('ReserveBalance', ctypes.c_double),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('PreFundMortgageIn', ctypes.c_double),
         ('PreFundMortgageOut', ctypes.c_double),
@@ -2812,11 +2378,8 @@ class SyncingTradingAccountField(Base):
 
 class SyncingInvestorPositionField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('PosiDirection', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
@@ -2843,7 +2406,6 @@ class SyncingInvestorPositionField(Base):
         ('PositionProfit', ctypes.c_double),
         ('PreSettlementPrice', ctypes.c_double),
         ('SettlementPrice', ctypes.c_double),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
         ('OpenCost', ctypes.c_double),
@@ -2917,12 +2479,9 @@ class SyncingInvestorPositionField(Base):
 
 class SyncingInstrumentMarginRateField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('HedgeFlag', ctypes.c_char),
         ('LongMarginRatioByMoney', ctypes.c_double),
@@ -2950,12 +2509,9 @@ class SyncingInstrumentMarginRateField(Base):
 
 class SyncingInstrumentCommissionRateField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('OpenRatioByMoney', ctypes.c_double),
         ('OpenRatioByVolume', ctypes.c_double),
@@ -2983,12 +2539,9 @@ class SyncingInstrumentCommissionRateField(Base):
 
 class SyncingInstrumentTradingRightField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('TradingRight', ctypes.c_char),
     ]
@@ -3004,19 +2557,12 @@ class SyncingInstrumentTradingRightField(Base):
 
 class QryOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
-        ('InsertTimeStart', ctypes.c_char),
         ('InsertTimeStart', ctypes.c_char * 9),
-        ('InsertTimeEnd', ctypes.c_char),
         ('InsertTimeEnd', ctypes.c_char * 9),
     ]
 
@@ -3034,19 +2580,12 @@ class QryOrderField(Base):
 
 class QryTradeField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TradeID', ctypes.c_char),
         ('TradeID', ctypes.c_char * 21),
-        ('TradeTimeStart', ctypes.c_char),
         ('TradeTimeStart', ctypes.c_char * 9),
-        ('TradeTimeEnd', ctypes.c_char),
         ('TradeTimeEnd', ctypes.c_char * 9),
     ]
 
@@ -3064,11 +2603,8 @@ class QryTradeField(Base):
 
 class QryInvestorPositionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -3081,11 +2617,8 @@ class QryInvestorPositionField(Base):
 
 class QryTradingAccountField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -3098,9 +2631,7 @@ class QryTradingAccountField(Base):
 
 class QryInvestorField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
     ]
 
@@ -3112,13 +2643,9 @@ class QryInvestorField(Base):
 
 class QryTradingCodeField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
         ('ClientIDType', ctypes.c_char),
     ]
@@ -3134,7 +2661,6 @@ class QryTradingCodeField(Base):
 
 class QryInvestorGroupField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
     ]
 
@@ -3145,11 +2671,8 @@ class QryInvestorGroupField(Base):
 
 class QryInstrumentMarginRateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('HedgeFlag', ctypes.c_char),
     ]
@@ -3164,11 +2687,8 @@ class QryInstrumentMarginRateField(Base):
 
 class QryInstrumentCommissionRateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -3181,11 +2701,8 @@ class QryInstrumentCommissionRateField(Base):
 
 class QryInstrumentTradingRightField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -3198,7 +2715,6 @@ class QryInstrumentTradingRightField(Base):
 
 class QryBrokerField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
     ]
 
@@ -3209,11 +2725,8 @@ class QryBrokerField(Base):
 
 class QryTraderField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
     ]
 
@@ -3226,7 +2739,6 @@ class QryTraderField(Base):
 
 class QrySuperUserFunctionField(Base):
     _fields_ = [
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
     ]
 
@@ -3239,9 +2751,7 @@ class QryUserSessionField(Base):
     _fields_ = [
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
     ]
 
@@ -3255,11 +2765,8 @@ class QryUserSessionField(Base):
 
 class QryPartBrokerField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
     ]
 
@@ -3282,15 +2789,10 @@ class QryFrontStatusField(Base):
 
 class QryExchangeOrderField(Base):
     _fields_ = [
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
     ]
 
@@ -3305,11 +2807,8 @@ class QryExchangeOrderField(Base):
 
 class QryOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -3322,13 +2821,9 @@ class QryOrderActionField(Base):
 
 class QryExchangeOrderActionField(Base):
     _fields_ = [
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
     ]
 
@@ -3342,7 +2837,6 @@ class QryExchangeOrderActionField(Base):
 
 class QrySuperUserField(Base):
     _fields_ = [
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
     ]
 
@@ -3353,7 +2847,6 @@ class QrySuperUserField(Base):
 
 class QryExchangeField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -3364,7 +2857,6 @@ class QryExchangeField(Base):
 
 class QryProductField(Base):
     _fields_ = [
-        ('ProductID', ctypes.c_char),
         ('ProductID', ctypes.c_char * 31),
         ('ProductClass', ctypes.c_char),
     ]
@@ -3377,13 +2869,9 @@ class QryProductField(Base):
 
 class QryInstrumentField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('ProductID', ctypes.c_char),
         ('ProductID', ctypes.c_char * 31),
     ]
 
@@ -3397,7 +2885,6 @@ class QryInstrumentField(Base):
 
 class QryDepthMarketDataField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -3408,9 +2895,7 @@ class QryDepthMarketDataField(Base):
 
 class QryBrokerUserField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
     ]
 
@@ -3422,9 +2907,7 @@ class QryBrokerUserField(Base):
 
 class QryBrokerUserFunctionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
     ]
 
@@ -3436,11 +2919,8 @@ class QryBrokerUserFunctionField(Base):
 
 class QryTraderOfferField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
     ]
 
@@ -3453,9 +2933,7 @@ class QryTraderOfferField(Base):
 
 class QrySyncDepositField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('DepositSeqNo', ctypes.c_char),
         ('DepositSeqNo', ctypes.c_char * 15),
     ]
 
@@ -3467,11 +2945,8 @@ class QrySyncDepositField(Base):
 
 class QrySettlementInfoField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
     ]
 
@@ -3484,9 +2959,7 @@ class QrySettlementInfoField(Base):
 
 class QryExchangeMarginRateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('HedgeFlag', ctypes.c_char),
     ]
@@ -3500,9 +2973,7 @@ class QryExchangeMarginRateField(Base):
 
 class QryExchangeMarginRateAdjustField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('HedgeFlag', ctypes.c_char),
     ]
@@ -3516,11 +2987,8 @@ class QryExchangeMarginRateAdjustField(Base):
 
 class QryExchangeRateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('FromCurrencyID', ctypes.c_char),
         ('FromCurrencyID', ctypes.c_char * 4),
-        ('ToCurrencyID', ctypes.c_char),
         ('ToCurrencyID', ctypes.c_char * 4),
     ]
 
@@ -3533,9 +3001,7 @@ class QryExchangeRateField(Base):
 
 class QrySyncFundMortgageField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('MortgageSeqNo', ctypes.c_char),
         ('MortgageSeqNo', ctypes.c_char * 15),
     ]
 
@@ -3547,21 +3013,13 @@ class QrySyncFundMortgageField(Base):
 
 class QryHisOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
-        ('InsertTimeStart', ctypes.c_char),
         ('InsertTimeStart', ctypes.c_char * 9),
-        ('InsertTimeEnd', ctypes.c_char),
         ('InsertTimeEnd', ctypes.c_char * 9),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
     ]
@@ -3582,12 +3040,9 @@ class QryHisOrderField(Base):
 
 class OptionInstrMiniMarginField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('MinMargin', ctypes.c_double),
         ('ValueMethod', ctypes.c_char),
@@ -3608,12 +3063,9 @@ class OptionInstrMiniMarginField(Base):
 
 class OptionInstrMarginAdjustField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('SShortMarginRatioByMoney', ctypes.c_double),
         ('SShortMarginRatioByVolume', ctypes.c_double),
@@ -3648,12 +3100,9 @@ class OptionInstrMarginAdjustField(Base):
 
 class OptionInstrCommRateField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('OpenRatioByMoney', ctypes.c_double),
         ('OpenRatioByVolume', ctypes.c_double),
@@ -3685,11 +3134,8 @@ class OptionInstrCommRateField(Base):
 
 class OptionInstrTradeCostField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('HedgeFlag', ctypes.c_char),
         ('FixedMargin', ctypes.c_double),
@@ -3715,11 +3161,8 @@ class OptionInstrTradeCostField(Base):
 
 class QryOptionInstrTradeCostField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('HedgeFlag', ctypes.c_char),
         ('InputPrice', ctypes.c_double),
@@ -3738,11 +3181,8 @@ class QryOptionInstrTradeCostField(Base):
 
 class QryOptionInstrCommRateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -3755,9 +3195,7 @@ class QryOptionInstrCommRateField(Base):
 
 class IndexPriceField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('ClosePrice', ctypes.c_double),
     ]
@@ -3771,19 +3209,13 @@ class IndexPriceField(Base):
 
 class InputExecOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExecOrderRef', ctypes.c_char),
         ('ExecOrderRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('Volume', ctypes.c_int),
         ('RequestID', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OffsetFlag', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
@@ -3791,19 +3223,12 @@ class InputExecOrderField(Base):
         ('PosiDirection', ctypes.c_char),
         ('ReservePositionFlag', ctypes.c_char),
         ('CloseFlag', ctypes.c_char),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -3837,30 +3262,20 @@ class InputExecOrderField(Base):
 
 class InputExecOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('ExecOrderActionRef', ctypes.c_int),
-        ('ExecOrderRef', ctypes.c_char),
         ('ExecOrderRef', ctypes.c_char * 13),
         ('RequestID', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ExecOrderSysID', ctypes.c_char),
         ('ExecOrderSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -3887,19 +3302,13 @@ class InputExecOrderActionField(Base):
 
 class ExecOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExecOrderRef', ctypes.c_char),
         ('ExecOrderRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('Volume', ctypes.c_int),
         ('RequestID', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OffsetFlag', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
@@ -3907,56 +3316,35 @@ class ExecOrderField(Base):
         ('PosiDirection', ctypes.c_char),
         ('ReservePositionFlag', ctypes.c_char),
         ('CloseFlag', ctypes.c_char),
-        ('ExecOrderLocalID', ctypes.c_char),
         ('ExecOrderLocalID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
         ('OrderSubmitStatus', ctypes.c_char),
         ('NotifySequence', ctypes.c_int),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
-        ('ExecOrderSysID', ctypes.c_char),
         ('ExecOrderSysID', ctypes.c_char * 21),
-        ('InsertDate', ctypes.c_char),
         ('InsertDate', ctypes.c_char * 9),
-        ('InsertTime', ctypes.c_char),
         ('InsertTime', ctypes.c_char * 9),
-        ('CancelTime', ctypes.c_char),
         ('CancelTime', ctypes.c_char * 9),
         ('ExecResult', ctypes.c_char),
-        ('ClearingPartID', ctypes.c_char),
         ('ClearingPartID', ctypes.c_char * 11),
         ('SequenceNo', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('UserProductInfo', ctypes.c_char),
         ('UserProductInfo', ctypes.c_char * 11),
-        ('StatusMsg', ctypes.c_char),
         ('StatusMsg', ctypes.c_char * 81),
-        ('ActiveUserID', ctypes.c_char),
         ('ActiveUserID', ctypes.c_char * 16),
         ('BrokerExecOrderSeq', ctypes.c_int),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -4017,53 +3405,33 @@ class ExecOrderField(Base):
 
 class ExecOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('ExecOrderActionRef', ctypes.c_int),
-        ('ExecOrderRef', ctypes.c_char),
         ('ExecOrderRef', ctypes.c_char * 13),
         ('RequestID', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ExecOrderSysID', ctypes.c_char),
         ('ExecOrderSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
-        ('ActionDate', ctypes.c_char),
         ('ActionDate', ctypes.c_char * 9),
-        ('ActionTime', ctypes.c_char),
         ('ActionTime', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('ExecOrderLocalID', ctypes.c_char),
         ('ExecOrderLocalID', ctypes.c_char * 13),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OrderActionStatus', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('ActionType', ctypes.c_char),
-        ('StatusMsg', ctypes.c_char),
         ('StatusMsg', ctypes.c_char * 81),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -4105,19 +3473,12 @@ class ExecOrderActionField(Base):
 
 class QryExecOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ExecOrderSysID', ctypes.c_char),
         ('ExecOrderSysID', ctypes.c_char * 21),
-        ('InsertTimeStart', ctypes.c_char),
         ('InsertTimeStart', ctypes.c_char * 9),
-        ('InsertTimeEnd', ctypes.c_char),
         ('InsertTimeEnd', ctypes.c_char * 9),
     ]
 
@@ -4137,7 +3498,6 @@ class ExchangeExecOrderField(Base):
     _fields_ = [
         ('Volume', ctypes.c_int),
         ('RequestID', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OffsetFlag', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
@@ -4145,41 +3505,26 @@ class ExchangeExecOrderField(Base):
         ('PosiDirection', ctypes.c_char),
         ('ReservePositionFlag', ctypes.c_char),
         ('CloseFlag', ctypes.c_char),
-        ('ExecOrderLocalID', ctypes.c_char),
         ('ExecOrderLocalID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
         ('OrderSubmitStatus', ctypes.c_char),
         ('NotifySequence', ctypes.c_int),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
-        ('ExecOrderSysID', ctypes.c_char),
         ('ExecOrderSysID', ctypes.c_char * 21),
-        ('InsertDate', ctypes.c_char),
         ('InsertDate', ctypes.c_char * 9),
-        ('InsertTime', ctypes.c_char),
         ('InsertTime', ctypes.c_char * 9),
-        ('CancelTime', ctypes.c_char),
         ('CancelTime', ctypes.c_char * 9),
         ('ExecResult', ctypes.c_char),
-        ('ClearingPartID', ctypes.c_char),
         ('ClearingPartID', ctypes.c_char * 11),
         ('SequenceNo', ctypes.c_int),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -4224,15 +3569,10 @@ class ExchangeExecOrderField(Base):
 
 class QryExchangeExecOrderField(Base):
     _fields_ = [
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
     ]
 
@@ -4247,11 +3587,8 @@ class QryExchangeExecOrderField(Base):
 
 class QryExecOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -4264,37 +3601,23 @@ class QryExecOrderActionField(Base):
 
 class ExchangeExecOrderActionField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ExecOrderSysID', ctypes.c_char),
         ('ExecOrderSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
-        ('ActionDate', ctypes.c_char),
         ('ActionDate', ctypes.c_char * 9),
-        ('ActionTime', ctypes.c_char),
         ('ActionTime', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('ExecOrderLocalID', ctypes.c_char),
         ('ExecOrderLocalID', ctypes.c_char * 13),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OrderActionStatus', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('ActionType', ctypes.c_char),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -4324,13 +3647,9 @@ class ExchangeExecOrderActionField(Base):
 
 class QryExchangeExecOrderActionField(Base):
     _fields_ = [
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
     ]
 
@@ -4344,19 +3663,13 @@ class QryExchangeExecOrderActionField(Base):
 
 class ErrExecOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExecOrderRef', ctypes.c_char),
         ('ExecOrderRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('Volume', ctypes.c_int),
         ('RequestID', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OffsetFlag', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
@@ -4364,22 +3677,14 @@ class ErrExecOrderField(Base):
         ('PosiDirection', ctypes.c_char),
         ('ReservePositionFlag', ctypes.c_char),
         ('CloseFlag', ctypes.c_char),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -4415,9 +3720,7 @@ class ErrExecOrderField(Base):
 
 class QryErrExecOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
     ]
 
@@ -4429,33 +3732,22 @@ class QryErrExecOrderField(Base):
 
 class ErrExecOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('ExecOrderActionRef', ctypes.c_int),
-        ('ExecOrderRef', ctypes.c_char),
         ('ExecOrderRef', ctypes.c_char * 13),
         ('RequestID', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ExecOrderSysID', ctypes.c_char),
         ('ExecOrderSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -4484,9 +3776,7 @@ class ErrExecOrderActionField(Base):
 
 class QryErrExecOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
     ]
 
@@ -4498,12 +3788,9 @@ class QryErrExecOrderActionField(Base):
 
 class OptionInstrTradingRightField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('Direction', ctypes.c_char),
         ('TradingRight', ctypes.c_char),
@@ -4521,11 +3808,8 @@ class OptionInstrTradingRightField(Base):
 
 class QryOptionInstrTradingRightField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('Direction', ctypes.c_char),
     ]
@@ -4540,23 +3824,14 @@ class QryOptionInstrTradingRightField(Base):
 
 class InputForQuoteField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ForQuoteRef', ctypes.c_char),
         ('ForQuoteRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -4576,46 +3851,28 @@ class InputForQuoteField(Base):
 
 class ForQuoteField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ForQuoteRef', ctypes.c_char),
         ('ForQuoteRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('ForQuoteLocalID', ctypes.c_char),
         ('ForQuoteLocalID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('InsertDate', ctypes.c_char),
         ('InsertDate', ctypes.c_char * 9),
-        ('InsertTime', ctypes.c_char),
         ('InsertTime', ctypes.c_char * 9),
         ('ForQuoteStatus', ctypes.c_char),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('StatusMsg', ctypes.c_char),
         ('StatusMsg', ctypes.c_char * 81),
-        ('ActiveUserID', ctypes.c_char),
         ('ActiveUserID', ctypes.c_char * 16),
         ('BrokerForQutoSeq', ctypes.c_int),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -4651,17 +3908,11 @@ class ForQuoteField(Base):
 
 class QryForQuoteField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InsertTimeStart', ctypes.c_char),
         ('InsertTimeStart', ctypes.c_char * 9),
-        ('InsertTimeEnd', ctypes.c_char),
         ('InsertTimeEnd', ctypes.c_char * 9),
     ]
 
@@ -4678,27 +3929,17 @@ class QryForQuoteField(Base):
 
 class ExchangeForQuoteField(Base):
     _fields_ = [
-        ('ForQuoteLocalID', ctypes.c_char),
         ('ForQuoteLocalID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('InsertDate', ctypes.c_char),
         ('InsertDate', ctypes.c_char * 9),
-        ('InsertTime', ctypes.c_char),
         ('InsertTime', ctypes.c_char * 9),
         ('ForQuoteStatus', ctypes.c_char),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -4721,15 +3962,10 @@ class ExchangeForQuoteField(Base):
 
 class QryExchangeForQuoteField(Base):
     _fields_ = [
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
     ]
 
@@ -4744,42 +3980,28 @@ class QryExchangeForQuoteField(Base):
 
 class InputQuoteField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('QuoteRef', ctypes.c_char),
         ('QuoteRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('AskPrice', ctypes.c_double),
         ('BidPrice', ctypes.c_double),
         ('AskVolume', ctypes.c_int),
         ('BidVolume', ctypes.c_int),
         ('RequestID', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('AskOffsetFlag', ctypes.c_char),
         ('BidOffsetFlag', ctypes.c_char),
         ('AskHedgeFlag', ctypes.c_char),
         ('BidHedgeFlag', ctypes.c_char),
-        ('AskOrderRef', ctypes.c_char),
         ('AskOrderRef', ctypes.c_char * 13),
-        ('BidOrderRef', ctypes.c_char),
         ('BidOrderRef', ctypes.c_char * 13),
-        ('ForQuoteSysID', ctypes.c_char),
         ('ForQuoteSysID', ctypes.c_char * 21),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -4815,32 +4037,21 @@ class InputQuoteField(Base):
 
 class InputQuoteActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('QuoteActionRef', ctypes.c_int),
-        ('QuoteRef', ctypes.c_char),
         ('QuoteRef', ctypes.c_char * 13),
         ('RequestID', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('QuoteSysID', ctypes.c_char),
         ('QuoteSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -4868,87 +4079,55 @@ class InputQuoteActionField(Base):
 
 class QuoteField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('QuoteRef', ctypes.c_char),
         ('QuoteRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('AskPrice', ctypes.c_double),
         ('BidPrice', ctypes.c_double),
         ('AskVolume', ctypes.c_int),
         ('BidVolume', ctypes.c_int),
         ('RequestID', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('AskOffsetFlag', ctypes.c_char),
         ('BidOffsetFlag', ctypes.c_char),
         ('AskHedgeFlag', ctypes.c_char),
         ('BidHedgeFlag', ctypes.c_char),
-        ('QuoteLocalID', ctypes.c_char),
         ('QuoteLocalID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
         ('NotifySequence', ctypes.c_int),
         ('OrderSubmitStatus', ctypes.c_char),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
-        ('QuoteSysID', ctypes.c_char),
         ('QuoteSysID', ctypes.c_char * 21),
-        ('InsertDate', ctypes.c_char),
         ('InsertDate', ctypes.c_char * 9),
-        ('InsertTime', ctypes.c_char),
         ('InsertTime', ctypes.c_char * 9),
-        ('CancelTime', ctypes.c_char),
         ('CancelTime', ctypes.c_char * 9),
         ('QuoteStatus', ctypes.c_char),
-        ('ClearingPartID', ctypes.c_char),
         ('ClearingPartID', ctypes.c_char * 11),
         ('SequenceNo', ctypes.c_int),
-        ('AskOrderSysID', ctypes.c_char),
         ('AskOrderSysID', ctypes.c_char * 21),
-        ('BidOrderSysID', ctypes.c_char),
         ('BidOrderSysID', ctypes.c_char * 21),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('UserProductInfo', ctypes.c_char),
         ('UserProductInfo', ctypes.c_char * 11),
-        ('StatusMsg', ctypes.c_char),
         ('StatusMsg', ctypes.c_char * 81),
-        ('ActiveUserID', ctypes.c_char),
         ('ActiveUserID', ctypes.c_char * 16),
         ('BrokerQuoteSeq', ctypes.c_int),
-        ('AskOrderRef', ctypes.c_char),
         ('AskOrderRef', ctypes.c_char * 13),
-        ('BidOrderRef', ctypes.c_char),
         ('BidOrderRef', ctypes.c_char * 13),
-        ('ForQuoteSysID', ctypes.c_char),
         ('ForQuoteSysID', ctypes.c_char * 21),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -5016,52 +4195,32 @@ class QuoteField(Base):
 
 class QuoteActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('QuoteActionRef', ctypes.c_int),
-        ('QuoteRef', ctypes.c_char),
         ('QuoteRef', ctypes.c_char * 13),
         ('RequestID', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('QuoteSysID', ctypes.c_char),
         ('QuoteSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
-        ('ActionDate', ctypes.c_char),
         ('ActionDate', ctypes.c_char * 9),
-        ('ActionTime', ctypes.c_char),
         ('ActionTime', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('QuoteLocalID', ctypes.c_char),
         ('QuoteLocalID', ctypes.c_char * 13),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OrderActionStatus', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('StatusMsg', ctypes.c_char),
         ('StatusMsg', ctypes.c_char * 81),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -5102,19 +4261,12 @@ class QuoteActionField(Base):
 
 class QryQuoteField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('QuoteSysID', ctypes.c_char),
         ('QuoteSysID', ctypes.c_char * 21),
-        ('InsertTimeStart', ctypes.c_char),
         ('InsertTimeStart', ctypes.c_char * 9),
-        ('InsertTimeEnd', ctypes.c_char),
         ('InsertTimeEnd', ctypes.c_char * 9),
     ]
 
@@ -5137,53 +4289,34 @@ class ExchangeQuoteField(Base):
         ('AskVolume', ctypes.c_int),
         ('BidVolume', ctypes.c_int),
         ('RequestID', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('AskOffsetFlag', ctypes.c_char),
         ('BidOffsetFlag', ctypes.c_char),
         ('AskHedgeFlag', ctypes.c_char),
         ('BidHedgeFlag', ctypes.c_char),
-        ('QuoteLocalID', ctypes.c_char),
         ('QuoteLocalID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
         ('NotifySequence', ctypes.c_int),
         ('OrderSubmitStatus', ctypes.c_char),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
-        ('QuoteSysID', ctypes.c_char),
         ('QuoteSysID', ctypes.c_char * 21),
-        ('InsertDate', ctypes.c_char),
         ('InsertDate', ctypes.c_char * 9),
-        ('InsertTime', ctypes.c_char),
         ('InsertTime', ctypes.c_char * 9),
-        ('CancelTime', ctypes.c_char),
         ('CancelTime', ctypes.c_char * 9),
         ('QuoteStatus', ctypes.c_char),
-        ('ClearingPartID', ctypes.c_char),
         ('ClearingPartID', ctypes.c_char * 11),
         ('SequenceNo', ctypes.c_int),
-        ('AskOrderSysID', ctypes.c_char),
         ('AskOrderSysID', ctypes.c_char * 21),
-        ('BidOrderSysID', ctypes.c_char),
         ('BidOrderSysID', ctypes.c_char * 21),
-        ('ForQuoteSysID', ctypes.c_char),
         ('ForQuoteSysID', ctypes.c_char * 21),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -5232,15 +4365,10 @@ class ExchangeQuoteField(Base):
 
 class QryExchangeQuoteField(Base):
     _fields_ = [
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
     ]
 
@@ -5255,11 +4383,8 @@ class QryExchangeQuoteField(Base):
 
 class QryQuoteActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -5272,34 +4397,21 @@ class QryQuoteActionField(Base):
 
 class ExchangeQuoteActionField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('QuoteSysID', ctypes.c_char),
         ('QuoteSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
-        ('ActionDate', ctypes.c_char),
         ('ActionDate', ctypes.c_char * 9),
-        ('ActionTime', ctypes.c_char),
         ('ActionTime', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('QuoteLocalID', ctypes.c_char),
         ('QuoteLocalID', ctypes.c_char * 13),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OrderActionStatus', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -5327,13 +4439,9 @@ class ExchangeQuoteActionField(Base):
 
 class QryExchangeQuoteActionField(Base):
     _fields_ = [
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
     ]
 
@@ -5347,12 +4455,9 @@ class QryExchangeQuoteActionField(Base):
 
 class OptionInstrDeltaField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('Delta', ctypes.c_double),
     ]
@@ -5368,17 +4473,11 @@ class OptionInstrDeltaField(Base):
 
 class ForQuoteRspField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ForQuoteSysID', ctypes.c_char),
         ('ForQuoteSysID', ctypes.c_char * 21),
-        ('ForQuoteTime', ctypes.c_char),
         ('ForQuoteTime', ctypes.c_char * 9),
-        ('ActionDay', ctypes.c_char),
         ('ActionDay', ctypes.c_char * 9),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -5394,12 +4493,9 @@ class ForQuoteRspField(Base):
 
 class StrikeOffsetField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('Offset', ctypes.c_double),
         ('OffsetType', ctypes.c_char),
@@ -5417,11 +4513,8 @@ class StrikeOffsetField(Base):
 
 class QryStrikeOffsetField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -5434,23 +4527,16 @@ class QryStrikeOffsetField(Base):
 
 class InputBatchOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('OrderActionRef', ctypes.c_int),
         ('RequestID', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -5472,41 +4558,26 @@ class InputBatchOrderActionField(Base):
 
 class BatchOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('OrderActionRef', ctypes.c_int),
         ('RequestID', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ActionDate', ctypes.c_char),
         ('ActionDate', ctypes.c_char * 9),
-        ('ActionTime', ctypes.c_char),
         ('ActionTime', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OrderActionStatus', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('StatusMsg', ctypes.c_char),
         ('StatusMsg', ctypes.c_char * 81),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -5540,29 +4611,18 @@ class BatchOrderActionField(Base):
 
 class ExchangeBatchOrderActionField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ActionDate', ctypes.c_char),
         ('ActionDate', ctypes.c_char * 9),
-        ('ActionTime', ctypes.c_char),
         ('ActionTime', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OrderActionStatus', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -5587,11 +4647,8 @@ class ExchangeBatchOrderActionField(Base):
 
 class QryBatchOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -5604,9 +4661,7 @@ class QryBatchOrderActionField(Base):
 
 class CombInstrumentGuardField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('GuarantRatio', ctypes.c_double),
     ]
@@ -5620,9 +4675,7 @@ class CombInstrumentGuardField(Base):
 
 class QryCombInstrumentGuardField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -5634,25 +4687,17 @@ class QryCombInstrumentGuardField(Base):
 
 class InputCombActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('CombActionRef', ctypes.c_char),
         ('CombActionRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('Direction', ctypes.c_char),
         ('Volume', ctypes.c_int),
         ('CombDirection', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -5675,48 +4720,32 @@ class InputCombActionField(Base):
 
 class CombActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('CombActionRef', ctypes.c_char),
         ('CombActionRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('Direction', ctypes.c_char),
         ('Volume', ctypes.c_int),
         ('CombDirection', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
         ('ActionStatus', ctypes.c_char),
         ('NotifySequence', ctypes.c_int),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
         ('SequenceNo', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('UserProductInfo', ctypes.c_char),
         ('UserProductInfo', ctypes.c_char * 11),
-        ('StatusMsg', ctypes.c_char),
         ('StatusMsg', ctypes.c_char * 81),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -5757,13 +4786,9 @@ class CombActionField(Base):
 
 class QryCombActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -5781,28 +4806,19 @@ class ExchangeCombActionField(Base):
         ('Volume', ctypes.c_int),
         ('CombDirection', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
         ('ActionStatus', ctypes.c_char),
         ('NotifySequence', ctypes.c_int),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
         ('SequenceNo', ctypes.c_int),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -5832,15 +4848,10 @@ class ExchangeCombActionField(Base):
 
 class QryExchangeCombActionField(Base):
     _fields_ = [
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
     ]
 
@@ -5855,9 +4866,7 @@ class QryExchangeCombActionField(Base):
 
 class ProductExchRateField(Base):
     _fields_ = [
-        ('ProductID', ctypes.c_char),
         ('ProductID', ctypes.c_char * 31),
-        ('QuoteCurrencyID', ctypes.c_char),
         ('QuoteCurrencyID', ctypes.c_char * 4),
         ('ExchangeRate', ctypes.c_double),
     ]
@@ -5871,7 +4880,6 @@ class ProductExchRateField(Base):
 
 class QryProductExchRateField(Base):
     _fields_ = [
-        ('ProductID', ctypes.c_char),
         ('ProductID', ctypes.c_char * 31),
     ]
 
@@ -5882,11 +4890,8 @@ class QryProductExchRateField(Base):
 
 class QryForQuoteParamField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -5899,11 +4904,8 @@ class QryForQuoteParamField(Base):
 
 class ForQuoteParamField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
         ('LastPrice', ctypes.c_double),
         ('PriceInterval', ctypes.c_double),
@@ -5920,12 +4922,9 @@ class ForQuoteParamField(Base):
 
 class MMOptionInstrCommRateField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('OpenRatioByMoney', ctypes.c_double),
         ('OpenRatioByVolume', ctypes.c_double),
@@ -5957,11 +4956,8 @@ class MMOptionInstrCommRateField(Base):
 
 class QryMMOptionInstrCommRateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -5974,12 +4970,9 @@ class QryMMOptionInstrCommRateField(Base):
 
 class MMInstrumentCommissionRateField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('OpenRatioByMoney', ctypes.c_double),
         ('OpenRatioByVolume', ctypes.c_double),
@@ -6007,11 +5000,8 @@ class MMInstrumentCommissionRateField(Base):
 
 class QryMMInstrumentCommissionRateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -6024,12 +5014,9 @@ class QryMMInstrumentCommissionRateField(Base):
 
 class InstrumentOrderCommRateField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InvestorRange', ctypes.c_char),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('HedgeFlag', ctypes.c_char),
         ('OrderCommByVolume', ctypes.c_double),
@@ -6050,11 +5037,8 @@ class InstrumentOrderCommRateField(Base):
 
 class QryInstrumentOrderCommRateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -6067,13 +5051,9 @@ class QryInstrumentOrderCommRateField(Base):
 
 class MarketDataField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
         ('LastPrice', ctypes.c_double),
         ('PreSettlementPrice', ctypes.c_double),
@@ -6091,10 +5071,8 @@ class MarketDataField(Base):
         ('LowerLimitPrice', ctypes.c_double),
         ('PreDelta', ctypes.c_double),
         ('CurrDelta', ctypes.c_double),
-        ('UpdateTime', ctypes.c_char),
         ('UpdateTime', ctypes.c_char * 9),
         ('UpdateMillisec', ctypes.c_int),
-        ('ActionDay', ctypes.c_char),
         ('ActionDay', ctypes.c_char * 9),
     ]
 
@@ -6131,7 +5109,6 @@ class MarketDataField(Base):
 
 class MarketDataBaseField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PreSettlementPrice', ctypes.c_double),
         ('PreClosePrice', ctypes.c_double),
@@ -6271,12 +5248,9 @@ class MarketDataAsk45Field(Base):
 
 class MarketDataUpdateTimeField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('UpdateTime', ctypes.c_char),
         ('UpdateTime', ctypes.c_char * 9),
         ('UpdateMillisec', ctypes.c_int),
-        ('ActionDay', ctypes.c_char),
         ('ActionDay', ctypes.c_char * 9),
     ]
 
@@ -6290,7 +5264,6 @@ class MarketDataUpdateTimeField(Base):
 
 class MarketDataExchangeField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -6301,7 +5274,6 @@ class MarketDataExchangeField(Base):
 
 class SpecificInstrumentField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -6312,17 +5284,12 @@ class SpecificInstrumentField(Base):
 
 class InstrumentStatusField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('SettlementGroupID', ctypes.c_char),
         ('SettlementGroupID', ctypes.c_char * 9),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('InstrumentStatus', ctypes.c_char),
         ('TradingSegmentSN', ctypes.c_int),
-        ('EnterTime', ctypes.c_char),
         ('EnterTime', ctypes.c_char * 9),
         ('EnterReason', ctypes.c_char),
     ]
@@ -6342,9 +5309,7 @@ class InstrumentStatusField(Base):
 
 class QryInstrumentStatusField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
     ]
 
@@ -6356,13 +5321,9 @@ class QryInstrumentStatusField(Base):
 
 class InvestorAccountField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -6376,14 +5337,10 @@ class InvestorAccountField(Base):
 
 class PositionProfitAlgorithmField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
         ('Algorithm', ctypes.c_char),
-        ('Memo', ctypes.c_char),
         ('Memo', ctypes.c_char * 161),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -6398,10 +5355,8 @@ class PositionProfitAlgorithmField(Base):
 
 class DiscountField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
         ('InvestorRange', ctypes.c_char),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('Discount', ctypes.c_double),
     ]
@@ -6416,9 +5371,7 @@ class DiscountField(Base):
 
 class QryTransferBankField(Base):
     _fields_ = [
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBrchID', ctypes.c_char),
         ('BankBrchID', ctypes.c_char * 5),
     ]
 
@@ -6430,11 +5383,8 @@ class QryTransferBankField(Base):
 
 class TransferBankField(Base):
     _fields_ = [
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBrchID', ctypes.c_char),
         ('BankBrchID', ctypes.c_char * 5),
-        ('BankName', ctypes.c_char),
         ('BankName', ctypes.c_char * 101),
         ('IsActive', ctypes.c_int),
     ]
@@ -6449,11 +5399,8 @@ class TransferBankField(Base):
 
 class QryInvestorPositionDetailField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -6466,27 +5413,19 @@ class QryInvestorPositionDetailField(Base):
 
 class InvestorPositionDetailField(Base):
     _fields_ = [
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('HedgeFlag', ctypes.c_char),
         ('Direction', ctypes.c_char),
-        ('OpenDate', ctypes.c_char),
         ('OpenDate', ctypes.c_char * 9),
-        ('TradeID', ctypes.c_char),
         ('TradeID', ctypes.c_char * 21),
         ('Volume', ctypes.c_int),
         ('OpenPrice', ctypes.c_double),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
         ('TradeType', ctypes.c_char),
-        ('CombInstrumentID', ctypes.c_char),
         ('CombInstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
         ('CloseProfitByDate', ctypes.c_double),
         ('CloseProfitByTrade', ctypes.c_double),
@@ -6538,13 +5477,9 @@ class InvestorPositionDetailField(Base):
 
 class TradingAccountPasswordField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -6558,41 +5493,24 @@ class TradingAccountPasswordField(Base):
 
 class MDTraderOfferField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
         ('TraderConnectStatus', ctypes.c_char),
-        ('ConnectRequestDate', ctypes.c_char),
         ('ConnectRequestDate', ctypes.c_char * 9),
-        ('ConnectRequestTime', ctypes.c_char),
         ('ConnectRequestTime', ctypes.c_char * 9),
-        ('LastReportDate', ctypes.c_char),
         ('LastReportDate', ctypes.c_char * 9),
-        ('LastReportTime', ctypes.c_char),
         ('LastReportTime', ctypes.c_char * 9),
-        ('ConnectDate', ctypes.c_char),
         ('ConnectDate', ctypes.c_char * 9),
-        ('ConnectTime', ctypes.c_char),
         ('ConnectTime', ctypes.c_char * 9),
-        ('StartDate', ctypes.c_char),
         ('StartDate', ctypes.c_char * 9),
-        ('StartTime', ctypes.c_char),
         ('StartTime', ctypes.c_char * 9),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('MaxTradeID', ctypes.c_char),
         ('MaxTradeID', ctypes.c_char * 21),
-        ('MaxOrderMessageReference', ctypes.c_char),
         ('MaxOrderMessageReference', ctypes.c_char * 7),
     ]
 
@@ -6624,11 +5542,8 @@ class MDTraderOfferField(Base):
 
 class QryMDTraderOfferField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
     ]
 
@@ -6641,7 +5556,6 @@ class QryMDTraderOfferField(Base):
 
 class QryNoticeField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
     ]
 
@@ -6652,11 +5566,8 @@ class QryNoticeField(Base):
 
 class NoticeField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('Content', ctypes.c_char),
         ('Content', ctypes.c_char * 501),
-        ('SequenceLabel', ctypes.c_char),
         ('SequenceLabel', ctypes.c_char * 2),
     ]
 
@@ -6669,9 +5580,7 @@ class NoticeField(Base):
 
 class UserRightField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('UserRightType', ctypes.c_char),
         ('IsForbidden', ctypes.c_int),
@@ -6687,9 +5596,7 @@ class UserRightField(Base):
 
 class QrySettlementInfoConfirmField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
     ]
 
@@ -6701,7 +5608,6 @@ class QrySettlementInfoConfirmField(Base):
 
 class LoadSettlementInfoField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
     ]
 
@@ -6712,7 +5618,6 @@ class LoadSettlementInfoField(Base):
 
 class BrokerWithdrawAlgorithmField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
         ('WithdrawAlgorithm', ctypes.c_char),
         ('UsingRatio', ctypes.c_double),
@@ -6720,7 +5625,6 @@ class BrokerWithdrawAlgorithmField(Base):
         ('AllWithoutTrade', ctypes.c_char),
         ('AvailIncludeCloseProfit', ctypes.c_char),
         ('IsBrokerUserEvent', ctypes.c_int),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('FundMortgageRatio', ctypes.c_double),
         ('BalanceAlgorithm', ctypes.c_char),
@@ -6744,13 +5648,9 @@ class BrokerWithdrawAlgorithmField(Base):
 
 class TradingAccountPasswordUpdateV1Field(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('OldPassword', ctypes.c_char),
         ('OldPassword', ctypes.c_char * 41),
-        ('NewPassword', ctypes.c_char),
         ('NewPassword', ctypes.c_char * 41),
     ]
 
@@ -6764,15 +5664,10 @@ class TradingAccountPasswordUpdateV1Field(Base):
 
 class TradingAccountPasswordUpdateField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('OldPassword', ctypes.c_char),
         ('OldPassword', ctypes.c_char * 41),
-        ('NewPassword', ctypes.c_char),
         ('NewPassword', ctypes.c_char * 41),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -6787,10 +5682,8 @@ class TradingAccountPasswordUpdateField(Base):
 
 class QryCombinationLegField(Base):
     _fields_ = [
-        ('CombInstrumentID', ctypes.c_char),
         ('CombInstrumentID', ctypes.c_char * 31),
         ('LegID', ctypes.c_int),
-        ('LegInstrumentID', ctypes.c_char),
         ('LegInstrumentID', ctypes.c_char * 31),
     ]
 
@@ -6803,7 +5696,6 @@ class QryCombinationLegField(Base):
 
 class QrySyncStatusField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
     ]
 
@@ -6814,10 +5706,8 @@ class QrySyncStatusField(Base):
 
 class CombinationLegField(Base):
     _fields_ = [
-        ('CombInstrumentID', ctypes.c_char),
         ('CombInstrumentID', ctypes.c_char * 31),
         ('LegID', ctypes.c_int),
-        ('LegInstrumentID', ctypes.c_char),
         ('LegInstrumentID', ctypes.c_char * 31),
         ('Direction', ctypes.c_char),
         ('LegMultiple', ctypes.c_int),
@@ -6836,7 +5726,6 @@ class CombinationLegField(Base):
 
 class SyncStatusField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('DataSyncStatus', ctypes.c_char),
     ]
@@ -6849,9 +5738,7 @@ class SyncStatusField(Base):
 
 class QryLinkManField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
     ]
 
@@ -6863,26 +5750,17 @@ class QryLinkManField(Base):
 
 class LinkManField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('PersonType', ctypes.c_char),
         ('IdentifiedCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
-        ('PersonName', ctypes.c_char),
         ('PersonName', ctypes.c_char * 81),
-        ('Telephone', ctypes.c_char),
         ('Telephone', ctypes.c_char * 41),
-        ('Address', ctypes.c_char),
         ('Address', ctypes.c_char * 101),
-        ('ZipCode', ctypes.c_char),
         ('ZipCode', ctypes.c_char * 7),
         ('Priority', ctypes.c_int),
-        ('UOAZipCode', ctypes.c_char),
         ('UOAZipCode', ctypes.c_char * 11),
-        ('PersonFullName', ctypes.c_char),
         ('PersonFullName', ctypes.c_char * 101),
     ]
 
@@ -6905,9 +5783,7 @@ class LinkManField(Base):
 
 class QryBrokerUserEventField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('UserEventType', ctypes.c_char),
     ]
@@ -6921,21 +5797,14 @@ class QryBrokerUserEventField(Base):
 
 class BrokerUserEventField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('UserEventType', ctypes.c_char),
         ('EventSequenceNo', ctypes.c_int),
-        ('EventDate', ctypes.c_char),
         ('EventDate', ctypes.c_char * 9),
-        ('EventTime', ctypes.c_char),
         ('EventTime', ctypes.c_char * 9),
-        ('UserEventInfo', ctypes.c_char),
         ('UserEventInfo', ctypes.c_char * 1025),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -6955,11 +5824,8 @@ class BrokerUserEventField(Base):
 
 class QryContractBankField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBrchID', ctypes.c_char),
         ('BankBrchID', ctypes.c_char * 5),
     ]
 
@@ -6972,13 +5838,9 @@ class QryContractBankField(Base):
 
 class ContractBankField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBrchID', ctypes.c_char),
         ('BankBrchID', ctypes.c_char * 5),
-        ('BankName', ctypes.c_char),
         ('BankName', ctypes.c_char * 101),
     ]
 
@@ -6992,22 +5854,14 @@ class ContractBankField(Base):
 
 class InvestorPositionCombineDetailField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
-        ('OpenDate', ctypes.c_char),
         ('OpenDate', ctypes.c_char * 9),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ComTradeID', ctypes.c_char),
         ('ComTradeID', ctypes.c_char * 21),
-        ('TradeID', ctypes.c_char),
         ('TradeID', ctypes.c_char * 21),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('HedgeFlag', ctypes.c_char),
         ('Direction', ctypes.c_char),
@@ -7018,7 +5872,6 @@ class InvestorPositionCombineDetailField(Base):
         ('MarginRateByVolume', ctypes.c_double),
         ('LegID', ctypes.c_int),
         ('LegMultiple', ctypes.c_int),
-        ('CombInstrumentID', ctypes.c_char),
         ('CombInstrumentID', ctypes.c_char * 31),
         ('TradeGroupID', ctypes.c_int),
     ]
@@ -7052,26 +5905,18 @@ class InvestorPositionCombineDetailField(Base):
 
 class ParkedOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('OrderRef', ctypes.c_char),
         ('OrderRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('OrderPriceType', ctypes.c_char),
         ('Direction', ctypes.c_char),
-        ('CombOffsetFlag', ctypes.c_char),
         ('CombOffsetFlag', ctypes.c_char * 5),
-        ('CombHedgeFlag', ctypes.c_char),
         ('CombHedgeFlag', ctypes.c_char * 5),
         ('LimitPrice', ctypes.c_double),
         ('VolumeTotalOriginal', ctypes.c_int),
         ('TimeCondition', ctypes.c_char),
-        ('GTDDate', ctypes.c_char),
         ('GTDDate', ctypes.c_char * 9),
         ('VolumeCondition', ctypes.c_char),
         ('MinVolume', ctypes.c_int),
@@ -7079,31 +5924,21 @@ class ParkedOrderField(Base):
         ('StopPrice', ctypes.c_double),
         ('ForceCloseReason', ctypes.c_char),
         ('IsAutoSuspend', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('RequestID', ctypes.c_int),
         ('UserForceClose', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParkedOrderID', ctypes.c_char),
         ('ParkedOrderID', ctypes.c_char * 13),
         ('UserType', ctypes.c_char),
         ('Status', ctypes.c_char),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
         ('IsSwapOrder', ctypes.c_int),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -7153,39 +5988,27 @@ class ParkedOrderField(Base):
 
 class ParkedOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('OrderActionRef', ctypes.c_int),
-        ('OrderRef', ctypes.c_char),
         ('OrderRef', ctypes.c_char * 13),
         ('RequestID', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
         ('LimitPrice', ctypes.c_double),
         ('VolumeChange', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ParkedOrderActionID', ctypes.c_char),
         ('ParkedOrderActionID', ctypes.c_char * 13),
         ('UserType', ctypes.c_char),
         ('Status', ctypes.c_char),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -7220,13 +6043,9 @@ class ParkedOrderActionField(Base):
 
 class QryParkedOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -7240,13 +6059,9 @@ class QryParkedOrderField(Base):
 
 class QryParkedOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -7260,11 +6075,8 @@ class QryParkedOrderActionField(Base):
 
 class RemoveParkedOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ParkedOrderID', ctypes.c_char),
         ('ParkedOrderID', ctypes.c_char * 13),
     ]
 
@@ -7277,11 +6089,8 @@ class RemoveParkedOrderField(Base):
 
 class RemoveParkedOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ParkedOrderActionID', ctypes.c_char),
         ('ParkedOrderActionID', ctypes.c_char * 13),
     ]
 
@@ -7294,13 +6103,10 @@ class RemoveParkedOrderActionField(Base):
 
 class InvestorWithdrawAlgorithmField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
         ('InvestorRange', ctypes.c_char),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('UsingRatio', ctypes.c_double),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('FundMortgageRatio', ctypes.c_double),
     ]
@@ -7318,11 +6124,8 @@ class InvestorWithdrawAlgorithmField(Base):
 
 class QryInvestorPositionCombineDetailField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('CombInstrumentID', ctypes.c_char),
         ('CombInstrumentID', ctypes.c_char * 31),
     ]
 
@@ -7345,11 +6148,8 @@ class MarketDataAveragePriceField(Base):
 
 class VerifyInvestorPasswordField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
     ]
 
@@ -7362,15 +6162,10 @@ class VerifyInvestorPasswordField(Base):
 
 class UserIPField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('IPMask', ctypes.c_char),
         ('IPMask', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -7385,13 +6180,9 @@ class UserIPField(Base):
 
 class TradingNoticeInfoField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('SendTime', ctypes.c_char),
         ('SendTime', ctypes.c_char * 9),
-        ('FieldContent', ctypes.c_char),
         ('FieldContent', ctypes.c_char * 501),
         ('SequenceSeries', ctypes.c_short),
         ('SequenceNo', ctypes.c_int),
@@ -7409,18 +6200,13 @@ class TradingNoticeInfoField(Base):
 
 class TradingNoticeField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
         ('InvestorRange', ctypes.c_char),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('SequenceSeries', ctypes.c_short),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('SendTime', ctypes.c_char),
         ('SendTime', ctypes.c_char * 9),
         ('SequenceNo', ctypes.c_int),
-        ('FieldContent', ctypes.c_char),
         ('FieldContent', ctypes.c_char * 501),
     ]
 
@@ -7439,9 +6225,7 @@ class TradingNoticeField(Base):
 
 class QryTradingNoticeField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
     ]
 
@@ -7453,9 +6237,7 @@ class QryTradingNoticeField(Base):
 
 class QryErrOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
     ]
 
@@ -7467,26 +6249,18 @@ class QryErrOrderField(Base):
 
 class ErrOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('OrderRef', ctypes.c_char),
         ('OrderRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('OrderPriceType', ctypes.c_char),
         ('Direction', ctypes.c_char),
-        ('CombOffsetFlag', ctypes.c_char),
         ('CombOffsetFlag', ctypes.c_char * 5),
-        ('CombHedgeFlag', ctypes.c_char),
         ('CombHedgeFlag', ctypes.c_char * 5),
         ('LimitPrice', ctypes.c_double),
         ('VolumeTotalOriginal', ctypes.c_int),
         ('TimeCondition', ctypes.c_char),
-        ('GTDDate', ctypes.c_char),
         ('GTDDate', ctypes.c_char * 9),
         ('VolumeCondition', ctypes.c_char),
         ('MinVolume', ctypes.c_int),
@@ -7494,27 +6268,18 @@ class ErrOrderField(Base):
         ('StopPrice', ctypes.c_double),
         ('ForceCloseReason', ctypes.c_char),
         ('IsAutoSuspend', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('RequestID', ctypes.c_int),
         ('UserForceClose', ctypes.c_int),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
         ('IsSwapOrder', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -7561,26 +6326,18 @@ class ErrOrderField(Base):
 
 class ErrorConditionalOrderField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('OrderRef', ctypes.c_char),
         ('OrderRef', ctypes.c_char * 13),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('OrderPriceType', ctypes.c_char),
         ('Direction', ctypes.c_char),
-        ('CombOffsetFlag', ctypes.c_char),
         ('CombOffsetFlag', ctypes.c_char * 5),
-        ('CombHedgeFlag', ctypes.c_char),
         ('CombHedgeFlag', ctypes.c_char * 5),
         ('LimitPrice', ctypes.c_double),
         ('VolumeTotalOriginal', ctypes.c_int),
         ('TimeCondition', ctypes.c_char),
-        ('GTDDate', ctypes.c_char),
         ('GTDDate', ctypes.c_char * 9),
         ('VolumeCondition', ctypes.c_char),
         ('MinVolume', ctypes.c_int),
@@ -7588,79 +6345,51 @@ class ErrorConditionalOrderField(Base):
         ('StopPrice', ctypes.c_double),
         ('ForceCloseReason', ctypes.c_char),
         ('IsAutoSuspend', ctypes.c_int),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('RequestID', ctypes.c_int),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('ExchangeInstID', ctypes.c_char),
         ('ExchangeInstID', ctypes.c_char * 31),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
         ('OrderSubmitStatus', ctypes.c_char),
         ('NotifySequence', ctypes.c_int),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
         ('OrderSource', ctypes.c_char),
         ('OrderStatus', ctypes.c_char),
         ('OrderType', ctypes.c_char),
         ('VolumeTraded', ctypes.c_int),
         ('VolumeTotal', ctypes.c_int),
-        ('InsertDate', ctypes.c_char),
         ('InsertDate', ctypes.c_char * 9),
-        ('InsertTime', ctypes.c_char),
         ('InsertTime', ctypes.c_char * 9),
-        ('ActiveTime', ctypes.c_char),
         ('ActiveTime', ctypes.c_char * 9),
-        ('SuspendTime', ctypes.c_char),
         ('SuspendTime', ctypes.c_char * 9),
-        ('UpdateTime', ctypes.c_char),
         ('UpdateTime', ctypes.c_char * 9),
-        ('CancelTime', ctypes.c_char),
         ('CancelTime', ctypes.c_char * 9),
-        ('ActiveTraderID', ctypes.c_char),
         ('ActiveTraderID', ctypes.c_char * 21),
-        ('ClearingPartID', ctypes.c_char),
         ('ClearingPartID', ctypes.c_char * 11),
         ('SequenceNo', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('UserProductInfo', ctypes.c_char),
         ('UserProductInfo', ctypes.c_char * 11),
-        ('StatusMsg', ctypes.c_char),
         ('StatusMsg', ctypes.c_char * 81),
         ('UserForceClose', ctypes.c_int),
-        ('ActiveUserID', ctypes.c_char),
         ('ActiveUserID', ctypes.c_char * 16),
         ('BrokerOrderSeq', ctypes.c_int),
-        ('RelativeOrderSysID', ctypes.c_char),
         ('RelativeOrderSysID', ctypes.c_char * 21),
         ('ZCETotalTradedVolume', ctypes.c_int),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
         ('IsSwapOrder', ctypes.c_int),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
     ]
 
@@ -7746,9 +6475,7 @@ class ErrorConditionalOrderField(Base):
 
 class QryErrOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
     ]
 
@@ -7760,57 +6487,36 @@ class QryErrOrderActionField(Base):
 
 class ErrOrderActionField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('OrderActionRef', ctypes.c_int),
-        ('OrderRef', ctypes.c_char),
         ('OrderRef', ctypes.c_char * 13),
         ('RequestID', ctypes.c_int),
         ('FrontID', ctypes.c_int),
         ('SessionID', ctypes.c_int),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('OrderSysID', ctypes.c_char),
         ('OrderSysID', ctypes.c_char * 21),
         ('ActionFlag', ctypes.c_char),
         ('LimitPrice', ctypes.c_double),
         ('VolumeChange', ctypes.c_int),
-        ('ActionDate', ctypes.c_char),
         ('ActionDate', ctypes.c_char * 9),
-        ('ActionTime', ctypes.c_char),
         ('ActionTime', ctypes.c_char * 9),
-        ('TraderID', ctypes.c_char),
         ('TraderID', ctypes.c_char * 21),
         ('InstallID', ctypes.c_int),
-        ('OrderLocalID', ctypes.c_char),
         ('OrderLocalID', ctypes.c_char * 13),
-        ('ActionLocalID', ctypes.c_char),
         ('ActionLocalID', ctypes.c_char * 13),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ClientID', ctypes.c_char),
         ('ClientID', ctypes.c_char * 11),
-        ('BusinessUnit', ctypes.c_char),
         ('BusinessUnit', ctypes.c_char * 21),
         ('OrderActionStatus', ctypes.c_char),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('StatusMsg', ctypes.c_char),
         ('StatusMsg', ctypes.c_char * 81),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
-        ('BranchID', ctypes.c_char),
         ('BranchID', ctypes.c_char * 9),
-        ('InvestUnitID', ctypes.c_char),
         ('InvestUnitID', ctypes.c_char * 17),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
-        ('MacAddress', ctypes.c_char),
         ('MacAddress', ctypes.c_char * 21),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -7855,7 +6561,6 @@ class ErrOrderActionField(Base):
 
 class QryExchangeSequenceField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -7866,7 +6571,6 @@ class QryExchangeSequenceField(Base):
 
 class ExchangeSequenceField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
         ('SequenceNo', ctypes.c_int),
         ('MarketStatus', ctypes.c_char),
@@ -7881,11 +6585,8 @@ class ExchangeSequenceField(Base):
 
 class QueryMaxOrderVolumeWithPriceField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('Direction', ctypes.c_char),
         ('OffsetFlag', ctypes.c_char),
@@ -7909,11 +6610,8 @@ class QueryMaxOrderVolumeWithPriceField(Base):
 
 class QryBrokerTradingParamsField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -7926,14 +6624,11 @@ class QryBrokerTradingParamsField(Base):
 
 class BrokerTradingParamsField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('MarginPriceType', ctypes.c_char),
         ('Algorithm', ctypes.c_char),
         ('AvailIncludeCloseProfit', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('OptionRoyaltyPriceType', ctypes.c_char),
     ]
@@ -7952,11 +6647,8 @@ class BrokerTradingParamsField(Base):
 
 class QryBrokerTradingAlgosField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -7969,11 +6661,8 @@ class QryBrokerTradingAlgosField(Base):
 
 class BrokerTradingAlgosField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('HandlePositionAlgoID', ctypes.c_char),
         ('FindMarginRateAlgoID', ctypes.c_char),
@@ -7993,9 +6682,7 @@ class BrokerTradingAlgosField(Base):
 
 class QueryBrokerDepositField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -8007,13 +6694,9 @@ class QueryBrokerDepositField(Base):
 
 class BrokerDepositField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
         ('PreBalance', ctypes.c_double),
         ('CurrMargin', ctypes.c_double),
@@ -8046,7 +6729,6 @@ class BrokerDepositField(Base):
 
 class QryCFMMCBrokerKeyField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
     ]
 
@@ -8057,16 +6739,11 @@ class QryCFMMCBrokerKeyField(Base):
 
 class CFMMCBrokerKeyField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('CreateDate', ctypes.c_char),
         ('CreateDate', ctypes.c_char * 9),
-        ('CreateTime', ctypes.c_char),
         ('CreateTime', ctypes.c_char * 9),
         ('KeyID', ctypes.c_int),
-        ('CurrentKey', ctypes.c_char),
         ('CurrentKey', ctypes.c_char * 21),
         ('KeyKind', ctypes.c_char),
     ]
@@ -8085,14 +6762,10 @@ class CFMMCBrokerKeyField(Base):
 
 class CFMMCTradingAccountKeyField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
         ('KeyID', ctypes.c_int),
-        ('CurrentKey', ctypes.c_char),
         ('CurrentKey', ctypes.c_char * 21),
     ]
 
@@ -8107,9 +6780,7 @@ class CFMMCTradingAccountKeyField(Base):
 
 class QryCFMMCTradingAccountKeyField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
     ]
 
@@ -8121,15 +6792,10 @@ class QryCFMMCTradingAccountKeyField(Base):
 
 class BrokerUserOTPParamField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('OTPVendorsID', ctypes.c_char),
         ('OTPVendorsID', ctypes.c_char * 2),
-        ('SerialNumber', ctypes.c_char),
         ('SerialNumber', ctypes.c_char * 17),
-        ('AuthKey', ctypes.c_char),
         ('AuthKey', ctypes.c_char * 41),
         ('LastDrift', ctypes.c_int),
         ('LastSuccess', ctypes.c_int),
@@ -8151,14 +6817,10 @@ class BrokerUserOTPParamField(Base):
 
 class ManualSyncBrokerUserOTPField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('OTPType', ctypes.c_char),
-        ('FirstOTP', ctypes.c_char),
         ('FirstOTP', ctypes.c_char * 41),
-        ('SecondOTP', ctypes.c_char),
         ('SecondOTP', ctypes.c_char * 41),
     ]
 
@@ -8173,11 +6835,8 @@ class ManualSyncBrokerUserOTPField(Base):
 
 class CommRateModelField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('CommModelID', ctypes.c_char),
         ('CommModelID', ctypes.c_char * 13),
-        ('CommModelName', ctypes.c_char),
         ('CommModelName', ctypes.c_char * 161),
     ]
 
@@ -8190,9 +6849,7 @@ class CommRateModelField(Base):
 
 class QryCommRateModelField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('CommModelID', ctypes.c_char),
         ('CommModelID', ctypes.c_char * 13),
     ]
 
@@ -8204,11 +6861,8 @@ class QryCommRateModelField(Base):
 
 class MarginModelField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('MarginModelID', ctypes.c_char),
         ('MarginModelID', ctypes.c_char * 13),
-        ('MarginModelName', ctypes.c_char),
         ('MarginModelName', ctypes.c_char * 161),
     ]
 
@@ -8221,9 +6875,7 @@ class MarginModelField(Base):
 
 class QryMarginModelField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('MarginModelID', ctypes.c_char),
         ('MarginModelID', ctypes.c_char * 13),
     ]
 
@@ -8235,15 +6887,10 @@ class QryMarginModelField(Base):
 
 class EWarrantOffsetField(Base):
     _fields_ = [
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
         ('Direction', ctypes.c_char),
         ('HedgeFlag', ctypes.c_char),
@@ -8265,13 +6912,9 @@ class EWarrantOffsetField(Base):
 
 class QryEWarrantOffsetField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('InstrumentID', ctypes.c_char),
         ('InstrumentID', ctypes.c_char * 31),
     ]
 
@@ -8285,11 +6928,8 @@ class QryEWarrantOffsetField(Base):
 
 class QryInvestorProductGroupMarginField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('ProductGroupID', ctypes.c_char),
         ('ProductGroupID', ctypes.c_char * 31),
         ('HedgeFlag', ctypes.c_char),
     ]
@@ -8304,13 +6944,9 @@ class QryInvestorProductGroupMarginField(Base):
 
 class InvestorProductGroupMarginField(Base):
     _fields_ = [
-        ('ProductGroupID', ctypes.c_char),
         ('ProductGroupID', ctypes.c_char * 31),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('SettlementID', ctypes.c_int),
         ('FrozenMargin', ctypes.c_double),
@@ -8375,9 +7011,7 @@ class InvestorProductGroupMarginField(Base):
 
 class QueryCFMMCTradingAccountTokenField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
     ]
 
@@ -8389,14 +7023,10 @@ class QueryCFMMCTradingAccountTokenField(Base):
 
 class CFMMCTradingAccountTokenField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('ParticipantID', ctypes.c_char),
         ('ParticipantID', ctypes.c_char * 11),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
         ('KeyID', ctypes.c_int),
-        ('Token', ctypes.c_char),
         ('Token', ctypes.c_char * 21),
     ]
 
@@ -8411,9 +7041,7 @@ class CFMMCTradingAccountTokenField(Base):
 
 class QryProductGroupField(Base):
     _fields_ = [
-        ('ProductID', ctypes.c_char),
         ('ProductID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
     ]
 
@@ -8425,11 +7053,8 @@ class QryProductGroupField(Base):
 
 class ProductGroupField(Base):
     _fields_ = [
-        ('ProductID', ctypes.c_char),
         ('ProductID', ctypes.c_char * 31),
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('ProductGroupID', ctypes.c_char),
         ('ProductGroupID', ctypes.c_char * 31),
     ]
 
@@ -8442,26 +7067,17 @@ class ProductGroupField(Base):
 
 class BulletinField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('BulletinID', ctypes.c_int),
         ('SequenceNo', ctypes.c_int),
-        ('NewsType', ctypes.c_char),
         ('NewsType', ctypes.c_char * 3),
         ('NewsUrgency', ctypes.c_char),
-        ('SendTime', ctypes.c_char),
         ('SendTime', ctypes.c_char * 9),
-        ('Abstract', ctypes.c_char),
         ('Abstract', ctypes.c_char * 81),
-        ('ComeFrom', ctypes.c_char),
         ('ComeFrom', ctypes.c_char * 21),
-        ('Content', ctypes.c_char),
         ('Content', ctypes.c_char * 501),
-        ('URLLink', ctypes.c_char),
         ('URLLink', ctypes.c_char * 201),
-        ('MarketID', ctypes.c_char),
         ('MarketID', ctypes.c_char * 31),
     ]
 
@@ -8484,11 +7100,9 @@ class BulletinField(Base):
 
 class QryBulletinField(Base):
     _fields_ = [
-        ('ExchangeID', ctypes.c_char),
         ('ExchangeID', ctypes.c_char * 9),
         ('BulletinID', ctypes.c_int),
         ('SequenceNo', ctypes.c_int),
-        ('NewsType', ctypes.c_char),
         ('NewsType', ctypes.c_char * 3),
         ('NewsUrgency', ctypes.c_char),
     ]
@@ -8504,80 +7118,50 @@ class QryBulletinField(Base):
 
 class ReqOpenAccountField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('Gender', ctypes.c_char),
-        ('CountryCode', ctypes.c_char),
         ('CountryCode', ctypes.c_char * 21),
         ('CustType', ctypes.c_char),
-        ('Address', ctypes.c_char),
         ('Address', ctypes.c_char * 101),
-        ('ZipCode', ctypes.c_char),
         ('ZipCode', ctypes.c_char * 7),
-        ('Telephone', ctypes.c_char),
         ('Telephone', ctypes.c_char * 41),
-        ('MobilePhone', ctypes.c_char),
         ('MobilePhone', ctypes.c_char * 21),
-        ('Fax', ctypes.c_char),
         ('Fax', ctypes.c_char * 41),
-        ('EMail', ctypes.c_char),
         ('EMail', ctypes.c_char * 41),
         ('MoneyAccountStatus', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('CashExchangeCode', ctypes.c_char),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
         ('BankSecuAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('BankSecuAcc', ctypes.c_char),
         ('BankSecuAcc', ctypes.c_char * 41),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('TID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -8639,80 +7223,50 @@ class ReqOpenAccountField(Base):
 
 class ReqCancelAccountField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('Gender', ctypes.c_char),
-        ('CountryCode', ctypes.c_char),
         ('CountryCode', ctypes.c_char * 21),
         ('CustType', ctypes.c_char),
-        ('Address', ctypes.c_char),
         ('Address', ctypes.c_char * 101),
-        ('ZipCode', ctypes.c_char),
         ('ZipCode', ctypes.c_char * 7),
-        ('Telephone', ctypes.c_char),
         ('Telephone', ctypes.c_char * 41),
-        ('MobilePhone', ctypes.c_char),
         ('MobilePhone', ctypes.c_char * 21),
-        ('Fax', ctypes.c_char),
         ('Fax', ctypes.c_char * 41),
-        ('EMail', ctypes.c_char),
         ('EMail', ctypes.c_char * 41),
         ('MoneyAccountStatus', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('CashExchangeCode', ctypes.c_char),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
         ('BankSecuAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('BankSecuAcc', ctypes.c_char),
         ('BankSecuAcc', ctypes.c_char * 41),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('TID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -8774,74 +7328,46 @@ class ReqCancelAccountField(Base):
 
 class ReqChangeAccountField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('Gender', ctypes.c_char),
-        ('CountryCode', ctypes.c_char),
         ('CountryCode', ctypes.c_char * 21),
         ('CustType', ctypes.c_char),
-        ('Address', ctypes.c_char),
         ('Address', ctypes.c_char * 101),
-        ('ZipCode', ctypes.c_char),
         ('ZipCode', ctypes.c_char * 7),
-        ('Telephone', ctypes.c_char),
         ('Telephone', ctypes.c_char * 41),
-        ('MobilePhone', ctypes.c_char),
         ('MobilePhone', ctypes.c_char * 21),
-        ('Fax', ctypes.c_char),
         ('Fax', ctypes.c_char * 41),
-        ('EMail', ctypes.c_char),
         ('EMail', ctypes.c_char * 41),
         ('MoneyAccountStatus', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('NewBankAccount', ctypes.c_char),
         ('NewBankAccount', ctypes.c_char * 41),
-        ('NewBankPassWord', ctypes.c_char),
         ('NewBankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('BankAccType', ctypes.c_char),
         ('InstallID', ctypes.c_int),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
         ('TID', ctypes.c_int),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -8898,73 +7424,49 @@ class ReqChangeAccountField(Base):
 
 class ReqTransferField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('CustType', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
         ('FutureSerial', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('TradeAmount', ctypes.c_double),
         ('FutureFetchAmount', ctypes.c_double),
         ('FeePayFlag', ctypes.c_char),
         ('CustFee', ctypes.c_double),
         ('BrokerFee', ctypes.c_double),
-        ('Message', ctypes.c_char),
         ('Message', ctypes.c_char * 129),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
         ('BankSecuAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('BankSecuAcc', ctypes.c_char),
         ('BankSecuAcc', ctypes.c_char * 41),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('TransferStatus', ctypes.c_char),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -9025,76 +7527,51 @@ class ReqTransferField(Base):
 
 class RspTransferField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('CustType', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
         ('FutureSerial', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('TradeAmount', ctypes.c_double),
         ('FutureFetchAmount', ctypes.c_double),
         ('FeePayFlag', ctypes.c_char),
         ('CustFee', ctypes.c_double),
         ('BrokerFee', ctypes.c_double),
-        ('Message', ctypes.c_char),
         ('Message', ctypes.c_char * 129),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
         ('BankSecuAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('BankSecuAcc', ctypes.c_char),
         ('BankSecuAcc', ctypes.c_char * 41),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('TransferStatus', ctypes.c_char),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -9162,76 +7639,51 @@ class ReqRepealField(Base):
         ('BankRepealFlag', ctypes.c_char),
         ('BrokerRepealFlag', ctypes.c_char),
         ('PlateRepealSerial', ctypes.c_int),
-        ('BankRepealSerial', ctypes.c_char),
         ('BankRepealSerial', ctypes.c_char * 13),
         ('FutureRepealSerial', ctypes.c_int),
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('CustType', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
         ('FutureSerial', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('TradeAmount', ctypes.c_double),
         ('FutureFetchAmount', ctypes.c_double),
         ('FeePayFlag', ctypes.c_char),
         ('CustFee', ctypes.c_double),
         ('BrokerFee', ctypes.c_double),
-        ('Message', ctypes.c_char),
         ('Message', ctypes.c_char * 129),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
         ('BankSecuAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('BankSecuAcc', ctypes.c_char),
         ('BankSecuAcc', ctypes.c_char * 41),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('TransferStatus', ctypes.c_char),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -9305,79 +7757,53 @@ class RspRepealField(Base):
         ('BankRepealFlag', ctypes.c_char),
         ('BrokerRepealFlag', ctypes.c_char),
         ('PlateRepealSerial', ctypes.c_int),
-        ('BankRepealSerial', ctypes.c_char),
         ('BankRepealSerial', ctypes.c_char * 13),
         ('FutureRepealSerial', ctypes.c_int),
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('CustType', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
         ('FutureSerial', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('TradeAmount', ctypes.c_double),
         ('FutureFetchAmount', ctypes.c_double),
         ('FeePayFlag', ctypes.c_char),
         ('CustFee', ctypes.c_double),
         ('BrokerFee', ctypes.c_double),
-        ('Message', ctypes.c_char),
         ('Message', ctypes.c_char * 129),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
         ('BankSecuAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('BankSecuAcc', ctypes.c_char),
         ('BankSecuAcc', ctypes.c_char * 41),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('TransferStatus', ctypes.c_char),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -9448,65 +7874,42 @@ class RspRepealField(Base):
 
 class ReqQueryAccountField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('CustType', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('FutureSerial', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
         ('BankSecuAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('BankSecuAcc', ctypes.c_char),
         ('BankSecuAcc', ctypes.c_char * 41),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -9558,67 +7961,44 @@ class ReqQueryAccountField(Base):
 
 class RspQueryAccountField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('CustType', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('FutureSerial', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
         ('BankSecuAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('BankSecuAcc', ctypes.c_char),
         ('BankSecuAcc', ctypes.c_char * 41),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('BankUseAmount', ctypes.c_double),
         ('BankFetchAmount', ctypes.c_double),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -9673,39 +8053,24 @@ class RspQueryAccountField(Base):
 
 class FutureSignIOField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
@@ -9741,48 +8106,30 @@ class FutureSignIOField(Base):
 
 class RspFutureSignInField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
-        ('PinKey', ctypes.c_char),
         ('PinKey', ctypes.c_char * 129),
-        ('MacKey', ctypes.c_char),
         ('MacKey', ctypes.c_char * 129),
     ]
 
@@ -9820,39 +8167,24 @@ class RspFutureSignInField(Base):
 
 class ReqFutureSignOutField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
@@ -9888,44 +8220,28 @@ class ReqFutureSignOutField(Base):
 
 class RspFutureSignOutField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -9961,51 +8277,32 @@ class RspFutureSignOutField(Base):
 
 class ReqQueryTradeResultBySerialField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('Reference', ctypes.c_int),
         ('RefrenceIssureType', ctypes.c_char),
-        ('RefrenceIssure', ctypes.c_char),
         ('RefrenceIssure', ctypes.c_char * 36),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('CustType', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('TradeAmount', ctypes.c_double),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -10046,50 +8343,31 @@ class ReqQueryTradeResultBySerialField(Base):
 
 class RspQueryTradeResultBySerialField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
         ('Reference', ctypes.c_int),
         ('RefrenceIssureType', ctypes.c_char),
-        ('RefrenceIssure', ctypes.c_char),
         ('RefrenceIssure', ctypes.c_char * 36),
-        ('OriginReturnCode', ctypes.c_char),
         ('OriginReturnCode', ctypes.c_char * 7),
-        ('OriginDescrInfoForReturnCode', ctypes.c_char),
         ('OriginDescrInfoForReturnCode', ctypes.c_char * 129),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('TradeAmount', ctypes.c_double),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
     ]
 
@@ -10129,29 +8407,19 @@ class RspQueryTradeResultBySerialField(Base):
 
 class ReqDayEndFileReadyField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('FileBusinessCode', ctypes.c_char),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
     ]
 
@@ -10177,9 +8445,7 @@ class ReqDayEndFileReadyField(Base):
 
 class ReturnResultField(Base):
     _fields_ = [
-        ('ReturnCode', ctypes.c_char),
         ('ReturnCode', ctypes.c_char * 7),
-        ('DescrInfoForReturnCode', ctypes.c_char),
         ('DescrInfoForReturnCode', ctypes.c_char * 129),
     ]
 
@@ -10191,38 +8457,24 @@ class ReturnResultField(Base):
 
 class VerifyFuturePasswordField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
         ('TID', ctypes.c_int),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -10253,13 +8505,10 @@ class VerifyFuturePasswordField(Base):
 
 class VerifyCustInfoField(Base):
     _fields_ = [
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('CustType', ctypes.c_char),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -10274,19 +8523,13 @@ class VerifyCustInfoField(Base):
 
 class VerifyFuturePasswordAndCustInfoField(Base):
     _fields_ = [
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('CustType', ctypes.c_char),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -10305,17 +8548,12 @@ class VerifyFuturePasswordAndCustInfoField(Base):
 
 class DepositResultInformField(Base):
     _fields_ = [
-        ('DepositSeqNo', ctypes.c_char),
         ('DepositSeqNo', ctypes.c_char * 15),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('Deposit', ctypes.c_double),
         ('RequestID', ctypes.c_int),
-        ('ReturnCode', ctypes.c_char),
         ('ReturnCode', ctypes.c_char * 7),
-        ('DescrInfoForReturnCode', ctypes.c_char),
         ('DescrInfoForReturnCode', ctypes.c_char * 129),
     ]
 
@@ -10333,37 +8571,23 @@ class DepositResultInformField(Base):
 
 class ReqSyncKeyField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('Message', ctypes.c_char),
         ('Message', ctypes.c_char * 129),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
@@ -10397,42 +8621,27 @@ class ReqSyncKeyField(Base):
 
 class RspSyncKeyField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('Message', ctypes.c_char),
         ('Message', ctypes.c_char * 129),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -10467,70 +8676,46 @@ class RspSyncKeyField(Base):
 
 class NotifyQueryAccountField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('CustType', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('FutureSerial', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
         ('BankSecuAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('BankSecuAcc', ctypes.c_char),
         ('BankSecuAcc', ctypes.c_char * 41),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('BankUseAmount', ctypes.c_double),
         ('BankFetchAmount', ctypes.c_double),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -10588,49 +8773,32 @@ class NotifyQueryAccountField(Base):
 class TransferSerialField(Base):
     _fields_ = [
         ('PlateSerial', ctypes.c_int),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
         ('SessionID', ctypes.c_int),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
         ('BankAccType', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
         ('FutureAccType', ctypes.c_char),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('InvestorID', ctypes.c_char),
         ('InvestorID', ctypes.c_char * 13),
         ('FutureSerial', ctypes.c_int),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('TradeAmount', ctypes.c_double),
         ('CustFee', ctypes.c_double),
         ('BrokerFee', ctypes.c_double),
         ('AvailabilityFlag', ctypes.c_char),
-        ('OperatorCode', ctypes.c_char),
         ('OperatorCode', ctypes.c_char * 17),
-        ('BankNewAccount', ctypes.c_char),
         ('BankNewAccount', ctypes.c_char * 41),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -10672,13 +8840,9 @@ class TransferSerialField(Base):
 
 class QryTransferSerialField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -10692,48 +8856,30 @@ class QryTransferSerialField(Base):
 
 class NotifyFutureSignInField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
-        ('PinKey', ctypes.c_char),
         ('PinKey', ctypes.c_char * 129),
-        ('MacKey', ctypes.c_char),
         ('MacKey', ctypes.c_char * 129),
     ]
 
@@ -10771,44 +8917,28 @@ class NotifyFutureSignInField(Base):
 
 class NotifyFutureSignOutField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -10844,42 +8974,27 @@ class NotifyFutureSignOutField(Base):
 
 class NotifySyncKeyField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
         ('InstallID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('Message', ctypes.c_char),
         ('Message', ctypes.c_char * 129),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('RequestID', ctypes.c_int),
         ('TID', ctypes.c_int),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -10914,15 +9029,10 @@ class NotifySyncKeyField(Base):
 
 class QryAccountregisterField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -10937,36 +9047,23 @@ class QryAccountregisterField(Base):
 
 class AccountregisterField(Base):
     _fields_ = [
-        ('TradeDay', ctypes.c_char),
         ('TradeDay', ctypes.c_char * 9),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('OpenOrDestroy', ctypes.c_char),
-        ('RegDate', ctypes.c_char),
         ('RegDate', ctypes.c_char * 9),
-        ('OutDate', ctypes.c_char),
         ('OutDate', ctypes.c_char * 9),
         ('TID', ctypes.c_int),
         ('CustType', ctypes.c_char),
         ('BankAccType', ctypes.c_char),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -10996,83 +9093,52 @@ class AccountregisterField(Base):
 
 class OpenAccountField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('Gender', ctypes.c_char),
-        ('CountryCode', ctypes.c_char),
         ('CountryCode', ctypes.c_char * 21),
         ('CustType', ctypes.c_char),
-        ('Address', ctypes.c_char),
         ('Address', ctypes.c_char * 101),
-        ('ZipCode', ctypes.c_char),
         ('ZipCode', ctypes.c_char * 7),
-        ('Telephone', ctypes.c_char),
         ('Telephone', ctypes.c_char * 41),
-        ('MobilePhone', ctypes.c_char),
         ('MobilePhone', ctypes.c_char * 21),
-        ('Fax', ctypes.c_char),
         ('Fax', ctypes.c_char * 41),
-        ('EMail', ctypes.c_char),
         ('EMail', ctypes.c_char * 41),
         ('MoneyAccountStatus', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('CashExchangeCode', ctypes.c_char),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
         ('BankSecuAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('BankSecuAcc', ctypes.c_char),
         ('BankSecuAcc', ctypes.c_char * 41),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('TID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -11136,83 +9202,52 @@ class OpenAccountField(Base):
 
 class CancelAccountField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('Gender', ctypes.c_char),
-        ('CountryCode', ctypes.c_char),
         ('CountryCode', ctypes.c_char * 21),
         ('CustType', ctypes.c_char),
-        ('Address', ctypes.c_char),
         ('Address', ctypes.c_char * 101),
-        ('ZipCode', ctypes.c_char),
         ('ZipCode', ctypes.c_char * 7),
-        ('Telephone', ctypes.c_char),
         ('Telephone', ctypes.c_char * 41),
-        ('MobilePhone', ctypes.c_char),
         ('MobilePhone', ctypes.c_char * 21),
-        ('Fax', ctypes.c_char),
         ('Fax', ctypes.c_char * 41),
-        ('EMail', ctypes.c_char),
         ('EMail', ctypes.c_char * 41),
         ('MoneyAccountStatus', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
         ('CashExchangeCode', ctypes.c_char),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('DeviceID', ctypes.c_char),
         ('DeviceID', ctypes.c_char * 3),
         ('BankSecuAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
-        ('BankSecuAcc', ctypes.c_char),
         ('BankSecuAcc', ctypes.c_char * 41),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
-        ('OperNo', ctypes.c_char),
         ('OperNo', ctypes.c_char * 17),
         ('TID', ctypes.c_int),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -11276,77 +9311,48 @@ class CancelAccountField(Base):
 
 class ChangeAccountField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 51),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('Gender', ctypes.c_char),
-        ('CountryCode', ctypes.c_char),
         ('CountryCode', ctypes.c_char * 21),
         ('CustType', ctypes.c_char),
-        ('Address', ctypes.c_char),
         ('Address', ctypes.c_char * 101),
-        ('ZipCode', ctypes.c_char),
         ('ZipCode', ctypes.c_char * 7),
-        ('Telephone', ctypes.c_char),
         ('Telephone', ctypes.c_char * 41),
-        ('MobilePhone', ctypes.c_char),
         ('MobilePhone', ctypes.c_char * 21),
-        ('Fax', ctypes.c_char),
         ('Fax', ctypes.c_char * 41),
-        ('EMail', ctypes.c_char),
         ('EMail', ctypes.c_char * 41),
         ('MoneyAccountStatus', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
-        ('NewBankAccount', ctypes.c_char),
         ('NewBankAccount', ctypes.c_char * 41),
-        ('NewBankPassWord', ctypes.c_char),
         ('NewBankPassWord', ctypes.c_char * 41),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
         ('BankAccType', ctypes.c_char),
         ('InstallID', ctypes.c_int),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
         ('BankPwdFlag', ctypes.c_char),
         ('SecuPwdFlag', ctypes.c_char),
         ('TID', ctypes.c_int),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
-        ('LongCustomerName', ctypes.c_char),
         ('LongCustomerName', ctypes.c_char * 161),
     ]
 
@@ -11405,15 +9411,10 @@ class ChangeAccountField(Base):
 
 class SecAgentACIDMapField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('BrokerSecAgentID', ctypes.c_char),
         ('BrokerSecAgentID', ctypes.c_char * 13),
     ]
 
@@ -11428,13 +9429,9 @@ class SecAgentACIDMapField(Base):
 
 class QrySecAgentACIDMapField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -11448,9 +9445,7 @@ class QrySecAgentACIDMapField(Base):
 
 class UserRightsAssignField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('DRIdentityID', ctypes.c_int),
     ]
@@ -11464,7 +9459,6 @@ class UserRightsAssignField(Base):
 
 class BrokerUserRightAssignField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
         ('DRIdentityID', ctypes.c_int),
         ('Tradeable', ctypes.c_int),
@@ -11481,9 +9475,7 @@ class DRTransferField(Base):
     _fields_ = [
         ('OrigDRIdentityID', ctypes.c_int),
         ('DestDRIdentityID', ctypes.c_int),
-        ('OrigBrokerID', ctypes.c_char),
         ('OrigBrokerID', ctypes.c_char * 11),
-        ('DestBrokerID', ctypes.c_char),
         ('DestBrokerID', ctypes.c_char * 11),
     ]
 
@@ -11497,9 +9489,7 @@ class DRTransferField(Base):
 
 class FensUserInfoField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
         ('LoginMode', ctypes.c_char),
     ]
@@ -11523,11 +9513,8 @@ class CurrTransferIdentityField(Base):
 
 class LoginForbiddenUserField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
-        ('IPAddress', ctypes.c_char),
         ('IPAddress', ctypes.c_char * 16),
     ]
 
@@ -11540,9 +9527,7 @@ class LoginForbiddenUserField(Base):
 
 class QryLoginForbiddenUserField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('UserID', ctypes.c_char),
         ('UserID', ctypes.c_char * 16),
     ]
 
@@ -11554,10 +9539,8 @@ class QryLoginForbiddenUserField(Base):
 
 class MulticastGroupInfoField(Base):
     _fields_ = [
-        ('GroupIP', ctypes.c_char),
         ('GroupIP', ctypes.c_char * 16),
         ('GroupPort', ctypes.c_int),
-        ('SourceIP', ctypes.c_char),
         ('SourceIP', ctypes.c_char * 16),
     ]
 
@@ -11570,12 +9553,9 @@ class MulticastGroupInfoField(Base):
 
 class TradingAccountReserveField(Base):
     _fields_ = [
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
         ('Reserve', ctypes.c_double),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
     ]
 
@@ -11589,75 +9569,46 @@ class TradingAccountReserveField(Base):
 
 class ReserveOpenAccountConfirmField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 161),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('Gender', ctypes.c_char),
-        ('CountryCode', ctypes.c_char),
         ('CountryCode', ctypes.c_char * 21),
         ('CustType', ctypes.c_char),
-        ('Address', ctypes.c_char),
         ('Address', ctypes.c_char * 101),
-        ('ZipCode', ctypes.c_char),
         ('ZipCode', ctypes.c_char * 7),
-        ('Telephone', ctypes.c_char),
         ('Telephone', ctypes.c_char * 41),
-        ('MobilePhone', ctypes.c_char),
         ('MobilePhone', ctypes.c_char * 21),
-        ('Fax', ctypes.c_char),
         ('Fax', ctypes.c_char * 41),
-        ('EMail', ctypes.c_char),
         ('EMail', ctypes.c_char * 41),
         ('MoneyAccountStatus', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
         ('TID', ctypes.c_int),
-        ('AccountID', ctypes.c_char),
         ('AccountID', ctypes.c_char * 13),
-        ('Password', ctypes.c_char),
         ('Password', ctypes.c_char * 41),
-        ('BankReserveOpenSeq', ctypes.c_char),
         ('BankReserveOpenSeq', ctypes.c_char * 13),
-        ('BookDate', ctypes.c_char),
         ('BookDate', ctypes.c_char * 9),
-        ('BookPsw', ctypes.c_char),
         ('BookPsw', ctypes.c_char * 41),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 
@@ -11714,66 +9665,42 @@ class ReserveOpenAccountConfirmField(Base):
 
 class ReserveOpenAccountField(Base):
     _fields_ = [
-        ('TradeCode', ctypes.c_char),
         ('TradeCode', ctypes.c_char * 7),
-        ('BankID', ctypes.c_char),
         ('BankID', ctypes.c_char * 4),
-        ('BankBranchID', ctypes.c_char),
         ('BankBranchID', ctypes.c_char * 5),
-        ('BrokerID', ctypes.c_char),
         ('BrokerID', ctypes.c_char * 11),
-        ('BrokerBranchID', ctypes.c_char),
         ('BrokerBranchID', ctypes.c_char * 31),
-        ('TradeDate', ctypes.c_char),
         ('TradeDate', ctypes.c_char * 9),
-        ('TradeTime', ctypes.c_char),
         ('TradeTime', ctypes.c_char * 9),
-        ('BankSerial', ctypes.c_char),
         ('BankSerial', ctypes.c_char * 13),
-        ('TradingDay', ctypes.c_char),
         ('TradingDay', ctypes.c_char * 9),
         ('PlateSerial', ctypes.c_int),
         ('LastFragment', ctypes.c_char),
         ('SessionID', ctypes.c_int),
-        ('CustomerName', ctypes.c_char),
         ('CustomerName', ctypes.c_char * 161),
         ('IdCardType', ctypes.c_char),
-        ('IdentifiedCardNo', ctypes.c_char),
         ('IdentifiedCardNo', ctypes.c_char * 51),
         ('Gender', ctypes.c_char),
-        ('CountryCode', ctypes.c_char),
         ('CountryCode', ctypes.c_char * 21),
         ('CustType', ctypes.c_char),
-        ('Address', ctypes.c_char),
         ('Address', ctypes.c_char * 101),
-        ('ZipCode', ctypes.c_char),
         ('ZipCode', ctypes.c_char * 7),
-        ('Telephone', ctypes.c_char),
         ('Telephone', ctypes.c_char * 41),
-        ('MobilePhone', ctypes.c_char),
         ('MobilePhone', ctypes.c_char * 21),
-        ('Fax', ctypes.c_char),
         ('Fax', ctypes.c_char * 41),
-        ('EMail', ctypes.c_char),
         ('EMail', ctypes.c_char * 41),
         ('MoneyAccountStatus', ctypes.c_char),
-        ('BankAccount', ctypes.c_char),
         ('BankAccount', ctypes.c_char * 41),
-        ('BankPassWord', ctypes.c_char),
         ('BankPassWord', ctypes.c_char * 41),
         ('InstallID', ctypes.c_int),
         ('VerifyCertNoFlag', ctypes.c_char),
-        ('CurrencyID', ctypes.c_char),
         ('CurrencyID', ctypes.c_char * 4),
-        ('Digest', ctypes.c_char),
         ('Digest', ctypes.c_char * 36),
         ('BankAccType', ctypes.c_char),
-        ('BrokerIDByBank', ctypes.c_char),
         ('BrokerIDByBank', ctypes.c_char * 33),
         ('TID', ctypes.c_int),
         ('ReserveOpenAccStas', ctypes.c_char),
         ('ErrorID', ctypes.c_int),
-        ('ErrorMsg', ctypes.c_char),
         ('ErrorMsg', ctypes.c_char * 81),
     ]
 

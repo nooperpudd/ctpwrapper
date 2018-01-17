@@ -74,7 +74,6 @@ class Parse(object):
                 self.struct[name][field_name] = self.data_type[field_type]
 
 
-
 def generate_struct(struct, py_file):
     for item in struct:
         py_file.write("class {class_name}(Base):\n".format(class_name=item.replace("CThostFtdc", "")))
@@ -82,17 +81,18 @@ def generate_struct(struct, py_file):
         py_file.write("    _fields_ = [\n")
 
         for field in struct[item]:
-            if struct[item][field]["type"] == "double":
+            field_data = struct[item][field]
+            if field_data["type"] == "double":
                 py_file.write("        ('{field}', ctypes.c_double),\n".format(field=field))
-            if struct[item][field]["type"] == "int":
+            elif field_data["type"] == "int":
                 py_file.write("        ('{field}', ctypes.c_int),\n".format(field=field))
-            if struct[item][field]["type"] == "short":
+            elif field_data["type"] == "short":
                 py_file.write("        ('{field}', ctypes.c_short),\n".format(field=field))
-            if struct[item][field]["type"] == "str":
+            elif field_data["type"] == "str" and "length" not in field_data:
                 py_file.write("        ('{field}', ctypes.c_char),\n".format(field=field))
-            if struct[item][field]["type"] == "str" and "length" in struct[item][field]:
+            elif field_data["type"] == "str" and "length" in field_data:
                 py_file.write("        ('{field}', ctypes.c_char*{length}),\n".format(field=field,
-                                                                             length=struct[item][field]["length"]))
+                                                                                      length=field_data["length"]))
 
         py_file.write("    ]\n")
 
@@ -124,6 +124,7 @@ def generate_interface():
     generate_struct(structure, py_file)
 
     py_file.close()
+
 
 if __name__ == "__main__":
     generate_interface()
