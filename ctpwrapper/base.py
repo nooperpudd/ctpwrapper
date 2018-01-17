@@ -11,7 +11,7 @@ class Base(ctypes.Structure):
         if isinstance(value, bytes):
             return value
         else:
-            return bytes(value, encoding="utf-8")
+            return bytes(str(value), encoding="utf-8")
 
     @classmethod
     def from_dict(cls, obj):
