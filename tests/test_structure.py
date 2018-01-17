@@ -71,9 +71,9 @@ class TestStructure(unittest.TestCase):
             "ExchangeRate": 11.0
         }
         field = ApiStructure.ExchangeRateField.from_dict(result)
-        
+
         self.assertEqual(field.BrokerID, b"45544")
-        self.assertEqual(field.FromCurrencyID, b"4343")
+        self.assertEqual(field.FromCurrencyID, b"")
         self.assertEqual(field.FromCurrencyUnit, 0.0)
-        self.assertEqual(field.ToCurrencyID, b"")
+        self.assertEqual(field.ToCurrencyID, b"4334")
         self.assertEqual(field.ExchangeRate, 11.0)
