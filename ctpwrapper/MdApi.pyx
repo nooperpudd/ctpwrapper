@@ -2,6 +2,7 @@
 # distutils: language = c++
 # cython: nonecheck=True
 # cython: profile=False
+# cython: binding=True
 
 from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString,PyObject
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
@@ -22,6 +23,8 @@ CThostFtdcFensUserInfoField,
 CThostFtdcReqUserLoginField)
 
 import ctypes
+
+
 
 
 cdef class MdSpiWrapper:
@@ -169,7 +172,6 @@ cdef class MdApiWrapper:
             result = self._api.GetTradingDay()
             return result
 
-
     def RegisterFront(self, char *pszFrontAddress):
         """
         注册前置机网络地址
@@ -202,7 +204,6 @@ cdef class MdApiWrapper:
         """
         if self._api is not NULL:
             self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *><size_t>(ctypes.addressof(pFensUserInfo)))
-
 
     def SubscribeMarketData(self, pInstrumentID):
         """
