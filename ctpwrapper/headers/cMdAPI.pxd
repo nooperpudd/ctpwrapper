@@ -16,7 +16,7 @@ CThostFtdcReqUserLoginField)
 
 
 
-cdef extern  from 'cMdAPI.H':
+cdef extern  from 'cMdAPI.h':
 
     cdef cppclass CMdSpi:
         CMdSpi(PyObject *obj)
