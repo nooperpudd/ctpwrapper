@@ -31,7 +31,7 @@ static inline int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField 
 #define Python_GIL(op) \
 	do { \
 		PyGILState_STATE gilstate = PyGILState_Ensure(); \
-//		tid = PyThread_get_thread_ident(); \
+		tid = PyThread_get_thread_ident(); \
 		if ((op) == -1) PyErr_Print(); \
 		PyGILState_Release(gilstate); \
 	} while (0)
@@ -40,7 +40,7 @@ static inline int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField 
 
 class CMdSpi : public CThostFtdcMdSpi {
 public:
-
+    long tid;
 //	CMdSpi(PyObject *obj):tid(0),self(obj) {}
     CMdSpi(PyObject *obj):self(obj) {}
 
