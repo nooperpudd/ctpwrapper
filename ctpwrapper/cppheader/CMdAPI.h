@@ -20,14 +20,6 @@ static inline int MdSpi_OnRtnDepthMarketData(PyObject *, CThostFtdcDepthMarketDa
 static inline int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField *);
 
 
-
-//#define Python_GIL(func) \
-//	do { \
-//		PyGILState_STATE g_state = PyGILState_Ensure(); \
-//		if ((func) == -1) PyErr_Print(); \
-//		PyGILState_Release(g_state); \
-//	} while (0)
-
 #define Python_GIL(op) \
 	do { \
 		PyGILState_STATE gilstate = PyGILState_Ensure(); \
@@ -41,7 +33,7 @@ static inline int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField 
 class CMdSpi : public CThostFtdcMdSpi {
 public:
     long tid;
-//	CMdSpi(PyObject *obj):tid(0),self(obj) {}
+
     CMdSpi(PyObject *obj):self(obj) {}
 
 	virtual ~CMdSpi() {} //
