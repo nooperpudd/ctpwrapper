@@ -15,10 +15,7 @@ CThostFtdcReqUserLoginField)
 
 
 
-cdef extern  from 'cMdAPI.h':
 
-    cdef cppclass CMdSpi:
-        CMdSpi(PyObject *obj)
 
 cdef extern from 'ThostFtdcMdApi.h':
 
@@ -150,4 +147,10 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     #@retrun 获取到的版本号
 
     CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +
+
+
+cdef extern from 'cMdAPI.h':
+
+    cdef cppclass CMdSpi:
+         CMdSpi(PyObject *obj)
 

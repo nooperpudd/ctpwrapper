@@ -9,10 +9,10 @@
 #define Python_GIL(func) \
 	do { \
 		PyGILState_STATE g_state = PyGILState_Ensure(); \
-//		tid = PyThread_get_thread_ident(); \
+
 		if (func == -1) PyErr_Print(); \
 		PyGILState_Release(g_state); \
-	} while (false)
+	} while (0)
 
 
 static inline int MdSpi_OnFrontConnected(PyObject *);
