@@ -10,7 +10,7 @@
 	do { \
 		PyGILState_STATE g_state = PyGILState_Ensure(); \
 
-		if (func == -1) PyErr_Print(); \
+		if ((func) == -1) PyErr_Print(); \
 		PyGILState_Release(g_state); \
 	} while (0)
 
