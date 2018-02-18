@@ -6,14 +6,6 @@
 #include "ThostFtdcMdApi.h"
 
 
-#define Python_GIL(func) \
-	do { \
-		PyGILState_STATE g_state = PyGILState_Ensure(); \
-		if ((func) == -1) PyErr_Print(); \
-		PyGILState_Release(g_state); \
-	} while (0)
-
-
 static inline int MdSpi_OnFrontConnected(PyObject *);
 static inline int MdSpi_OnFrontDisconnected(PyObject *, int);
 static inline int MdSpi_OnHeartBeatWarning(PyObject *, int);
@@ -26,6 +18,24 @@ static inline int MdSpi_OnRspSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstru
 static inline int MdSpi_OnRspUnSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, bool);
 static inline int MdSpi_OnRtnDepthMarketData(PyObject *, CThostFtdcDepthMarketDataField *);
 static inline int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField *);
+
+
+
+//#define Python_GIL(func) \
+//	do { \
+//		PyGILState_STATE g_state = PyGILState_Ensure(); \
+//		if ((func) == -1) PyErr_Print(); \
+//		PyGILState_Release(g_state); \
+//	} while (0)
+
+#define Python_GIL(op) \
+	do { \
+		PyGILState_STATE gilstate = PyGILState_Ensure(); \
+//		tid = PyThread_get_thread_ident(); \
+		if ((op) == -1) PyErr_Print(); \
+		PyGILState_Release(gilstate); \
+	} while (0)
+
 
 
 class CMdSpi : public CThostFtdcMdSpi {
