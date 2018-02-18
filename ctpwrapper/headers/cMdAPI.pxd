@@ -2,7 +2,7 @@
 
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
-from libcpp.memory cimport shared_ptr
+from libcpp.memory cimport shared_ptr,make_shared
 from cpython cimport PyObject
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
@@ -14,7 +14,10 @@ CThostFtdcFensUserInfoField,
 CThostFtdcReqUserLoginField)
 
 
+cdef extern from 'CMdAPI.h':
 
+    cdef cppclass CMdSpi:
+         CMdSpi(PyObject *obj)
 
 
 cdef extern from 'ThostFtdcMdApi.h':
@@ -149,8 +152,4 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +
 
 
-cdef extern from 'CMdAPI.h':
-
-    cdef cppclass CMdSpi:
-         CMdSpi(PyObject *obj)
 
