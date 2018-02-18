@@ -149,7 +149,7 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +
 
 
-cdef extern from 'cMdAPI.h':
+cdef extern from 'CMdAPI.h':
 
     cdef cppclass CMdSpi:
          CMdSpi(PyObject *obj)
