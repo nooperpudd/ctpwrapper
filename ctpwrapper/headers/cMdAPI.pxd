@@ -3,7 +3,7 @@
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
 from libcpp.memory cimport shared_ptr
-from cpython import PyObject
+from cpython cimport PyObject
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -12,7 +12,6 @@ CThostFtdcSpecificInstrumentField,
 CThostFtdcDepthMarketDataField,
 CThostFtdcFensUserInfoField,
 CThostFtdcReqUserLoginField)
-
 
 
 

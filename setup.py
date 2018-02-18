@@ -35,6 +35,7 @@ project_dir = os.path.join(base_dir, "ctpwrapper")
 ctp_dir = os.path.join(base_dir, "ctp")
 cython_headers = os.path.join(project_dir, "headers")
 header_dir = os.path.join(ctp_dir, "header")
+cpp_header_dir = os.path.join(project_dir, "cppheader")
 lib_dir = None
 package_data = ["*.xml", "*.dtd"]
 extra_link_args = None
@@ -60,7 +61,7 @@ copy_tree(lib_dir, project_dir)
 
 common_args = {
     "cython_include_dirs": [cython_headers],
-    "include_dirs": [header_dir],
+    "include_dirs": [header_dir, cpp_header_dir],
     "library_dirs": [lib_dir],
     "language": "c++",
     "extra_compile_args": extra_compile_args,
