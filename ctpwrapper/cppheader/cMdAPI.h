@@ -1,7 +1,7 @@
 #ifndef CMDAPI_H
 #define CMDAPI_H
 
-#include "python.h"
+#include "Python.h"
 #include "pythread.h"
 #include "ThostFtdcMdApi.h"
 
