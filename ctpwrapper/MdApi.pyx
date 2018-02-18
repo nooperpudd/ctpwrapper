@@ -3,13 +3,12 @@
 # cython: nonecheck=True
 # cython: profile=False
 # cython: binding=True
-
 from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString,PyObject
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
-from libcpp.memory cimport shared_ptr
+from libcpp.memory cimport shared_ptr,make_shared
 
 from headers.cMdAPI cimport CMdSpi,CMdApi,CreateFtdcMdApi
 
@@ -99,9 +98,8 @@ cdef class MdSpiWrapper:
 
 cdef class MdApiWrapper:
 
-    # todo add is login
-
     cdef CMdApi *_api
+
 
     def __cinit__(self, const_char *pszFlowPath,
                   cbool bIsUsingUdp,
@@ -114,6 +112,7 @@ cdef class MdApiWrapper:
     def __dealloc__(self):
 
         if self._api is not NULL:
+            self._api.RegisterSpi(NULL)
             self._api.Release()
             self._api= NULL
 
