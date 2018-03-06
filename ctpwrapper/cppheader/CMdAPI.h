@@ -30,11 +30,10 @@ static inline int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField 
 
 class CMdSpi : public CThostFtdcMdSpi {
 public:
-    long tid;
 
     CMdSpi(PyObject *obj):self(obj) {}
 
-	virtual ~CMdSpi() {} //
+	virtual ~CMdSpi() {}
 
 	virtual void OnFrontConnected() {
 		Python_GIL(MdSpi_OnFrontConnected(self));
