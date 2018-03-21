@@ -114,6 +114,7 @@ cdef class MdApiWrapper:
     def __dealloc__(self):
 
         if self._api is not NULL:
+            self._api.RegisterSpi(NULL)
             self._api.Release()
             self._api= NULL
 
@@ -132,9 +133,9 @@ cdef class MdApiWrapper:
         if self._api is not NULL:
             self._api.Join()
 
-    def RegisterSpi(self, spi):
-        # todo fix this problems
-        pass
+    # def RegisterSpi(self, spi):
+    #     # todo fix this problems
+    #     pass
 
         # cdef PyObject p_spi
         # p_spi = spi
