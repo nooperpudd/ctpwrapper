@@ -3,6 +3,7 @@
 # cython: nonecheck=True
 # cython: profile=False
 # cython: binding=True
+# binding = true for inspect get callargs
 from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString,PyObject
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport malloc, free
@@ -26,80 +27,81 @@ import ctypes
 
 
 
-cdef class MdSpiWrapper:
-
-    # cdef CMdSpi *_spi
-    # https://github.com/ah-/kafka_arrow/blob/2b5dbfd61e594d505854b1e57aee8b8c2b16bd85/kafka_arrow.pyx
-
-    # c++ must call python self fu
-
-    def __cinit__(self):
-        pass
-        # self._spi = new CMdSpi(self)
-    def __dealloc__(self):
-        pass
-
-    def OnFrontConnected(self):
-
-        # 当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
-        # @param nReason 错误原因
-        #  0x1001 网络读失败
-        #  0x1002 网络写失败
-        #  0x2001 接收心跳超时
-        #  0x2002 发送心跳失败
-        #  0x2003 收到错误报文
-        pass
-    def OnFrontDisconnected(self,int nReason):
-
-        # 心跳超时警告。当长时间未收到报文时，该方法被调用。
-        # @param nTimeLapse 距离上次接收报文的时间
-        pass
-    def OnHeartBeatWarning(self,int nTimeLapse):
-
-        # 登录请求响应
-        pass
-    cdef OnRspUserLogin(self,CThostFtdcRspUserLoginField *pRspUserLogin,
-                            CThostFtdcRspInfoField *pRspInfo,
-                            int nRequestID,
-                            cbool bIsLast):
-
-        # 登出请求响应
-        pass
-    cdef OnRspUserLogout(self,CThostFtdcUserLogoutField *pUserLogout,
-                             CThostFtdcRspInfoField *pRspInfo,
-                             int nRequestID,
-                             cbool bIsLast):
-
-        # 错误应答
-        pass
-    cdef OnRspError(self,CThostFtdcRspInfoField *pRspInfo,
-                        int nRequestID,
-                        cbool bIsLast):
-
-        # 订阅行情应答
-        pass
-    cdef OnRspSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
-                                CThostFtdcRspInfoField *pRspInfo,
-                                int nRequestID,
-                                cbool bIsLast):
-
-        # 取消订阅行情应答
-        pass
-    cdef OnRspUnSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
-                                  CThostFtdcRspInfoField *pRspInfo,
-                                  int nRequestID,
-                                  cbool bIsLast):
-
-        # 深度行情通知
-        pass
-    cdef OnRtnDepthMarketData(self,CThostFtdcDepthMarketDataField *pDepthMarketData):
-
-        pass
+# cdef class MdSpiWrapper:
+#
+#     # cdef CMdSpi *_spi
+#     # https://github.com/ah-/kafka_arrow/blob/2b5dbfd61e594d505854b1e57aee8b8c2b16bd85/kafka_arrow.pyx
+#
+#     # c++ must call python self fu
+#
+#     def __cinit__(self):
+#         pass
+#         # self._spi = new CMdSpi(self)
+#     def __dealloc__(self):
+#         pass
+#
+#     def OnFrontConnected(self):
+#
+#         # 当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
+#         # @param nReason 错误原因
+#         #  0x1001 网络读失败
+#         #  0x1002 网络写失败
+#         #  0x2001 接收心跳超时
+#         #  0x2002 发送心跳失败
+#         #  0x2003 收到错误报文
+#         pass
+#     def OnFrontDisconnected(self,int nReason):
+#
+#         # 心跳超时警告。当长时间未收到报文时，该方法被调用。
+#         # @param nTimeLapse 距离上次接收报文的时间
+#         pass
+#     def OnHeartBeatWarning(self,int nTimeLapse):
+#
+#         # 登录请求响应
+#         pass
+#     cdef OnRspUserLogin(self,CThostFtdcRspUserLoginField *pRspUserLogin,
+#                             CThostFtdcRspInfoField *pRspInfo,
+#                             int nRequestID,
+#                             cbool bIsLast):
+#
+#         # 登出请求响应
+#         pass
+#     cdef OnRspUserLogout(self,CThostFtdcUserLogoutField *pUserLogout,
+#                              CThostFtdcRspInfoField *pRspInfo,
+#                              int nRequestID,
+#                              cbool bIsLast):
+#
+#         # 错误应答
+#         pass
+#     cdef OnRspError(self,CThostFtdcRspInfoField *pRspInfo,
+#                         int nRequestID,
+#                         cbool bIsLast):
+#
+#         # 订阅行情应答
+#         pass
+#     cdef OnRspSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+#                                 CThostFtdcRspInfoField *pRspInfo,
+#                                 int nRequestID,
+#                                 cbool bIsLast):
+#
+#         # 取消订阅行情应答
+#         pass
+#     cdef OnRspUnSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+#                                   CThostFtdcRspInfoField *pRspInfo,
+#                                   int nRequestID,
+#                                   cbool bIsLast):
+#
+#         # 深度行情通知
+#         pass
+#     cdef OnRtnDepthMarketData(self,CThostFtdcDepthMarketDataField *pDepthMarketData):
+#
+#         pass
 
 cdef class MdApiWrapper:
 
     cdef CMdApi *_api
 
+    cdef CMdSpi *_spi
 
     def __cinit__(self, const_char *pszFlowPath,
                   cbool bIsUsingUdp,
@@ -116,6 +118,8 @@ cdef class MdApiWrapper:
             self._api.Release()
             self._api= NULL
 
+            self._spi =NULL #
+
     def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
         pass
 
@@ -125,15 +129,20 @@ cdef class MdApiWrapper:
 
     def Init(self):
         if self._api is not NULL:
+
+            # only for test
+            self._spi = new CMdSpi(<PyObject *> self)
+            self._api.RegisterSpi(self._spi)
+
             self._api.Init()
 
     def Join(self):
         if self._api is not NULL:
             self._api.Join()
 
-    def RegisterSpi(self, spi):
-        # todo fix this problems
-        pass
+    # def RegisterSpi(self, spi):
+    #     # todo fix this problems
+    #     pass
 
         # cdef PyObject p_spi
         # p_spi = spi
@@ -146,7 +155,7 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>(ctypes.addressof(pReqUserLoginField)),nRequestID)
+            self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>ctypes.addressof(pReqUserLoginField),nRequestID)
 
 
     def ReqUserLogout(self, pUserLogout, nRequestID):
@@ -155,7 +164,7 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>(ctypes.addressof(pUserLogout)),nRequestID)
+            self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>ctypes.addressof(pUserLogout),nRequestID)
 
 
     def GetTradingDay(self):
@@ -202,7 +211,7 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *><size_t>(ctypes.addressof(pFensUserInfo)))
+            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *><size_t>ctypes.addressof(pFensUserInfo))
 
     def SubscribeMarketData(self, pInstrumentID):
         """
@@ -304,3 +313,77 @@ cdef class MdApiWrapper:
                 free(InstrumentIDs)
             return result
 
+
+cdef extern int MdSpi_OnFrontConnected(self) except -1:
+    self.OnFrontConnected()
+
+cdef extern int MdSpi_OnFrontDisconnected(self, int nReason) except -1:
+    self.OnFrontDisconnected(nReason)
+
+cdef extern int MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
+    self.OnHeartBeatWarning(nTimeLapse)
+
+
+cdef extern int MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                     cbool bIsLast) except -1:
+    user_login = None
+    rep_info = None
+    if pRspUserLogin is NULL:
+        user_login = None
+    else:
+        user_login = ApiStruct_RspUserLogin(<size_t> pRspUserLogin)
+
+    if pRspInfo is NULL:
+        rsp_info = None
+    else:
+        rsp_info = ApiStruct_RspInfo(<size_t> pRspInfo)
+
+    self.OnRspUserLogin(user_login, rsp_info, nRequestID, bIsLast)
+
+
+# cdef extern int MdSpi_OnRspUserLogout(self, CUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+#                                       cbool bIsLast) except -1:
+#     self.OnRspUserLogout(None if pUserLogout is NULL else ApiStruct_UserLogout(<size_t> pUserLogout),
+#                          None if pRspInfo is NULL else ApiStruct_RspInfo(<size_t> pRspInfo), nRequestID, bIsLast)
+#
+#
+# cdef extern int MdSpi_OnRspError(self, CRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+#     self.OnRspError(None if pRspInfo is NULL else ApiStruct_RspInfo(<size_t> pRspInfo), nRequestID, bIsLast)
+#
+#
+# cdef extern int MdSpi_OnRspSubMarketData(self, CSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo,
+#                                          int nRequestID, cbool bIsLast) except -1:
+#     self.OnRspSubMarketData(
+#         None if pSpecificInstrument is NULL else ApiStruct_SpecificInstrument(<size_t> pSpecificInstrument),
+#         None if pRspInfo is NULL else ApiStruct_RspInfo(<size_t> pRspInfo), nRequestID, bIsLast)
+#
+#
+# cdef extern int MdSpi_OnRspUnSubMarketData(self, CSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo,
+#                                            int nRequestID, cbool bIsLast) except -1:
+#     self.OnRspUnSubMarketData(
+#         None if pSpecificInstrument is NULL else ApiStruct_SpecificInstrument(<size_t> pSpecificInstrument),
+#         None if pRspInfo is NULL else ApiStruct_RspInfo(<size_t> pRspInfo), nRequestID, bIsLast)
+#     return 0
+#
+# cdef extern int MdSpi_OnRspSubForQuoteRsp(self, CSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo,
+#                                           int nRequestID, cbool bIsLast) except -1:
+#     self.OnRspSubForQuoteRsp(
+#         None if pSpecificInstrument is NULL else ApiStruct_SpecificInstrument(<size_t> pSpecificInstrument),
+#         None if pRspInfo is NULL else ApiStruct_RspInfo(<size_t> pRspInfo), nRequestID, bIsLast)
+#     return 0
+#
+# cdef extern int MdSpi_OnRspUnSubForQuoteRsp(self, CSpecificInstrumentField *pSpecificInstrument,
+#                                             CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+#     self.OnRspUnSubForQuoteRsp(
+#         None if pSpecificInstrument is NULL else ApiStruct_SpecificInstrument(<size_t> pSpecificInstrument),
+#         None if pRspInfo is NULL else ApiStruct_RspInfo(<size_t> pRspInfo), nRequestID, bIsLast)
+#     return 0
+#
+# cdef extern int MdSpi_OnRtnDepthMarketData(self, CDepthMarketDataField *pDepthMarketData) except -1:
+#     self.OnRtnDepthMarketData(
+#         None if pDepthMarketData is NULL else ApiStruct_DepthMarketData(<size_t> pDepthMarketData))
+#     return 0
+#
+# cdef extern int MdSpi_OnRtnForQuoteRsp(self, CForQuoteRspField *pForQuoteRsp) except -1:
+#     self.OnRtnForQuoteRsp(None if pForQuoteRsp is NULL else ApiStruct_ForQuoteRsp(<size_t> pForQuoteRsp))
+#     return 0
