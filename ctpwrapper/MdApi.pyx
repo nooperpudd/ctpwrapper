@@ -102,6 +102,7 @@ cdef class MdApiWrapper:
 
     cdef CMdApi *_api
 
+    cdef CMdSpi *_spi
 
     def __cinit__(self, const_char *pszFlowPath,
                   cbool bIsUsingUdp,
@@ -116,7 +117,8 @@ cdef class MdApiWrapper:
         if self._api is not NULL:
             self._api.RegisterSpi(NULL)
             self._api.Release()
-            self._api= NULL
+            self._api = NULL
+            self._spi = NULL
 
     def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
         pass
@@ -127,15 +129,19 @@ cdef class MdApiWrapper:
 
     def Init(self):
         if self._api is not NULL:
+
+            self._spi = new CMdSpi(<PyObject *> self)
+            self._api.RegisterSpi(self._spi)
+
             self._api.Init()
 
     def Join(self):
         if self._api is not NULL:
             self._api.Join()
 
-    def RegisterSpi(self, spi):
-        # todo fix this problems
-        pass
+    # def RegisterSpi(self, spi):
+    #     # todo fix this problems
+    #     pass
 
         # cdef PyObject p_spi
         # p_spi = spi
@@ -148,7 +154,7 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>(ctypes.addressof(pReqUserLoginField)),nRequestID)
+            self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>ctypes.addressof(pReqUserLoginField),nRequestID)
 
 
     def ReqUserLogout(self, pUserLogout, nRequestID):
@@ -157,7 +163,7 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>(ctypes.addressof(pUserLogout)),nRequestID)
+            self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>ctypes.addressof(pUserLogout),nRequestID)
 
 
     def GetTradingDay(self):
@@ -204,7 +210,7 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *><size_t>(ctypes.addressof(pFensUserInfo)))
+            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *><size_t>ctypes.addressof(pFensUserInfo))
 
     def SubscribeMarketData(self, pInstrumentID):
         """
