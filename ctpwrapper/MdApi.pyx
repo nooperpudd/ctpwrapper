@@ -3,7 +3,10 @@
 # cython: nonecheck=True
 # cython: profile=False
 # cython: binding=True
-from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString,PyObject
+
+# binding = true for inspect get callargs
+
+from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString, PyObject
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
@@ -25,76 +28,75 @@ import ctypes
 
 
 
-
-cdef class MdSpiWrapper:
-
-    # cdef CMdSpi *_spi
-    # https://github.com/ah-/kafka_arrow/blob/2b5dbfd61e594d505854b1e57aee8b8c2b16bd85/kafka_arrow.pyx
-
-    # c++ must call python self fu
-
-    def __cinit__(self):
-        pass
-        # self._spi = new CMdSpi(self)
-    def __dealloc__(self):
-        pass
-
-    def OnFrontConnected(self):
-
-        # 当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
-        # @param nReason 错误原因
-        #  0x1001 网络读失败
-        #  0x1002 网络写失败
-        #  0x2001 接收心跳超时
-        #  0x2002 发送心跳失败
-        #  0x2003 收到错误报文
-        pass
-    def OnFrontDisconnected(self,int nReason):
-
-        # 心跳超时警告。当长时间未收到报文时，该方法被调用。
-        # @param nTimeLapse 距离上次接收报文的时间
-        pass
-    def OnHeartBeatWarning(self,int nTimeLapse):
-
-        # 登录请求响应
-        pass
-    cdef OnRspUserLogin(self,CThostFtdcRspUserLoginField *pRspUserLogin,
-                            CThostFtdcRspInfoField *pRspInfo,
-                            int nRequestID,
-                            cbool bIsLast):
-
-        # 登出请求响应
-        pass
-    cdef OnRspUserLogout(self,CThostFtdcUserLogoutField *pUserLogout,
-                             CThostFtdcRspInfoField *pRspInfo,
-                             int nRequestID,
-                             cbool bIsLast):
-
-        # 错误应答
-        pass
-    cdef OnRspError(self,CThostFtdcRspInfoField *pRspInfo,
-                        int nRequestID,
-                        cbool bIsLast):
-
-        # 订阅行情应答
-        pass
-    cdef OnRspSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
-                                CThostFtdcRspInfoField *pRspInfo,
-                                int nRequestID,
-                                cbool bIsLast):
-
-        # 取消订阅行情应答
-        pass
-    cdef OnRspUnSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
-                                  CThostFtdcRspInfoField *pRspInfo,
-                                  int nRequestID,
-                                  cbool bIsLast):
-
-        # 深度行情通知
-        pass
-    cdef OnRtnDepthMarketData(self,CThostFtdcDepthMarketDataField *pDepthMarketData):
-
-        pass
+# cdef class MdSpiWrapper:
+#
+#     # cdef CMdSpi *_spi
+#     # https://github.com/ah-/kafka_arrow/blob/2b5dbfd61e594d505854b1e57aee8b8c2b16bd85/kafka_arrow.pyx
+#
+#     # c++ must call python self fu
+#
+#     def __cinit__(self):
+#         pass
+#         # self._spi = new CMdSpi(self)
+#     def __dealloc__(self):
+#         pass
+#
+#     def OnFrontConnected(self):
+#
+#         # 当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
+#         # @param nReason 错误原因
+#         #  0x1001 网络读失败
+#         #  0x1002 网络写失败
+#         #  0x2001 接收心跳超时
+#         #  0x2002 发送心跳失败
+#         #  0x2003 收到错误报文
+#         pass
+#     def OnFrontDisconnected(self,int nReason):
+#
+#         # 心跳超时警告。当长时间未收到报文时，该方法被调用。
+#         # @param nTimeLapse 距离上次接收报文的时间
+#         pass
+#     def OnHeartBeatWarning(self,int nTimeLapse):
+#
+#         # 登录请求响应
+#         pass
+#     cdef OnRspUserLogin(self,CThostFtdcRspUserLoginField *pRspUserLogin,
+#                             CThostFtdcRspInfoField *pRspInfo,
+#                             int nRequestID,
+#                             cbool bIsLast):
+#
+#         # 登出请求响应
+#         pass
+#     cdef OnRspUserLogout(self,CThostFtdcUserLogoutField *pUserLogout,
+#                              CThostFtdcRspInfoField *pRspInfo,
+#                              int nRequestID,
+#                              cbool bIsLast):
+#
+#         # 错误应答
+#         pass
+#     cdef OnRspError(self,CThostFtdcRspInfoField *pRspInfo,
+#                         int nRequestID,
+#                         cbool bIsLast):
+#
+#         # 订阅行情应答
+#         pass
+#     cdef OnRspSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+#                                 CThostFtdcRspInfoField *pRspInfo,
+#                                 int nRequestID,
+#                                 cbool bIsLast):
+#
+#         # 取消订阅行情应答
+#         pass
+#     cdef OnRspUnSubMarketData(self,CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+#                                   CThostFtdcRspInfoField *pRspInfo,
+#                                   int nRequestID,
+#                                   cbool bIsLast):
+#
+#         # 深度行情通知
+#         pass
+#     cdef OnRtnDepthMarketData(self,CThostFtdcDepthMarketDataField *pDepthMarketData):
+#
+#         pass
 
 cdef class MdApiWrapper:
 
