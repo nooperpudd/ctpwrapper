@@ -6,18 +6,18 @@
 #include "ThostFtdcMdApi.h"
 
 
-static inline int MdSpi_OnFrontConnected(PyObject *);
-static inline int MdSpi_OnFrontDisconnected(PyObject *, int);
-static inline int MdSpi_OnHeartBeatWarning(PyObject *, int);
-static inline int MdSpi_OnRspUserLogin(PyObject *, CThostFtdcRspUserLoginField *, CThostFtdcRspInfoField *, int, bool);
-static inline int MdSpi_OnRspUserLogout(PyObject *, CThostFtdcUserLogoutField *, CThostFtdcRspInfoField *, int, bool);
-static inline int MdSpi_OnRspError(PyObject *, CThostFtdcRspInfoField *, int, bool);
-static inline int MdSpi_OnRspSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, bool);
-static inline int MdSpi_OnRspUnSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, bool);
-static inline int MdSpi_OnRspSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, bool);
-static inline int MdSpi_OnRspUnSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, bool);
-static inline int MdSpi_OnRtnDepthMarketData(PyObject *, CThostFtdcDepthMarketDataField *);
-static inline int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField *);
+static inline void MdSpi_OnFrontConnected(PyObject *);
+static inline void MdSpi_OnFrontDisconnected(PyObject *, int);
+static inline void MdSpi_OnHeartBeatWarning(PyObject *, int);
+static inline void MdSpi_OnRspUserLogin(PyObject *, CThostFtdcRspUserLoginField *, CThostFtdcRspInfoField *, int, bool);
+static inline void MdSpi_OnRspUserLogout(PyObject *, CThostFtdcUserLogoutField *, CThostFtdcRspInfoField *, int, bool);
+static inline void MdSpi_OnRspError(PyObject *, CThostFtdcRspInfoField *, int, bool);
+static inline void MdSpi_OnRspSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, bool);
+static inline void MdSpi_OnRspUnSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, bool);
+static inline void MdSpi_OnRspSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, bool);
+static inline void MdSpi_OnRspUnSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, bool);
+static inline void MdSpi_OnRtnDepthMarketData(PyObject *, CThostFtdcDepthMarketDataField *);
+static inline void MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField *);
 
 
 #define Python_GIL(func) \

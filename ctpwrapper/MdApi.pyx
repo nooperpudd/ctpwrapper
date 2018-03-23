@@ -22,11 +22,12 @@ CThostFtdcUserLogoutField,
 CThostFtdcSpecificInstrumentField,
 CThostFtdcDepthMarketDataField,
 CThostFtdcFensUserInfoField,
-CThostFtdcReqUserLoginField)
+CThostFtdcReqUserLoginField,
+CThostFtdcForQuoteRspField)
 
 import ctypes
 
-
+from ctpwrapper import ApiStructure
 
 # cdef class MdSpiWrapper:
 #
@@ -234,7 +235,7 @@ cdef class MdApiWrapper:
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
             try:
-                for i from 0<= i <count:
+                for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
                 result = self._api.SubscribeMarketData(InstrumentIDs,count)
             finally:
@@ -257,7 +258,7 @@ cdef class MdApiWrapper:
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
             try:
-                for i from 0<= i <count:
+                for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
                 result = self._api.UnSubscribeMarketData(InstrumentIDs,count)
             finally:
@@ -282,7 +283,7 @@ cdef class MdApiWrapper:
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
             try:
-                for i from 0<= i <count:
+                for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
                 result = self._api.SubscribeForQuoteRsp(InstrumentIDs,count)
             finally:
@@ -304,11 +305,165 @@ cdef class MdApiWrapper:
             count = len(pInstrumentID)
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)
             try:
-                for i from 0<= i <count:
+                for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
 
                 result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,count)
             finally:
                 free(InstrumentIDs)
             return result
+
+
+cdef extern void MdSpi_OnFrontConnected(self) except -1:
+    self.OnFrontConnected()
+
+cdef extern void MdSpi_OnFrontDisconnected(self, int nReason) except -1:
+    self.OnFrontDisconnected(nReason)
+
+cdef extern void MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
+    self.OnHeartBeatWarning(nTimeLapse)
+
+
+cdef extern void MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUserLogin,
+                                     CThostFtdcRspInfoField *pRspInfo,
+                                     int nRequestID,
+                                     cbool bIsLast) except -1:
+
+    if pRspUserLogin is NULL:
+        user_login = None
+    else:
+        user_login = ApiStructure.RspUserLoginField.from_address(<size_t> pRspUserLogin)
+
+    if pRspInfo is NULL:
+        rsp_info = None
+    else:
+        rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+
+    self.OnRspUserLogin(user_login, rsp_info, nRequestID, bIsLast)
+
+cdef extern void MdSpi_OnRspUserLogout(self, CThostFtdcUserLogoutField *pUserLogout,
+                                      CThostFtdcRspInfoField *pRspInfo,
+                                      int nRequestID,
+                                      cbool bIsLast) except -1:
+
+    if pUserLogout is NULL:
+        user_logout = None
+    else:
+        user_logout = ApiStructure.UserLogoutField.from_address(<size_t> pUserLogout)
+    if pRspInfo is NULL:
+        rsp_info = None
+    else:
+        rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+
+    self.OnRspUserLogout(user_logout, rsp_info, nRequestID, bIsLast)
+
+
+cdef extern void MdSpi_OnRspError(self, CThostFtdcRspInfoField *pRspInfo,
+                                 int nRequestID,
+                                 cbool bIsLast) except -1:
+
+    if pRspInfo is NULL:
+        rsp_info = None
+    else:
+        rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+
+    self.OnRspError(rsp_info,nRequestID,bIsLast)
+
+
+cdef extern void MdSpi_OnRspSubMarketData(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+                                         CThostFtdcRspInfoField *pRspInfo,
+                                         int nRequestID,
+                                         cbool bIsLast) except -1:
+
+    if pSpecificInstrument is NULL:
+        instrument = None
+    else:
+        instrument = ApiStructure.SpecificInstrumentField.from_address(<size_t> pSpecificInstrument)
+
+    if pRspInfo is NULL:
+        rsp_info = None
+    else:
+        rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+
+
+    self.OnRspSubMarketData(instrument,rsp_info, nRequestID, bIsLast)
+
+
+cdef extern void MdSpi_OnRspUnSubMarketData(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+                                           CThostFtdcRspInfoField *pRspInfo,
+                                           int nRequestID,
+                                           cbool bIsLast) except -1:
+
+    if pSpecificInstrument is NULL:
+        instrument = None
+    else:
+        instrument = ApiStructure.SpecificInstrumentField.from_address(<size_t> pSpecificInstrument)
+
+    if pRspInfo is NULL:
+        rsp_info = None
+    else:
+        rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+
+
+    self.OnRspUnSubMarketData(instrument,rsp_info, nRequestID, bIsLast)
+
+
+cdef extern void MdSpi_OnRspSubForQuoteRsp(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+                                          CThostFtdcRspInfoField *pRspInfo,
+                                          int nRequestID,
+                                          cbool bIsLast) except -1:
+
+    if pSpecificInstrument is NULL:
+        instrument  =None
+    else:
+        instrument = ApiStructure.SpecificInstrumentField.from_address(<size_t> pSpecificInstrument)
+
+    if pRspInfo is NULL:
+        rsp_info = None
+    else:
+        rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+
+
+    self.OnRspSubForQuoteRsp(instrument,rsp_info, nRequestID, bIsLast)
+
+
+cdef extern void MdSpi_OnRspUnSubForQuoteRsp(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+                                            CThostFtdcRspInfoField *pRspInfo,
+                                             int nRequestID,
+                                             cbool bIsLast) except -1:
+
+
+    if pSpecificInstrument is NULL:
+        instrument = None
+    else:
+        instrument = ApiStructure.SpecificInstrumentField.from_address(<size_t> pRspInfo)
+
+    if pRspInfo is NULL:
+        rsp_info = None
+    else:
+        rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+
+
+    self.OnRspUnSubForQuoteRsp(instrument,rsp_info, nRequestID, bIsLast)
+
+
+cdef extern void MdSpi_OnRtnDepthMarketData(self, CThostFtdcDepthMarketDataField *pDepthMarketData) except -1:
+
+    if pDepthMarketData is NULL:
+        depth_market = None
+    else:
+        depth_market = ApiStructure.DepthMarketDataField.from_address(<size_t> pDepthMarketData)
+
+    self.OnRtnDepthMarketData(depth_market)
+
+
+cdef extern void MdSpi_OnRtnForQuoteRsp(self, CThostFtdcForQuoteRspField *pForQuoteRsp) except -1:
+
+    if pForQuoteRsp is NULL:
+        quote = None
+    else:
+        quote = ApiStructure.ForQuoteRspField.from_address(<size_t> pForQuoteRsp)
+
+    self.OnRtnForQuoteRsp(quote)
+
 
