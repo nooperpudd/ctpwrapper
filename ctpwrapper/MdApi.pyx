@@ -102,7 +102,7 @@ cdef class MdApiWrapper:
 
     cdef CMdApi *_api
 
-    cdef CMdSpi *_spi
+    # cdef CMdSpi *_spi
 
     def __cinit__(self, const_char *pszFlowPath,
                   cbool bIsUsingUdp,
@@ -118,7 +118,7 @@ cdef class MdApiWrapper:
             self._api.RegisterSpi(NULL)
             self._api.Release()
             self._api = NULL
-            self._spi = NULL
+            # self._spi = NULL
 
     def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
         pass
@@ -130,8 +130,8 @@ cdef class MdApiWrapper:
     def Init(self):
         if self._api is not NULL:
 
-            self._spi = new CMdSpi(<PyObject *> self)
-            self._api.RegisterSpi(self._spi)
+            # self._spi = new CMdSpi(<PyObject *> self)
+            # self._api.RegisterSpi(self._spi)
 
             self._api.Init()
 
