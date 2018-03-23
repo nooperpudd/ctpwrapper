@@ -3,27 +3,28 @@
 # cython: nonecheck=True
 # cython: profile=False
 # cython: binding=True
+
 # binding = true for inspect get callargs
-from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString,PyObject
+from cpython cimport PyObject
 from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
-from libcpp.memory cimport shared_ptr,make_shared
+from libcpp.memory cimport shared_ptr, make_shared
 
-from headers.cMdAPI cimport CMdSpi,CMdApi,CreateFtdcMdApi
+from headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
 
-from headers.ThostFtdcUserApiStruct cimport (
-CThostFtdcRspUserLoginField,
-CThostFtdcRspInfoField,
-CThostFtdcUserLogoutField,
-CThostFtdcSpecificInstrumentField,
-CThostFtdcDepthMarketDataField,
-CThostFtdcFensUserInfoField,
-CThostFtdcReqUserLoginField)
+from headers.ThostFtdcUserApiStruct cimport CThostFtdcRspUserLoginField
+from headers.ThostFtdcUserApiStruct cimport CThostFtdcRspInfoField
+from headers.ThostFtdcUserApiStruct cimport CThostFtdcUserLogoutField
+from headers.ThostFtdcUserApiStruct cimport CThostFtdcSpecificInstrumentField
+from headers.ThostFtdcUserApiStruct cimport CThostFtdcDepthMarketDataField
+from headers.ThostFtdcUserApiStruct cimport CThostFtdcFensUserInfoField
+from headers.ThostFtdcUserApiStruct cimport CThostFtdcReqUserLoginField
 
 import ctypes
 
+from ctpwrapper import ApiStructure
 
 
 
@@ -139,6 +140,11 @@ cdef class MdApiWrapper:
     def Join(self):
         if self._api is not NULL:
             self._api.Join()
+
+    # def Release(self):
+    #
+    #     if self._api is not NULL:
+    #         self._api.Release()
 
     # def RegisterSpi(self, spi):
     #     # todo fix this problems
@@ -326,17 +332,15 @@ cdef extern int MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
 
 cdef extern int MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                                      cbool bIsLast) except -1:
-    user_login = None
-    rep_info = None
     if pRspUserLogin is NULL:
         user_login = None
     else:
-        user_login = ApiStruct_RspUserLogin(<size_t> pRspUserLogin)
+        user_login = ApiStructure.RspUserLoginField.from_address(<size_t> pRspUserLogin)
 
     if pRspInfo is NULL:
         rsp_info = None
     else:
-        rsp_info = ApiStruct_RspInfo(<size_t> pRspInfo)
+        rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
 
     self.OnRspUserLogin(user_login, rsp_info, nRequestID, bIsLast)
 
