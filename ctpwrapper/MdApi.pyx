@@ -320,29 +320,29 @@ cdef class MdApiWrapper:
             return result
 
 
-cdef extern int MdSpi_OnFrontConnected(self) except -1:
-    self.OnFrontConnected()
-
-cdef extern int MdSpi_OnFrontDisconnected(self, int nReason) except -1:
-    self.OnFrontDisconnected(nReason)
-
-cdef extern int MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
-    self.OnHeartBeatWarning(nTimeLapse)
-
-
-cdef extern int MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
-                                     cbool bIsLast) except -1:
-    if pRspUserLogin is NULL:
-        user_login = None
-    else:
-        user_login = ApiStructure.RspUserLoginField.from_address(<size_t> pRspUserLogin)
-
-    if pRspInfo is NULL:
-        rsp_info = None
-    else:
-        rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
-
-    self.OnRspUserLogin(user_login, rsp_info, nRequestID, bIsLast)
+# cdef extern int MdSpi_OnFrontConnected(self) except -1:
+#     self.OnFrontConnected()
+#
+# cdef extern int MdSpi_OnFrontDisconnected(self, int nReason) except -1:
+#     self.OnFrontDisconnected(nReason)
+#
+# cdef extern int MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
+#     self.OnHeartBeatWarning(nTimeLapse)
+#
+#
+# cdef extern int MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+#                                      cbool bIsLast) except -1:
+#     if pRspUserLogin is NULL:
+#         user_login = None
+#     else:
+#         user_login = ApiStructure.RspUserLoginField.from_address(<size_t> pRspUserLogin)
+#
+#     if pRspInfo is NULL:
+#         rsp_info = None
+#     else:
+#         rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+#
+#     self.OnRspUserLogin(user_login, rsp_info, nRequestID, bIsLast)
 
 
 # cdef extern int MdSpi_OnRspUserLogout(self, CUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
