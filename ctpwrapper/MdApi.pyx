@@ -314,20 +314,25 @@ cdef class MdApiWrapper:
             return result
 
 
-cdef extern void MdSpi_OnFrontConnected(self) except +:
+cdef extern int MdSpi_OnFrontConnected(self) except -1:
     self.OnFrontConnected()
+    return 0
 
-cdef extern void MdSpi_OnFrontDisconnected(self, int nReason) except +:
+
+cdef extern int MdSpi_OnFrontDisconnected(self, int nReason) except -1:
     self.OnFrontDisconnected(nReason)
 
-cdef extern void MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except +:
+    return 0
+cdef extern int MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
     self.OnHeartBeatWarning(nTimeLapse)
 
+    return 0
 
-cdef extern void MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUserLogin,
+
+cdef extern int MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUserLogin,
                                      CThostFtdcRspInfoField *pRspInfo,
                                      int nRequestID,
-                                     cbool bIsLast) except +:
+                                     cbool bIsLast) except -1:
 
     if pRspUserLogin is NULL:
         user_login = None
@@ -340,11 +345,12 @@ cdef extern void MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUse
         rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
 
     self.OnRspUserLogin(user_login, rsp_info, nRequestID, bIsLast)
+    return 0
 
-cdef extern void MdSpi_OnRspUserLogout(self, CThostFtdcUserLogoutField *pUserLogout,
+cdef extern int MdSpi_OnRspUserLogout(self, CThostFtdcUserLogoutField *pUserLogout,
                                       CThostFtdcRspInfoField *pRspInfo,
                                       int nRequestID,
-                                      cbool bIsLast) except +:
+                                      cbool bIsLast) except -1:
 
     if pUserLogout is NULL:
         user_logout = None
@@ -356,11 +362,12 @@ cdef extern void MdSpi_OnRspUserLogout(self, CThostFtdcUserLogoutField *pUserLog
         rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
 
     self.OnRspUserLogout(user_logout, rsp_info, nRequestID, bIsLast)
+    return 0
 
 
-cdef extern void MdSpi_OnRspError(self, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int MdSpi_OnRspError(self, CThostFtdcRspInfoField *pRspInfo,
                                  int nRequestID,
-                                 cbool bIsLast) except +:
+                                 cbool bIsLast) except -1:
 
     if pRspInfo is NULL:
         rsp_info = None
@@ -368,12 +375,13 @@ cdef extern void MdSpi_OnRspError(self, CThostFtdcRspInfoField *pRspInfo,
         rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
 
     self.OnRspError(rsp_info,nRequestID,bIsLast)
+    return 0
 
 
-cdef extern void MdSpi_OnRspSubMarketData(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+cdef extern int MdSpi_OnRspSubMarketData(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                          CThostFtdcRspInfoField *pRspInfo,
                                          int nRequestID,
-                                         cbool bIsLast) except +:
+                                         cbool bIsLast) except -1:
 
     if pSpecificInstrument is NULL:
         instrument = None
@@ -387,12 +395,13 @@ cdef extern void MdSpi_OnRspSubMarketData(self, CThostFtdcSpecificInstrumentFiel
 
 
     self.OnRspSubMarketData(instrument,rsp_info, nRequestID, bIsLast)
+    return 0
 
 
-cdef extern void MdSpi_OnRspUnSubMarketData(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+cdef extern int MdSpi_OnRspUnSubMarketData(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                            CThostFtdcRspInfoField *pRspInfo,
                                            int nRequestID,
-                                           cbool bIsLast) except +:
+                                           cbool bIsLast) except -1:
 
     if pSpecificInstrument is NULL:
         instrument = None
@@ -406,13 +415,14 @@ cdef extern void MdSpi_OnRspUnSubMarketData(self, CThostFtdcSpecificInstrumentFi
 
 
     self.OnRspUnSubMarketData(instrument,rsp_info, nRequestID, bIsLast)
+    return 0
 
 
-cdef extern void MdSpi_OnRspSubForQuoteRsp(self,
+cdef extern int MdSpi_OnRspSubForQuoteRsp(self,
                                            CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                            CThostFtdcRspInfoField *pRspInfo,
                                            int nRequestID,
-                                           cbool bIsLast) except +:
+                                           cbool bIsLast) except -1:
 
     if pSpecificInstrument is NULL:
         instrument  =None
@@ -426,13 +436,14 @@ cdef extern void MdSpi_OnRspSubForQuoteRsp(self,
 
 
     self.OnRspSubForQuoteRsp(instrument,rsp_info, nRequestID, bIsLast)
+    return 0
 
 
-cdef extern void MdSpi_OnRspUnSubForQuoteRsp(self,
+cdef extern int MdSpi_OnRspUnSubForQuoteRsp(self,
                                              CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                              CThostFtdcRspInfoField *pRspInfo,
                                              int nRequestID,
-                                             cbool bIsLast) except +:
+                                             cbool bIsLast) except -1:
 
 
     if pSpecificInstrument is NULL:
@@ -447,10 +458,11 @@ cdef extern void MdSpi_OnRspUnSubForQuoteRsp(self,
 
 
     self.OnRspUnSubForQuoteRsp(instrument,rsp_info, nRequestID, bIsLast)
+    return 0
 
 
-cdef extern void MdSpi_OnRtnDepthMarketData(self,
-                                            CThostFtdcDepthMarketDataField *pDepthMarketData) except +:
+cdef extern int MdSpi_OnRtnDepthMarketData(self,
+                                            CThostFtdcDepthMarketDataField *pDepthMarketData) except -1:
 
     if pDepthMarketData is NULL:
         depth_market = None
@@ -458,10 +470,11 @@ cdef extern void MdSpi_OnRtnDepthMarketData(self,
         depth_market = ApiStructure.DepthMarketDataField.from_address(<size_t> pDepthMarketData)
 
     self.OnRtnDepthMarketData(depth_market)
+    return 0
 
 
-cdef extern void MdSpi_OnRtnForQuoteRsp(self,
-                                        CThostFtdcForQuoteRspField *pForQuoteRsp) except +:
+cdef extern int MdSpi_OnRtnForQuoteRsp(self,
+                                        CThostFtdcForQuoteRspField *pForQuoteRsp) except -1:
 
     if pForQuoteRsp is NULL:
         quote = None
@@ -469,5 +482,6 @@ cdef extern void MdSpi_OnRtnForQuoteRsp(self,
         quote = ApiStructure.ForQuoteRspField.from_address(<size_t> pForQuoteRsp)
 
     self.OnRtnForQuoteRsp(quote)
+    return 0
 
 
