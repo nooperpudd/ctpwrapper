@@ -105,13 +105,10 @@ cdef class MdApiWrapper:
 
     cdef CMdSpi *_spi
 
-    def __cinit__(self, const_char *pszFlowPath,
-                  cbool bIsUsingUdp=False,
-                  cbool bIsMulticast=False):
+    def __cinit__(self):
 
-        self._api= CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
-        if not self._api:
-            raise MemoryError()
+        self._api = NULL
+        self._spi = NULL
 
     def __dealloc__(self):
 
@@ -121,19 +118,28 @@ cdef class MdApiWrapper:
             self._api = NULL
             self._spi = NULL
 
-    def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
-        cdef bytes path
-        print(type(pszFlowPath))
-        path = pszFlowPath.decode()
-        self.__cinit__(path,bIsUsingUdp,bIsMulticast)
+    def Create(self,const_char *pszFlowPath="",
+                  cbool bIsUsingUdp=False,
+                  cbool bIsMulticast=False):
+
+        self._api = CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
+        if not self._api:
+            raise MemoryError()
+
+
+    # def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
+    #     cdef bytes path
+    #     print(type(pszFlowPath))
+    #     path = pszFlowPath.decode()
+    #     self.__cinit__(path,bIsUsingUdp,bIsMulticast)
 
     @staticmethod
     def GetApiVersion():
         return CMdApi.GetApiVersion()
 
     def Init(self):
-        if self._api is not NULL:
 
+        if self._api is not NULL:
             self._spi = new CMdSpi(<PyObject *> self)
             self._api.RegisterSpi(self._spi)
 
