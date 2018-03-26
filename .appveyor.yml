@@ -52,9 +52,9 @@ install:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   # Check that we have the expected version and architecture for Python
   - "python --version"
-  - "%CMD_IN_ENV% pip install -U pip setuptools wheel"
-  - "%CMD_IN_ENV% pip install -r requirements.txt"
-  - "%CMD_IN_ENV% pip install pytest"
+  - "%CMD_IN_ENV% python3 -m pip install -U pip setuptools wheel"
+  - "%CMD_IN_ENV% python3 -m pip install -r requirements.txt"
+  - "%CMD_IN_ENV% python3 -m pip install pytest"
 test_script:
 
   - "%CMD_IN_ENV% python setup.py build_ext --inplace"
