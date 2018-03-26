@@ -137,8 +137,12 @@ cdef class MdApiWrapper:
             self._api.Init()
 
     def Join(self):
+        cdef int result
+
         if self._api is not NULL:
-            self._api.Join()
+            result = self._api.Join()
+            return result
+
 
     # def RegisterSpi(self, spi):
     #     # todo fix this problems

@@ -1,5 +1,5 @@
 clean:
-	python3 setup.py clean
+	python3 setup.py clean --all
 	rm -rf build dist
 	find ./ctpwrapper/ -name "*.so"  -delete
 	find ./ctpwrapper/ -name "*.cpp"  -delete
