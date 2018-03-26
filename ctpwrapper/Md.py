@@ -88,10 +88,10 @@ class MdApiPy(MdApiWrapper):
         super(MdApiPy,self).Create(pszFlowPath.encode(),bIsUsingUdp,bIsMulticast)
 
     def Init(self):
-        super(MdApiPy).Init()
+        super(MdApiPy,self).Init()
 
     def Join(self) -> int:
-        return super(MdApiPy).Join()
+        return super(MdApiPy,self).Join()
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
         """
