@@ -143,6 +143,7 @@ def main():
     if check_address_port(server):
 
         md = Md(broker_id,investor_id,password)
+        md.Create()
         md.RegisterFront(server)
         md.Init()
 
