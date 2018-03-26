@@ -314,20 +314,20 @@ cdef class MdApiWrapper:
             return result
 
 
-cdef extern void MdSpi_OnFrontConnected(self) except -1:
+cdef extern void MdSpi_OnFrontConnected(self) except +:
     self.OnFrontConnected()
 
-cdef extern void MdSpi_OnFrontDisconnected(self, int nReason) except -1:
+cdef extern void MdSpi_OnFrontDisconnected(self, int nReason) except +:
     self.OnFrontDisconnected(nReason)
 
-cdef extern void MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
+cdef extern void MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except +:
     self.OnHeartBeatWarning(nTimeLapse)
 
 
 cdef extern void MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUserLogin,
                                      CThostFtdcRspInfoField *pRspInfo,
                                      int nRequestID,
-                                     cbool bIsLast) except -1:
+                                     cbool bIsLast) except +:
 
     if pRspUserLogin is NULL:
         user_login = None
@@ -344,7 +344,7 @@ cdef extern void MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUse
 cdef extern void MdSpi_OnRspUserLogout(self, CThostFtdcUserLogoutField *pUserLogout,
                                       CThostFtdcRspInfoField *pRspInfo,
                                       int nRequestID,
-                                      cbool bIsLast) except -1:
+                                      cbool bIsLast) except +:
 
     if pUserLogout is NULL:
         user_logout = None
@@ -360,7 +360,7 @@ cdef extern void MdSpi_OnRspUserLogout(self, CThostFtdcUserLogoutField *pUserLog
 
 cdef extern void MdSpi_OnRspError(self, CThostFtdcRspInfoField *pRspInfo,
                                  int nRequestID,
-                                 cbool bIsLast) except -1:
+                                 cbool bIsLast) except +:
 
     if pRspInfo is NULL:
         rsp_info = None
@@ -373,7 +373,7 @@ cdef extern void MdSpi_OnRspError(self, CThostFtdcRspInfoField *pRspInfo,
 cdef extern void MdSpi_OnRspSubMarketData(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                          CThostFtdcRspInfoField *pRspInfo,
                                          int nRequestID,
-                                         cbool bIsLast) except -1:
+                                         cbool bIsLast) except +:
 
     if pSpecificInstrument is NULL:
         instrument = None
@@ -392,7 +392,7 @@ cdef extern void MdSpi_OnRspSubMarketData(self, CThostFtdcSpecificInstrumentFiel
 cdef extern void MdSpi_OnRspUnSubMarketData(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                            CThostFtdcRspInfoField *pRspInfo,
                                            int nRequestID,
-                                           cbool bIsLast) except -1:
+                                           cbool bIsLast) except +:
 
     if pSpecificInstrument is NULL:
         instrument = None
@@ -408,10 +408,11 @@ cdef extern void MdSpi_OnRspUnSubMarketData(self, CThostFtdcSpecificInstrumentFi
     self.OnRspUnSubMarketData(instrument,rsp_info, nRequestID, bIsLast)
 
 
-cdef extern void MdSpi_OnRspSubForQuoteRsp(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
-                                          CThostFtdcRspInfoField *pRspInfo,
-                                          int nRequestID,
-                                          cbool bIsLast) except -1:
+cdef extern void MdSpi_OnRspSubForQuoteRsp(self,
+                                           CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+                                           CThostFtdcRspInfoField *pRspInfo,
+                                           int nRequestID,
+                                           cbool bIsLast) except +:
 
     if pSpecificInstrument is NULL:
         instrument  =None
@@ -427,10 +428,11 @@ cdef extern void MdSpi_OnRspSubForQuoteRsp(self, CThostFtdcSpecificInstrumentFie
     self.OnRspSubForQuoteRsp(instrument,rsp_info, nRequestID, bIsLast)
 
 
-cdef extern void MdSpi_OnRspUnSubForQuoteRsp(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
-                                            CThostFtdcRspInfoField *pRspInfo,
+cdef extern void MdSpi_OnRspUnSubForQuoteRsp(self,
+                                             CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+                                             CThostFtdcRspInfoField *pRspInfo,
                                              int nRequestID,
-                                             cbool bIsLast) except -1:
+                                             cbool bIsLast) except +:
 
 
     if pSpecificInstrument is NULL:
@@ -447,7 +449,8 @@ cdef extern void MdSpi_OnRspUnSubForQuoteRsp(self, CThostFtdcSpecificInstrumentF
     self.OnRspUnSubForQuoteRsp(instrument,rsp_info, nRequestID, bIsLast)
 
 
-cdef extern void MdSpi_OnRtnDepthMarketData(self, CThostFtdcDepthMarketDataField *pDepthMarketData) except -1:
+cdef extern void MdSpi_OnRtnDepthMarketData(self,
+                                            CThostFtdcDepthMarketDataField *pDepthMarketData) except +:
 
     if pDepthMarketData is NULL:
         depth_market = None
@@ -457,7 +460,8 @@ cdef extern void MdSpi_OnRtnDepthMarketData(self, CThostFtdcDepthMarketDataField
     self.OnRtnDepthMarketData(depth_market)
 
 
-cdef extern void MdSpi_OnRtnForQuoteRsp(self, CThostFtdcForQuoteRspField *pForQuoteRsp) except -1:
+cdef extern void MdSpi_OnRtnForQuoteRsp(self,
+                                        CThostFtdcForQuoteRspField *pForQuoteRsp) except +:
 
     if pForQuoteRsp is NULL:
         quote = None
