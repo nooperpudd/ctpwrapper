@@ -77,6 +77,7 @@ class MdApiPy(MdApiWrapper):
     def __init__(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
         super(MdApiPy, self).__init__(pszFlowPath, bIsUsingUdp, bIsMulticast)
 
+
     def Init(self):
         super(MdApiPy).Init()
 

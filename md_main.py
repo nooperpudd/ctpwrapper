@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 # encoding:utf-8
+
 import socket
 import sys
 import urllib.parse
@@ -148,7 +150,9 @@ def main():
         md.SubscribeMarketData(["rb1810"])
 
 
+
         print("md_start")
+
     else:
         print("md server down")
 
