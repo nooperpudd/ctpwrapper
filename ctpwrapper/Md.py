@@ -74,9 +74,18 @@ from ctpwrapper.MdApi import MdApiWrapper
 
 
 class MdApiPy(MdApiWrapper):
-    def __init__(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
-        super(MdApiPy, self).__init__(pszFlowPath.encode(), bIsUsingUdp, bIsMulticast)
+    #     def __init__(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
 
+    # self.Create(pszFlowPath, bIsUsingUdp, bIsMulticast)
+    #     # super(MdApiPy, self).__init__(pszFlowPath.encode(), bIsUsingUdp, bIsMulticast)
+
+    def Create(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
+        """创建MdApi
+        @param pszFlowPath 存贮订阅信息文件的目录，默认为当前目录
+        @return 创建出的UserApi
+        modify for udp marketdata
+        """
+        super(MdApiPy,self).Create(pszFlowPath,bIsUsingUdp,bIsMulticast)
 
     def Init(self):
         super(MdApiPy).Init()
