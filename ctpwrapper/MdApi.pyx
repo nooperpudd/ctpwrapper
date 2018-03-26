@@ -106,8 +106,8 @@ cdef class MdApiWrapper:
     cdef CMdSpi *_spi
 
     def __cinit__(self, const_char *pszFlowPath="",
-                  cbool bIsUsingUdp,
-                  cbool bIsMulticast):
+                  cbool bIsUsingUdp=False,
+                  cbool bIsMulticast=False):
 
         self._api= CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
         if not self._api:
