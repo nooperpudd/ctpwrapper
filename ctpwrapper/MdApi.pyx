@@ -121,8 +121,11 @@ cdef class MdApiWrapper:
             self._api = NULL
             self._spi = NULL
 
-    # def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
-    #     pass
+    def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
+        cdef bytes path
+        print(type(pszFlowPath))
+        path = pszFlowPath.decode()
+        self.__cinit__(path,bIsUsingUdp,bIsMulticast)
 
     @staticmethod
     def GetApiVersion():
