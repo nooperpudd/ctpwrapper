@@ -151,7 +151,8 @@ class MdApiPy(MdApiWrapper):
         @param ppInstrumentID 合约ID
         :return:
         """
-        return super(MdApiPy, self).SubscribeMarketData(pInstrumentID)
+        ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
+        return super(MdApiPy, self).SubscribeMarketData(ids)
 
     def UnSubscribeMarketData(self, pInstrumentID: list):
         """
@@ -159,7 +160,9 @@ class MdApiPy(MdApiWrapper):
         @param ppInstrumentID 合约ID
         :return:
         """
-        return super(MdApiPy, self).UnSubscribeMarketData(pInstrumentID)
+        ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
+
+        return super(MdApiPy, self).UnSubscribeMarketData(ids)
 
     def SubscribeForQuoteRsp(self, pInstrumentID: list):
         """
@@ -167,7 +170,9 @@ class MdApiPy(MdApiWrapper):
         :param pInstrumentID: 合约ID list
         :return:
         """
-        return super(MdApiPy, self).SubscribeForQuoteRsp(pInstrumentID)
+        ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
+
+        return super(MdApiPy, self).SubscribeForQuoteRsp(ids)
 
     def UnSubscribeForQuoteRsp(self, pInstrumentID: list):
         """
@@ -175,7 +180,9 @@ class MdApiPy(MdApiWrapper):
         :param pInstrumentID: 合约ID list
         :return:
         """
-        return super(MdApiPy, self).UnSubscribeForQuoteRsp(pInstrumentID)
+        ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
+
+        return super(MdApiPy, self).UnSubscribeForQuoteRsp(ids)
 
     # for receive message
 
