@@ -105,7 +105,7 @@ cdef class MdApiWrapper:
 
     cdef CMdSpi *_spi
 
-    def __cinit__(self, const_char *pszFlowPath=b"",
+    def __cinit__(self, const_char *pszFlowPath,
                   cbool bIsUsingUdp=False,
                   cbool bIsMulticast=False):
 
