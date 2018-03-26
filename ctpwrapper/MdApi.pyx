@@ -6,12 +6,12 @@
 
 # binding = true for inspect get callargs
 
-from cpython cimport PyObject_GetBuffer, PyBuffer_Release, PyBUF_SIMPLE, PyBytes_AsString, PyObject
-from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
+from cpython cimport PyObject
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
-from libcpp.memory cimport shared_ptr,make_shared
+
+# from libcpp.memory cimport shared_ptr,make_shared
 
 from headers.cMdAPI cimport CMdSpi,CMdApi,CreateFtdcMdApi
 

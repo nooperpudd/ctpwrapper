@@ -2,16 +2,12 @@
 
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
-from libcpp.memory cimport shared_ptr,make_shared
+# from libcpp.memory cimport shared_ptr,make_shared
 from cpython cimport PyObject
 
-from ThostFtdcUserApiStruct cimport (CThostFtdcRspUserLoginField,
-CThostFtdcRspInfoField,
+from ThostFtdcUserApiStruct cimport (CThostFtdcReqUserLoginField,
 CThostFtdcUserLogoutField,
-CThostFtdcSpecificInstrumentField,
-CThostFtdcDepthMarketDataField,
-CThostFtdcFensUserInfoField,
-CThostFtdcReqUserLoginField)
+CThostFtdcFensUserInfoField)
 
 
 cdef extern from 'CMdAPI.h':
