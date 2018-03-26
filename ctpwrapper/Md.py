@@ -85,7 +85,7 @@ class MdApiPy(MdApiWrapper):
         @return 创建出的UserApi
         modify for udp marketdata
         """
-        super(MdApiPy,self).Create(pszFlowPath,bIsUsingUdp,bIsMulticast)
+        super(MdApiPy,self).Create(pszFlowPath.encode(),bIsUsingUdp,bIsMulticast)
 
     def Init(self):
         super(MdApiPy).Init()
