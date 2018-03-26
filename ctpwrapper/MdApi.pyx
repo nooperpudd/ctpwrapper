@@ -105,10 +105,10 @@ cdef class MdApiWrapper:
 
     cdef CMdSpi *_spi
 
-    def __cinit__(self):
-
-        self._api = NULL
-        self._spi = NULL
+    # def __cinit__(self):
+    #
+    #     self._api = NULL
+    #     self._spi = NULL
 
     def __dealloc__(self):
 
