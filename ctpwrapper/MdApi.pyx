@@ -6,16 +6,15 @@
 
 # binding = true for inspect get callargs
 
-from cpython cimport PyObject
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
 
 # from libcpp.memory cimport shared_ptr,make_shared
 
-from headers.cMdAPI cimport CMdSpi,CMdApi,CreateFtdcMdApi
+from headers.cMdAPI cimport CMdSpi,CMdApi,CreateFtdcMdApi, PyObject
 
-from headers.ThostFtdcUserApiStruct cimport (
+from headers.cMdAPI cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
 CThostFtdcUserLogoutField,
