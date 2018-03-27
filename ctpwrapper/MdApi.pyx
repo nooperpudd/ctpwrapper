@@ -113,16 +113,17 @@ cdef class MdApiWrapper:
     def __dealloc__(self):
 
         if self._api is not NULL:
+            print("api dealloc")
             self._api.RegisterSpi(NULL)
             self._api.Release()
             self._api = NULL
             self._spi = NULL
 
-    def Create(self,const_char *pszFlowPath,
-                  cbool bIsUsingUdp=False,
-                  cbool bIsMulticast=False):
+    def Create(self, const_char *pszFlowPath, cbool bIsUsingUdp=False, cbool bIsMulticast=False):
 
         self._api = CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
+
+        print("create api")
         if not self._api:
             raise MemoryError()
 
@@ -142,6 +143,8 @@ cdef class MdApiWrapper:
         if self._api is not NULL:
             self._spi = new CMdSpi(<PyObject *> self)
             self._api.RegisterSpi(self._spi)
+
+            print("register spi")
 
             self._api.Init()
 
@@ -167,6 +170,7 @@ cdef class MdApiWrapper:
         用户登录请求
         :return:
         """
+        print("requser login")
         if self._api is not NULL:
             self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>ctypes.addressof(pReqUserLoginField),nRequestID)
 
@@ -187,6 +191,7 @@ cdef class MdApiWrapper:
         @remark 只有登录成功后,才能得到正确的交易日
         :return:
         """
+
         cdef const_char *result
 
         if self._api is not NULL:
@@ -201,6 +206,7 @@ cdef class MdApiWrapper:
         @remark “tcp”代表传输协议，“127.0.0.1”代表服务器地址。”17001”代表服务器端口号。
         :return:
         """
+        print("register front server")
         if self._api is not NULL:
             self._api.RegisterNameServer(pszFrontAddress)
 
@@ -328,13 +334,15 @@ cdef class MdApiWrapper:
 
 
 cdef extern int MdSpi_OnFrontConnected(self) except -1:
+    print("start OnFrontConnected")
     self.OnFrontConnected()
+    print("end OnFrontConnected")
     return 0
 
-
 cdef extern int MdSpi_OnFrontDisconnected(self, int nReason) except -1:
+    print("start OnFrontDisconnected")
     self.OnFrontDisconnected(nReason)
-
+    print("end OnFrontDisconnected")
     return 0
 cdef extern int MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
     self.OnHeartBeatWarning(nTimeLapse)
@@ -346,7 +354,7 @@ cdef extern int MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUser
                                      CThostFtdcRspInfoField *pRspInfo,
                                      int nRequestID,
                                      cbool bIsLast) except -1:
-
+    print("start OnRspUserLogin")
     if pRspUserLogin is NULL:
         user_login = None
     else:
@@ -356,7 +364,7 @@ cdef extern int MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUser
         rsp_info = None
     else:
         rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
-
+    print("end OnRspUserLogin")
     self.OnRspUserLogin(user_login, rsp_info, nRequestID, bIsLast)
     return 0
 
