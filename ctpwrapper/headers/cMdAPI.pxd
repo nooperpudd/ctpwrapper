@@ -7,13 +7,32 @@ from cpython cimport PyObject
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcReqUserLoginField,
 CThostFtdcUserLogoutField,
-CThostFtdcFensUserInfoField)
+CThostFtdcFensUserInfoField,
+CThostFtdcRspUserLoginField,
+CThostFtdcRspInfoField,
+CThostFtdcSpecificInstrumentField,
+CThostFtdcDepthMarketDataField,
+CThostFtdcForQuoteRspField)
 
 
 cdef extern from 'CMdAPI.h':
 
     cdef cppclass CMdSpi:
          CMdSpi(PyObject *obj)
+
+    int MdSpi_OnFrontConnected(PyObject *)
+    int MdSpi_OnFrontDisconnected(PyObject *, int)
+    int MdSpi_OnHeartBeatWarning(PyObject *, int)
+    int MdSpi_OnRspUserLogin(PyObject *, CThostFtdcRspUserLoginField *, CThostFtdcRspInfoField *, int, cbool)
+    int MdSpi_OnRspUserLogout(PyObject *, CThostFtdcUserLogoutField *, CThostFtdcRspInfoField *, int, cbool)
+    int MdSpi_OnRspError(PyObject *, CThostFtdcRspInfoField *, int, cbool)
+    int MdSpi_OnRspSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
+    int MdSpi_OnRspUnSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
+    int MdSpi_OnRspSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
+    int MdSpi_OnRspUnSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
+    int MdSpi_OnRtnDepthMarketData(PyObject *, CThostFtdcDepthMarketDataField *)
+    int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField *)
+
 
 
 cdef extern from 'ThostFtdcMdApi.h':
