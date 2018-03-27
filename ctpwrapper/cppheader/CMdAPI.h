@@ -23,7 +23,8 @@ static inline int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField 
 #define Python_GIL(func) \
 	do { \
 		PyGILState_STATE g_state = PyGILState_Ensure(); \
-		if ((func) == -1) PyErr_Print(); \
+		if ((func) == -1) { PyErr_Print() } \
+		else { printf("func called\n") }; \
 		PyGILState_Release(g_state); \
 	} while (false)
 
