@@ -143,10 +143,17 @@ def main():
     if check_address_port(server):
 
         md = Md(broker_id,investor_id,password)
+        print("md init")
         md.Create()
+        print("md create")
         md.RegisterFront(server)
+        print("register front")
         md.Init()
-
+        print("init")
+        day = md.GetTradingDay()
+        print(day)
+        print("api worker!")
+        
         time.sleep(10)
         md.SubscribeMarketData(["rb1810"])
 
