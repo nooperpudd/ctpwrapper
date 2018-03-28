@@ -10,28 +10,11 @@ CThostFtdcUserLogoutField,
 CThostFtdcFensUserInfoField)
 
 
-    # int MdSpi_OnFrontConnected(PyObject *)
-    # int MdSpi_OnFrontDisconnected(PyObject *, int)
-    # int MdSpi_OnHeartBeatWarning(PyObject *, int)
-    # int MdSpi_OnRspUserLogin(PyObject *, CThostFtdcRspUserLoginField *, CThostFtdcRspInfoField *, int, cbool)
-    # int MdSpi_OnRspUserLogout(PyObject *, CThostFtdcUserLogoutField *, CThostFtdcRspInfoField *, int, cbool)
-    # int MdSpi_OnRspError(PyObject *, CThostFtdcRspInfoField *, int, cbool)
-    # int MdSpi_OnRspSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
-    # int MdSpi_OnRspUnSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
-    # int MdSpi_OnRspSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
-    # int MdSpi_OnRspUnSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
-    # int MdSpi_OnRtnDepthMarketData(PyObject *, CThostFtdcDepthMarketDataField *)
-    # int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField *)
-    #
-
 
 cdef extern from 'ThostFtdcMdApi.h':
 
     # cdef cppclass CMdSpi "CThostFtdcMdSpi":
-    #     # 当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
-    #     void OnFrontConnected() except +
-    #
-    #     # 当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
+    #     # 当客户端与交易后台建立起通信连接时（还未登易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
     #     # @param nReason 错误原因
     #     #  0x1001 网络读失败
     #     #  0x1002 网络写失败
@@ -149,7 +132,6 @@ cdef extern from 'ThostFtdcMdApi.h':
 cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     #获取API的版本信息
     #@retrun 获取到的版本号
-
     CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +
 
 
