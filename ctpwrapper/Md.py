@@ -93,28 +93,29 @@ class MdApiPy(MdApiWrapper):
     def Join(self) -> int:
         return super(MdApiPy,self).Join()
 
-    def ReqUserLogin(self, pReqUserLoginField, nRequestID):
+    def ReqUserLogin(self, pReqUserLoginField, nRequestID) -> int:
         """
         用户登录请求
         :return:
         """
         return super(MdApiPy, self).ReqUserLogin(pReqUserLoginField, nRequestID)
 
-    def ReqUserLogout(self, pUserLogout, nRequestID):
+    def ReqUserLogout(self, pUserLogout, nRequestID) -> int:
         """
          登出请求
         :return:
         """
         return super(MdApiPy, self).ReqUserLogout(pUserLogout, nRequestID)
 
-    def GetTradingDay(self):
+    def GetTradingDay(self) -> str:
         """
         获取当前交易日
         @retrun 获取到的交易日
         @remark 只有登录成功后,才能得到正确的交易日
         :return:
         """
-        return super(MdApiPy, self).GetTradingDay()
+        day = super(MdApiPy, self).GetTradingDay()
+        return day.decode()
 
     def RegisterFront(self, pszFrontAddress: str):
         """
@@ -145,7 +146,7 @@ class MdApiPy(MdApiWrapper):
         """
         super(MdApiPy, self).RegisterFensUserInfo(pFensUserInfo)
 
-    def SubscribeMarketData(self, pInstrumentID: list):
+    def SubscribeMarketData(self, pInstrumentID: list) -> int:
         """
          订阅行情。
         @param ppInstrumentID 合约ID
@@ -154,7 +155,7 @@ class MdApiPy(MdApiWrapper):
         ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
         return super(MdApiPy, self).SubscribeMarketData(ids)
 
-    def UnSubscribeMarketData(self, pInstrumentID: list):
+    def UnSubscribeMarketData(self, pInstrumentID: list) -> int:
         """
         退订行情。
         @param ppInstrumentID 合约ID
@@ -164,7 +165,7 @@ class MdApiPy(MdApiWrapper):
 
         return super(MdApiPy, self).UnSubscribeMarketData(ids)
 
-    def SubscribeForQuoteRsp(self, pInstrumentID: list):
+    def SubscribeForQuoteRsp(self, pInstrumentID: list) -> int:
         """
         订阅询价。
         :param pInstrumentID: 合约ID list
@@ -174,7 +175,7 @@ class MdApiPy(MdApiWrapper):
 
         return super(MdApiPy, self).SubscribeForQuoteRsp(ids)
 
-    def UnSubscribeForQuoteRsp(self, pInstrumentID: list):
+    def UnSubscribeForQuoteRsp(self, pInstrumentID: list) -> int:
         """
         退订询价。
         :param pInstrumentID: 合约ID list
