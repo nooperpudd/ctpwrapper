@@ -1,38 +1,28 @@
 # encoding:utf-8
 
+from cpython cimport PyObject
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
 # from libcpp.memory cimport shared_ptr,make_shared
-from cpython cimport PyObject
 
 from ThostFtdcUserApiStruct cimport (CThostFtdcReqUserLoginField,
 CThostFtdcUserLogoutField,
-CThostFtdcFensUserInfoField,
-CThostFtdcRspUserLoginField,
-CThostFtdcRspInfoField,
-CThostFtdcSpecificInstrumentField,
-CThostFtdcDepthMarketDataField,
-CThostFtdcForQuoteRspField)
+CThostFtdcFensUserInfoField)
 
 
-cdef extern from 'CMdAPI.h':
-
-    cdef cppclass CMdSpi:
-         CMdSpi(PyObject *obj)
-
-    int MdSpi_OnFrontConnected(PyObject *)
-    int MdSpi_OnFrontDisconnected(PyObject *, int)
-    int MdSpi_OnHeartBeatWarning(PyObject *, int)
-    int MdSpi_OnRspUserLogin(PyObject *, CThostFtdcRspUserLoginField *, CThostFtdcRspInfoField *, int, cbool)
-    int MdSpi_OnRspUserLogout(PyObject *, CThostFtdcUserLogoutField *, CThostFtdcRspInfoField *, int, cbool)
-    int MdSpi_OnRspError(PyObject *, CThostFtdcRspInfoField *, int, cbool)
-    int MdSpi_OnRspSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
-    int MdSpi_OnRspUnSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
-    int MdSpi_OnRspSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
-    int MdSpi_OnRspUnSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
-    int MdSpi_OnRtnDepthMarketData(PyObject *, CThostFtdcDepthMarketDataField *)
-    int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField *)
-
+    # int MdSpi_OnFrontConnected(PyObject *)
+    # int MdSpi_OnFrontDisconnected(PyObject *, int)
+    # int MdSpi_OnHeartBeatWarning(PyObject *, int)
+    # int MdSpi_OnRspUserLogin(PyObject *, CThostFtdcRspUserLoginField *, CThostFtdcRspInfoField *, int, cbool)
+    # int MdSpi_OnRspUserLogout(PyObject *, CThostFtdcUserLogoutField *, CThostFtdcRspInfoField *, int, cbool)
+    # int MdSpi_OnRspError(PyObject *, CThostFtdcRspInfoField *, int, cbool)
+    # int MdSpi_OnRspSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
+    # int MdSpi_OnRspUnSubMarketData(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
+    # int MdSpi_OnRspSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
+    # int MdSpi_OnRspUnSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, cbool)
+    # int MdSpi_OnRtnDepthMarketData(PyObject *, CThostFtdcDepthMarketDataField *)
+    # int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField *)
+    #
 
 
 cdef extern from 'ThostFtdcMdApi.h':
@@ -133,32 +123,28 @@ cdef extern from 'ThostFtdcMdApi.h':
         #  订阅行情。
         #  @param ppInstrumentID 合约ID
         #  @param nCount 要订阅/退订行情的合约个数
-        int SubscribeMarketData(char *ppInstrumentID[],
-                                int nCount) nogil except +
+        int SubscribeMarketData(char *ppInstrumentID[],int nCount) nogil except +
 
         #  退订行情。
         #  @param ppInstrumentID 合约ID
         #  @param nCount 要订阅/退订行情的合约个数
-        int UnSubscribeMarketData(char *ppInstrumentID[],
-                                  int nCount) nogil except +
+        int UnSubscribeMarketData(char *ppInstrumentID[],int nCount) nogil except +
         
         #订阅询价。
         #@param ppInstrumentID 合约ID
         #@param nCount 要订阅/退订行情的合约个数
-        int SubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
+        int SubscribeForQuoteRsp(char *ppInstrumentID[],int nCount) nogil except +
 
         #退订询价。
         #@param ppInstrumentID 合约ID
         #@param nCount 要订阅/退订行情的合约个数
-        int UnSubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) nogil except +
+        int UnSubscribeForQuoteRsp(char *ppInstrumentID[],int nCount) nogil except +
 
         #  用户登录请求
-        int ReqUserLogin(CThostFtdcReqUserLoginField *pReqUserLoginField,
-                         int nRequestID) nogil except +
+        int ReqUserLogin(CThostFtdcReqUserLoginField *pReqUserLoginField,int nRequestID) nogil except +
 
         #  登出请求
-        int ReqUserLogout(CThostFtdcUserLogoutField *pUserLogout,
-                          int nRequestID) nogil except +
+        int ReqUserLogout(CThostFtdcUserLogoutField *pUserLogout,int nRequestID) nogil except +
 
 cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     #获取API的版本信息
@@ -166,5 +152,10 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
 
     CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +
 
+
+cdef extern from 'CMdAPI.h':
+
+    cdef cppclass CMdSpi:
+         CMdSpi(PyObject *obj)
 
 
