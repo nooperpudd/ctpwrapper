@@ -31,57 +31,57 @@ static inline int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField 
 class CMdSpi : public CThostFtdcMdSpi {
 public:
 
-    CMdSpi(PyObject *obj):self(obj) {}
+    CMdSpi(PyObject *obj):self(obj) {};
 
-	virtual ~CMdSpi() {}
+	virtual ~CMdSpi() {};
 
 	virtual void OnFrontConnected() {
 		Python_GIL(MdSpi_OnFrontConnected(self));
-	}
+	};
 
 	virtual void OnFrontDisconnected(int nReason) {
 		Python_GIL(MdSpi_OnFrontDisconnected(self, nReason));
-	}
+	};
 
 	virtual void OnHeartBeatWarning(int nTimeLapse) {
 		Python_GIL(MdSpi_OnHeartBeatWarning(self, nTimeLapse));
-	}
+	};
 
 	virtual void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
 		Python_GIL(MdSpi_OnRspUserLogin(self, pRspUserLogin, pRspInfo, nRequestID, bIsLast));
-	}
+	};
 
 	virtual void OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
 		Python_GIL(MdSpi_OnRspUserLogout(self, pUserLogout, pRspInfo, nRequestID, bIsLast));
-	}
+	};
 
 	virtual void OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
 		Python_GIL(MdSpi_OnRspError(self, pRspInfo, nRequestID, bIsLast));
-	}
+	};
 
 	virtual void OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
 		Python_GIL(MdSpi_OnRspSubMarketData(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast));
-	}
+	};
 
 	virtual void OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
 		Python_GIL(MdSpi_OnRspUnSubMarketData(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast));
-	}
+	};
 
 	virtual void OnRspSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
 		Python_GIL(MdSpi_OnRspSubForQuoteRsp(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast));
-	}
+	};
 
 	virtual void OnRspUnSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
 		Python_GIL(MdSpi_OnRspUnSubForQuoteRsp(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast));
-	}
+	};
 
 	virtual void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
 		Python_GIL(MdSpi_OnRtnDepthMarketData(self, pDepthMarketData));
-	}
+	};
 
 	virtual void OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {
 		Python_GIL(MdSpi_OnRtnForQuoteRsp(self, pForQuoteRsp));
-	}
+	};
 
 private:
 	PyObject *self;
