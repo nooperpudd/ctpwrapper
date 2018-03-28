@@ -144,16 +144,15 @@ cdef class MdApiWrapper:
             self._api.RegisterSpi(self._spi)
 
             print("register spi")
-
             self._api.Init()
 
     def Join(self):
+
         cdef int result
-
         if self._api is not NULL:
-            result = self._api.Join()
+            with nogil:
+                result = self._api.Join()
             return result
-
 
     # def RegisterSpi(self, spi):
     #     # todo fix this problems
@@ -170,8 +169,11 @@ cdef class MdApiWrapper:
         :return:
         """
         print("requser login")
+
+        cdef int result
         if self._api is not NULL:
-            self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>ctypes.addressof(pReqUserLoginField),nRequestID)
+            result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>ctypes.addressof(pReqUserLoginField),nRequestID)
+            return result
 
 
     def ReqUserLogout(self, pUserLogout, nRequestID):
@@ -179,9 +181,10 @@ cdef class MdApiWrapper:
         登出请求
         :return:
         """
+        cdef int result
         if self._api is not NULL:
-            self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>ctypes.addressof(pUserLogout),nRequestID)
-
+            result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>ctypes.addressof(pUserLogout),nRequestID)
+            return result
 
     def GetTradingDay(self):
         """
