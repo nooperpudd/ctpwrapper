@@ -10,11 +10,12 @@ from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
 
+from cpython cimport PyObject
 # from libcpp.memory cimport shared_ptr,make_shared
 
-from headers.cMdAPI cimport CMdSpi,CMdApi,CreateFtdcMdApi, PyObject
+from headers.cMdAPI cimport CMdSpi,CMdApi,CreateFtdcMdApi
 
-from headers.cMdAPI cimport (
+from headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
 CThostFtdcUserLogoutField,
@@ -26,7 +27,7 @@ CThostFtdcForQuoteRspField)
 
 import ctypes
 
-from ctpwrapper import ApiStructure
+from . import ApiStructure
 
 # cdef class MdSpiWrapper:
 #
@@ -101,18 +102,19 @@ from ctpwrapper import ApiStructure
 cdef class MdApiWrapper:
 
     cdef CMdApi *_api
-
     cdef CMdSpi *_spi
 
-    # def __cinit__(self):
-    #
-    #     self._api = NULL
-    #     self._spi = NULL
+    def __cinit__(self):
+
+        self._api = NULL
+        self._spi = NULL
 
     def __dealloc__(self):
+        self.Release()
+
+    def Release(self):
 
         if self._api is not NULL:
-            print("api dealloc")
             self._api.RegisterSpi(NULL)
             self._api.Release()
             self._api = NULL
@@ -121,8 +123,6 @@ cdef class MdApiWrapper:
     def Create(self, const_char *pszFlowPath, cbool bIsUsingUdp=False, cbool bIsMulticast=False):
 
         self._api = CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
-
-        print("create api")
         if not self._api:
             raise MemoryError()
 
@@ -140,16 +140,17 @@ cdef class MdApiWrapper:
     def Init(self):
 
         if self._api is not NULL:
-            self._spi = new CMdSpi(<PyObject *> self)
-            self._api.RegisterSpi(self._spi)
 
-            print("register spi")
-            self._api.Init()
+            self._spi = new CMdSpi(<PyObject *> self)
+
+            with nogil: # todo add to test
+                self._api.RegisterSpi(self._spi)
+                self._api.Init()
 
     def Join(self):
 
         cdef int result
-        if self._api is not NULL:
+        if  self._spi is not NULL:
             with nogil:
                 result = self._api.Join()
             return result
@@ -157,7 +158,6 @@ cdef class MdApiWrapper:
     # def RegisterSpi(self, spi):
     #     # todo fix this problems
     #     pass
-
         # cdef PyObject p_spi
         # p_spi = spi
         #
@@ -171,7 +171,7 @@ cdef class MdApiWrapper:
         print("requser login")
 
         cdef int result
-        if self._api is not NULL:
+        if self._spi is not NULL:
             result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>ctypes.addressof(pReqUserLoginField),nRequestID)
             return result
 
@@ -182,7 +182,7 @@ cdef class MdApiWrapper:
         :return:
         """
         cdef int result
-        if self._api is not NULL:
+        if self._spi is not NULL:
             result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>ctypes.addressof(pUserLogout),nRequestID)
             return result
 
@@ -193,10 +193,9 @@ cdef class MdApiWrapper:
         @remark 只有登录成功后,才能得到正确的交易日
         :return:
         """
-
         cdef const_char *result
 
-        if self._api is not NULL:
+        if self._spi is not NULL:
             result = self._api.GetTradingDay()
             return result
 
@@ -210,7 +209,7 @@ cdef class MdApiWrapper:
         """
         print("register front server")
         if self._api is not NULL:
-            self._api.RegisterNameServer(pszFrontAddress)
+            self._api.RegisterFront(pszFrontAddress)
 
     def RegisterNameServer(self,char *pszNsAddress):
         """
@@ -250,7 +249,7 @@ cdef class MdApiWrapper:
         cdef int result
         cdef char **InstrumentIDs
 
-        if self._api is not NULL:
+        if self._spi is not NULL:
 
             count = len(pInstrumentID)
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)
@@ -274,7 +273,7 @@ cdef class MdApiWrapper:
         cdef int result
         cdef char **InstrumentIDs
 
-        if self._api is not NULL:
+        if self._spi is not NULL:
             count = len(pInstrumentID)
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)
 
@@ -298,7 +297,7 @@ cdef class MdApiWrapper:
         cdef int result
         cdef char **InstrumentIDs
 
-        if self._api is not NULL:
+        if self._spi is not NULL:
 
             count = len(pInstrumentID)
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)
@@ -321,7 +320,7 @@ cdef class MdApiWrapper:
         cdef int result
         cdef char **InstrumentIDs
 
-        if self._api is not NULL:
+        if self._spi is not NULL:
 
             count = len(pInstrumentID)
             InstrumentIDs = <char **>malloc(sizeof(char*) *count)
@@ -348,7 +347,6 @@ cdef extern int MdSpi_OnFrontDisconnected(self, int nReason) except -1:
     return 0
 cdef extern int MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
     self.OnHeartBeatWarning(nTimeLapse)
-
     return 0
 
 
