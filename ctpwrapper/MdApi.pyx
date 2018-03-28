@@ -120,7 +120,7 @@ cdef class MdApiWrapper:
             self._api = NULL
             self._spi = NULL
 
-    def Create(self, const_char *pszFlowPath, cbool bIsUsingUdp=False, cbool bIsMulticast=False):
+    def Create(self, const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast):
 
         self._api = CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
         if not self._api:
