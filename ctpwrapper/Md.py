@@ -1,6 +1,6 @@
 # encoding:utf-8
 
-from ctpwrapper.MdApi import MdApiWrapper
+from .MdApi import MdApiWrapper
 
 
 # class MdSpiPy(object):
@@ -74,10 +74,6 @@ from ctpwrapper.MdApi import MdApiWrapper
 
 
 class MdApiPy(MdApiWrapper):
-    #     def __init__(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
-
-    # self.Create(pszFlowPath, bIsUsingUdp, bIsMulticast)
-    #     # super(MdApiPy, self).__init__(pszFlowPath.encode(), bIsUsingUdp, bIsMulticast)
 
     def Create(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
         """创建MdApi
@@ -85,13 +81,21 @@ class MdApiPy(MdApiWrapper):
         @return 创建出的UserApi
         modify for udp marketdata
         """
-        super(MdApiPy,self).Create(pszFlowPath.encode(),bIsUsingUdp,bIsMulticast)
+        super(MdApiPy, self).Create(pszFlowPath.encode(), bIsUsingUdp, bIsMulticast)
 
     def Init(self):
-        super(MdApiPy,self).Init()
+        """
+        初始化运行环境,只有调用后,接口才开始工作
+        """
+        super(MdApiPy, self).Init()
 
     def Join(self) -> int:
-        return super(MdApiPy,self).Join()
+        """
+        等待接口线程结束运行
+        @return 线程退出代码
+        :return:
+        """
+        return super(MdApiPy, self).Join()
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID) -> int:
         """
@@ -123,7 +127,6 @@ class MdApiPy(MdApiWrapper):
         @param pszFrontAddress：前置机网络地址。
         @remark 网络地址的格式为：“protocol:# ipaddress:port”，如：”tcp:# 127.0.0.1:17001”。
         @remark “tcp”代表传输协议，“127.0.0.1”代表服务器地址。”17001”代表服务器端口号。
-        :return:
         """
         super(MdApiPy, self).RegisterFront(pszFrontAddress.encode())
 
@@ -134,7 +137,6 @@ class MdApiPy(MdApiWrapper):
         @remark 网络地址的格式为：“protocol:# ipaddress:port”，如：”tcp:# 127.0.0.1:12001”。
         @remark “tcp”代表传输协议，“127.0.0.1”代表服务器地址。”12001”代表服务器端口号。
         @remark RegisterNameServer优先于RegisterFront
-        :return:
         """
         super(MdApiPy, self).RegisterNameServer(pszNsAddress.encode())
 
@@ -142,7 +144,6 @@ class MdApiPy(MdApiWrapper):
         """
         注册名字服务器用户信息
         @param pFensUserInfo：用户信息。
-        :return:
         """
         super(MdApiPy, self).RegisterFensUserInfo(pFensUserInfo)
 
@@ -150,7 +151,7 @@ class MdApiPy(MdApiWrapper):
         """
          订阅行情。
         @param ppInstrumentID 合约ID
-        :return:
+        :return: int
         """
         ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
         return super(MdApiPy, self).SubscribeMarketData(ids)
@@ -159,7 +160,7 @@ class MdApiPy(MdApiWrapper):
         """
         退订行情。
         @param ppInstrumentID 合约ID
-        :return:
+        :return: int
         """
         ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
 
@@ -169,7 +170,7 @@ class MdApiPy(MdApiWrapper):
         """
         订阅询价。
         :param pInstrumentID: 合约ID list
-        :return:
+        :return: int
         """
         ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
 
@@ -179,7 +180,7 @@ class MdApiPy(MdApiWrapper):
         """
         退订询价。
         :param pInstrumentID: 合约ID list
-        :return:
+        :return: int
         """
         ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
 
@@ -187,81 +188,129 @@ class MdApiPy(MdApiWrapper):
 
     # for receive message
 
-    # 当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
-
     def OnFrontConnected(self):
+        """
+        当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
+        :return:
+        """
         pass
-
-        # 当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
-        # @param nReason 错误原因
-        #         0x1001 网络读失败
-        #         0x1002 网络写失败
-        #         0x2001 接收心跳超时
-        #         0x2002 发送心跳失败
-        #         0x2003 收到错误报文
-
-        # 4097 0x1001 网络读失败
-        # 4098 0x1002 网络写失败
-        # 8193 0x2001 读心跳超时
-        # 8194 0x2002 发送心跳超时
-        # 8195 0x2003 收到不能识别的错误消息
-        # 客户端与服务端的连接断开有两种情况：
-        #  网络原因导致连接断开
-        #  服务端主动断开连接
-        # 服务器主动断开连接有两种可能：
-        #  客户端长时间没有从服务端接收报文，时间超时
-        #  客户端建立的连接数超过限制
 
     def OnFrontDisconnected(self, nReason):
+        """
+        当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
+        @param nReason 错误原因
+            4097 0x1001 网络读失败
+            4098 0x1002 网络写失败
+            8193 0x2001 读心跳超时
+            8194 0x2002 发送心跳超时
+            8195 0x2003 收到不能识别的错误消息
+        客户端与服务端的连接断开有两种情况：
+            网络原因导致连接断开
+            服务端主动断开连接
+        服务器主动断开连接有两种可能：
+            客户端长时间没有从服务端接收报文，时间超时
+            客户端建立的连接数超过限制
+        :param nReason:
+        """
         pass
-
-        # 心跳超时警告。当长时间未收到报文时，该方法被调用。
-        # @param nTimeLapse 距离上次接收报文的时间
 
     def OnHeartBeatWarning(self, nTimeLapse):
-        pass
+        """
+        心跳超时警告。当长时间未收到报文时，该方法被调用。
 
-        # 登录请求响应
+        :param nTimeLapse: 距离上次接收报文的时间
+        :return:
+        """
+        pass
 
     def OnRspUserLogin(self, pRspUserLogin, pRspInfo, nRequestID, bIsLast):
+        """
+        登录请求响应
+        :param pRspUserLogin:
+        :param pRspInfo:
+        :param nRequestID:
+        :param bIsLast:
+        :return:
+        """
         pass
-
-        # 登出请求响应
 
     def OnRspUserLogout(self, pUserLogout, pRspInfo, nRequestID, bIsLast):
+        """
+        登出请求响应
+        :param pUserLogout:
+        :param pRspInfo:
+        :param nRequestID:
+        :param bIsLast:
+        :return:
+        """
         pass
-
-        # 错误应答
 
     def OnRspError(self, pRspInfo, nRequestID, bIsLast):
+        """
+        错误应答
+        :param pRspInfo:
+        :param nRequestID:
+        :param bIsLast:
+        :return:
+        """
         pass
-
-        # 订阅行情应答
 
     def OnRspSubMarketData(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast):
+        """
+        订阅行情应答
+        :param pSpecificInstrument:
+        :param pRspInfo:
+        :param nRequestID:
+        :param bIsLast:
+        :return:
+        """
         pass
-
-        # 取消订阅行情应答
 
     def OnRspUnSubMarketData(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast):
+        """
+        取消订阅行情应答
+        :param pSpecificInstrument:
+        :param pRspInfo:
+        :param nRequestID:
+        :param bIsLast:
+        :return:
+        """
         pass
-
-        # 订阅询价应答
 
     def OnRspSubForQuoteRsp(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast):
+        """
+        订阅询价应答
+        :param pSpecificInstrument:
+        :param pRspInfo:
+        :param nRequestID:
+        :param bIsLast:
+        :return:
+        """
         pass
-
-        # 取消订阅询价应答
 
     def OnRspUnSubForQuoteRsp(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast):
+        """
+        取消订阅询价应答
+        :param pSpecificInstrument:
+        :param pRspInfo:
+        :param nRequestID:
+        :param bIsLast:
+        :return:
+        """
         pass
-
-        # 深度行情通知
 
     def OnRtnDepthMarketData(self, pDepthMarketData):
+        """
+        深度行情通知
+        :param pDepthMarketData:
+        :return:
+        """
         pass
 
-        # 询价通知
-
     def OnRtnForQuoteRsp(self, pForQuoteRsp):
+        """
+        询价通知
+        :param pForQuoteRsp:
+        :return:
+        """
         pass

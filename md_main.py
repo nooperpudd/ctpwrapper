@@ -154,10 +154,10 @@ def main():
         print(day)
         print("api worker!")
         
-        time.sleep(2)
+        # time.sleep(2)
         md.SubscribeMarketData(["rb1810"])
 
-        time.sleep(2)
+        # time.sleep(2)
         print(md.Join())
 
         print("md_start")

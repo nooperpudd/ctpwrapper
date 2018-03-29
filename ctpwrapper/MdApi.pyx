@@ -5,16 +5,14 @@
 # cython: binding=True
 
 # binding = true for inspect get callargs
-
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
-
 from cpython cimport PyObject
+
 # from libcpp.memory cimport shared_ptr,make_shared
 
 from headers.cMdAPI cimport CMdSpi,CMdApi,CreateFtdcMdApi
-
 from headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -120,18 +118,13 @@ cdef class MdApiWrapper:
             self._api = NULL
             self._spi = NULL
 
-    def Create(self, const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast):
+    def Create(self, const_char *pszFlowPath,
+               cbool bIsUsingUdp,
+               cbool bIsMulticast):
 
         self._api = CreateFtdcMdApi(pszFlowPath,bIsUsingUdp,bIsMulticast)
         if not self._api:
             raise MemoryError()
-
-
-    # def __init__(self,pszFlowPath, bIsUsingUdp, bIsMulticast):
-    #     cdef bytes path
-    #     print(type(pszFlowPath))
-    #     path = pszFlowPath.decode()
-    #     self.__cinit__(path,bIsUsingUdp,bIsMulticast)
 
     @staticmethod
     def GetApiVersion():
@@ -155,20 +148,12 @@ cdef class MdApiWrapper:
                 result = self._api.Join()
             return result
 
-    # def RegisterSpi(self, spi):
-    #     # todo fix this problems
-    #     pass
-        # cdef PyObject p_spi
-        # p_spi = spi
-        #
-        # self._api.RegisterSpi(spi)
 
     def ReqUserLogin(self, pReqUserLoginField, nRequestID):
         """
         用户登录请求
         :return:
         """
-        print("requser login")
 
         cdef int result
         if self._spi is not NULL:
@@ -207,7 +192,6 @@ cdef class MdApiWrapper:
         @remark “tcp”代表传输协议，“127.0.0.1”代表服务器地址。”17001”代表服务器端口号。
         :return:
         """
-        print("register front server")
         if self._api is not NULL:
             self._api.RegisterFront(pszFrontAddress)
 
@@ -289,10 +273,8 @@ cdef class MdApiWrapper:
         """
         订阅询价。
         :param pInstrumentID: 合约ID list
-
         :return:
         """
-
         cdef int count
         cdef int result
         cdef char **InstrumentIDs
@@ -335,26 +317,21 @@ cdef class MdApiWrapper:
 
 
 cdef extern int MdSpi_OnFrontConnected(self) except -1:
-    print("start OnFrontConnected")
     self.OnFrontConnected()
-    print("end OnFrontConnected")
     return 0
 
 cdef extern int MdSpi_OnFrontDisconnected(self, int nReason) except -1:
-    print("start OnFrontDisconnected")
     self.OnFrontDisconnected(nReason)
-    print("end OnFrontDisconnected")
     return 0
+
 cdef extern int MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
     self.OnHeartBeatWarning(nTimeLapse)
     return 0
-
 
 cdef extern int MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUserLogin,
                                      CThostFtdcRspInfoField *pRspInfo,
                                      int nRequestID,
                                      cbool bIsLast) except -1:
-    print("start OnRspUserLogin")
     if pRspUserLogin is NULL:
         user_login = None
     else:
@@ -364,7 +341,6 @@ cdef extern int MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUser
         rsp_info = None
     else:
         rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
-    print("end OnRspUserLogin")
     self.OnRspUserLogin(user_login, rsp_info, nRequestID, bIsLast)
     return 0
 
@@ -394,7 +370,6 @@ cdef extern int MdSpi_OnRspError(self, CThostFtdcRspInfoField *pRspInfo,
         rsp_info = None
     else:
         rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
-
     self.OnRspError(rsp_info,nRequestID,bIsLast)
     return 0
 
@@ -413,8 +388,6 @@ cdef extern int MdSpi_OnRspSubMarketData(self, CThostFtdcSpecificInstrumentField
         rsp_info = None
     else:
         rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
-
-
     self.OnRspSubMarketData(instrument,rsp_info, nRequestID, bIsLast)
     return 0
 
@@ -454,8 +427,6 @@ cdef extern int MdSpi_OnRspSubForQuoteRsp(self,
         rsp_info = None
     else:
         rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
-
-
     self.OnRspSubForQuoteRsp(instrument,rsp_info, nRequestID, bIsLast)
     return 0
 
@@ -476,8 +447,6 @@ cdef extern int MdSpi_OnRspUnSubForQuoteRsp(self,
         rsp_info = None
     else:
         rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
-
-
     self.OnRspUnSubForQuoteRsp(instrument,rsp_info, nRequestID, bIsLast)
     return 0
 
@@ -489,7 +458,6 @@ cdef extern int MdSpi_OnRtnDepthMarketData(self,
         depth_market = None
     else:
         depth_market = ApiStructure.DepthMarketDataField.from_address(<size_t> pDepthMarketData)
-
     self.OnRtnDepthMarketData(depth_market)
     return 0
 
