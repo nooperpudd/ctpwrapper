@@ -229,7 +229,7 @@ cdef class MdApiWrapper:
 
         :return:
         """
-        cdef int count
+        cdef Py_ssize_t count
         cdef int result
         cdef char **InstrumentIDs
 
@@ -253,7 +253,7 @@ cdef class MdApiWrapper:
         @param nCount 要订阅/退订行情的合约个数
         :return:
         """
-        cdef int count
+        cdef Py_ssize_t count
         cdef int result
         cdef char **InstrumentIDs
 
@@ -275,7 +275,7 @@ cdef class MdApiWrapper:
         :param pInstrumentID: 合约ID list
         :return:
         """
-        cdef int count
+        cdef Py_ssize_t count
         cdef int result
         cdef char **InstrumentIDs
 
@@ -298,7 +298,7 @@ cdef class MdApiWrapper:
         :param pInstrumentID: 合约ID list
         :return:
         """
-        cdef int count
+        cdef Py_ssize_t count
         cdef int result
         cdef char **InstrumentIDs
 
