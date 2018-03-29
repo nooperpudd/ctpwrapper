@@ -1,5 +1,6 @@
 # encoding=utf-8
 import codecs
+import linecache
 import os
 import re
 from collections import OrderedDict
@@ -26,6 +27,7 @@ class Parse(object):
 
         self.data_type = OrderedDict()
         self.struct = OrderedDict()
+        self.struct_doc = dict()  # for struct doc
 
     def parse_datatype(self):
         """
@@ -58,47 +60,70 @@ class Parse(object):
         """
         self.parse_datatype()
 
-        for line in codecs.open(self.struct_file, encoding="utf-8"):
-            # name = None
+        for index, line in enumerate(codecs.open(self.struct_file,
+                                                 encoding="utf-8")):
+            doc_line = index
 
             if line.startswith("struct"):
                 result = re.findall("\w+", line)
                 name = result[1]  # assign the name
-
                 self.struct[name] = OrderedDict()
+
+                # stuct doc
+                struct_doc = linecache.getline(self.struct_file, doc_line)
+                struct_doc = struct_doc.strip().replace("///", "")
+                self.struct_doc[name] = struct_doc
 
             if line.strip().startswith("TThostFtdc"):
                 result = re.findall("\w+", line)
                 field_type = result[0]
                 field_name = result[1].replace(";", "")
-                self.struct[name][field_name] = self.data_type[field_type]
+                struct_dict = self.struct[name]
+                struct_dict[field_name] = self.data_type[field_type]
+
+                # doc
+                field_doc = linecache.getline(self.struct_file, doc_line)
+                field_doc = field_doc.strip().replace("///", "")
+                struct_dict[field_name + "_doc"] = field_doc
 
 
-def generate_struct(struct, py_file):
+def generate_struct(struct, struct_doc, py_file):
     for item in struct:
+
         py_file.write("class {class_name}(Base):\n".format(class_name=item.replace("CThostFtdc", "")))
-
+        py_file.write('    """{doc}"""\n'.format(doc=struct_doc[item]))
         py_file.write("    _fields_ = [\n")
+        struct_dict = struct[item]
 
-        for field in struct[item]:
-            field_data = struct[item][field]
+        for field in struct_dict:
+
+            if field.endswith("_doc"):
+                continue
+            field_data = struct_dict[field]
+            field_doc = struct[item][field+"_doc"]
+
             if field_data["type"] == "double":
-                py_file.write("        ('{field}', ctypes.c_double),\n".format(field=field))
+                py_file.write("        ('{field}', ctypes.c_double),  # {doc}\n".format(field=field, doc=field_doc))
             elif field_data["type"] == "int":
-                py_file.write("        ('{field}', ctypes.c_int),\n".format(field=field))
+                py_file.write("        ('{field}', ctypes.c_int),  # {doc}\n".format(field=field, doc=field_doc))
             elif field_data["type"] == "short":
-                py_file.write("        ('{field}', ctypes.c_short),\n".format(field=field))
+                py_file.write("        ('{field}', ctypes.c_short),  # {doc}\n".format(field=field, doc=field_doc))
             elif field_data["type"] == "str" and "length" not in field_data:
-                py_file.write("        ('{field}', ctypes.c_char),\n".format(field=field))
+                py_file.write("        ('{field}', ctypes.c_char),  # {doc} \n ".format(field=field, doc=field_doc))
             elif field_data["type"] == "str" and "length" in field_data:
-                py_file.write("        ('{field}', ctypes.c_char*{length}),\n".format(field=field,
-                                                                                      length=field_data["length"]))
+                py_file.write("        ('{field}', ctypes.c_char*{len}),  # {doc}\n".format(field=field,
+                                                                                           len=field_data["length"],
+                                                                                           doc=field_doc))
 
         py_file.write("    ]\n")
 
         struct_fields = []
-        for field in struct[item]:
-            field_data = struct[item][field]
+        for field in struct_dict:
+
+            if field.endswith("_doc"):
+                continue
+
+            field_data = struct_dict[field]
             if field_data["type"] == "double":
                 struct_fields.append("%s=0.0" % field)
             elif field_data["type"] in ["int", "short"]:
@@ -108,12 +133,14 @@ def generate_struct(struct, py_file):
         py_file.write("    def __init__(self,%s):\n" % ",".join(struct_fields))
         py_file.write("        super({class_name},self).__init__()\n".format(class_name=item.replace("CThostFtdc", "")))
 
-        for field in struct[item]:
-            if struct[item][field]["type"] == "double":
+        for field in struct_dict:
+            if field.endswith("_doc"):
+                continue
+            if struct_dict[field]["type"] == "double":
                 py_file.write("        self.%s=float(%s)\n" % (field, field))
-            if struct[item][field]["type"] in ["int", "short"]:
+            if struct_dict[field]["type"] in ["int", "short"]:
                 py_file.write("        self.%s=int(%s)\n" % (field, field))
-            if struct[item][field]["type"] == "str":
+            if struct_dict[field]["type"] == "str":
                 py_file.write("        self.%s=self._to_bytes(%s)\n" % (field, field))
 
 
@@ -121,16 +148,16 @@ def generate_interface():
     parse = Parse(USERAPI_DATA_FILE, USERAPI_STRUCT_FILE)
     parse.parse_struct()
     structure = parse.struct
-
+    struct_doc = parse.struct_doc
     # generate python
-    py_file = codecs.open(GENERATE_FILE, "w")
+    py_file = codecs.open(GENERATE_FILE, "w", encoding="utf-8")
 
     py_file.write('# encoding=utf-8\n')
     py_file.write("import ctypes\n")
     py_file.write("from ctpwrapper.base import Base\n")
     py_file.write("\n" * 2)
 
-    generate_struct(structure, py_file)
+    generate_struct(structure, struct_doc, py_file)
 
     py_file.close()
 
