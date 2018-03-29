@@ -1,5 +1,6 @@
 # encoding:utf-8
 import time
+
 from .MdApi import MdApiWrapper
 
 
@@ -88,7 +89,7 @@ class MdApiPy(MdApiWrapper):
         初始化运行环境,只有调用后,接口才开始工作
         """
         super(MdApiPy, self).Init()
-        time.sleep(0.1) # wait for c++ init
+        time.sleep(0.1)  # wait for c++ init
 
     def Join(self) -> int:
         """
