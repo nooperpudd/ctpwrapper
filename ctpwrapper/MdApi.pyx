@@ -241,7 +241,7 @@ cdef class MdApiWrapper:
             try:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
-                result = self._api.SubscribeMarketData(InstrumentIDs,count)
+                result = self._api.SubscribeMarketData(InstrumentIDs,<int>count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -264,7 +264,7 @@ cdef class MdApiWrapper:
             try:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
-                result = self._api.UnSubscribeMarketData(InstrumentIDs,count)
+                result = self._api.UnSubscribeMarketData(InstrumentIDs,<int>count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -287,7 +287,7 @@ cdef class MdApiWrapper:
             try:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
-                result = self._api.SubscribeForQuoteRsp(InstrumentIDs,count)
+                result = self._api.SubscribeForQuoteRsp(InstrumentIDs,<int>count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -310,7 +310,7 @@ cdef class MdApiWrapper:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
 
-                result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,count)
+                result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,<int>count)
             finally:
                 free(InstrumentIDs)
             return result
