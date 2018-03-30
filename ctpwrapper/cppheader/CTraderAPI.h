@@ -129,7 +129,11 @@ static inline int TraderSpi_OnRtnOpenAccountByBank(PyObject *, CThostFtdcOpenAcc
 static inline int TraderSpi_OnRtnCancelAccountByBank(PyObject *, CThostFtdcCancelAccountField *);
 static inline int TraderSpi_OnRtnChangeAccountByBank(PyObject *, CThostFtdcChangeAccountField *);
 
-
+static inline int TraderSpi_OnErrRtnBatchOrderAction(PyObject *, CThostFtdcBatchOrderActionField *, CThostFtdcRspInfoField *);
+static inline int TraderSpi_OnRtnBulletin(PyObject *, CThostFtdcBulletinField *);
+static inline int TraderSpi_OnRspQryInstrumentOrderCommRate(PyObject *,CThostFtdcInstrumentOrderCommRateField *, CThostFtdcRspInfoField *, int, bool);
+static inline int TraderSpi_OnRspQryMMOptionInstrCommRate(PyObject *,CThostFtdcMMOptionInstrCommRateField *, CThostFtdcRspInfoField *, int, bool);
+static inline int TraderSpi_OnRspBatchOrderAction(PyObject *, CThostFtdcInputBatchOrderActionField *, CThostFtdcRspInfoField *, int, bool);
 #define Python_GIL(func) \
 	do { \
 		PyGILState_STATE gil_state = PyGILState_Ensure(); \
@@ -362,7 +366,7 @@ public:
     ///请求查询投资者结算结果响应
     virtual void OnRspQrySettlementInfo(CThostFtdcSettlementInfoField *pSettlementInfo, CThostFtdcRspInfoField *pRspInfo,
                            int nRequestID, bool bIsLast) {
-                           Python_GIL(TraderSpi_OnRspQrySettlementInfo(self,pDepthMarketData,pRspInfo,nRequestID,bIsLast));
+                           Python_GIL(TraderSpi_OnRspQrySettlementInfo(self,pSettlementInfo,pRspInfo,nRequestID,bIsLast));
                            };
 
     ///请求查询转帐银行响应
