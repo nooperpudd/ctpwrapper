@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/nooperpudd/ctpwrapper.svg)](https://travis-ci.org/nooperpudd/ctpwrapper)
 [![Build status](https://ci.appveyor.com/api/projects/status/gvvtcqsjo9nsw0ct?svg=true)](https://ci.appveyor.com/project/nooperpudd/ctpwrapper)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9ed5d0e55ed84dfeba30a7630ab5c160)](https://www.codacy.com/app/nooperpudd/ctpwrapper?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nooperpudd/ctpwrapper&amp;utm_campaign=Badge_Grade)
 [![pypi](https://img.shields.io/pypi/v/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
 [![status](https://img.shields.io/pypi/status/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
 [![pyversion](https://img.shields.io/pypi/pyversions/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)

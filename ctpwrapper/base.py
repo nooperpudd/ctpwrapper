@@ -42,7 +42,7 @@ class Base(ctypes.Structure):
         :return:
         """
         results = {}
-        for key, value in self._fields_:
+        for key, _ in self._fields_:
             _value = getattr(self, key)
             if isinstance(_value, bytes):
                 results[key] = _value.decode("gbk")
