@@ -20,8 +20,10 @@ __version__ = "6.3.6.0"
 __date__ = "2016-06-06"
 
 from .Md import MdApiPy
+from .Trader import TraderApiPy
 
 
 __all__ = (
     "MdApiPy",
+    "TraderApiPy"
 )

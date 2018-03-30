@@ -5,11 +5,9 @@ import socket
 import sys
 import urllib.parse
 from contextlib import closing
-import time
 
 from ctpwrapper import ApiStructure
 from ctpwrapper import MdApiPy
-
 
 
 def check_address_port(tcp):
@@ -34,16 +32,11 @@ class Md(MdApiPy):
     """
 
     def __init__(self, broker_id, investor_id, password, request_id=1):
-        super(Md).__init__()
 
         self.broker_id = broker_id
         self.investor_id = investor_id
         self.password = password
         self.request_id = request_id
-
-    # def incr_id(self):
-    #
-    #     self.request_id += 1
 
     def OnRspError(self, pRspInfo, nRequestID, bIsLast):
 
@@ -68,7 +61,6 @@ class Md(MdApiPy):
                                                     UserID=self.investor_id,
                                                     Password=self.password)
         self.ReqUserLogin(user_login, self.request_id)
-        print("OnFrontConnected")
 
     def OnFrontDisconnected(self, nReason):
 
@@ -142,31 +134,21 @@ def main():
 
     if check_address_port(server):
 
-        md = Md(broker_id,investor_id,password)
-        print("md init")
+        md = Md(broker_id, investor_id, password)
         md.Create()
-        print("md create")
         md.RegisterFront(server)
-        print("register front")
         md.Init()
-        print("init")
         day = md.GetTradingDay()
         print(day)
-        print("api worker!")
-        
-        # time.sleep(2)
-        md.SubscribeMarketData(["rb1810"])
-
-        # time.sleep(2)
-        print(md.Join())
 
         print("md_start")
+
+        md.SubscribeMarketData(["rb1810"])
+        md.Join()
 
     else:
         print("md server down")
 
 
-
 if __name__ == "__main__":
-
     main()
