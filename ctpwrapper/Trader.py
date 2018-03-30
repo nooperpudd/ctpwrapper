@@ -117,15 +117,15 @@ class TraderApiPy(TraderApiWrapper):
         """
         return super(TraderApiPy, self).ReqUserLogout(pUserLogout, nRequestID)
 
-    def ReqUserwordUpdate(self, pUserwordUpdate, nRequestID):
+    def ReqUserPasswordUpdate(self, pUserwordUpdate, nRequestID):
         """
         用户口令更新请求
         """
-        return super(TraderApiPy, self).ReqUserwordUpdate(pUserwordUpdate, nRequestID)
+        return super(TraderApiPy, self).ReqUserPasswordUpdate(pUserwordUpdate, nRequestID)
 
-    def ReqTradingAccountwordUpdate(self, pTradingAccountwordUpdate, nRequestID):
+    def ReqTradingAccountPasswordUpdate(self, pTradingAccountwordUpdate, nRequestID):
         """资金账户口令更新请求"""
-        return super(TraderApiPy, self).ReqTradingAccountwordUpdate(pTradingAccountwordUpdate, nRequestID)
+        return super(TraderApiPy, self).ReqTradingAccountPasswordUpdate(pTradingAccountwordUpdate, nRequestID)
 
     def ReqOrderInsert(self, pInputOrder, nRequestID):
         """报单录入请求"""
@@ -262,8 +262,7 @@ class TraderApiPy(TraderApiWrapper):
 
     def ReqQryInvestorPositionCombineDetail(self, pQryInvestorPositionCombineDetail, nRequestID):
         """请求查询投资者持仓明细"""
-        return super(TraderApiPy, self).ReqQryInvestorPositionCombineDetail(pQryInvestorPositionCombineDetail,
-                                                                            nRequestID)
+        return super(TraderApiPy, self).ReqQryInvestorPositionCombineDetail(pQryInvestorPositionCombineDetail,nRequestID)
 
     def ReqQryCFMMCTradingAccountKey(self, pQryCFMMCTradingAccountKey, nRequestID):
         """请求查询保证金监管系统经纪公司资金账户密钥"""

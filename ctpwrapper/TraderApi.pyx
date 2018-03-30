@@ -36,7 +36,7 @@ import ctypes
 from . import ApiStructure
 
 
-class TraderApiWrapper:
+cdef class TraderApiWrapper:
     cdef CTraderApi *_api
     cdef CTraderSpi *_spi
 
@@ -138,12 +138,14 @@ class TraderApiWrapper:
         if self._spi is not NULL:
             result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *> <size_t> ctypes.addressof(pUserLogout),nRequestID)
             return result
+
     #用户口令更新请求
     def ReqUserPasswordUpdate(self, pUserPasswordUpdate, int nRequestID):
         cdef int result
         if self._spi is not NULL:
             result = self._api.ReqUserPasswordUpdate(<CThostFtdcUserPasswordUpdateField *> <size_t> ctypes.addressof(pUserPasswordUpdate), nRequestID)
             return result
+
     #资金账户口令更新请求
     def ReqTradingAccountPasswordUpdate(self, pTradingAccountPasswordUpdate,int nRequestID):
         cdef int result
