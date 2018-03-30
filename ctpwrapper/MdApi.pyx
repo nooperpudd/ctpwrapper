@@ -157,8 +157,8 @@ cdef class MdApiWrapper:
 
         cdef int result
         if self._spi is not NULL:
-            with nogil:
-                result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>ctypes.addressof(pReqUserLoginField),nRequestID)
+
+            result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>ctypes.addressof(pReqUserLoginField),nRequestID)
             return result
 
 
@@ -169,8 +169,8 @@ cdef class MdApiWrapper:
         """
         cdef int result
         if self._spi is not NULL:
-            with nogil:
-                result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>ctypes.addressof(pUserLogout),nRequestID)
+
+            result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>ctypes.addressof(pUserLogout),nRequestID)
             return result
 
     def GetTradingDay(self):
@@ -220,8 +220,8 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            with nogil:
-                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *><size_t>ctypes.addressof(pFensUserInfo))
+
+            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *><size_t>ctypes.addressof(pFensUserInfo))
 
     def SubscribeMarketData(self, pInstrumentID):
         """
