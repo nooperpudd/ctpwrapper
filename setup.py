@@ -93,6 +93,13 @@ class BuildExt(build_ext):
 setup(
     name="ctpwrapper",
     version=find_version("ctpwrapper", "__init__.py"),
+    description="CTP client v6.3.6_20160606",
+    long_description=codecs.open("README.md", encoding="utf-8").read(),
+    license="LGPLv3",
+    keywords="CTP,Future,SHFE,Shanghai Future Exchange",
+    author="Winton Wang",
+    author_email="365504029@qq.com",
+    url="https://github.com/nooperpudd/ctpwrapper",
     packages=["ctpwrapper"],
     include_dirs=[header_dir, cpp_header_dir],
     platforms=["win32", "linux"],
@@ -100,4 +107,20 @@ setup(
     package_data={"": package_data},
     ext_modules=cythonize(ext_modules),
     cmdclass={'build_ext': BuildExt},
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved",
+        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+        "Operating System :: POSIX",
+        "Operating System :: Microsoft",
+        "Operating System :: Microsoft :: Windows",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Topic :: Software Development",
+        "Topic :: Software Development :: Libraries"
+    ]
 )
