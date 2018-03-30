@@ -168,59 +168,51 @@ public:
     };
 
     ///客户端认证响应
-    virtual void
-    OnRspAuthenticate(CThostFtdcRspAuthenticateField *pRspAuthenticateField, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspAuthenticate(CThostFtdcRspAuthenticateField *pRspAuthenticateField, CThostFtdcRspInfoField *pRspInfo,
                       int nRequestID, bool bIsLast) {
        Python_GIL(TraderSpi_OnRspAuthenticate(self,pRspAuthenticateField,pRspInfo,nRequestID,bIsLast));
     };
 
 
     ///登录请求响应
-    virtual void
-    OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                    bool bIsLast) {
     Python_GIL(TraderSpi_OnRspUserLogin(self,pRspUserLogin,pRspInfo,nRequestID,bIsLast));
                   };
 
     ///登出请求响应
-    virtual void
-    OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                     bool bIsLast) {
                     Python_GIL(TraderSpi_OnRspUserLogout(self,pUserLogout,pRspInfo,nRequestID,bIsLast));
                     };
 
     ///用户口令更新请求响应
-    virtual void
-    OnRspUserPasswordUpdate(CThostFtdcUserPasswordUpdateField *pUserPasswordUpdate, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspUserPasswordUpdate(CThostFtdcUserPasswordUpdateField *pUserPasswordUpdate, CThostFtdcRspInfoField *pRspInfo,
                             int nRequestID, bool bIsLast) {
                             Python_GIL(TraderSpi_OnRspUserPasswordUpdate(self,pUserPasswordUpdate,pRspInfo,nRequestID,bIsLast));
                             };
 
     ///资金账户口令更新请求响应
-    virtual void
-    OnRspTradingAccountPasswordUpdate(CThostFtdcTradingAccountPasswordUpdateField *pTradingAccountPasswordUpdate,
+    virtual void OnRspTradingAccountPasswordUpdate(CThostFtdcTradingAccountPasswordUpdateField *pTradingAccountPasswordUpdate,
                                       CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
 
        Python_GIL(TraderSpi_OnRspTradingAccountPasswordUpdate(self,pTradingAccountPasswordUpdate,pRspInfo,nRequestID,bIsLast));
                                       };
 
     ///报单录入请求响应
-    virtual void
-    OnRspOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                      bool bIsLast) {
                      Python_GIL(TraderSpi_OnRspOrderInsert(self,pInputOrder,pRspInfo,nRequestID,bIsLast));
                      };
 
     ///预埋单录入请求响应
-    virtual void
-    OnRspParkedOrderInsert(CThostFtdcParkedOrderField *pParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspParkedOrderInsert(CThostFtdcParkedOrderField *pParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                            bool bIsLast) {
                            Python_GIL(TraderSpi_OnRspParkedOrderInsert(self,pParkedOrder,pRspInfo,nRequestID,bIsLast));
                            };
 
     ///预埋撤单录入请求响应
-    virtual void
-    OnRspParkedOrderAction(CThostFtdcParkedOrderActionField *pParkedOrderAction, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspParkedOrderAction(CThostFtdcParkedOrderActionField *pParkedOrderAction, CThostFtdcRspInfoField *pRspInfo,
                            int nRequestID, bool bIsLast) {
                            Python_GIL(TraderSpi_OnRspParkedOrderAction(self,pParkedOrderAction,pRspInfo,nRequestID,bIsLast));
                            };
@@ -232,8 +224,7 @@ public:
                                   };
 
     ///查询最大报单数量响应
-    virtual void
-    OnRspQueryMaxOrderVolume(CThostFtdcQueryMaxOrderVolumeField *pQueryMaxOrderVolume, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspQueryMaxOrderVolume(CThostFtdcQueryMaxOrderVolumeField *pQueryMaxOrderVolume, CThostFtdcRspInfoField *pRspInfo,
                              int nRequestID, bool bIsLast) {
                              Python_GIL(TraderSpi_OnRspQueryMaxOrderVolume(self,pQueryMaxOrderVolume,pRspInfo,nRequestID,bIsLast));
                              };
@@ -245,8 +236,7 @@ public:
                                             };
 
     ///删除预埋单响应
-    virtual void
-    OnRspRemoveParkedOrder(CThostFtdcRemoveParkedOrderField *pRemoveParkedOrder, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspRemoveParkedOrder(CThostFtdcRemoveParkedOrderField *pRemoveParkedOrder, CThostFtdcRspInfoField *pRspInfo,
                            int nRequestID, bool bIsLast) {
                            Python_GIL(TraderSpi_OnRspRemoveParkedOrder(self,pRemoveParkedOrder,pRspInfo,nRequestID,bIsLast));
                            };
@@ -264,22 +254,19 @@ public:
                                       };
 
     ///执行宣告操作请求响应
-    virtual void
-    OnRspExecOrderAction(CThostFtdcInputExecOrderActionField *pInputExecOrderAction, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspExecOrderAction(CThostFtdcInputExecOrderActionField *pInputExecOrderAction, CThostFtdcRspInfoField *pRspInfo,
                          int nRequestID, bool bIsLast) {
                          Python_GIL(TraderSpi_OnRspExecOrderAction(self,pInputExecOrderAction,pRspInfo,nRequestID,bIsLast));
                          };
 
     ///询价录入请求响应
-    virtual void
-    OnRspForQuoteInsert(CThostFtdcInputForQuoteField *pInputForQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspForQuoteInsert(CThostFtdcInputForQuoteField *pInputForQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                         bool bIsLast) {
                         Python_GIL(TraderSpi_OnRspForQuoteInsert(self,pInputForQuote,pRspInfo,nRequestID,bIsLast));
                         };
 
     ///报价录入请求响应
-    virtual void
-    OnRspQuoteInsert(CThostFtdcInputQuoteField *pInputQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspQuoteInsert(CThostFtdcInputQuoteField *pInputQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                      bool bIsLast) {
                      Python_GIL(TraderSpi_OnRspQuoteInsert(self,pInputQuote,pRspInfo,nRequestID,bIsLast));
                      };
@@ -297,34 +284,29 @@ public:
                                        };
 
     ///申请组合录入请求响应
-    virtual void
-    OnRspCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, CThostFtdcRspInfoField *pRspInfo,
                           int nRequestID, bool bIsLast) {
                           Python_GIL(TraderSpi_OnRspCombActionInsert(self,pInputCombAction,pRspInfo,nRequestID,bIsLast));
                           };
 
     ///请求查询报单响应
-    virtual void
-    OnRspQryOrder(CThostFtdcOrderField *pOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+    virtual void OnRspQryOrder(CThostFtdcOrderField *pOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
     Python_GIL(TraderSpi_OnRspQryOrder(self,pOrder,pRspInfo,nRequestID,bIsLast));
     };
 
     ///请求查询成交响应
-    virtual void
-    OnRspQryTrade(CThostFtdcTradeField *pTrade, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+    virtual void OnRspQryTrade(CThostFtdcTradeField *pTrade, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
     Python_GIL(TraderSpi_OnRspQryTrade(self,pTrade,pRspInfo,nRequestID,bIsLast));
     };
 
     ///请求查询投资者持仓响应
-    virtual void
-    OnRspQryInvestorPosition(CThostFtdcInvestorPositionField *pInvestorPosition, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspQryInvestorPosition(CThostFtdcInvestorPositionField *pInvestorPosition, CThostFtdcRspInfoField *pRspInfo,
                              int nRequestID, bool bIsLast) {
                              Python_GIL(TraderSpi_OnRspQryInvestorPosition(self,pInvestorPosition,pRspInfo,nRequestID,bIsLast));
                              };
 
     ///请求查询资金账户响应
-    virtual void
-    OnRspQryTradingAccount(CThostFtdcTradingAccountField *pTradingAccount, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspQryTradingAccount(CThostFtdcTradingAccountField *pTradingAccount, CThostFtdcRspInfoField *pRspInfo,
                            int nRequestID, bool bIsLast) {
                            Python_GIL(TraderSpi_OnRspQryTradingAccount(self,pTradingAccount,pRspInfo,nRequestID,bIsLast));
                            };
@@ -336,8 +318,7 @@ public:
                                   };
 
     ///请求查询交易编码响应
-    virtual void
-    OnRspQryTradingCode(CThostFtdcTradingCodeField *pTradingCode, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspQryTradingCode(CThostFtdcTradingCodeField *pTradingCode, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                         bool bIsLast) {
                         Python_GIL(TraderSpi_OnRspQryTradingCode(self,pTradingCode,pRspInfo,nRequestID,bIsLast));
                         };
@@ -367,29 +348,25 @@ public:
                                  };
 
     ///请求查询合约响应
-    virtual void
-    OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                        bool bIsLast) {
                        Python_GIL(TraderSpi_OnRspQryInstrument(self,pInstrument,pRspInfo,nRequestID,bIsLast));
                        };
 
     ///请求查询行情响应
-    virtual void
-    OnRspQryDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspQryDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData, CThostFtdcRspInfoField *pRspInfo,
                             int nRequestID, bool bIsLast) {
                             Python_GIL(TraderSpi_OnRspQryDepthMarketData(self,pDepthMarketData,pRspInfo,nRequestID,bIsLast));
                             };
 
     ///请求查询投资者结算结果响应
-    virtual void
-    OnRspQrySettlementInfo(CThostFtdcSettlementInfoField *pSettlementInfo, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspQrySettlementInfo(CThostFtdcSettlementInfoField *pSettlementInfo, CThostFtdcRspInfoField *pRspInfo,
                            int nRequestID, bool bIsLast) {
                            Python_GIL(TraderSpi_OnRspQrySettlementInfo(self,pDepthMarketData,pRspInfo,nRequestID,bIsLast));
                            };
 
     ///请求查询转帐银行响应
-    virtual void
-    OnRspQryTransferBank(CThostFtdcTransferBankField *pTransferBank, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspQryTransferBank(CThostFtdcTransferBankField *pTransferBank, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                          bool bIsLast) {
                          Python_GIL(TraderSpi_OnRspQryTransferBank(self,pTransferBank,pRspInfo,nRequestID,bIsLast));
                          };
@@ -401,8 +378,7 @@ public:
                                                 };
 
     ///请求查询客户通知响应
-    virtual void
-    OnRspQryNotice(CThostFtdcNoticeField *pNotice, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+    virtual void OnRspQryNotice(CThostFtdcNoticeField *pNotice, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
     Python_GIL(TraderSpi_OnRspQryNotice(self,pNotice,pRspInfo,nRequestID,bIsLast));
     };
 
@@ -413,8 +389,7 @@ public:
                                                };
 
     ///请求查询投资者持仓明细响应
-    virtual void
-    OnRspQryInvestorPositionCombineDetail(CThostFtdcInvestorPositionCombineDetailField *pInvestorPositionCombineDetail,
+    virtual void OnRspQryInvestorPositionCombineDetail(CThostFtdcInvestorPositionCombineDetailField *pInvestorPositionCombineDetail,
                                           CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
                                           Python_GIL(TraderSpi_OnRspQryInvestorPositionCombineDetail(self,pInvestorPositionCombineDetail,pRspInfo,nRequestID,bIsLast));
                                           };
@@ -426,22 +401,19 @@ public:
                                                 };
 
     ///请求查询仓单折抵信息响应
-    virtual void
-    OnRspQryEWarrantOffset(CThostFtdcEWarrantOffsetField *pEWarrantOffset, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspQryEWarrantOffset(CThostFtdcEWarrantOffsetField *pEWarrantOffset, CThostFtdcRspInfoField *pRspInfo,
                            int nRequestID, bool bIsLast) {
                            Python_GIL(TraderSpi_OnRspQryEWarrantOffset(self,pEWarrantOffset,pRspInfo,nRequestID,bIsLast));
                            };
 
     ///请求查询投资者品种/跨品种保证金响应
-    virtual void
-    OnRspQryInvestorProductGroupMargin(CThostFtdcInvestorProductGroupMarginField *pInvestorProductGroupMargin,
+    virtual void OnRspQryInvestorProductGroupMargin(CThostFtdcInvestorProductGroupMarginField *pInvestorProductGroupMargin,
                                        CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
                                        Python_GIL(TraderSpi_OnRspQryInvestorProductGroupMargin(self,pInvestorProductGroupMargin,pRspInfo,nRequestID,bIsLast));
                                        };
 
     ///请求查询交易所保证金率响应
-    virtual void
-    OnRspQryExchangeMarginRate(CThostFtdcExchangeMarginRateField *pExchangeMarginRate, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspQryExchangeMarginRate(CThostFtdcExchangeMarginRateField *pExchangeMarginRate, CThostFtdcRspInfoField *pRspInfo,
                                int nRequestID, bool bIsLast) {
                                Python_GIL(TraderSpi_OnRspQryExchangeMarginRate(self,pExchangeMarginRate,pRspInfo,nRequestID,bIsLast));
                                };
@@ -453,8 +425,7 @@ public:
                                                   };
 
     ///请求查询汇率响应
-    virtual void
-    OnRspQryExchangeRate(CThostFtdcExchangeRateField *pExchangeRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspQryExchangeRate(CThostFtdcExchangeRateField *pExchangeRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                          bool bIsLast) {
                          Python_GIL(TraderSpi_OnRspQryExchangeRate(self,pExchangeRate,pRspInfo,nRequestID,bIsLast));
                          };
@@ -467,22 +438,19 @@ public:
                             };
 
     ///请求查询产品报价汇率
-    virtual void
-    OnRspQryProductExchRate(CThostFtdcProductExchRateField *pProductExchRate, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspQryProductExchRate(CThostFtdcProductExchRateField *pProductExchRate, CThostFtdcRspInfoField *pRspInfo,
                             int nRequestID, bool bIsLast) {
                             Python_GIL(TraderSpi_OnRspQryProductExchRate(self,pProductExchRate,pRspInfo,nRequestID,bIsLast));
                             };
 
     ///请求查询产品组
-    virtual void
-    OnRspQryProductGroup(CThostFtdcProductGroupField *pProductGroup, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspQryProductGroup(CThostFtdcProductGroupField *pProductGroup, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                          bool bIsLast) {
                          Python_GIL(TraderSpi_OnRspQryProductGroup(self,pProductGroup,pRspInfo,nRequestID,bIsLast));
                          };
 
     ///请求查询做市商合约手续费率响应
-    virtual void
-    OnRspQryMMInstrumentCommissionRate(CThostFtdcMMInstrumentCommissionRateField *pMMInstrumentCommissionRate,
+    virtual void OnRspQryMMInstrumentCommissionRate(CThostFtdcMMInstrumentCommissionRateField *pMMInstrumentCommissionRate,
                                        CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
                                        Python_GIL(TraderSpi_OnRspQryMMInstrumentCommissionRate(self,pMMInstrumentCommissionRate,pRspInfo,nRequestID,bIsLast));
                                        };
@@ -512,8 +480,7 @@ public:
                                              };
 
     ///请求查询执行宣告响应
-    virtual void
-    OnRspQryExecOrder(CThostFtdcExecOrderField *pExecOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspQryExecOrder(CThostFtdcExecOrderField *pExecOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                       bool bIsLast) {
                       Python_GIL(TraderSpi_OnRspQryExecOrder(self,pExecOrder,pRspInfo,nRequestID,bIsLast));
                       };
@@ -525,8 +492,7 @@ public:
                                   };
 
     ///请求查询报价响应
-    virtual void
-    OnRspQryQuote(CThostFtdcQuoteField *pQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+    virtual void OnRspQryQuote(CThostFtdcQuoteField *pQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
     Python_GIL(TraderSpi_OnRspQryQuote(self,pQuote,pRspInfo,nRequestID,bIsLast));
     };
 
@@ -608,20 +574,17 @@ public:
     };
 
     ///执行宣告录入错误回报
-    virtual void
-    OnErrRtnExecOrderInsert(CThostFtdcInputExecOrderField *pInputExecOrder, CThostFtdcRspInfoField *pRspInfo) {
+    virtual void OnErrRtnExecOrderInsert(CThostFtdcInputExecOrderField *pInputExecOrder, CThostFtdcRspInfoField *pRspInfo) {
     Python_GIL(TraderSpi_OnErrRtnExecOrderInsert(self,pInputExecOrder,pRspInfo));
     };
 
     ///执行宣告操作错误回报
-    virtual void
-    OnErrRtnExecOrderAction(CThostFtdcExecOrderActionField *pExecOrderAction, CThostFtdcRspInfoField *pRspInfo) {
+    virtual void OnErrRtnExecOrderAction(CThostFtdcExecOrderActionField *pExecOrderAction, CThostFtdcRspInfoField *pRspInfo) {
     Python_GIL(TraderSpi_OnErrRtnExecOrderAction(self,pExecOrderAction,pRspInfo));
     };
 
     ///询价录入错误回报
-    virtual void
-    OnErrRtnForQuoteInsert(CThostFtdcInputForQuoteField *pInputForQuote, CThostFtdcRspInfoField *pRspInfo) {
+    virtual void OnErrRtnForQuoteInsert(CThostFtdcInputForQuoteField *pInputForQuote, CThostFtdcRspInfoField *pRspInfo) {
     Python_GIL(TraderSpi_OnErrRtnForQuoteInsert(self,pInputForQuote,pRspInfo));
     };
 
@@ -642,17 +605,16 @@ public:
 
     ///询价通知
     virtual void OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {
-    Python_GIL(TraderSpi_OnRtnForQuoteRsp(self,pForQuoteRsp));
+        Python_GIL(TraderSpi_OnRtnForQuoteRsp(self,pForQuoteRsp));
     };
 
     ///保证金监控中心用户令牌
     virtual void OnRtnCFMMCTradingAccountToken(CThostFtdcCFMMCTradingAccountTokenField *pCFMMCTradingAccountToken) {
-    Python_GIL(TraderSpi_OnRtnCFMMCTradingAccountToken(self,pCFMMCTradingAccountToken));
+        Python_GIL(TraderSpi_OnRtnCFMMCTradingAccountToken(self,pCFMMCTradingAccountToken));
     };
 
     ///批量报单操作错误回报
-    virtual void
-    OnErrRtnBatchOrderAction(CThostFtdcBatchOrderActionField *pBatchOrderAction, CThostFtdcRspInfoField *pRspInfo) {
+    virtual void OnErrRtnBatchOrderAction(CThostFtdcBatchOrderActionField *pBatchOrderAction, CThostFtdcRspInfoField *pRspInfo) {
     Python_GIL(TraderSpi_OnErrRtnBatchOrderAction(self,pBatchOrderAction,pRspInfo));
     };
 
@@ -662,28 +624,24 @@ public:
     };
 
     ///申请组合录入错误回报
-    virtual void
-    OnErrRtnCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, CThostFtdcRspInfoField *pRspInfo) {
+    virtual void OnErrRtnCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, CThostFtdcRspInfoField *pRspInfo) {
     Python_GIL(TraderSpi_OnErrRtnCombActionInsert(self,pInputCombAction,pRspInfo));
     };
 
     ///请求查询签约银行响应
-    virtual void
-    OnRspQryContractBank(CThostFtdcContractBankField *pContractBank, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspQryContractBank(CThostFtdcContractBankField *pContractBank, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                          bool bIsLast) {
                          Python_GIL(TraderSpi_OnRspQryContractBank(self,pContractBank,pRspInfo,nRequestID,bIsLast));
                          };
 
     ///请求查询预埋单响应
-    virtual void
-    OnRspQryParkedOrder(CThostFtdcParkedOrderField *pParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+    virtual void OnRspQryParkedOrder(CThostFtdcParkedOrderField *pParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                         bool bIsLast) {
                         Python_GIL(TraderSpi_OnRspQryParkedOrder(self,pParkedOrder,pRspInfo,nRequestID,bIsLast));
                         };
 
     ///请求查询预埋撤单响应
-    virtual void
-    OnRspQryParkedOrderAction(CThostFtdcParkedOrderActionField *pParkedOrderAction, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspQryParkedOrderAction(CThostFtdcParkedOrderActionField *pParkedOrderAction, CThostFtdcRspInfoField *pRspInfo,
                               int nRequestID, bool bIsLast) {
                               Python_GIL(TraderSpi_OnRspQryParkedOrderAction(self,pParkedOrderAction,pRspInfo,nRequestID,bIsLast));
                               };
@@ -701,15 +659,13 @@ public:
                                              };
 
     ///请求查询经纪公司交易算法响应
-    virtual void
-    OnRspQryBrokerTradingAlgos(CThostFtdcBrokerTradingAlgosField *pBrokerTradingAlgos, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspQryBrokerTradingAlgos(CThostFtdcBrokerTradingAlgosField *pBrokerTradingAlgos, CThostFtdcRspInfoField *pRspInfo,
                                int nRequestID, bool bIsLast) {
                                Python_GIL(TraderSpi_OnRspQryBrokerTradingAlgos(self,pBrokerTradingAlgos,pRspInfo,nRequestID,bIsLast));
                                };
 
     ///请求查询监控中心用户令牌
-    virtual void
-    OnRspQueryCFMMCTradingAccountToken(CThostFtdcQueryCFMMCTradingAccountTokenField *pQueryCFMMCTradingAccountToken,
+    virtual void OnRspQueryCFMMCTradingAccountToken(CThostFtdcQueryCFMMCTradingAccountTokenField *pQueryCFMMCTradingAccountToken,
                                        CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
                                        Python_GIL(TraderSpi_OnRspQueryCFMMCTradingAccountToken(self,pQueryCFMMCTradingAccountToken,pRspInfo,nRequestID,bIsLast));
                                        };
@@ -760,26 +716,22 @@ public:
     };
 
     ///期货发起银行资金转期货错误回报
-    virtual void
-    OnErrRtnBankToFutureByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo) {
+    virtual void OnErrRtnBankToFutureByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo) {
     Python_GIL(TraderSpi_OnErrRtnBankToFutureByFuture(self,pReqTransfer,pRspInfo));
     };
 
     ///期货发起期货资金转银行错误回报
-    virtual void
-    OnErrRtnFutureToBankByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo) {
+    virtual void OnErrRtnFutureToBankByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo) {
     Python_GIL(TraderSpi_OnErrRtnFutureToBankByFuture(self,pReqTransfer,pRspInfo));
     };
 
     ///系统运行时期货端手工发起冲正银行转期货错误回报
-    virtual void
-    OnErrRtnRepealBankToFutureByFutureManual(CThostFtdcReqRepealField *pReqRepeal, CThostFtdcRspInfoField *pRspInfo) {
+    virtual void OnErrRtnRepealBankToFutureByFutureManual(CThostFtdcReqRepealField *pReqRepeal, CThostFtdcRspInfoField *pRspInfo) {
     Python_GIL(TraderSpi_OnErrRtnRepealBankToFutureByFutureManual(self,pReqRepeal,pRspInfo));
     };
 
     ///系统运行时期货端手工发起冲正期货转银行错误回报
-    virtual void
-    OnErrRtnRepealFutureToBankByFutureManual(CThostFtdcReqRepealField *pReqRepeal, CThostFtdcRspInfoField *pRspInfo) {
+    virtual void OnErrRtnRepealFutureToBankByFutureManual(CThostFtdcReqRepealField *pReqRepeal, CThostFtdcRspInfoField *pRspInfo) {
     Python_GIL(TraderSpi_OnErrRtnRepealFutureToBankByFutureManual(self,pReqRepeal,pRspInfo));
     };
 
@@ -800,15 +752,13 @@ public:
     };
 
     ///期货发起银行资金转期货应答
-    virtual void
-    OnRspFromBankToFutureByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspFromBankToFutureByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo,
                                   int nRequestID, bool bIsLast) {
                                   Python_GIL(TraderSpi_OnRspFromBankToFutureByFuture(self,pReqTransfer,pRspInfo,nRequestID,bIsLast));
                                   };
 
     ///期货发起期货资金转银行应答
-    virtual void
-    OnRspFromFutureToBankByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo,
+    virtual void OnRspFromFutureToBankByFuture(CThostFtdcReqTransferField *pReqTransfer, CThostFtdcRspInfoField *pRspInfo,
                                   int nRequestID, bool bIsLast) {
                                   Python_GIL(TraderSpi_OnRspFromFutureToBankByFuture(self,pReqTransfer,pRspInfo,nRequestID,bIsLast));
                                   };
