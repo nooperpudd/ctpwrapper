@@ -101,8 +101,8 @@ cdef class TraderApiWrapper:
 
     def RegisterFensUserInfo(self, pFensUserInfo):
         if self._api is not NULL:
-            with nogil:
-                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> <size_t> ctypes.addressof(pFensUserInfo))
+
+            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> <size_t> ctypes.addressof(pFensUserInfo))
 
     def SubscribePrivateTopic(self, THOST_TE_RESUME_TYPE nResumeType):
         if self._api is not NULL:
