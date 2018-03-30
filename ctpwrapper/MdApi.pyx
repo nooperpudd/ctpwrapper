@@ -3,8 +3,27 @@
 # cython: nonecheck=True
 # cython: profile=False
 # cython: binding=True
-
 # binding = true for inspect get callargs
+
+"""
+(Copyright) 2018, Winton Wang <365504029@qq.com>
+
+ctpwrapper is free software: you can redistribute it and/or modify
+it under the terms of the GNU LGPLv3 as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
+
+
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
@@ -135,8 +154,7 @@ cdef class MdApiWrapper:
         if self._api is not NULL:
 
             self._spi = new CMdSpi(<PyObject *> self)
-
-            with nogil: # todo add to test
+            with nogil:
                 self._api.RegisterSpi(self._spi)
                 self._api.Init()
 
@@ -157,6 +175,7 @@ cdef class MdApiWrapper:
 
         cdef int result
         if self._spi is not NULL:
+
             result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *><size_t>ctypes.addressof(pReqUserLoginField),nRequestID)
             return result
 
@@ -168,6 +187,7 @@ cdef class MdApiWrapper:
         """
         cdef int result
         if self._spi is not NULL:
+
             result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *><size_t>ctypes.addressof(pUserLogout),nRequestID)
             return result
 
@@ -181,7 +201,8 @@ cdef class MdApiWrapper:
         cdef const_char *result
 
         if self._spi is not NULL:
-            result = self._api.GetTradingDay()
+            with nogil:
+                result = self._api.GetTradingDay()
             return result
 
     def RegisterFront(self, char *pszFrontAddress):
@@ -193,7 +214,8 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            self._api.RegisterFront(pszFrontAddress)
+            with nogil:
+                self._api.RegisterFront(pszFrontAddress)
 
     def RegisterNameServer(self,char *pszNsAddress):
         """
@@ -205,7 +227,8 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            self._api.RegisterNameServer(pszNsAddress)
+            with nogil:
+                self._api.RegisterNameServer(pszNsAddress)
 
 
     def RegisterFensUserInfo(self, pFensUserInfo):
@@ -215,6 +238,7 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
+
             self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *><size_t>ctypes.addressof(pFensUserInfo))
 
     def SubscribeMarketData(self, pInstrumentID):
@@ -241,7 +265,8 @@ cdef class MdApiWrapper:
             try:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
-                result = self._api.SubscribeMarketData(InstrumentIDs,<int>count)
+                with nogil:
+                    result = self._api.SubscribeMarketData(InstrumentIDs,<int>count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -264,7 +289,8 @@ cdef class MdApiWrapper:
             try:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
-                result = self._api.UnSubscribeMarketData(InstrumentIDs,<int>count)
+                with nogil:
+                    result = self._api.UnSubscribeMarketData(InstrumentIDs,<int>count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -287,7 +313,8 @@ cdef class MdApiWrapper:
             try:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
-                result = self._api.SubscribeForQuoteRsp(InstrumentIDs,<int>count)
+                with nogil:
+                    result = self._api.SubscribeForQuoteRsp(InstrumentIDs,<int>count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -309,8 +336,8 @@ cdef class MdApiWrapper:
             try:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
-
-                result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,<int>count)
+                with nogil:
+                    result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs,<int>count)
             finally:
                 free(InstrumentIDs)
             return result

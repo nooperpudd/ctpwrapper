@@ -1,4 +1,22 @@
 # encoding:utf-8
+"""
+(Copyright) 2018, Winton Wang <365504029@qq.com>
+
+ctpwrapper is free software: you can redistribute it and/or modify
+it under the terms of the GNU LGPLv3 as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
+
 
 from cpython cimport PyObject
 from libc.string cimport const_char
@@ -137,6 +155,6 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
 cdef extern from 'CMdAPI.h':
 
     cdef cppclass CMdSpi:
-         CMdSpi(PyObject *obj)
+         CMdSpi(PyObject *obj)  # todo nogil
 
 
