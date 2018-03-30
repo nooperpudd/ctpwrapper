@@ -2,11 +2,9 @@
 
 [![Build Status](https://travis-ci.org/nooperpudd/ctpwrapper.svg)](https://travis-ci.org/nooperpudd/ctpwrapper)
 [![Build status](https://ci.appveyor.com/api/projects/status/gvvtcqsjo9nsw0ct?svg=true)](https://ci.appveyor.com/project/nooperpudd/ctpwrapper)
-
 [![pypi](https://img.shields.io/pypi/v/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
 [![status](https://img.shields.io/pypi/status/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
 [![pyversion](https://img.shields.io/pypi/pyversions/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
-
 
 [CTP Website](http://www.sfit.com.cn/5_2_DocumentDown.htm)
 
@@ -19,17 +17,26 @@ Python Requirement: x86-64
 Inspire By lovelylain 
 
 # Install
-   pip install ctpwrapper 
+   
+    pip install ctpwrapper 
 
 # Init Package
 
  MdApi Class Wrapper
- 
-    class Md(MdApiPy):
+    
+```python
+import sys
+
+from ctpwrapper import ApiStructure
+from ctpwrapper import MdApiPy
+
+
+class Md(MdApiPy):
     """
     """
+    
     def __init__(self, broker_id, investor_id, password, request_id=1):
-        
+
         self.broker_id = broker_id
         self.investor_id = investor_id
         self.password = password
@@ -60,7 +67,7 @@ Inspire By lovelylain
         self.ReqUserLogin(user_login, self.request_id)
 
     def OnFrontDisconnected(self, nReason):
-        
+
         print("Md OnFrontDisconnected %s", nReason)
         sys.exit()
 
@@ -86,20 +93,22 @@ Inspire By lovelylain
             print("Md user login successfully")
             print(pRspUserLogin)
             print(pRspInfo)
-    
-    broker_id=""
-    investor_id=""
-    password=""
-    server=""
-    
-    md = Md(broker_id,investor_id,password)
-    md.Create()
-    md.RegisterFront(server)
-    md.Init()
-    day = md.GetTradingDay()
-    
-    print(day)
-    print("api worker!")
+
+
+BORDKER_ID = ""
+INVESTOR_ID = ""
+PASSWORD = ""
+SERVER = ""
+
+md = Md(BORDKER_ID, INVESTOR_ID, PASSWORD)
+md.Create()
+md.RegisterFront(SERVER)
+md.Init()
+day = md.GetTradingDay()
+
+print(day)
+print("api worker!")
+```
     
 
  
