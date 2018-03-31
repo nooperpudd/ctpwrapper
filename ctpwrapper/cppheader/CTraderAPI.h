@@ -134,8 +134,8 @@ static inline int TraderSpi_OnRtnBulletin(PyObject *, CThostFtdcBulletinField *)
 static inline int TraderSpi_OnRspQryInstrumentOrderCommRate(PyObject *,CThostFtdcInstrumentOrderCommRateField *, CThostFtdcRspInfoField *, int, bool);
 static inline int TraderSpi_OnRspQryMMOptionInstrCommRate(PyObject *,CThostFtdcMMOptionInstrCommRateField *, CThostFtdcRspInfoField *, int, bool);
 static inline int TraderSpi_OnRspBatchOrderAction(PyObject *, CThostFtdcInputBatchOrderActionField *, CThostFtdcRspInfoField *, int, bool);
-static inline int TraderSpi_OnRspQryMMInstrumentCommissionRate(PyObject *, CThostFtdcMMInstrumentCommissionRateField *, int, bool);
-static inline int TraderSpi_OnRspQryProductGroup(PyObject *,CThostFtdcProductGroupField *,int,bool);
+static inline int TraderSpi_OnRspQryMMInstrumentCommissionRate(PyObject *, CThostFtdcMMInstrumentCommissionRateField *,CThostFtdcRspInfoField *, int, bool);
+static inline int TraderSpi_OnRspQryProductGroup(PyObject *, CThostFtdcProductGroupField *,CThostFtdcRspInfoField *, int, bool);
 
 #define Python_GIL(func) \
 	do { \
@@ -445,16 +445,14 @@ public:
                             };
 
     ///请求查询产品报价汇率
-    virtual void OnRspQryProductExchRate(CThostFtdcProductExchRateField *pProductExchRate, CThostFtdcRspInfoField *pRspInfo,
-                            int nRequestID, bool bIsLast) {
-                            Python_GIL(TraderSpi_OnRspQryProductExchRate(self,pProductExchRate,pRspInfo,nRequestID,bIsLast));
-                            };
+    virtual void OnRspQryProductExchRate(CThostFtdcProductExchRateField *pProductExchRate, CThostFtdcRspInfoField *pRspInfo,int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQryProductExchRate(self,pProductExchRate,pRspInfo,nRequestID,bIsLast));
+    };
 
     ///请求查询产品组
-    virtual void OnRspQryProductGroup(CThostFtdcProductGroupField *pProductGroup, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
-                         bool bIsLast) {
-                         Python_GIL(TraderSpi_OnRspQryProductGroup(self,pProductGroup,pRspInfo,nRequestID,bIsLast));
-                         };
+    virtual void OnRspQryProductGroup(CThostFtdcProductGroupField *pProductGroup, CThostFtdcRspInfoField *pRspInfo, int nRequestID,bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQryProductGroup(self,pProductGroup,pRspInfo,nRequestID,bIsLast));
+    };
 
     ///请求查询做市商合约手续费率响应
     virtual void OnRspQryMMInstrumentCommissionRate(CThostFtdcMMInstrumentCommissionRateField *pMMInstrumentCommissionRate,
