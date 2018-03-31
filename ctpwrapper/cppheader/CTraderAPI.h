@@ -175,36 +175,30 @@ public:
     };
 
     ///客户端认证响应
-    virtual void OnRspAuthenticate(CThostFtdcRspAuthenticateField *pRspAuthenticateField, CThostFtdcRspInfoField *pRspInfo,
-                      int nRequestID, bool bIsLast) {
-       Python_GIL(TraderSpi_OnRspAuthenticate(self,pRspAuthenticateField,pRspInfo,nRequestID,bIsLast));
+    virtual void OnRspAuthenticate(CThostFtdcRspAuthenticateField *pRspAuthenticateField, CThostFtdcRspInfoField *pRspInfo,int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspAuthenticate(self,pRspAuthenticateField,pRspInfo,nRequestID,bIsLast));
     };
 
 
     ///登录请求响应
-    virtual void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
-                   bool bIsLast) {
-    Python_GIL(TraderSpi_OnRspUserLogin(self,pRspUserLogin,pRspInfo,nRequestID,bIsLast));
-                  };
+    virtual void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspUserLogin(self,pRspUserLogin,pRspInfo,nRequestID,bIsLast));
+    };
 
     ///登出请求响应
-    virtual void OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
-                    bool bIsLast) {
-                    Python_GIL(TraderSpi_OnRspUserLogout(self,pUserLogout,pRspInfo,nRequestID,bIsLast));
-                    };
+    virtual void OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID,bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspUserLogout(self,pUserLogout,pRspInfo,nRequestID,bIsLast));
+    };
 
     ///用户口令更新请求响应
-    virtual void OnRspUserPasswordUpdate(CThostFtdcUserPasswordUpdateField *pUserPasswordUpdate, CThostFtdcRspInfoField *pRspInfo,
-                            int nRequestID, bool bIsLast) {
-                            Python_GIL(TraderSpi_OnRspUserPasswordUpdate(self,pUserPasswordUpdate,pRspInfo,nRequestID,bIsLast));
-                            };
+    virtual void OnRspUserPasswordUpdate(CThostFtdcUserPasswordUpdateField *pUserPasswordUpdate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspUserPasswordUpdate(self,pUserPasswordUpdate,pRspInfo,nRequestID,bIsLast));
+    };
 
     ///资金账户口令更新请求响应
-    virtual void OnRspTradingAccountPasswordUpdate(CThostFtdcTradingAccountPasswordUpdateField *pTradingAccountPasswordUpdate,
-                                      CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-
-       Python_GIL(TraderSpi_OnRspTradingAccountPasswordUpdate(self,pTradingAccountPasswordUpdate,pRspInfo,nRequestID,bIsLast));
-                                      };
+    virtual void OnRspTradingAccountPasswordUpdate(CThostFtdcTradingAccountPasswordUpdateField *pTradingAccountPasswordUpdate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspTradingAccountPasswordUpdate(self,pTradingAccountPasswordUpdate,pRspInfo,nRequestID,bIsLast));
+    };
 
     ///报单录入请求响应
     virtual void OnRspOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
@@ -769,24 +763,23 @@ public:
                                   };
 
     ///期货发起查询银行余额应答
-    virtual void OnRspQueryBankAccountMoneyByFuture(CThostFtdcReqQueryAccountField *pReqQueryAccount,
-                                                    CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-                                                    Python_GIL(TraderSpi_OnRspQueryBankAccountMoneyByFuture(self,pReqQueryAccount,pRspInfo,nRequestID,bIsLast));
-                                                    };
+    virtual void OnRspQueryBankAccountMoneyByFuture(CThostFtdcReqQueryAccountField *pReqQueryAccount, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQueryBankAccountMoneyByFuture(self,pReqQueryAccount,pRspInfo,nRequestID,bIsLast));
+    };
 
     ///银行发起银期开户通知
     virtual void OnRtnOpenAccountByBank(CThostFtdcOpenAccountField *pOpenAccount) {
-    Python_GIL(TraderSpi_OnRtnOpenAccountByBank(self,pOpenAccount));
+        Python_GIL(TraderSpi_OnRtnOpenAccountByBank(self,pOpenAccount));
     };
 
     ///银行发起银期销户通知
     virtual void OnRtnCancelAccountByBank(CThostFtdcCancelAccountField *pCancelAccount) {
-    Python_GIL(TraderSpi_OnRtnCancelAccountByBank(self,pCancelAccount));
+        Python_GIL(TraderSpi_OnRtnCancelAccountByBank(self,pCancelAccount));
     };
 
     ///银行发起变更银行账号通知
     virtual void OnRtnChangeAccountByBank(CThostFtdcChangeAccountField *pChangeAccount) {
-    Python_GIL(TraderSpi_OnRtnChangeAccountByBank(self,pChangeAccount));
+        Python_GIL(TraderSpi_OnRtnChangeAccountByBank(self,pChangeAccount));
     };
 
 private:
