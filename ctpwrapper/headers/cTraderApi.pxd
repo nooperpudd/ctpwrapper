@@ -16,13 +16,10 @@ You should have received a copy of the GNU General Public License
 along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-
-
 from cpython cimport PyObject
 from libc.string cimport const_char
 
 from ThostFtdcUserApiStruct cimport *
-
 
 
 cdef extern from "ThostFtdcTraderApi.h":
@@ -115,26 +112,22 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqOrderAction(CThostFtdcInputOrderActionField *pInputOrderAction, int nRequestID) nogil except +
 
         #查询最大报单数量请求
-        int ReqQueryMaxOrderVolume(CThostFtdcQueryMaxOrderVolumeField *pQueryMaxOrderVolume,
-                                   int nRequestID) nogil except +
+        int ReqQueryMaxOrderVolume(CThostFtdcQueryMaxOrderVolumeField *pQueryMaxOrderVolume, int nRequestID) nogil except +
 
         #投资者结算结果确认
-        int ReqSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm,
-                                     int nRequestID) nogil except +
+        int ReqSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm, int nRequestID) nogil except +
 
         #请求删除预埋单
         int ReqRemoveParkedOrder(CThostFtdcRemoveParkedOrderField *pRemoveParkedOrder, int nRequestID) nogil except +
 
         #请求删除预埋撤单
-        int ReqRemoveParkedOrderAction(CThostFtdcRemoveParkedOrderActionField *pRemoveParkedOrderAction,
-                                       int nRequestID) nogil except +
+        int ReqRemoveParkedOrderAction(CThostFtdcRemoveParkedOrderActionField *pRemoveParkedOrderAction, int nRequestID) nogil except +
 
         #执行宣告录入请求
         int ReqExecOrderInsert(CThostFtdcInputExecOrderField *pInputExecOrder, int nRequestID) nogil except +
 
         #执行宣告操作请求
-        int ReqExecOrderAction(CThostFtdcInputExecOrderActionField *pInputExecOrderAction,
-                               int nRequestID) nogil except +
+        int ReqExecOrderAction(CThostFtdcInputExecOrderActionField *pInputExecOrderAction, int nRequestID) nogil except +
 
         #询价录入请求
         int ReqForQuoteInsert(CThostFtdcInputForQuoteField *pInputForQuote, int nRequestID) nogil except +
@@ -146,8 +139,7 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqQuoteAction(CThostFtdcInputQuoteActionField *pInputQuoteAction, int nRequestID) nogil except +
 
         #批量报单操作请求
-        int ReqBatchOrderAction(CThostFtdcInputBatchOrderActionField *pInputBatchOrderAction,
-                                int nRequestID) nogil except +
+        int ReqBatchOrderAction(CThostFtdcInputBatchOrderActionField *pInputBatchOrderAction, int nRequestID) nogil except +
 
         #申请组合录入请求
         int ReqCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, int nRequestID) nogil except +
@@ -159,8 +151,7 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqQryTrade(CThostFtdcQryTradeField *pQryTrade, int nRequestID) nogil except +
 
         #请求查询投资者持仓
-        int ReqQryInvestorPosition(CThostFtdcQryInvestorPositionField *pQryInvestorPosition,
-                                   int nRequestID) nogil except +
+        int ReqQryInvestorPosition(CThostFtdcQryInvestorPositionField *pQryInvestorPosition, int nRequestID) nogil except +
 
         #请求查询资金账户
         int ReqQryTradingAccount(CThostFtdcQryTradingAccountField *pQryTradingAccount, int nRequestID) nogil except +
@@ -172,12 +163,10 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqQryTradingCode(CThostFtdcQryTradingCodeField *pQryTradingCode, int nRequestID) nogil except +
 
         #请求查询合约保证金率
-        int ReqQryInstrumentMarginRate(CThostFtdcQryInstrumentMarginRateField *pQryInstrumentMarginRate,
-                                       int nRequestID) nogil except +
+        int ReqQryInstrumentMarginRate(CThostFtdcQryInstrumentMarginRateField *pQryInstrumentMarginRate, int nRequestID) nogil except +
 
         #请求查询合约手续费率
-        int ReqQryInstrumentCommissionRate(CThostFtdcQryInstrumentCommissionRateField *pQryInstrumentCommissionRate,
-                                           int nRequestID) nogil except +
+        int ReqQryInstrumentCommissionRate(CThostFtdcQryInstrumentCommissionRateField *pQryInstrumentCommissionRate, int nRequestID) nogil except +
 
         #请求查询交易所
         int ReqQryExchange(CThostFtdcQryExchangeField *pQryExchange, int nRequestID) nogil except +
@@ -198,40 +187,31 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqQryTransferBank(CThostFtdcQryTransferBankField *pQryTransferBank, int nRequestID) nogil except +
 
         #请求查询投资者持仓明细
-        int ReqQryInvestorPositionDetail(CThostFtdcQryInvestorPositionDetailField *pQryInvestorPositionDetail,
-                                         int nRequestID) nogil except +
+        int ReqQryInvestorPositionDetail(CThostFtdcQryInvestorPositionDetailField *pQryInvestorPositionDetail, int nRequestID) nogil except +
 
         #请求查询客户通知
         int ReqQryNotice(CThostFtdcQryNoticeField *pQryNotice, int nRequestID) nogil except +
 
         #请求查询结算信息确认
-        int ReqQrySettlementInfoConfirm(CThostFtdcQrySettlementInfoConfirmField *pQrySettlementInfoConfirm,
-                                        int nRequestID) nogil except +
+        int ReqQrySettlementInfoConfirm(CThostFtdcQrySettlementInfoConfirmField *pQrySettlementInfoConfirm, int nRequestID) nogil except +
 
         #请求查询投资者持仓明细
-        int ReqQryInvestorPositionCombineDetail(
-                CThostFtdcQryInvestorPositionCombineDetailField *pQryInvestorPositionCombineDetail,
-                int nRequestID) nogil except +
+        int ReqQryInvestorPositionCombineDetail(CThostFtdcQryInvestorPositionCombineDetailField *pQryInvestorPositionCombineDetail, int nRequestID) nogil except +
 
         #请求查询保证金监管系统经纪公司资金账户密钥
-        int ReqQryCFMMCTradingAccountKey(CThostFtdcQryCFMMCTradingAccountKeyField *pQryCFMMCTradingAccountKey,
-                                         int nRequestID) nogil except +
+        int ReqQryCFMMCTradingAccountKey(CThostFtdcQryCFMMCTradingAccountKeyField *pQryCFMMCTradingAccountKey, int nRequestID) nogil except +
 
         #请求查询仓单折抵信息
         int ReqQryEWarrantOffset(CThostFtdcQryEWarrantOffsetField *pQryEWarrantOffset, int nRequestID) nogil except +
 
         #请求查询投资者品种/跨品种保证金
-        int ReqQryInvestorProductGroupMargin(
-                CThostFtdcQryInvestorProductGroupMarginField *pQryInvestorProductGroupMargin,
-                int nRequestID) nogil except +
+        int ReqQryInvestorProductGroupMargin(CThostFtdcQryInvestorProductGroupMarginField *pQryInvestorProductGroupMargin, int nRequestID) nogil except +
 
         #请求查询交易所保证金率
-        int ReqQryExchangeMarginRate(CThostFtdcQryExchangeMarginRateField *pQryExchangeMarginRate,
-                                     int nRequestID) nogil except +
+        int ReqQryExchangeMarginRate(CThostFtdcQryExchangeMarginRateField *pQryExchangeMarginRate, int nRequestID) nogil except +
 
         #请求查询交易所调整保证金率
-        int ReqQryExchangeMarginRateAdjust(CThostFtdcQryExchangeMarginRateAdjustField *pQryExchangeMarginRateAdjust,
-                                           int nRequestID) nogil except +
+        int ReqQryExchangeMarginRateAdjust(CThostFtdcQryExchangeMarginRateAdjustField *pQryExchangeMarginRateAdjust, int nRequestID) nogil except +
 
         #请求查询汇率
         int ReqQryExchangeRate(CThostFtdcQryExchangeRateField *pQryExchangeRate, int nRequestID) nogil except +
@@ -246,25 +226,19 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqQryProductGroup(CThostFtdcQryProductGroupField *pQryProductGroup, int nRequestID) nogil except +
 
         #请求查询做市商合约手续费率
-        int ReqQryMMInstrumentCommissionRate(
-                CThostFtdcQryMMInstrumentCommissionRateField *pQryMMInstrumentCommissionRate,
-                int nRequestID) nogil except +
+        int ReqQryMMInstrumentCommissionRate(CThostFtdcQryMMInstrumentCommissionRateField *pQryMMInstrumentCommissionRate, int nRequestID) nogil except +
 
         #请求查询做市商期权合约手续费
-        int ReqQryMMOptionInstrCommRate(CThostFtdcQryMMOptionInstrCommRateField *pQryMMOptionInstrCommRate,
-                                        int nRequestID) nogil except +
+        int ReqQryMMOptionInstrCommRate(CThostFtdcQryMMOptionInstrCommRateField *pQryMMOptionInstrCommRate, int nRequestID) nogil except +
 
         #请求查询报单手续费
-        int ReqQryInstrumentOrderCommRate(CThostFtdcQryInstrumentOrderCommRateField *pQryInstrumentOrderCommRate,
-                                          int nRequestID) nogil except +
+        int ReqQryInstrumentOrderCommRate(CThostFtdcQryInstrumentOrderCommRateField *pQryInstrumentOrderCommRate, int nRequestID) nogil except +
 
         #请求查询期权交易成本
-        int ReqQryOptionInstrTradeCost(CThostFtdcQryOptionInstrTradeCostField *pQryOptionInstrTradeCost,
-                                       int nRequestID) nogil except +
+        int ReqQryOptionInstrTradeCost(CThostFtdcQryOptionInstrTradeCostField *pQryOptionInstrTradeCost, int nRequestID) nogil except +
 
         #请求查询期权合约手续费
-        int ReqQryOptionInstrCommRate(CThostFtdcQryOptionInstrCommRateField *pQryOptionInstrCommRate,
-                                      int nRequestID) nogil except +
+        int ReqQryOptionInstrCommRate(CThostFtdcQryOptionInstrCommRateField *pQryOptionInstrCommRate, int nRequestID) nogil except +
 
         #请求查询执行宣告
         int ReqQryExecOrder(CThostFtdcQryExecOrderField *pQryExecOrder, int nRequestID) nogil except +
@@ -276,8 +250,7 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqQryQuote(CThostFtdcQryQuoteField *pQryQuote, int nRequestID) nogil except +
 
         #请求查询组合合约安全系数
-        int ReqQryCombInstrumentGuard(CThostFtdcQryCombInstrumentGuardField *pQryCombInstrumentGuard,
-                                      int nRequestID) nogil except +
+        int ReqQryCombInstrumentGuard(CThostFtdcQryCombInstrumentGuardField *pQryCombInstrumentGuard, int nRequestID) nogil except +
 
         #请求查询申请组合
         int ReqQryCombAction(CThostFtdcQryCombActionField *pQryCombAction, int nRequestID) nogil except +
@@ -295,24 +268,19 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqQryParkedOrder(CThostFtdcQryParkedOrderField *pQryParkedOrder, int nRequestID) nogil except +
 
         #请求查询预埋撤单
-        int ReqQryParkedOrderAction(CThostFtdcQryParkedOrderActionField *pQryParkedOrderAction,
-                                    int nRequestID) nogil except +
+        int ReqQryParkedOrderAction(CThostFtdcQryParkedOrderActionField *pQryParkedOrderAction, int nRequestID) nogil except +
 
         #请求查询交易通知
         int ReqQryTradingNotice(CThostFtdcQryTradingNoticeField *pQryTradingNotice, int nRequestID) nogil except +
 
         #请求查询经纪公司交易参数
-        int ReqQryBrokerTradingParams(CThostFtdcQryBrokerTradingParamsField *pQryBrokerTradingParams,
-                                      int nRequestID) nogil except +
+        int ReqQryBrokerTradingParams(CThostFtdcQryBrokerTradingParamsField *pQryBrokerTradingParams, int nRequestID) nogil except +
 
         #请求查询经纪公司交易算法
-        int ReqQryBrokerTradingAlgos(CThostFtdcQryBrokerTradingAlgosField *pQryBrokerTradingAlgos,
-                                     int nRequestID) nogil except +
+        int ReqQryBrokerTradingAlgos(CThostFtdcQryBrokerTradingAlgosField *pQryBrokerTradingAlgos, int nRequestID) nogil except +
 
         #请求查询监控中心用户令牌
-        int ReqQueryCFMMCTradingAccountToken(
-                CThostFtdcQueryCFMMCTradingAccountTokenField *pQueryCFMMCTradingAccountToken,
-                int nRequestID) nogil except +
+        int ReqQueryCFMMCTradingAccountToken(CThostFtdcQueryCFMMCTradingAccountTokenField *pQueryCFMMCTradingAccountToken, int nRequestID) nogil except +
 
         #期货发起银行资金转期货请求
         int ReqFromBankToFutureByFuture(CThostFtdcReqTransferField *pReqTransfer, int nRequestID) nogil except +
@@ -321,14 +289,11 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqFromFutureToBankByFuture(CThostFtdcReqTransferField *pReqTransfer, int nRequestID) nogil except +
 
         #期货发起查询银行余额请求
-        int ReqQueryBankAccountMoneyByFuture(CThostFtdcReqQueryAccountField *pReqQueryAccount,
-                                             int nRequestID) nogil except +
+        int ReqQueryBankAccountMoneyByFuture(CThostFtdcReqQueryAccountField *pReqQueryAccount, int nRequestID) nogil except +
 
 cdef extern from "ThostFtdcTraderApi.h" namespace "CThostFtdcTraderApi":
-
     CTraderApi *CreateFtdcTraderApi(const_char *pszFlowPath) nogil except +
 
-
-cdef extern  from "CTraderAPI.h":
+cdef extern from "CTraderAPI.h":
     cdef cppclass CTraderSpi:
         CTraderSpi(PyObject *obj)  # todo nogil
