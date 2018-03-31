@@ -38,18 +38,6 @@ public:
     ///        0x2001 接收心跳超时
     ///        0x2002 发送心跳失败
     ///        0x2003 收到错误报文
-
-    //4097 0x1001 网络读失败
-    //4098 0x1002 网络写失败
-    //8193 0x2001 读心跳超时
-    //8194 0x2002 发送心跳超时
-    //8195 0x2003 收到不能识别的错误消息
-    //客户端与服务端的连接断开有两种情况：
-    // 网络原因导致连接断开
-    // 服务端主动断开连接
-    //服务器主动断开连接有两种可能：
-    // 客户端长时间没有从服务端接收报文，时间超时
-    // 客户端建立的连接数超过限制
     virtual void OnFrontDisconnected(int nReason) {};
 
     ///心跳超时警告。当长时间未收到报文时，该方法被调用。
@@ -58,37 +46,25 @@ public:
 
 
     ///登录请求响应
-    virtual void
-    OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
-                   bool bIsLast) {};
+    virtual void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
     ///登出请求响应
-    virtual void
-    OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
-                    bool bIsLast) {};
+    virtual void OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
     ///错误应答
     virtual void OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
     ///订阅行情应答
-    virtual void
-    OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo,
-                       int nRequestID, bool bIsLast) {};
+    virtual void OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
     ///取消订阅行情应答
-    virtual void
-    OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo,
-                         int nRequestID, bool bIsLast) {};
+    virtual void OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
     ///订阅询价应答
-    virtual void
-    OnRspSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo,
-                        int nRequestID, bool bIsLast) {};
+    virtual void OnRspSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
     ///取消订阅询价应答
-    virtual void
-    OnRspUnSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo,
-                          int nRequestID, bool bIsLast) {};
+    virtual void OnRspUnSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
     ///深度行情通知
     virtual void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {};

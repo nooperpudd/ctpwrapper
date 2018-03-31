@@ -1,6 +1,7 @@
 # encoding:utf-8
 import codecs
 import os
+import platform
 import re
 import shutil
 import sys
@@ -30,11 +31,15 @@ def find_version(*file_paths):
     raise RuntimeError("Unable to find version string.")
 
 
+if platform.architecture()[0] != "64bit":
+    raise EnvironmentError("Please install Python x86-64")
+
 base_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.join(base_dir, "ctpwrapper")
 ctp_dir = os.path.join(base_dir, "ctp")
 cython_headers = os.path.join(project_dir, "headers")
 header_dir = os.path.join(ctp_dir, "header")
+cpp_header_dir = os.path.join(project_dir, "cppheader")
 lib_dir = None
 package_data = ["*.xml", "*.dtd"]
 extra_link_args = None
@@ -60,7 +65,7 @@ copy_tree(lib_dir, project_dir)
 
 common_args = {
     "cython_include_dirs": [cython_headers],
-    "include_dirs": [header_dir],
+    "include_dirs": [header_dir, cpp_header_dir],
     "library_dirs": [lib_dir],
     "language": "c++",
     "extra_compile_args": extra_compile_args,
@@ -92,11 +97,34 @@ class BuildExt(build_ext):
 setup(
     name="ctpwrapper",
     version=find_version("ctpwrapper", "__init__.py"),
+    description="CTP client v6.3.6_20160606",
+    long_description=codecs.open("README.md", encoding="utf-8").read(),
+    license="LGPLv3",
+    keywords="CTP,Future,SHFE,Shanghai Future Exchange",
+    author="Winton Wang",
+    author_email="365504029@qq.com",
+    url="https://github.com/nooperpudd/ctpwrapper",
     packages=["ctpwrapper"],
-    include_dirs=[header_dir],
+    include_dirs=[header_dir, cpp_header_dir],
     platforms=["win32", "linux"],
     package_dir={"ctpwrapper": "ctpwrapper"},
     package_data={"": package_data},
     ext_modules=cythonize(ext_modules),
     cmdclass={'build_ext': BuildExt},
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved",
+        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+        "Operating System :: POSIX",
+        "Operating System :: Microsoft",
+        "Operating System :: Microsoft :: Windows",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Topic :: Software Development",
+        "Topic :: Software Development :: Libraries"
+    ]
 )
