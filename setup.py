@@ -6,11 +6,10 @@ import re
 import shutil
 import sys
 from distutils.dir_util import copy_tree
-
-from Cython.Build import cythonize
-from Cython.Distutils import build_ext, Extension as Cython_Extension
 from setuptools import setup
 
+from Cython.Build import cythonize, build_ext
+from Cython.Distutils import Extension as Cython_Extension
 
 def find_version(*file_paths):
     """
@@ -96,6 +95,11 @@ class BuildExt(build_ext):
         super(BuildExt, self).build_extensions()
 
 
+cy_ext = cythonize(ext_modules)
+
+print(cy_ext)
+
+
 setup(
     name="ctpwrapper",
     version=find_version("ctpwrapper", "__init__.py"),
@@ -112,7 +116,7 @@ setup(
     platforms=["win32", "linux"],
     package_dir={"ctpwrapper": "ctpwrapper"},
     package_data={"": package_data},
-    ext_modules=cythonize(ext_modules),
+    ext_modules=cy_ext,
     cmdclass={'build_ext': BuildExt},
     classifiers=[
         "Development Status :: 5 - Production/Stable",
