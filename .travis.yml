@@ -35,4 +35,3 @@ deploy:
   distributions: "bdist_wheel"
   on:
     tags: true
-    repo: master
