@@ -109,8 +109,10 @@ cdef class MdApiWrapper:
         :return:
         """
         cdef int result
+
         if self._spi is not NULL:
             result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *> <size_t> ctypes.addressof(pUserLogout), nRequestID)
+
             return result
 
     def GetTradingDay(self):
@@ -160,6 +162,7 @@ cdef class MdApiWrapper:
         """
         if self._api is not NULL:
             self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> <size_t> ctypes.addressof(pFensUserInfo))
+
 
     def SubscribeMarketData(self, pInstrumentID):
         """
