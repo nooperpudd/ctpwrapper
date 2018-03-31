@@ -76,7 +76,7 @@ class TraderApiPy(TraderApiWrapper):
 
         super(TraderApiPy, self).RegisterFensUserInfo(pFensUserInfo)
 
-    def SubscribePrivateTopic(self, nResumeType:int):
+    def SubscribePrivateTopic(self, nResumeType: int):
         """
         订阅私有流。
         @param nResumeType 私有流重传方式
@@ -88,7 +88,7 @@ class TraderApiPy(TraderApiWrapper):
         """
         super(TraderApiPy, self).SubscribePrivateTopic(nResumeType)
 
-    def SubscribePublicTopic(self, nResumeType:int):
+    def SubscribePublicTopic(self, nResumeType: int):
         """
         订阅公共流。
         @param nResumeType 公共流重传方式
@@ -262,7 +262,7 @@ class TraderApiPy(TraderApiWrapper):
 
     def ReqQryInvestorPositionCombineDetail(self, pQryInvestorPositionCombineDetail, nRequestID):
         """请求查询投资者持仓明细"""
-        return super(TraderApiPy, self).ReqQryInvestorPositionCombineDetail(pQryInvestorPositionCombineDetail,nRequestID)
+        return super(TraderApiPy, self).ReqQryInvestorPositionCombineDetail(pQryInvestorPositionCombineDetail, nRequestID)
 
     def ReqQryCFMMCTradingAccountKey(self, pQryCFMMCTradingAccountKey, nRequestID):
         """请求查询保证金监管系统经纪公司资金账户密钥"""
