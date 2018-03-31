@@ -450,11 +450,11 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 报单录入请求响应
-    def OnRspOrderInsert(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspOrderInsert(self, pInputOrder, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 预埋单录入请求响应
-    def OnRspParkedOrderInsert(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspParkedOrderInsert(self, pParkedOrder, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 预埋撤单录入请求响应
@@ -462,7 +462,7 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 报单操作请求响应
-    def OnRspOrderAction(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspOrderAction(self, pInputOrderAction, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 查询最大报单数量响应
@@ -482,7 +482,7 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 执行宣告录入请求响应
-    def OnRspExecOrderInsert(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspExecOrderInsert(self, pInputExecOrder, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 执行宣告操作请求响应
@@ -490,15 +490,15 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 询价录入请求响应
-    def OnRspForQuoteInsert(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspForQuoteInsert(self, pInputForQuote, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 报价录入请求响应
-    def OnRspQuoteInsert(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQuoteInsert(self, pInputQuote, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 报价操作请求响应
-    def OnRspQuoteAction(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQuoteAction(self, pInputQuoteAction, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 批量报单操作请求响应
@@ -506,15 +506,15 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 申请组合录入请求响应
-    def OnRspCombActionInsert(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspCombActionInsert(self, pInputCombAction, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询报单响应
-    def OnRspQryOrder(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryOrder(self, pOrder, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询成交响应
-    def OnRspQryTrade(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryTrade(self, pTrade, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询投资者持仓响应
@@ -522,15 +522,15 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 请求查询资金账户响应
-    def OnRspQryTradingAccount(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryTradingAccount(self, pTradingAccount, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询投资者响应
-    def OnRspQryInvestor(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryInvestor(self, pInvestor, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询交易编码响应
-    def OnRspQryTradingCode(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryTradingCode(self, pTradingCode, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询合约保证金率响应
@@ -542,27 +542,27 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 请求查询交易所响应
-    def OnRspQryExchange(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryExchange(self, pExchange, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询产品响应
-    def OnRspQryProduct(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryProduct(self, pProduct, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询合约响应
-    def OnRspQryInstrument(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryInstrument(self, pInstrument, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询行情响应
-    def OnRspQryDepthMarketData(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryDepthMarketData(self, pDepthMarketData, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询投资者结算结果响应
-    def OnRspQrySettlementInfo(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQrySettlementInfo(self, pSettlementInfo, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询转帐银行响应
-    def OnRspQryTransferBank(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryTransferBank(self, pTransferBank, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询投资者持仓明细响应
@@ -570,7 +570,7 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 请求查询客户通知响应
-    def OnRspQryNotice(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryNotice(self, pNotice, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询结算信息确认响应
@@ -586,7 +586,7 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 请求查询仓单折抵信息响应
-    def OnRspQryEWarrantOffset(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryEWarrantOffset(self, pEWarrantOffset, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询投资者品种/跨品种保证金响应
@@ -602,19 +602,19 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 请求查询汇率响应
-    def OnRspQryExchangeRate(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryExchangeRate(self, pExchangeRate, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询二级代理操作员银期权限响应
-    def OnRspQrySecAgentACIDMap(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQrySecAgentACIDMap(self, pSecAgentACIDMap, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询产品报价汇率
-    def OnRspQryProductExchRate(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryProductExchRate(self, pProductExchRate, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询产品组
-    def OnRspQryProductGroup(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryProductGroup(self, pProductGroup, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询做市商合约手续费率响应
@@ -638,15 +638,15 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 请求查询执行宣告响应
-    def OnRspQryExecOrder(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryExecOrder(self, pExecOrder, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询询价响应
-    def OnRspQryForQuote(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryForQuote(self, pForQuote, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询报价响应
-    def OnRspQryQuote(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryQuote(self, pQuote, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询组合合约安全系数响应
@@ -654,15 +654,15 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 请求查询申请组合响应
-    def OnRspQryCombAction(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryCombAction(self, pCombAction, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询转帐流水响应
-    def OnRspQryTransferSerial(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryTransferSerial(self, pTransferSerial, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询银期签约关系响应
-    def OnRspQryAccountregister(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryAccountregister(self, pAccountregister, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 错误应答
@@ -750,11 +750,11 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 请求查询签约银行响应
-    def OnRspQryContractBank(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryContractBank(self, pContractBank, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询预埋单响应
-    def OnRspQryParkedOrder(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryParkedOrder(self, pParkedOrder, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询预埋撤单响应
@@ -762,7 +762,7 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 请求查询交易通知响应
-    def OnRspQryTradingNotice(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryTradingNotice(self, pTradingNotice, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 请求查询经纪公司交易参数响应
@@ -842,11 +842,11 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 期货发起银行资金转期货应答
-    def OnRspFromBankToFutureByFuture(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspFromBankToFutureByFuture(self, pReqTransfer, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 期货发起期货资金转银行应答
-    def OnRspFromFutureToBankByFuture(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspFromFutureToBankByFuture(self, pReqTransfer, pRspInfo, nRequestID, bIsLast):
         pass
 
     # 期货发起查询银行余额应答
