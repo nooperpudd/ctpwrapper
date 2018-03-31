@@ -11,6 +11,8 @@ from setuptools import setup
 from Cython.Build import cythonize, build_ext
 from Cython.Distutils import Extension as Cython_Extension
 
+
+
 def find_version(*file_paths):
     """
     Don't pull version by importing package as it will be broken due to as-yet uninstalled
@@ -95,28 +97,24 @@ class BuildExt(build_ext):
         super(BuildExt, self).build_extensions()
 
 
-cy_ext = cythonize(ext_modules)
-
-print(cy_ext)
-
-
 setup(
     name="ctpwrapper",
     version=find_version("ctpwrapper", "__init__.py"),
     description="CTP client v6.3.6_20160606",
     long_description=codecs.open("README.md", encoding="utf-8").read(),
-    install_requires=["cython>=0.28.1"],
     license="LGPLv3",
     keywords="CTP,Future,SHFE,Shanghai Future Exchange",
     author="Winton Wang",
     author_email="365504029@qq.com",
     url="https://github.com/nooperpudd/ctpwrapper",
+
+    install_requires=["cython>=0.28.1"],
     packages=["ctpwrapper"],
     include_dirs=[header_dir, cpp_header_dir],
     platforms=["win32", "linux"],
     package_dir={"ctpwrapper": "ctpwrapper"},
     package_data={"": package_data},
-    ext_modules=cy_ext,
+    ext_modules=cythonize(ext_modules),
     cmdclass={'build_ext': BuildExt},
     classifiers=[
         "Development Status :: 5 - Production/Stable",
