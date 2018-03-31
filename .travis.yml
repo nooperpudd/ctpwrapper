@@ -2,12 +2,12 @@ matrix:
   include:
   - os: linux
     language: python
-    python: '3.6'
+    python: '3.6.5'
     compiler: gcc-5
     env: CC=gcc
   - os: linux
     language: python
-    python: '3.5'
+    python: '3.5.5'
     compiler: gcc-5
     env: CC=gcc
 
