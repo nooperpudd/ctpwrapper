@@ -1,5 +1,6 @@
 # https://www.appveyor.com/docs/build-configuration/
 # https://packaging.python.org/guides/supporting-windows-using-appveyor/
+
 platform:
   - x64
 
@@ -12,7 +13,6 @@ cache:
   # usage on our rackspace account.
   - '%LocalAppData%\pip\Cache'
 
-
 environment:
 
   global:
@@ -20,6 +20,8 @@ environment:
     # /E:ON and /V:ON options are not enabled in the batch script intepreter
     # See: http://stackoverflow.com/a/13751649/163740
     CMD_IN_ENV: 'cmd /E:ON /V:ON /C .\extra\appveyor\compiler.cmd'
+  password:
+    secure: OMiYQiLUSBqwsbF0JRAAVA==
 
   matrix:
     - PYTHON: "C:\\Python36-x64"
@@ -61,4 +63,18 @@ test_script:
 
   - "%CMD_IN_ENV% python setup.py build_ext --inplace"
   - "%CMD_IN_ENV% pytest -v -s"
+
+artifacts:
+  # bdist_wheel puts your built wheel in the dist directory
+  - path: dist\*
+
+deploy_script:
+  # This step builds your wheels.
+  # Again, you only need build.cmd if you're building C extensions for
+  # 64-bit Python 3.3/3.4. And you need to use %PYTHON% to get the correct
+  # interpreter
+  - "echo [pypi] > %USERPROFILE%\\.pypirc"
+  - "echo username: nooperpudd >> %USERPROFILE%\\.pypirc"
+  - "echo password: %password% >> %USERPROFILE%\\.pypirc"
+  - "%CMD_IN_ENV% python setup.py bdist_wheel upload"
 
