@@ -61,7 +61,9 @@ package_data.append("error.dtd")
 package_data.append("error.xml")
 shutil.copy2(header_dir + "/error.dtd", project_dir + "/error.dtd")
 shutil.copy2(header_dir + "/error.xml", project_dir + "/error.xml")
-copy_tree(lib_dir, project_dir)
+
+if sys.platform in ["linux", "win32"]:
+    copy_tree(lib_dir, project_dir)
 
 common_args = {
     "cython_include_dirs": [cython_headers],
