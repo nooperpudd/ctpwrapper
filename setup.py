@@ -5,11 +5,11 @@ import platform
 import re
 import shutil
 import sys
-from distutils.core import setup
 from distutils.dir_util import copy_tree
 
 from Cython.Build import cythonize
-from Cython.Distutils import build_ext, Extension
+from Cython.Distutils import build_ext, Extension as Cython_Extension
+from setuptools import setup
 
 
 def find_version(*file_paths):
@@ -75,14 +75,14 @@ common_args = {
 }
 
 ext_modules = [
-    Extension(name="ctpwrapper.MdApi",
-              sources=["ctpwrapper/MdApi.pyx"],
-              libraries=["thostmduserapi"],
-              **common_args),
-    Extension(name="ctpwrapper.TraderApi",
-              sources=["ctpwrapper/TraderApi.pyx"],
-              libraries=["thosttraderapi"],
-              **common_args)
+    Cython_Extension(name="ctpwrapper.MdApi",
+                     sources=["ctpwrapper/MdApi.pyx"],
+                     libraries=["thostmduserapi"],
+                     **common_args),
+    Cython_Extension(name="ctpwrapper.TraderApi",
+                     sources=["ctpwrapper/TraderApi.pyx"],
+                     libraries=["thosttraderapi"],
+                     **common_args)
 ]
 
 
@@ -101,6 +101,7 @@ setup(
     version=find_version("ctpwrapper", "__init__.py"),
     description="CTP client v6.3.6_20160606",
     long_description=codecs.open("README.md", encoding="utf-8").read(),
+    install_requires=["cython>=0.28.1"],
     license="LGPLv3",
     keywords="CTP,Future,SHFE,Shanghai Future Exchange",
     author="Winton Wang",
