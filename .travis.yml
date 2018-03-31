@@ -25,6 +25,8 @@ script:
   - python setup.py build_ext --inplace
   - pytest -v -s
 
+before_deploy: "echo 'ready'"
+
 deploy:
   provider: pypi
   user: nooperpudd
