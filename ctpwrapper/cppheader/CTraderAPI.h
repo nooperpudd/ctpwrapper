@@ -134,6 +134,9 @@ static inline int TraderSpi_OnRtnBulletin(PyObject *, CThostFtdcBulletinField *)
 static inline int TraderSpi_OnRspQryInstrumentOrderCommRate(PyObject *,CThostFtdcInstrumentOrderCommRateField *, CThostFtdcRspInfoField *, int, bool);
 static inline int TraderSpi_OnRspQryMMOptionInstrCommRate(PyObject *,CThostFtdcMMOptionInstrCommRateField *, CThostFtdcRspInfoField *, int, bool);
 static inline int TraderSpi_OnRspBatchOrderAction(PyObject *, CThostFtdcInputBatchOrderActionField *, CThostFtdcRspInfoField *, int, bool);
+static inline int TraderSpi_OnRspQryMMInstrumentCommissionRate(PyObject *, CThostFtdcMMInstrumentCommissionRateField *, int, bool);
+static inline int TraderSpi_OnRspQryProductGroup(PyObject *,CThostFtdcProductGroupField *,int,bool);
+
 #define Python_GIL(func) \
 	do { \
 		PyGILState_STATE gil_state = PyGILState_Ensure(); \
