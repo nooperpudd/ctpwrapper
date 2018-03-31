@@ -23,7 +23,7 @@ from .TraderApi import TraderApiWrapper
 
 class TraderApiPy(TraderApiWrapper):
 
-    def Create(self, pszFlowPath):
+    def Create(self, pszFlowPath=""):
         super(TraderApiPy, self).Create(pszFlowPath.encode())
 
     def Release(self):
