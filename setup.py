@@ -7,7 +7,7 @@ import shutil
 import sys
 from distutils.dir_util import copy_tree
 
-from setuptools import setup,find_packages
+from setuptools import setup, find_packages
 # issue put in the cython library bellow will cause
 # error: each element of 'ext_modules' option must be an Extension instance or 2-tuple
 
@@ -113,8 +113,8 @@ setup(
     install_requires=["cython>=0.28.1"],
     include_dirs=[header_dir, cpp_header_dir],
     platforms=["win32", "linux"],
-    packages= find_packages(exclude=["tests","samples"]),
-
+    packages=find_packages(exclude=["tests", "samples"]),
+    include_package_data=True,
     # package_dir={"ctpwrapper": "ctpwrapper"},
     # package_data={"": package_data},
 
