@@ -101,4 +101,7 @@ ENV/
 .idea/
 MdApi.cpp
 TraderApi.cpp
+
+ctpwrapper/error.dtd
+ctpwrapper/error.xml
 .pytest_cache/
