@@ -115,7 +115,8 @@ setup(
     platforms=["win32", "linux"],
     packages=find_packages(exclude=["tests", "samples"]),
 
-    package_data={"": package_data.append("ctp/*")},
+
+    package_data={"ctpwrapper": package_data.append("ctp/*")},
 
     ext_modules=cythonize(ext_modules),
     cmdclass={'build_ext': BuildExt},
