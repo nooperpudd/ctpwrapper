@@ -113,7 +113,7 @@ setup(
     install_requires=["cython>=0.28.1"],
     include_dirs=[header_dir, cpp_header_dir],
     platforms=["win32", "linux"],
-    packages= find_packages(exclude=["*tests*"]),
+    packages= find_packages(exclude=["tests","samples"]),
 
     # package_dir={"ctpwrapper": "ctpwrapper"},
     # package_data={"": package_data},
