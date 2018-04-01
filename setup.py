@@ -43,6 +43,7 @@ ctp_dir = os.path.join(project_dir, "ctp")
 cython_headers = os.path.join(project_dir, "headers")
 header_dir = os.path.join(ctp_dir, "header")
 cpp_header_dir = os.path.join(project_dir, "cppheader")
+
 lib_dir = None
 package_data = ["*.xml", "*.dtd"]
 extra_link_args = None
@@ -115,9 +116,8 @@ setup(
     platforms=["win32", "linux"],
     packages=find_packages(exclude=["tests", "samples"]),
 
-
-    package_data={"ctpwrapper": package_data.append("ctp/*")},
-
+    package_data={"": package_data},
+    
     ext_modules=cythonize(ext_modules),
     cmdclass={'build_ext': BuildExt},
     classifiers=[
