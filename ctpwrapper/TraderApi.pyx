@@ -3,7 +3,7 @@
 # cython: nonecheck=True
 # cython: profile=False
 # cython: binding=True
-
+# cython: language_level=3
 """
 (Copyright) 2018, Winton Wang <365504029@qq.com>
 
