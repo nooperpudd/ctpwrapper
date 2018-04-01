@@ -1,4 +1,4 @@
-/*
+﻿/*
 (Copyright) 2018, Winton Wang <365504029@qq.com>
 
 ctpwrapper is free software: you can redistribute it and/or modify
