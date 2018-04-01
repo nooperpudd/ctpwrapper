@@ -6,8 +6,8 @@ import re
 import shutil
 import sys
 from distutils.dir_util import copy_tree
-
 from setuptools import setup, find_packages
+
 # issue put in the cython library bellow will cause
 # error: each element of 'ext_modules' option must be an Extension instance or 2-tuple
 
@@ -113,11 +113,13 @@ setup(
     url="https://github.com/nooperpudd/ctpwrapper",
     install_requires=["cython>=0.28.1"],
     include_dirs=[header_dir, cpp_header_dir],
+    zip_safe=False,
     platforms=["win32", "linux"],
-    packages=find_packages(exclude=["tests", "samples"]),
+    packages=find_packages(where="ctpwrapper", exclude=["tests*", "samples", "doc", "6.3.11"]),
 
     package_data={"": package_data},
-    zip_safe=False,
+    package_dir={"": "ctpwrapper"},
+
     ext_modules=cythonize(ext_modules),
     cmdclass={'build_ext': BuildExt},
     classifiers=[
