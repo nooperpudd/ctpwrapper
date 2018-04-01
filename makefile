@@ -18,3 +18,8 @@ build: clean
 .PHONY: install
 install: clean
 	python3 setup.py install
+
+.PHONY: sdist
+sdist: clean
+	python3 setup.py sdist
+
