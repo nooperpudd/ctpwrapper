@@ -1,8 +1,9 @@
 clean:
 	python3 setup.py clean --all
 	rm -rf build dist
-	find ./ctpwrapper/ -name "*.so"  -delete
-	find ./ctpwrapper/ -name "*.cpp"  -delete
+	find ./ctpwrapper/ -name "Md*.so"  -delete
+	find ./ctpwrapper/ -name "Trader*.so"  -delete
+	find ./ctpwrapper/ -name "*.cpp" -delete
 
 
 .PHONY: build-local
