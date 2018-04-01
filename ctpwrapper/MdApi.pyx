@@ -3,8 +3,6 @@
 # cython: nonecheck=True
 # cython: profile=False
 # cython: binding=True
-# cython: language_level=3
-
 # binding = true for inspect get callargs
 
 """
