@@ -25,11 +25,11 @@ environment:
 
   matrix:
     - PYTHON: "C:\\Python36-x64"
-      PYTHON_VERSION: "3.6"
+      PYTHON_VERSION: "3.6.5"
       PYTHON_ARCH: "64"
 
     - PYTHON: "C:\\Python35-x64"
-      PYTHON_VERSION: "3.5"
+      PYTHON_VERSION: "3.5.5"
       PYTHON_ARCH: "64"
 
 init:
@@ -45,9 +45,10 @@ init:
         Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
           throw "There are newer queued builds for this pull request, failing early." }
 
+build: off
 
 install:
-  # Install the Redis
+
 
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   # Check that we have the expected version and architecture for Python
@@ -57,26 +58,29 @@ install:
   - "%CMD_IN_ENV% python -m pip install -U pip setuptools wheel"
   - "%CMD_IN_ENV% pip install -r requirements.txt"
   - "%CMD_IN_ENV% pip install pytest"
+
 test_script:
 
   - "%CMD_IN_ENV% python setup.py build_ext --inplace"
   - "%CMD_IN_ENV% pytest -v -s"
 
-build_script:
-  - "%CMD_IN_ENV% python setup.py bdist_wheel"
+# ignore auto publish to pypi.
 
-artifacts:
-  # bdist_wheel puts your built wheel in the dist directory
-  - path: 'dist\*.whl'
-    name: wheel
+#build_script:
+#  - "%CMD_IN_ENV% python setup.py bdist_wheel"
+#
+#artifacts:
+#  # bdist_wheel puts your built wheel in the dist directory
+#  - path: 'dist\*.whl'
+#    name: wheel
 
-deploy_script:
-  # This step builds your wheels.
-  # Again, you only need build.cmd if you're building C extensions for
-  # 64-bit Python 3.3/3.4. And you need to use %PYTHON% to get the correct
-  # interpreter
-  - "echo [pypi] > %USERPROFILE%\\.pypirc"
-  - "echo username: nooperpudd >> %USERPROFILE%\\.pypirc"
-  - "echo password: %password% >> %USERPROFILE%\\.pypirc"
-  - "%CMD_IN_ENV% python setup.py upload"
+#deploy_script:
+#  # This step builds your wheels.
+#  # Again, you only need build.cmd if you're building C extensions for
+#  # 64-bit Python 3.3/3.4. And you need to use %PYTHON% to get the correct
+#  # interpreter
+#  - "echo [pypi] > %USERPROFILE%\\.pypirc"
+#  - "echo username: nooperpudd >> %USERPROFILE%\\.pypirc"
+#  - "echo password: %password% >> %USERPROFILE%\\.pypirc"
+#  - "%CMD_IN_ENV% python setup.py upload"
 
