@@ -18,7 +18,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 """
 import time
 
-from .MdApi import MdApiWrapper
+from ctpwrapper.MdApi import MdApiWrapper
 
 
 class MdApiPy(MdApiWrapper):

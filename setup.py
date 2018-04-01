@@ -5,14 +5,16 @@ import platform
 import re
 import shutil
 import sys
+from distutils.core import setup
 from distutils.dir_util import copy_tree
-
-from setuptools import setup
-# issue put in the cython library bellow will cause
-# error: each element of 'ext_modules' option must be an Extension instance or 2-tuple
 
 from Cython.Build import cythonize, build_ext
 from Cython.Distutils import Extension as Cython_Extension
+
+
+# from setuptools import setup
+# issue put in the cython library bellow will cause
+# error: each element of 'ext_modules' option must be an Extension instance or 2-tuple
 
 
 def find_version(*file_paths):
@@ -43,6 +45,7 @@ ctp_dir = os.path.join(base_dir, "ctp")
 cython_headers = os.path.join(project_dir, "headers")
 header_dir = os.path.join(ctp_dir, "header")
 cpp_header_dir = os.path.join(project_dir, "cppheader")
+
 lib_dir = None
 package_data = ["*.xml", "*.dtd"]
 extra_link_args = None
@@ -110,12 +113,9 @@ setup(
     author="Winton Wang",
     author_email="365504029@qq.com",
     url="https://github.com/nooperpudd/ctpwrapper",
-
-    install_requires=["cython>=0.28.1"],
-    packages=["ctpwrapper"],
     include_dirs=[header_dir, cpp_header_dir],
     platforms=["win32", "linux"],
-    package_dir={"ctpwrapper": "ctpwrapper"},
+    packages=["ctpwrapper"],
     package_data={"": package_data},
     ext_modules=cythonize(ext_modules),
     cmdclass={'build_ext': BuildExt},
