@@ -117,7 +117,7 @@ setup(
     packages=find_packages(exclude=["tests", "samples"]),
 
     package_data={"": package_data},
-    
+    zip_safe=False,
     ext_modules=cythonize(ext_modules),
     cmdclass={'build_ext': BuildExt},
     classifiers=[
