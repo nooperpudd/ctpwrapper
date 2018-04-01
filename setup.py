@@ -41,7 +41,7 @@ if platform.architecture()[0] != "64bit":
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.join(base_dir, "ctpwrapper")
-ctp_dir = os.path.join(project_dir, "ctp")
+ctp_dir = os.path.join(base_dir, "ctp")
 cython_headers = os.path.join(project_dir, "headers")
 header_dir = os.path.join(ctp_dir, "header")
 cpp_header_dir = os.path.join(project_dir, "cppheader")
@@ -117,8 +117,6 @@ setup(
     platforms=["win32", "linux"],
     packages=["ctpwrapper"],
     package_data={"": package_data},
-    package_dir={"": "ctpwrapper"},
-
     ext_modules=cythonize(ext_modules),
     cmdclass={'build_ext': BuildExt},
     classifiers=[
