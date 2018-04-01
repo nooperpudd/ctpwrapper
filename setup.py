@@ -8,7 +8,6 @@ import sys
 from distutils.dir_util import copy_tree
 
 from setuptools import setup
-
 # issue put in the cython library bellow will cause
 # error: each element of 'ext_modules' option must be an Extension instance or 2-tuple
 
@@ -105,6 +104,7 @@ setup(
     version=find_version("ctpwrapper", "__init__.py"),
     description="CTP client v6.3.6_20160606",
     long_description=codecs.open("README.md", encoding="utf-8").read(),
+    long_description_content_type='text/markdown',
     license="LGPLv3",
     keywords="CTP,Future,SHFE,Shanghai Future Exchange",
     author="Winton Wang",
