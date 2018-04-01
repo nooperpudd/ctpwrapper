@@ -23,3 +23,7 @@ install: clean
 sdist: clean
 	python3 setup.py sdist
 
+twine:
+	twine upload dist/*
+
+
