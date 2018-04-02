@@ -18,7 +18,11 @@ Python Requirement: x86-64
 Inspire By lovelylain 
 
 # Install
-   
+
+Before you install ctpwrapper package, you need to make sure you have 
+already install cython package.
+    
+    pip install cython -upgrade
     pip install ctpwrapper 
 
 # Usage
