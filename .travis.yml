@@ -10,6 +10,11 @@ matrix:
     python: '3.5.5'
     compiler: gcc-5
     env: CC=gcc
+  - os: linux
+    python: "pypy3.5"
+    compiler: gcc-5
+    env: CC=gcc
+
 
 sudo: false
 
