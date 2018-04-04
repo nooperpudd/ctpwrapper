@@ -12,6 +12,10 @@ cache:
   # container, speed up the appveyor jobs and reduce bandwidth
   # usage on our rackspace account.
   - '%LocalAppData%\pip\Cache'
+  
+image:
+- Visual Studio 2015
+- Visual Studio 2017
 
 environment:
 
