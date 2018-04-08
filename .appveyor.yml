@@ -15,11 +15,11 @@ init:
         Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
           throw "There are newer queued builds for this pull request, failing early." }
 
-  - ps: If(($env:PYTHON).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://bitbucket.org/pypy/pypy/downloads/pypy3-v5.10.1-win32.zip', "$env:appveyor_build_folder\pypy3.zip"); 7z x pypy3.zip | Out-Null; move pypy3-v5.10.1-win32 C:\pypy3; move C:\pypy3\pypy3.exe C:\pypy3\python.exe }
+
 
 #  - "ECHO %PYTHON% %PYTHON_VERSION%"
 
-#clone_folder: C:\projects\ctpwrapper
+clone_folder: C:\projects\ctpwrapper
 
 cache:
   # Use the appveyor cache to avoid re-downloading large archives such
@@ -55,6 +55,8 @@ environment:
 build: off
 
 install:
+
+  - ps: If(($env:PYTHON).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://bitbucket.org/pypy/pypy/downloads/pypy3-v5.10.1-win32.zip', "$env:appveyor_build_folder\pypy3.zip"); 7z x pypy3.zip | Out-Null; move pypy3-v5.10.1-win32 C:\pypy3; move C:\pypy3\pypy3.exe C:\pypy3\python.exe }
 
   - ps: If(($env:PYTHON).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://bootstrap.pypa.io/get-pip.py', "$env:appveyor_build_folder\get-pip.py"); python get-pip.py }
 
