@@ -12,7 +12,7 @@ cache:
   # container, speed up the appveyor jobs and reduce bandwidth
   # usage on our rackspace account.
   - '%LocalAppData%\pip\Cache'
-  
+
 image:
 - Visual Studio 2015
 - Visual Studio 2017
@@ -24,8 +24,6 @@ environment:
     # /E:ON and /V:ON options are not enabled in the batch script intepreter
     # See: http://stackoverflow.com/a/13751649/163740
     CMD_IN_ENV: 'cmd /E:ON /V:ON /C .\extra\appveyor\compiler.cmd'
-  password:
-    secure: OMiYQiLUSBqwsbF0JRAAVA==
 
   matrix:
     - PYTHON: "C:\\Python36-x64"
@@ -34,6 +32,9 @@ environment:
 
     - PYTHON: "C:\\Python35-x64"
       PYTHON_VERSION: "3.5.5"
+      PYTHON_ARCH: "64"
+
+    - PYTHON: "pypy3"
       PYTHON_ARCH: "64"
 
 init:
