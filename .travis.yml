@@ -1,19 +1,24 @@
-matrix:
-  include:
-  - os: linux
-    language: python
-    python: '3.6.5'
-    compiler: gcc-5
-    env: CC=gcc
-  - os: linux
-    language: python
-    python: '3.5.5'
-    compiler: gcc-5
-    env: CC=gcc
-  - os: linux
-    python: "pypy3.5"
-    compiler: gcc-5
-    env: CC=gcc
+language: python
+
+python:
+  - "3.5.5"
+  - "3.6.5"
+  - "pypy3.5"
+
+compiler:
+  - clang
+
+#matrix:
+#  include:
+#  - python: '3.6.5'
+#    compiler: gcc-5
+#    env: CC=gcc
+#  - python: '3.5.5'
+#    compiler: gcc-5
+#    env: CC=gcc
+#  - python: "pypy3.5"
+#    compiler: gcc-5
+#    env: CC=gcc
 
 
 sudo: false
