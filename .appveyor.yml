@@ -69,7 +69,7 @@ install:
 
 test_script:
 
-  - "%CMD_IN_ENV% python -m setup.py build_ext --inplace"
+  - "%CMD_IN_ENV% python setup.py build_ext --inplace"
   - "python -m pytest -v -s"
 
 # ignore auto publish to pypi.
