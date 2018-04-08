@@ -54,15 +54,16 @@ install:
 
   - ps: If(($env:PYTHON).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://bitbucket.org/pypy/pypy/downloads/pypy3-v5.10.1-win32.zip', "$env:appveyor_build_folder\pypy3.zip"); 7z x pypy3.zip | Out-Null; move pypy3-v5.10.1-win32 C:\pypy3; move C:\pypy3\pypy3.exe C:\pypy3\python.exe }
 
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+
   - ps: If(($env:PYTHON).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://bootstrap.pypa.io/get-pip.py', "$env:appveyor_build_folder\get-pip.py"); python get-pip.py }
 
-  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   # Check that we have the expected version and architecture for Python
-  - "python --version"
+  - cmd: "python --version"
   #  - "%CMD_IN_ENV% python -c \"import struct; print(struct.calcsize('P') * 8)\"" # show python version
-#  - ps: If(($env:PYTHON).Contains("pypy3")) { python -m pip install -U --force-reinstall pip }
+  - ps: If(($env:PYTHON).Contains("pypy3")) { python -m pip install -U --force-reinstall pip }
   #  - "%CMD_IN_ENV% python -m pip install -U pip setuptools wheel"
-  - "pip --version"
+  - "python -m pip --version"
   - "python -m pip install -r requirements.txt"
   - "python -m pip install pytest"
 
