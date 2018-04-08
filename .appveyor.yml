@@ -15,10 +15,6 @@ init:
         Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
           throw "There are newer queued builds for this pull request, failing early." }
 
-
-
-#  - "ECHO %PYTHON% %PYTHON_VERSION%"
-
 clone_folder: C:\projects\ctpwrapper
 
 cache:
@@ -64,15 +60,15 @@ install:
   # Check that we have the expected version and architecture for Python
   - "python --version"
 #  - "%CMD_IN_ENV% python -c \"import struct; print(struct.calcsize('P') * 8)\"" # show python version
-
+   - ps: If(($env:PYTHON).Contains("pypy3")) { python -m pip install -U --force-reinstall pip }
 #  - "%CMD_IN_ENV% python -m pip install -U pip setuptools wheel"
-  - "%CMD_IN_ENV% pip install -r requirements.txt"
-  - "%CMD_IN_ENV% pip install pytest"
+  - "python -m pip install -r requirements.txt"
+  - "python -m pip install pytest"
 
 test_script:
 
   - "%CMD_IN_ENV% python setup.py build_ext --inplace"
-  - "%CMD_IN_ENV% pytest -v -s"
+  - "pytest -v -s"
 
 # ignore auto publish to pypi.
 
