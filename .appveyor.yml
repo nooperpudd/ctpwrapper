@@ -60,13 +60,13 @@ install:
 
   - "SET PATH=%PYTHON_DIR%;%PYTHON_DIR%\\Scripts;%PATH%"
 
-  - ps: If(($env:PYTHON_VERSION).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://bootstrap.pypa.io/get-pip.py', "$env:appveyor_build_folder\get-pip.py"); %PYTHON% get-pip.py }
+  - ps: If(($env:PYTHON_VERSION).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://bootstrap.pypa.io/get-pip.py', "$env:appveyor_build_folder\get-pip.py"); pypy3.exe get-pip.py }
 
   # Check that we have the expected version and architecture for Python
   - cmd: "%PYTHON% --version"
   #  - "%CMD_IN_ENV% python -c \"import struct; print(struct.calcsize('P') * 8)\"" # show python version
   #  - ps: If(($env:PYTHON).Contains("pypy3")) { python -m pip install -U --force-reinstall pip }
-  - "%python% -m pip install -U pip setuptools wheel"
+  - "%PYTHON% -m pip install -U pip setuptools wheel"
   - "%PYTHON% -m pip --version"
   - "%PYTHON% -m pip install -r requirements.txt"
   - "%PYTHON% -m pip install pytest"
