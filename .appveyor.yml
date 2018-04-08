@@ -74,7 +74,7 @@ install:
   - "%PYTHON% -m pip install pytest"
 
 test_script:
-
+  - if "%PYTHON%" == "C:\\pypy3\\pypy3" SET VS100COMNTOOLS=%VS140COMNTOOLS%
   - "%CMD_IN_ENV% %PYTHON% setup.py build_ext --inplace"
   - "%PYTHON% -m pytest -v -s"
 
