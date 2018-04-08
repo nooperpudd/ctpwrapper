@@ -36,8 +36,8 @@ def find_version(*file_paths):
     raise RuntimeError("Unable to find version string.")
 
 
-if platform.architecture()[0] != "64bit":
-    raise EnvironmentError("Please install Python x86-64")
+# if platform.architecture()[0] != "64bit":
+#     raise EnvironmentError("Please install Python x86-64")
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.join(base_dir, "ctpwrapper")
