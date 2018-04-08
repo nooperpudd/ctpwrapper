@@ -108,9 +108,7 @@ IF %MAJOR_PYTHON_VERSION% == 2 (
 ) ELSE (
     IF %MAJOR_PYTHON_VERSION% == 3 (
         SET WINDOWS_SDK_VERSION="v7.1"
-        IF %MINOR_PYTHON_VERSION% LEQ 4 (
-           :: SET SET_SDK_64=Y
-        ) ELSE (
+        IF %MINOR_PYTHON_VERSION% GTR 4 (
             SET SET_SDK=N
             :: SET SET_SDK_64=N
             IF EXIST "%WIN_WDK%" (
