@@ -30,12 +30,9 @@
 :: outside of the IF clauses, they do not run properly in the SET_SDK_64==Y
 :: case, I don't know why.
 
-:: @ECHO OFF
+::@ECHO OFF
 
 SET COMMAND_TO_RUN=%*
-
-SET SET_SDK=Y
-
 SET WIN_SDK_ROOT=C:\Program Files\Microsoft SDKs\Windows
 SET WIN_WDK=c:\Program Files (x86)\Windows Kits\10\Include\wdf
 
@@ -50,67 +47,16 @@ IF "%PYTHON_VERSION:~3,1%" == "." (
 
 :: Based on the Python version, determine what SDK version to use, and whether
 :: to set the SDK for 64-bit.
-::IF %MAJOR_PYTHON_VERSION% == 2 (
-::    SET WINDOWS_SDK_VERSION="v7.0"
-   :: SET SET_SDK_64=Y
-::) ELSE (
-::    IF %MAJOR_PYTHON_VERSION% == 3 (
-::        SET WINDOWS_SDK_VERSION="v7.1"
-::        IF %MINOR_PYTHON_VERSION% LEQ 4 (
-::            SET SET_SDK_64=Y
-::        ) ELSE (
-::            SET SET_SDK_64=N
-::            IF EXIST "%WIN_WDK%" (
-                :: See: https://connect.microsoft.com/VisualStudio/feedback/details/1610302/
-::                REN "%WIN_WDK%" 0wdf
-::            )
-::        )
-::    ) ELSE (
-::        ECHO Unsupported Python version: "%MAJOR_PYTHON_VERSION%"
-::        EXIT 1
-::    )
-::)
-
-:: Less Than or Equal To LEQ
-
-::IF %MAJOR_PYTHON_VERSION% == 2 (
-::    SET WINDOWS_SDK_VERSION="v7.0"
-::) ELSE IF %MAJOR_PYTHON_VERSION% == 3 (
-::    SET WINDOWS_SDK_VERSION="v7.1"
-::    IF %MINOR_PYTHON_VERSION% GTR 4 (
-::        SET SET_SDK=N
-::        IF EXIST "%WIN_WDK%" (
-::                :: See: https://connect.microsoft.com/VisualStudio/feedback/details/1610302/
-::            REN "%WIN_WDK%" 0wdf
-::    )
-::) ELSE (
-::    ECHO Unsupported Python version: "%MAJOR_PYTHON_VERSION%"
-::    EXIT 1
-:: )
-
-::IF %MAJOR_PYTHON_VERSION% == 2 (
-::    SET WINDOWS_SDK_VERSION="v7.0"
-::) ELSE IF %MAJOR_PYTHON_VERSION% == 3 (
-::    SET WINDOWS_SDK_VERSION="v7.1"
-::    IF %MINOR_PYTHON_VERSION% GTR 4 (
-::        SET SET_SDK=N
-::    )
-::) ELSE (
-::    ECHO Unsupported Python version: "%MAJOR_PYTHON_VERSION%"
-::    EXIT 1
-:: )
-ECHO %MAJOR_PYTHON_VERSION%
-ECHO %MINOR_PYTHON_VERSION%
-
 IF %MAJOR_PYTHON_VERSION% == 2 (
     SET WINDOWS_SDK_VERSION="v7.0"
-   :: SET SET_SDK_64=Y
+    SET SET_SDK_64=Y
 ) ELSE (
     IF %MAJOR_PYTHON_VERSION% == 3 (
         SET WINDOWS_SDK_VERSION="v7.1"
-        IF %MINOR_PYTHON_VERSION% GTR 4 (
-            SET SET_SDK=N
-            :: SET SET_SDK_64=N
+        IF %MINOR_PYTHON_VERSION% LEQ 4 (
+            SET SET_SDK_64=Y
+        ) ELSE (
+            SET SET_SDK_64=N
             IF EXIST "%WIN_WDK%" (
                 :: See: https://connect.microsoft.com/VisualStudio/feedback/details/1610302/
                 REN "%WIN_WDK%" 0wdf
@@ -122,14 +68,14 @@ IF %MAJOR_PYTHON_VERSION% == 2 (
     )
 )
 
-
 IF "%PYTHON_PYPY:~0,4%" == "pypy" (
-    SET SET_SDK=Y
-    SET WINDOWS_SDK_VERSION="v7.0"
+    SET SET_SDK_64=Y
+    SET WINDOWS_SDK_VERSION="v7.1"
 )
 
-IF %PYTHON_ARCH% == 64  (
-    IF %SET_SDK% == Y (
+
+IF %PYTHON_ARCH% == 64 (
+    IF %SET_SDK_64% == Y (
         ECHO Configuring Windows SDK %WINDOWS_SDK_VERSION% for Python %MAJOR_PYTHON_VERSION% on a 64 bit architecture
         SET DISTUTILS_USE_SDK=1
         SET MSSdk=1
