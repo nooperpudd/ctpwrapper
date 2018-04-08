@@ -91,7 +91,6 @@ ext_modules = [
                      **common_args)
 ]
 
-
 # class BuildExt(build_ext):
 #     def build_extensions(self):
 #         # fix waring
@@ -100,7 +99,6 @@ ext_modules = [
 #         if sys.platform == "linux":
 #             self.compiler.compiler_so.remove('-Wstrict-prototypes')
 #         super(BuildExt, self).build_extensions()
-
 
 setup(
     name="ctpwrapper",
@@ -132,6 +130,9 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: Implementation",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development",
         "Topic :: Software Development :: Libraries"
     ]
