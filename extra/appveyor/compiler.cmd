@@ -68,10 +68,10 @@ IF %MAJOR_PYTHON_VERSION% == 2 (
     )
 )
 
-IF "%PYTHON_PYPY:~0,4%" == "pypy" (
-    SET SET_SDK_64=Y
-    SET WINDOWS_SDK_VERSION="v7.1"
-)
+::IF "%PYTHON_PYPY:~0,4%" == "pypy3" (
+::    SET SET_SDK_64=Y
+::    SET WINDOWS_SDK_VERSION="v7.1"
+::)
 
 
 IF %PYTHON_ARCH% == 64 (
