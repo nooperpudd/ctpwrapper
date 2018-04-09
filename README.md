@@ -219,9 +219,9 @@ if __name__ == "__main__":
 # Donate [捐助]
 
 
-  ![Alipay](images/alipay.jpg "Alipay")
+  ![Alipay](images/alipay.jpg =200x200)
 
-  ![Wechat](images/wechat.jpg "WeChat")
+  ![Wechat](images/wechat.jpg =200x200)
 
 
 # Contact
