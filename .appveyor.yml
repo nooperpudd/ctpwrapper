@@ -54,6 +54,9 @@ environment:
       PYTHON_VERSION: "3.5.3"
       PYTHON_PYPY_VERSION: "5.10.1"
 
+    allow_failures:
+      - PYTHON_PYPY: "pypy3"
+
 build: off
 
 install:
@@ -74,7 +77,8 @@ install:
   - "%PYTHON% -m pip install pytest"
 
 test_script:
-  - if "%PYTHON%" == "C:\\pypy3\\pypy3" SET VS100COMNTOOLS=%VS140COMNTOOLS%
+  - SET VS90COMNTOOLS=%VS140COMNTOOLS%
+  - SET VS90COMNTOOLS=%VS150COMNTOOLS%
   - "%CMD_IN_ENV% %PYTHON% setup.py build_ext --inplace"
   - "%PYTHON% -m pytest -v -s"
 

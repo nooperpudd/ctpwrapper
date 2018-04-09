@@ -15,6 +15,8 @@ Platform: Linux 64bit, Windows 64bit
 
 Python Requirement: x86-64
 
+**Especially Support PyPy3-v5.10.1-3.5.3 Linux 64bit**
+
 Inspire By lovelylain 
 
 # Install
@@ -212,6 +214,10 @@ if __name__ == "__main__":
 
 # Documentation
   CTP's documentation can be found in the [docs](doc/ctp/)
+
+# Donate [捐助]
+
+
 
 # Contact
 
