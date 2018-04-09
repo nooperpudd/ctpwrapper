@@ -28,6 +28,14 @@ already install cython package.
     pip install cython -upgrade
     pip install ctpwrapper 
 
+
+# Donate [捐助]
+
+  <img src="images/alipay.jpg" width="200" height="200">
+
+  <img src="images/wechat.jpg" width="200" height="200">
+
+
 # Usage
 
  MdApi Class Wrapper
@@ -216,12 +224,6 @@ if __name__ == "__main__":
 # Documentation
   CTP's documentation can be found in the [docs](doc/ctp/)
 
-# Donate [捐助]
-
-
-  ![Alipay](images/alipay.jpg =200x200)
-
-  ![Wechat](images/wechat.jpg =200x200)
 
 
 # Contact
