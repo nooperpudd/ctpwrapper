@@ -4,6 +4,17 @@
 platform:
   - x64
 
+init:
+  # If there is a newer build queued for the same PR, cancel this one.
+  # The AppVeyor 'rollout builds' option is supposed to serve the same
+  # purpose but it is problematic because it tends to cancel builds pushed
+  # directly to master instead of just PR builds (or the converse).
+  # credits: JuliaLang developers.
+  - ps: if ($env:APPVEYOR_PULL_REQUEST_NUMBER -and $env:APPVEYOR_BUILD_NUMBER -ne ((Invoke-RestMethod `
+        https://ci.appveyor.com/api/projects/$env:APPVEYOR_ACCOUNT_NAME/$env:APPVEYOR_PROJECT_SLUG/history?recordsNumber=50).builds | `
+        Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
+          throw "There are newer queued builds for this pull request, failing early." }
+
 clone_folder: C:\projects\ctpwrapper
 
 cache:
@@ -12,7 +23,7 @@ cache:
   # container, speed up the appveyor jobs and reduce bandwidth
   # usage on our rackspace account.
   - '%LocalAppData%\pip\Cache'
-  
+
 image:
 - Visual Studio 2015
 - Visual Studio 2017
@@ -24,49 +35,55 @@ environment:
     # /E:ON and /V:ON options are not enabled in the batch script intepreter
     # See: http://stackoverflow.com/a/13751649/163740
     CMD_IN_ENV: 'cmd /E:ON /V:ON /C .\extra\appveyor\compiler.cmd'
-  password:
-    secure: OMiYQiLUSBqwsbF0JRAAVA==
-
   matrix:
-    - PYTHON: "C:\\Python36-x64"
-      PYTHON_VERSION: "3.6.5"
-      PYTHON_ARCH: "64"
 
-    - PYTHON: "C:\\Python35-x64"
+    - PYTHON_DIR: "C:\\Python35-x64"
+      PYTHON: "C:\\Python35-X64\\python"
       PYTHON_VERSION: "3.5.5"
       PYTHON_ARCH: "64"
 
-init:
-  - "ECHO %PYTHON% %PYTHON_VERSION%"
+    - PYTHON_DIR: "C:\\Python36-x64"
+      PYTHON: "C:\\Python36-X64\\python"
+      PYTHON_VERSION: "3.6.5"
+      PYTHON_ARCH: "64"
 
-  # If there is a newer build queued for the same PR, cancel this one.
-  # The AppVeyor 'rollout builds' option is supposed to serve the same
-  # purpose but it is problematic because it tends to cancel builds pushed
-  # directly to master instead of just PR builds (or the converse).
-  # credits: JuliaLang developers.
-  - ps: if ($env:APPVEYOR_PULL_REQUEST_NUMBER -and $env:APPVEYOR_BUILD_NUMBER -ne ((Invoke-RestMethod `
-        https://ci.appveyor.com/api/projects/$env:APPVEYOR_ACCOUNT_NAME/$env:APPVEYOR_PROJECT_SLUG/history?recordsNumber=50).builds | `
-        Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
-          throw "There are newer queued builds for this pull request, failing early." }
+    - PYTHON_DIR: "C:\\pypy3"
+      PYTHON: "C:\\pypy3\\pypy3"
+      PYTHON_ARCH: "32"
+      PYTHON_PYPY: "pypy3"
+      PYTHON_VERSION: "3.5.3"
+      PYTHON_PYPY_VERSION: "5.10.1"
+
+
+matrix:
+  allow_failures:
+    - PYTHON_PYPY: "pypy3"
 
 build: off
 
 install:
 
+  - ps: If(($env:PYTHON).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://bitbucket.org/pypy/pypy/downloads/pypy3-v5.10.1-win32.zip', "$env:appveyor_build_folder\pypy3.zip"); 7z x pypy3.zip | Out-Null; move pypy3-v5.10.1-win32 C:\pypy3; }
 
-  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - "SET PATH=%PYTHON_DIR%;%PYTHON_DIR%\\bin;%PYTHON_DIR%\\Scripts;%PATH%"
+
+  - ps: If(($env:PYTHON).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://bootstrap.pypa.io/get-pip.py', "$env:appveyor_build_folder\get-pip.py"); pypy3.exe get-pip.py }
+
   # Check that we have the expected version and architecture for Python
-  - "python --version"
-  - "%CMD_IN_ENV% python -c \"import struct; print(struct.calcsize('P') * 8)\"" # show python version
+  - cmd: "%PYTHON% --version"
 
-  - "%CMD_IN_ENV% python -m pip install -U pip setuptools wheel"
-  - "%CMD_IN_ENV% pip install -r requirements.txt"
-  - "%CMD_IN_ENV% pip install pytest"
+  - "%PYTHON% -c \"import struct; print(struct.calcsize('P') * 8)\"" # show python version
+
+  - "%PYTHON% -m pip install -U pip setuptools wheel"
+  - "%PYTHON% -m pip install -r requirements.txt"
+  
+  - "%PYTHON% -m pip install pytest"
 
 test_script:
-
-  - "%CMD_IN_ENV% python setup.py build_ext --inplace"
-  - "%CMD_IN_ENV% pytest -v -s"
+  - SET VS90COMNTOOLS=%VS140COMNTOOLS%
+  - SET VS90COMNTOOLS=%VS150COMNTOOLS%
+  - "%CMD_IN_ENV% %PYTHON% setup.py build_ext --inplace"
+  - "%PYTHON% -m pytest -v -s"
 
 # ignore auto publish to pypi.
 

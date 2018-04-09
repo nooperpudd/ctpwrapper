@@ -6,7 +6,7 @@
 [![pypi](https://img.shields.io/pypi/v/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
 [![status](https://img.shields.io/pypi/status/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
 [![pyversion](https://img.shields.io/pypi/pyversions/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
-
+[![implementation](https://img.shields.io/pypi/implementation/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
 [CTP Website](http://www.sfit.com.cn/5_2_DocumentDown.htm)
 
 Version: v6.3.6_20160606
@@ -14,6 +14,8 @@ Version: v6.3.6_20160606
 Platform: Linux 64bit, Windows 64bit
 
 Python Requirement: x86-64
+
+**Especially Support PyPy3-v5.10.1-3.5.3 Linux 64bit**
 
 Inspire By lovelylain 
 
@@ -212,6 +214,10 @@ if __name__ == "__main__":
 
 # Documentation
   CTP's documentation can be found in the [docs](doc/ctp/)
+
+# Donate [捐助]
+
+
 
 # Contact
 

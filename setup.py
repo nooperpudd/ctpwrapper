@@ -91,16 +91,14 @@ ext_modules = [
                      **common_args)
 ]
 
-
-class BuildExt(build_ext):
-    def build_extensions(self):
-        # fix waring
-        # cc1plus: warning: command line option ‘-Wstrict-prototypes’ is
-        # valid for C/ObjC but not for C++ [enabled by default]
-        if sys.platform == "linux":
-            self.compiler.compiler_so.remove('-Wstrict-prototypes')
-        super(BuildExt, self).build_extensions()
-
+# class BuildExt(build_ext):
+#     def build_extensions(self):
+#         # fix waring
+#         # cc1plus: warning: command line option ‘-Wstrict-prototypes’ is
+#         # valid for C/ObjC but not for C++ [enabled by default]
+#         if sys.platform == "linux":
+#             self.compiler.compiler_so.remove('-Wstrict-prototypes')
+#         super(BuildExt, self).build_extensions()
 
 setup(
     name="ctpwrapper",
@@ -118,7 +116,7 @@ setup(
     packages=["ctpwrapper"],
     package_data={"": package_data},
     ext_modules=cythonize(ext_modules),
-    cmdclass={'build_ext': BuildExt},
+    cmdclass={'build_ext': build_ext},
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
@@ -132,6 +130,9 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: Implementation",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development",
         "Topic :: Software Development :: Libraries"
     ]

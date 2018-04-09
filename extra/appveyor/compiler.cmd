@@ -29,6 +29,7 @@
 :: The CALL lines at the end of this file look redundant, but if you move them
 :: outside of the IF clauses, they do not run properly in the SET_SDK_64==Y
 :: case, I don't know why.
+
 @ECHO OFF
 
 SET COMMAND_TO_RUN=%*
@@ -66,6 +67,7 @@ IF %MAJOR_PYTHON_VERSION% == 2 (
         EXIT 1
     )
 )
+
 
 IF %PYTHON_ARCH% == 64 (
     IF %SET_SDK_64% == Y (

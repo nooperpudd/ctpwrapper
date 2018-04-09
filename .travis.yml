@@ -1,15 +1,12 @@
-matrix:
-  include:
-  - os: linux
-    language: python
-    python: '3.6.5'
-    compiler: gcc-5
-    env: CC=gcc
-  - os: linux
-    language: python
-    python: '3.5.5'
-    compiler: gcc-5
-    env: CC=gcc
+language: python
+
+python:
+  - "3.5.5"
+  - "3.6.5"
+  - "pypy3"
+
+compiler:
+  - clang
 
 sudo: false
 
@@ -17,9 +14,9 @@ cache: pip
 
 install:
   - python -c "import struct; print(struct.calcsize('P') * 8)"
-  - pip install -U wheel pypi setuptools --upgrade
-  - pip install -r requirements.txt
-  - pip install pytest
+  - "pip install wheel pip setuptools --upgrade"
+  - "pip install -r requirements.txt"
+  - "pip install pytest"
 
 script:
   - python setup.py build_ext --inplace
