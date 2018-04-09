@@ -7,6 +7,7 @@
 [![status](https://img.shields.io/pypi/status/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
 [![pyversion](https://img.shields.io/pypi/pyversions/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
 [![implementation](https://img.shields.io/pypi/implementation/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
+
 [CTP Website](http://www.sfit.com.cn/5_2_DocumentDown.htm)
 
 Version: v6.3.6_20160606
@@ -217,6 +218,10 @@ if __name__ == "__main__":
 
 # Donate [捐助]
 
+
+  ![Alipay](images/alipay.jpg "Alipay")
+
+  ![Wechat](images/wechat.jpg "WeChat")
 
 
 # Contact
