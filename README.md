@@ -31,9 +31,8 @@ already install cython package.
 
 # Donate [捐助]
 
-  <img src="images/alipay.jpg" width="200" height="200">
-
-  <img src="images/wechat.jpg" width="200" height="200">
+  <img src="images/alipay.jpg" width="250" height="250">
+  <img src="images/wechat.jpg" width="250" height="250">
 
 
 # Usage
