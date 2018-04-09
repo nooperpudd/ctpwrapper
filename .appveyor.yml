@@ -54,8 +54,10 @@ environment:
       PYTHON_VERSION: "3.5.3"
       PYTHON_PYPY_VERSION: "5.10.1"
 
-    allow_failures:
-      - PYTHON_PYPY: "pypy3"
+
+matrix:
+  allow_failures:
+    - PYTHON_PYPY: "pypy3"
 
 build: off
 
