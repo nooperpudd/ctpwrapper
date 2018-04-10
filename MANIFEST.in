@@ -5,4 +5,4 @@ recursive-include ctp *
 recursive-include ctpwrapper *.h *.pyx *.pxd
 recursive-exclude ctpwrapper *.cpp *.xml *.dtd
 
-
+global-exclude __pycache__ *.pyc *.pyo
