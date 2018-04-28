@@ -117,9 +117,8 @@ setup(
     package_data={"": package_data},
     # cython: binding=True
     # binding = true for inspect get callargs
-    ext_modules=cythonize(ext_modules, language="c++",
-                          compiler_directives={'binding': True,
-                                               'language_level': 3}
+    ext_modules=cythonize(ext_modules,
+                          compiler_directives={'language_level': 3}
                           ),
     cmdclass={'build_ext': build_ext},
     classifiers=[
