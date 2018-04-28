@@ -1,9 +1,5 @@
 # encoding:utf-8
-# distutils: language = c++
-# cython: nonecheck=True
-# cython: profile=False
-# cython: binding=True
-# binding = true for inspect get callargs
+
 
 """
 (Copyright) 2018, Winton Wang <365504029@qq.com>
