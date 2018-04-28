@@ -127,6 +127,14 @@ class TraderApiPy(TraderApiWrapper):
         """资金账户口令更新请求"""
         return super(TraderApiPy, self).ReqTradingAccountPasswordUpdate(pTradingAccountwordUpdate, nRequestID)
 
+    def ReqUserLogin2(self, pReqUserLogin, nRequestID):
+        """登录请求2"""
+        return super(TraderApiPy, self).ReqUserLogin2(pReqUserLogin, nRequestID)
+
+    def ReqUserPasswordUpdate2(self, pUserPasswordUpdate, nRequestID):
+        """用户口令更新请求2"""
+        return super(TraderApiPy, self).ReqUserPasswordUpdate2(pUserPasswordUpdate, nRequestID)
+
     def ReqOrderInsert(self, pInputOrder, nRequestID):
         """报单录入请求"""
         return super(TraderApiPy, self).ReqOrderInsert(pInputOrder, nRequestID)
@@ -187,6 +195,14 @@ class TraderApiPy(TraderApiWrapper):
         :return:
         """
         return super(TraderApiPy, self).ReqBatchOrderAction(pInputBatchOrderAction, nRequestID)
+
+    def ReqOptionSelfCloseInsert(self, pInputOptionSelfClose, nRequestID):
+        """期权自对冲录入请求"""
+        return super(TraderApiPy, self).ReqOptionSelfCloseInsert(pInputOptionSelfClose, nRequestID)
+
+    def ReqOptionSelfCloseAction(self, pInputOptionSelfCloseAction, nRequestID):
+        """期权自对冲操作请求"""
+        return super(TraderApiPy, self).ReqOptionSelfCloseAction(pInputOptionSelfCloseAction, nRequestID)
 
     def ReqCombActionInsert(self, pInputCombAction, nRequestID):
         """申请组合录入请求"""
@@ -262,7 +278,8 @@ class TraderApiPy(TraderApiWrapper):
 
     def ReqQryInvestorPositionCombineDetail(self, pQryInvestorPositionCombineDetail, nRequestID):
         """请求查询投资者持仓明细"""
-        return super(TraderApiPy, self).ReqQryInvestorPositionCombineDetail(pQryInvestorPositionCombineDetail, nRequestID)
+        return super(TraderApiPy, self).ReqQryInvestorPositionCombineDetail(pQryInvestorPositionCombineDetail,
+                                                                            nRequestID)
 
     def ReqQryCFMMCTradingAccountKey(self, pQryCFMMCTradingAccountKey, nRequestID):
         """请求查询保证金监管系统经纪公司资金账户密钥"""
@@ -329,6 +346,14 @@ class TraderApiPy(TraderApiWrapper):
         """
         return super(TraderApiPy, self).ReqQryInstrumentOrderCommRate(pQryInstrumentOrderCommRate, nRequestID)
 
+    def ReqQrySecAgentTradingAccount(self, pQryTradingAccount, nRequestID):
+        """请求查询资金账户"""
+        return super(TraderApiPy, self).ReqQrySecAgentTradingAccount(pQryTradingAccount, nRequestID)
+
+    def ReqQrySecAgentCheckMode(self, pQrySecAgentCheckMode, nRequestID):
+        """请求查询二级代理商资金校验模式"""
+        return super(TraderApiPy, self).ReqQrySecAgentCheckMode(pQrySecAgentCheckMode, nRequestID)
+
     def ReqQryOptionInstrTradeCost(self, pQryOptionInstrTradeCost, nRequestID):
         """请求查询期权交易成本"""
         return super(TraderApiPy, self).ReqQryOptionInstrTradeCost(pQryOptionInstrTradeCost, nRequestID)
@@ -348,6 +373,14 @@ class TraderApiPy(TraderApiWrapper):
     def ReqQryQuote(self, pQryQuote, nRequestID):
         """请求查询报价"""
         return super(TraderApiPy, self).ReqQryQuote(pQryQuote, nRequestID)
+
+    def ReqQryOptionSelfClose(self, pQryOptionSelfClose, nRequestID):
+        """请求查询期权自对冲"""
+        return super(TraderApiPy, self).ReqQryOptionSelfClose(pQryOptionSelfClose, nRequestID)
+
+    def ReqQryInvestUnit(self, pQryInvestUnit, nRequestID):
+        """请求查询投资单元"""
+        return super(TraderApiPy, self).ReqQryInvestUnit(pQryInvestUnit, nRequestID)
 
     def ReqQryCombInstrumentGuard(self, pQryCombInstrumentGuard, nRequestID):
         """请求查询组合合约安全系数"""
