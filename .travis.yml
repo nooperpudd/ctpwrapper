@@ -19,7 +19,7 @@ install:
   - "pip install pytest"
 
 script:
-  - python setup.py build_ext --inplace -3
+  - python setup.py build_ext --inplace
   - pytest -v -s
 
 before_deploy: "echo 'ready'"
