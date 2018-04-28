@@ -25,8 +25,8 @@ from libcpp cimport bool as cbool
 
 # from libcpp.memory cimport shared_ptr,make_shared
 
-from headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
-from headers.ThostFtdcUserApiStruct cimport (
+from .headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
+from .headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
 CThostFtdcUserLogoutField,
