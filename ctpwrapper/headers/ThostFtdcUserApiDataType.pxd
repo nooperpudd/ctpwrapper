@@ -324,7 +324,6 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcAMLIdCardTypeType[3]
     ctypedef char TThostFtdcAMLTradeDirectType[3]
     ctypedef char TThostFtdcAMLTradeModelType[3]
-    ctypedef char TThostFtdcAMLParamIDType[21]
     ctypedef double TThostFtdcAMLOpParamValueType
     ctypedef char TThostFtdcAMLCustomerCardTypeType[81]
     ctypedef char TThostFtdcAMLInstitutionNameType[65]
