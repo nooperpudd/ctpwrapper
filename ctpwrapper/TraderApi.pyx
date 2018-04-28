@@ -1474,22 +1474,109 @@ cdef extern int TraderSpi_OnRspBatchOrderAction(self, CThostFtdcInputBatchOrderA
         None if pInputBatchOrderAction is NULL else ApiStructure.InputBatchOrderActionField.from_address(<size_t> pInputBatchOrderAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast
-    )
+        bIsLast)
     return 0
 cdef extern int TraderSpi_OnRspQryMMInstrumentCommissionRate(self, CThostFtdcMMInstrumentCommissionRateField *pMMInstrumentCommissionRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
     self.OnRspQryMMInstrumentCommissionRate(
         None if pRspInfo is NULL else ApiStructure.MMInstrumentCommissionRateField.from_address(<size_t> pMMInstrumentCommissionRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast
-    )
+        bIsLast)
     return 0
 cdef extern int TraderSpi_OnRspQryProductGroup(self, CThostFtdcProductGroupField *pProductGroup, CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
     self.OnRspQryProductGroup(
         None if pProductGroup is NULL else ApiStructure.ProductGroupField.from_address(<size_t> pProductGroup),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast
-    )
+        bIsLast)
+    return 0
+
+    #期权自对冲录入请求响应
+cdef extern int TraderSpi_OnRspOptionSelfCloseInsert(self, CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfClose,
+                                            CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) except -1:
+
+    self.OnRspOptionSelfCloseInsert(
+        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseActionField.from_address(<size_t> pInputOptionSelfClose),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast)
+    return 0
+
+    #期权自对冲操作请求响应
+cdef extern int TraderSpi_OnRspOptionSelfCloseAction(self, CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfCloseAction,
+                                            CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) except -1:
+
+     self.OnRspOptionSelfCloseAction(
+        None if pInputOptionSelfCloseAction is NULL else ApiStructure.InputOptionSelfCloseActionField.from_address(<size_t> pInputOptionSelfCloseAction),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast)
+     return 0
+
+    #请求查询资金账户响应
+cdef extern int TraderSpi_OnRspQrySecAgentTradingAccount(self, CThostFtdcTradingAccountField *pTradingAccount, CThostFtdcRspInfoField *pRspInfo,
+                                   int nRequestID, bool bIsLast) except -1:
+     self.OnRspQrySecAgentTradingAccount(
+        None if pTradingAccount is NULL else ApiStructure.TradingAccountField.from_address(<size_t> pTradingAccount),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast)
+     return 0
+
+    #请求查询二级代理商资金校验模式响应
+cdef extern int TraderSpi_OnRspQrySecAgentCheckMode(self, CThostFtdcSecAgentCheckModeField *pSecAgentCheckMode, CThostFtdcRspInfoField *pRspInfo,
+                              int nRequestID, bool bIsLast) except -1:
+
+    self.OnRspQrySecAgentCheckMode(
+        None if pSecAgentCheckMode is NULL else ApiStructure.SecAgentCheckModeField.from_address(<size_t> pSecAgentCheckMode),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast)
+    return 0
+
+    #请求查询期权自对冲响应
+cdef extern int TraderSpi_OnRspQryOptionSelfClose(self, CThostFtdcOptionSelfCloseField *pOptionSelfClose, CThostFtdcRspInfoField *pRspInfo,
+                            int nRequestID, bool bIsLast) except -1:
+
+    self.OnRspQryOptionSelfClose(
+        None if pOptionSelfClose is NULL else ApiStructure.OptionSelfCloseField.from_address(<size_t> pOptionSelfClose),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast)
+    return 0
+
+    #请求查询投资单元响应
+cdef extern int TraderSpi_OnRspQryInvestUnit(self,CThostFtdcInvestUnitField *pInvestUnit, CThostFtdcRspInfoField *pRspInfo,
+                                   int nRequestID, bool bIsLast) except -1:
+
+    self.OnRspQryInvestUnit(
+        None if pInvestUnit is NULL else ApiStructure.InvestUnitField.from_address(<size_t> pInvestUnit),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast)
+    return 0
+
+    #期权自对冲通知
+cdef extern int TraderSpi_OnRtnOptionSelfClose(self,CThostFtdcOptionSelfCloseField *pOptionSelfClose) except -1:
+
+    self.OnRtnOptionSelfClose(
+        None if pOptionSelfClose is NULL else ApiStructure.OptionSelfCloseField.from_address(<size_t> pOptionSelfClose),
+        )
+    return 0
+    #期权自对冲录入错误回报
+cdef extern int TraderSpi_OnErrRtnOptionSelfCloseInsert(self,CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose,
+                                               CThostFtdcRspInfoField *pRspInfo) except -1:
+    self.OnErrRtnOptionSelfCloseInsert(
+        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(<size_t> pInputOptionSelfClose),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        )
+    return 0
+    #期权自对冲操作错误回报
+cdef extern int TraderSpi_OnErrRtnOptionSelfCloseAction(self,CThostFtdcOptionSelfCloseActionField *pOptionSelfCloseAction,
+                                               CThostFtdcRspInfoField *pRspInfo) except -1:
+
+    self.OnErrRtnOptionSelfCloseAction(
+        None if pOptionSelfCloseAction is NULL else ApiStructure.OptionSelfCloseActionField.from_address(<size_t> pOptionSelfCloseAction),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        )
     return 0
