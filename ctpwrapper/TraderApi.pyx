@@ -1492,11 +1492,11 @@ cdef extern int TraderSpi_OnRspQryProductGroup(self, CThostFtdcProductGroupField
     return 0
 
     #期权自对冲录入请求响应
-cdef extern int TraderSpi_OnRspOptionSelfCloseInsert(self, CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfClose,
+cdef extern int TraderSpi_OnRspOptionSelfCloseInsert(self, CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose,
                                             CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
 
     self.OnRspOptionSelfCloseInsert(
-        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseActionField.from_address(<size_t> pInputOptionSelfClose),
+        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(<size_t> pInputOptionSelfClose),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast)
