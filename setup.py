@@ -115,7 +115,7 @@ setup(
     platforms=["win32", "linux"],
     packages=["ctpwrapper"],
     package_data={"": package_data},
-    ext_modules=cythonize(ext_modules),
+    ext_modules=cythonize(ext_modules, compiler_directives={'embedsignature': True}),
     cmdclass={'build_ext': build_ext},
     classifiers=[
         "Development Status :: 5 - Production/Stable",
