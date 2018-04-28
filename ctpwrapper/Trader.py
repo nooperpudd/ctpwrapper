@@ -897,3 +897,39 @@ class TraderApiPy(TraderApiWrapper):
     # 银行发起变更银行账号通知
     def OnRtnChangeAccountByBank(self, pChangeAccount):
         pass
+
+    # 期权自对冲录入请求响应
+    def OnRspOptionSelfCloseInsert(self, pInputOptionSelfClose, pRspInfo, nRequestID, bIsLast):
+        pass
+
+    # 期权自对冲操作请求响应
+    def OnRspOptionSelfCloseAction(self, pInputOptionSelfCloseAction, pRspInfo, nRequestID, bIsLast):
+        pass
+
+    # 请求查询资金账户响应
+    def OnRspQrySecAgentTradingAccount(self, pTradingAccount, pRspInfo, nRequestID, bIsLast):
+        pass
+
+    # 请求查询二级代理商资金校验模式响应
+    def OnRspQrySecAgentCheckMode(self, pSecAgentCheckMode, pRspInfo, nRequestID, bIsLast):
+        pass
+
+    # 请求查询期权自对冲响应
+    def OnRspQryOptionSelfClose(self, *pOptionSelfClose, pRspInfo, nRequestID, bIsLast):
+        pass
+
+    # 请求查询投资单元响应
+    def OnRspQryInvestUnit(self, pInvestUnit, pRspInfo, nRequestID, bIsLast):
+        pass
+
+    # 期权自对冲通知
+    def OnRtnOptionSelfClose(self, pOptionSelfClose):
+        pass
+
+    # 期权自对冲录入错误回报
+    def OnErrRtnOptionSelfCloseInsert(self, pInputOptionSelfClose, pRspInfo):
+        pass
+
+    # 期权自对冲操作错误回报
+    def OnErrRtnOptionSelfCloseAction(self, pOptionSelfCloseAction, pRspInfo):
+        pass
