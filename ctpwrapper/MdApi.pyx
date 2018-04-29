@@ -1,9 +1,5 @@
 # encoding:utf-8
-# distutils: language = c++
-# cython: nonecheck=True
-# cython: profile=False
-# cython: binding=True
-# binding = true for inspect get callargs
+# distutils: language=c++
 
 """
 (Copyright) 2018, Winton Wang <365504029@qq.com>
@@ -29,8 +25,8 @@ from libcpp cimport bool as cbool
 
 # from libcpp.memory cimport shared_ptr,make_shared
 
-from headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
-from headers.ThostFtdcUserApiStruct cimport (
+from .headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
+from .headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
 CThostFtdcUserLogoutField,

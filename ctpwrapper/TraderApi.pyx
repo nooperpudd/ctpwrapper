@@ -1,9 +1,5 @@
 # encoding:utf-8
-# distutils: language = c++
-# cython: nonecheck=True
-# cython: profile=False
-# cython: binding=True
-
+# distutils: language=c++
 """
 (Copyright) 2018, Winton Wang <365504029@qq.com>
 
@@ -29,8 +25,8 @@ from cpython cimport PyObject
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
 
-from headers.cTraderApi cimport CTraderSpi, CTraderApi, CreateFtdcTraderApi
-from headers.ThostFtdcUserApiStruct cimport *
+from .headers.cTraderApi cimport CTraderSpi, CTraderApi, CreateFtdcTraderApi
+from .headers.ThostFtdcUserApiStruct cimport *
 
 import ctypes
 from . import ApiStructure

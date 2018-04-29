@@ -5,14 +5,14 @@ import platform
 import re
 import shutil
 import sys
-from distutils.core import setup
 from distutils.dir_util import copy_tree
+
+from setuptools import setup
 
 from Cython.Build import cythonize, build_ext
 from Cython.Distutils import Extension as Cython_Extension
 
 
-# from setuptools import setup
 # issue put in the cython library bellow will cause
 # error: each element of 'ext_modules' option must be an Extension instance or 2-tuple
 
@@ -115,7 +115,12 @@ setup(
     platforms=["win32", "linux"],
     packages=["ctpwrapper"],
     package_data={"": package_data},
-    ext_modules=cythonize(ext_modules),
+    # cython: binding=True
+    # binding = true for inspect get callargs
+    ext_modules=cythonize(ext_modules,
+                          compiler_directives={'language_level': 3,
+                                               "binding": True}
+                          ),
     cmdclass={'build_ext': build_ext},
     classifiers=[
         "Development Status :: 5 - Production/Stable",

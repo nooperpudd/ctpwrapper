@@ -1,4 +1,5 @@
 # encoding:utf-8
+# distutils: language=c++
 """
 (Copyright) 2018, Winton Wang <365504029@qq.com>
 
@@ -19,7 +20,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 from cpython cimport PyObject
 from libc.string cimport const_char
 
-from ThostFtdcUserApiStruct cimport *
+from .ThostFtdcUserApiStruct cimport *
 
 
 cdef extern from "ThostFtdcTraderApi.h":

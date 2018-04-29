@@ -1,4 +1,5 @@
 # encoding:utf-8
+# distutils: language=c++
 """
 (Copyright) 2018, Winton Wang <365504029@qq.com>
 
@@ -22,7 +23,7 @@ from libcpp cimport bool as cbool
 
 # from libcpp.memory cimport shared_ptr,make_shared
 
-from ThostFtdcUserApiStruct cimport (CThostFtdcReqUserLoginField,
+from .ThostFtdcUserApiStruct cimport (CThostFtdcReqUserLoginField,
  CThostFtdcUserLogoutField,
  CThostFtdcFensUserInfoField)
 
