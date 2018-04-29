@@ -91,14 +91,6 @@ ext_modules = [
                      **common_args)
 ]
 
-# class BuildExt(build_ext):
-#     def build_extensions(self):
-#         # fix waring
-#         # cc1plus: warning: command line option ‘-Wstrict-prototypes’ is
-#         # valid for C/ObjC but not for C++ [enabled by default]
-#         if sys.platform == "linux":
-#             self.compiler.compiler_so.remove('-Wstrict-prototypes')
-#         super(BuildExt, self).build_extensions()
 
 setup(
     name="ctpwrapper",
