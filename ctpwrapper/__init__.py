@@ -17,7 +17,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 __version__ = "6.3.11.1"
-__date__ = "2016-06-06"
+__date__ = "2018-01-09"
 
 from ctpwrapper.Md import MdApiPy
 from ctpwrapper.Trader import TraderApiPy
