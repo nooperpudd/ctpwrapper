@@ -18,7 +18,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-from ThostFtdcUserApiDataType cimport *
+from .ThostFtdcUserApiDataType cimport *
 
 
 cdef extern from 'ThostFtdcUserApiStruct.h':
