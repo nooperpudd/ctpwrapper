@@ -104,6 +104,14 @@
     <error id="OUT_OF_TIMEINTERVAL" value="113" prompt="CTP:当前时间禁止询价"/>
     <error id="OUT_OF_PRICEINTERVAL" value="114" prompt="CTP:当前价差禁止询价"/>
     <error id="ORDER_FREQ_LIMIT" value="116" prompt="CTP:下单频率限制"/>
+    <error id="WEAK_PASSWORD" value="131" prompt="CTP：您当前密码为弱密码，请修改成强密码后重新登录"/>
+    <error id="EXEC_FORBIDDEN_TIME" value="139" prompt="CTP:当前时间禁止行权"/>
+    <error id="FIRST_LOGIN" value="140" prompt="CTP:首次登录必须修改密码，请修改密码后重新登录"/>
+    <error id="PWD_OUT_OF_DATE" value="141" prompt="CTP:您当前密码已过期，请修改后登录"/>
+    <error id="PWD_MUST_DIFF" value="142" prompt="CTP:修改密码失败。新密码不允许与旧密码相同"/>
+    <error id="IP_FORBIDDEN" value="143" prompt="CTP:您登录失败次数过多，IP被禁止登入CTP"/>
+    <error id="IP_BLACK" value="144" prompt="CTP:您当前IP在黑名单中，被禁止登入CTP"/>
+
     <!--转帐系统错误代码 -->
     <error id="SEND_INSTITUTION_CODE_ERROR" value="1000" prompt="CTP:银期转账：发送机构代码错误"/>
     <error id="NO_GET_PLATFORM_SN" value="1001" prompt="CTP:银期转账：取平台流水号错误"/>
@@ -147,6 +155,7 @@
     <error id="SECAGENT_QUERY_BY_CCB" value="1039" prompt="CTP:银期转账：建行发起的二级代理商查询"/>
     <error id="BANKACCOUNT_NOT_EMPTY" value="1040" prompt="CTP:银期转账：银行账户不能为空"/>
     <error id="INVALID_RESERVE_OPEN_ACCOUNT" value="1041" prompt="CTP:银期转账：资金账户存在，预约开户失败"/>
+    <error id="OPEN_ACCOUNT_NOT_DEFAULT_ACCOUNT" value="1042" prompt="CTP:银期转账：开户请求的银行卡号和预留的账号不同"/>
     <!-- add for transfer begin -->
     <error id="NO_VALID_BANKOFFER_AVAILABLE" value="2000" prompt="CTP:该报盘未连接到银行"/>
     <error id="PASSWORD_MISMATCH" value="2001" prompt="CTP:资金密码错误"/>

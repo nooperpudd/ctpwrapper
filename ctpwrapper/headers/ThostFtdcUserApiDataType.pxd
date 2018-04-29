@@ -35,6 +35,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcPasswordType[41]
     ctypedef char TThostFtdcClientIDType[11]
     ctypedef char TThostFtdcInstrumentIDType[31]
+    ctypedef char TThostFtdcInstrumentCodeType[31]
     ctypedef char TThostFtdcMarketIDType[31]
     ctypedef char TThostFtdcProductNameType[21]
     ctypedef char TThostFtdcExchangeIDType[9]
@@ -769,3 +770,9 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcComeFromType[21]
     ctypedef char TThostFtdcURLLinkType[201]
     ctypedef char TThostFtdcLongIndividualNameType[161]
+    ctypedef char TThostFtdcLongFBEBankAccountNameType[161]
+    ctypedef char TThostFtdcDateTimeType[17]
+    ctypedef char TThostFtdcWeakPasswordSourceType
+    ctypedef char TThostFtdcRandomStringType[17]
+    ctypedef char TThostFtdcOptSelfCloseFlagType
+    ctypedef char TThostFtdcBizTypeType

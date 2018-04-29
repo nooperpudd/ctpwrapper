@@ -137,6 +137,24 @@ static inline int TraderSpi_OnRspBatchOrderAction(PyObject *, CThostFtdcInputBat
 static inline int TraderSpi_OnRspQryMMInstrumentCommissionRate(PyObject *, CThostFtdcMMInstrumentCommissionRateField *,CThostFtdcRspInfoField *, int, bool);
 static inline int TraderSpi_OnRspQryProductGroup(PyObject *, CThostFtdcProductGroupField *,CThostFtdcRspInfoField *, int, bool);
 
+static inline int TraderSpi_OnRspOptionSelfCloseInsert(PyObject *, CThostFtdcInputOptionSelfCloseField *, CThostFtdcRspInfoField *, int, bool);
+static inline int TraderSpi_OnRspOptionSelfCloseAction(PyObject *, CThostFtdcInputOptionSelfCloseActionField *, CThostFtdcRspInfoField *, int, bool);
+
+static inline int TraderSpi_OnRspQrySecAgentTradingAccount(PyObject *, CThostFtdcTradingAccountField *, CThostFtdcRspInfoField *, int, bool);
+static inline int TraderSpi_OnRspQrySecAgentCheckMode(PyObject *, CThostFtdcSecAgentCheckModeField *, CThostFtdcRspInfoField *, int, bool);
+
+static inline int TraderSpi_OnRspQryOptionSelfClose(PyObject *, CThostFtdcOptionSelfCloseField *, CThostFtdcRspInfoField *, int, bool);
+static inline int TraderSpi_OnRspQryInvestUnit(PyObject *, CThostFtdcInvestUnitField *, CThostFtdcRspInfoField *, int, bool);
+
+static inline int TraderSpi_OnRtnOptionSelfClose(PyObject *, CThostFtdcOptionSelfCloseField *);
+
+static inline int TraderSpi_OnErrRtnOptionSelfCloseInsert(PyObject *, CThostFtdcInputOptionSelfCloseField *, CThostFtdcRspInfoField *);
+
+static inline int TraderSpi_OnErrRtnOptionSelfCloseAction(PyObject *, CThostFtdcOptionSelfCloseActionField *, CThostFtdcRspInfoField *);
+
+
+
+
 #define Python_GIL(func) \
 	do { \
 		PyGILState_STATE gil_state = PyGILState_Ensure(); \
@@ -283,6 +301,17 @@ public:
                                        CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
                                        Python_GIL(TraderSpi_OnRspBatchOrderAction(self,pInputBatchOrderAction,pRspInfo,nRequestID,bIsLast));
                                        };
+    ///期权自对冲录入请求响应
+    virtual void OnRspOptionSelfCloseInsert(CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose,
+                                            CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+                                            Python_GIL(TraderSpi_OnRspOptionSelfCloseInsert(self,pInputOptionSelfClose,pRspInfo,nRequestID,bIsLast));
+                                            };
+
+    ///期权自对冲操作请求响应
+    virtual void OnRspOptionSelfCloseAction(CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfCloseAction,
+                                            CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+                                            Python_GIL(TraderSpi_OnRspOptionSelfCloseAction(self,pInputOptionSelfCloseAction,pRspInfo,nRequestID,bIsLast));
+                                            };
 
     ///申请组合录入请求响应
     virtual void OnRspCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, CThostFtdcRspInfoField *pRspInfo,
@@ -466,6 +495,19 @@ public:
                                                  Python_GIL(TraderSpi_OnRspQryInstrumentOrderCommRate(self,pInstrumentOrderCommRate,pRspInfo,nRequestID,bIsLast));
                                                  };
 
+    ///请求查询资金账户响应
+    virtual void OnRspQrySecAgentTradingAccount(CThostFtdcTradingAccountField *pTradingAccount, CThostFtdcRspInfoField *pRspInfo,
+                                   int nRequestID, bool bIsLast) {
+                                   Python_GIL(TraderSpi_OnRspQrySecAgentTradingAccount(self,pTradingAccount,pRspInfo,nRequestID,bIsLast));
+                                   };
+
+    ///请求查询二级代理商资金校验模式响应
+    virtual void OnRspQrySecAgentCheckMode(CThostFtdcSecAgentCheckModeField *pSecAgentCheckMode, CThostFtdcRspInfoField *pRspInfo,
+                              int nRequestID, bool bIsLast) {
+                              Python_GIL(TraderSpi_OnRspQrySecAgentCheckMode(self,pSecAgentCheckMode,pRspInfo,nRequestID,bIsLast));
+                              };
+
+
     ///请求查询期权交易成本响应
     virtual void OnRspQryOptionInstrTradeCost(CThostFtdcOptionInstrTradeCostField *pOptionInstrTradeCost,
                                               CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
@@ -494,6 +536,20 @@ public:
     virtual void OnRspQryQuote(CThostFtdcQuoteField *pQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
     Python_GIL(TraderSpi_OnRspQryQuote(self,pQuote,pRspInfo,nRequestID,bIsLast));
     };
+
+    ///请求查询期权自对冲响应
+    virtual void OnRspQryOptionSelfClose(CThostFtdcOptionSelfCloseField *pOptionSelfClose, CThostFtdcRspInfoField *pRspInfo,
+                            int nRequestID, bool bIsLast) {
+                            Python_GIL(TraderSpi_OnRspQryOptionSelfClose(self,pOptionSelfClose,pRspInfo,nRequestID,bIsLast));
+
+                            };
+
+    ///请求查询投资单元响应
+    virtual void OnRspQryInvestUnit(CThostFtdcInvestUnitField *pInvestUnit, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                       bool bIsLast) {
+                       Python_GIL(TraderSpi_OnRspQryInvestUnit(self,pInvestUnit,pRspInfo,nRequestID,bIsLast));
+
+                       };
 
     ///请求查询组合合约安全系数响应
     virtual void OnRspQryCombInstrumentGuard(CThostFtdcCombInstrumentGuardField *pCombInstrumentGuard,
@@ -616,6 +672,28 @@ public:
     virtual void OnErrRtnBatchOrderAction(CThostFtdcBatchOrderActionField *pBatchOrderAction, CThostFtdcRspInfoField *pRspInfo) {
     Python_GIL(TraderSpi_OnErrRtnBatchOrderAction(self,pBatchOrderAction,pRspInfo));
     };
+
+    ///期权自对冲通知
+    virtual void OnRtnOptionSelfClose(CThostFtdcOptionSelfCloseField *pOptionSelfClose) {
+    Python_GIL(TraderSpi_OnRtnOptionSelfClose(self,pOptionSelfClose));
+
+    };
+
+    ///期权自对冲录入错误回报
+    virtual void OnErrRtnOptionSelfCloseInsert(CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose,
+                                               CThostFtdcRspInfoField *pRspInfo) {
+                                               Python_GIL(TraderSpi_OnErrRtnOptionSelfCloseInsert(self,pInputOptionSelfClose,pRspInfo));
+
+                                               };
+
+    ///期权自对冲操作错误回报
+    virtual void OnErrRtnOptionSelfCloseAction(CThostFtdcOptionSelfCloseActionField *pOptionSelfCloseAction,
+                                               CThostFtdcRspInfoField *pRspInfo) {
+                                               Python_GIL(TraderSpi_OnErrRtnOptionSelfCloseAction(self,pOptionSelfCloseAction,pRspInfo));
+
+                                               };
+
+
 
     ///申请组合通知
     virtual void OnRtnCombAction(CThostFtdcCombActionField *pCombAction) {
