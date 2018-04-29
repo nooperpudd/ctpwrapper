@@ -13,7 +13,6 @@ from Cython.Build import cythonize, build_ext
 from Cython.Distutils import Extension as Cython_Extension
 
 
-
 # issue put in the cython library bellow will cause
 # error: each element of 'ext_modules' option must be an Extension instance or 2-tuple
 
@@ -119,7 +118,8 @@ setup(
     # cython: binding=True
     # binding = true for inspect get callargs
     ext_modules=cythonize(ext_modules,
-                          compiler_directives={'language_level': 3}
+                          compiler_directives={'language_level': 3,
+                                               "binding": True}
                           ),
     cmdclass={'build_ext': build_ext},
     classifiers=[
