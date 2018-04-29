@@ -7,9 +7,10 @@ import shutil
 import sys
 from distutils.dir_util import copy_tree
 
+from setuptools import setup
+
 from Cython.Build import cythonize, build_ext
 from Cython.Distutils import Extension as Cython_Extension
-from setuptools import setup
 
 
 # issue put in the cython library bellow will cause
@@ -89,6 +90,7 @@ ext_modules = [
                      libraries=["thosttraderapi"],
                      **common_args)
 ]
+
 
 setup(
     name="ctpwrapper",
