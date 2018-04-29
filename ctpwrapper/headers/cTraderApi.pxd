@@ -100,6 +100,13 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqTradingAccountPasswordUpdate(CThostFtdcTradingAccountPasswordUpdateField *pTradingAccountPasswordUpdate,
                                             int nRequestID) nogil except +
 
+        #登录请求2
+        int ReqUserLogin2(CThostFtdcReqUserLoginField *pReqUserLogin, int nRequestID) nogil except +
+
+        #用户口令更新请求2
+        int ReqUserPasswordUpdate2(CThostFtdcUserPasswordUpdateField *pUserPasswordUpdate, int nRequestID) nogil except +
+
+
         #报单录入请求
         int ReqOrderInsert(CThostFtdcInputOrderField *pInputOrder, int nRequestID) nogil except +
 
@@ -141,6 +148,14 @@ cdef extern from "ThostFtdcTraderApi.h":
 
         #批量报单操作请求
         int ReqBatchOrderAction(CThostFtdcInputBatchOrderActionField *pInputBatchOrderAction, int nRequestID) nogil except +
+
+
+        #期权自对冲录入请求
+        int ReqOptionSelfCloseInsert(CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose, int nRequestID) nogil except +
+
+        #期权自对冲操作请求
+        int ReqOptionSelfCloseAction(CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfCloseAction,
+                                         int nRequestID) nogil except +
 
         #申请组合录入请求
         int ReqCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, int nRequestID) nogil except +
@@ -235,6 +250,13 @@ cdef extern from "ThostFtdcTraderApi.h":
         #请求查询报单手续费
         int ReqQryInstrumentOrderCommRate(CThostFtdcQryInstrumentOrderCommRateField *pQryInstrumentOrderCommRate, int nRequestID) nogil except +
 
+        #请求查询资金账户
+        int ReqQrySecAgentTradingAccount(CThostFtdcQryTradingAccountField *pQryTradingAccount, int nRequestID) nogil except +
+
+        #请求查询二级代理商资金校验模式
+        int ReqQrySecAgentCheckMode(CThostFtdcQrySecAgentCheckModeField *pQrySecAgentCheckMode, int nRequestID) nogil except +
+
+
         #请求查询期权交易成本
         int ReqQryOptionInstrTradeCost(CThostFtdcQryOptionInstrTradeCostField *pQryOptionInstrTradeCost, int nRequestID) nogil except +
 
@@ -249,6 +271,12 @@ cdef extern from "ThostFtdcTraderApi.h":
 
         #请求查询报价
         int ReqQryQuote(CThostFtdcQryQuoteField *pQryQuote, int nRequestID) nogil except +
+
+        #请求查询期权自对冲
+        int ReqQryOptionSelfClose(CThostFtdcQryOptionSelfCloseField *pQryOptionSelfClose, int nRequestID) nogil except +
+
+        #请求查询投资单元
+        int ReqQryInvestUnit(CThostFtdcQryInvestUnitField *pQryInvestUnit, int nRequestID) nogil except +
 
         #请求查询组合合约安全系数
         int ReqQryCombInstrumentGuard(CThostFtdcQryCombInstrumentGuardField *pQryCombInstrumentGuard, int nRequestID) nogil except +
