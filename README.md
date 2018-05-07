@@ -26,7 +26,7 @@ Before you install ctpwrapper package, you need to make sure you have
 already install cython package.
 
     >>>pip install cython --upgrade
-    >>>pip install ctpwrapper --upgrade
+    >>>pip install ctpwrapper --upgrade
 
 
 # Donate [捐助]
