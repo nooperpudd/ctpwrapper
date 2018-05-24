@@ -124,7 +124,7 @@ print(day)
 print("api worker!")
 ```
 
-    Trader Class Wrapper
+Trader Class Wrapper
 
 ```python
 

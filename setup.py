@@ -107,6 +107,7 @@ setup(
     platforms=["win32", "linux"],
     packages=["ctpwrapper"],
     package_data={"": package_data},
+    python_requires=">=3.5",
     # cython: binding=True
     # binding = true for inspect get callargs
     ext_modules=cythonize(ext_modules,
