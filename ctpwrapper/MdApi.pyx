@@ -101,7 +101,7 @@ cdef class MdApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pReqUserLoginField)
             with nogil:
-                result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *> address , nRequestID)
+                result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *>address , nRequestID)
             return result
 
     def ReqUserLogout(self, pUserLogout, nRequestID):
@@ -114,7 +114,7 @@ cdef class MdApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pUserLogout)
             with nogil:
-                result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *> address, nRequestID)
+                result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *>address, nRequestID)
 
             return result
 
@@ -167,7 +167,7 @@ cdef class MdApiWrapper:
         if self._api is not NULL:
             address = ctypes.addressof(pFensUserInfo)
             with nogil:
-                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
+                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *>address)
 
 
     def SubscribeMarketData(self, pInstrumentID):
