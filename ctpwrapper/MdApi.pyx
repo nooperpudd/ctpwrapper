@@ -64,7 +64,9 @@ cdef class MdApiWrapper:
 
     def Create(self, const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast):
 
-        self._api = CreateFtdcMdApi(pszFlowPath, bIsUsingUdp, bIsMulticast)
+        with nogil:
+            self._api = CreateFtdcMdApi(pszFlowPath, bIsUsingUdp, bIsMulticast)
+
         if not self._api:
             raise MemoryError()
 
@@ -95,8 +97,11 @@ cdef class MdApiWrapper:
         """
 
         cdef int result
+        cdef size_t address
         if self._spi is not NULL:
-            result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *> <size_t> ctypes.addressof(pReqUserLoginField), nRequestID)
+            address = ctypes.addressof(pReqUserLoginField)
+            with nogil:
+                result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *> address , nRequestID)
             return result
 
     def ReqUserLogout(self, pUserLogout, nRequestID):
@@ -105,9 +110,11 @@ cdef class MdApiWrapper:
         :return:
         """
         cdef int result
-
+        cdef size_t address
         if self._spi is not NULL:
-            result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *> <size_t> ctypes.addressof(pUserLogout), nRequestID)
+            address = ctypes.addressof(pUserLogout)
+            with nogil:
+                result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *> address, nRequestID)
 
             return result
 
@@ -156,8 +163,11 @@ cdef class MdApiWrapper:
         @param pFensUserInfo：用户信息。
         :return:
         """
+        cdef size_t address
         if self._api is not NULL:
-            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> <size_t> ctypes.addressof(pFensUserInfo))
+            address = ctypes.addressof(pFensUserInfo)
+            with nogil:
+                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
 
 
     def SubscribeMarketData(self, pInstrumentID):

@@ -16,8 +16,7 @@ You should have received a copy of the GNU General Public License
 along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-import time
-
+# import time
 from ctpwrapper.MdApi import MdApiWrapper
 
 
@@ -36,7 +35,7 @@ class MdApiPy(MdApiWrapper):
         初始化运行环境,只有调用后,接口才开始工作
         """
         super(MdApiPy, self).Init()
-        time.sleep(0.1)  # wait for c++ init
+        # time.sleep(0.1)  # wait for c++ init
 
     def Join(self) -> int:
         """
