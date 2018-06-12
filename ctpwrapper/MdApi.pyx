@@ -90,7 +90,7 @@ cdef class MdApiWrapper:
                 result = self._api.Join()
             return result
 
-    def ReqUserLogin(self, pReqUserLoginField, nRequestID):
+    def ReqUserLogin(self, pReqUserLoginField, int nRequestID):
         """
         用户登录请求
         :return:
@@ -104,7 +104,7 @@ cdef class MdApiWrapper:
                 result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *>address , nRequestID)
             return result
 
-    def ReqUserLogout(self, pUserLogout, nRequestID):
+    def ReqUserLogout(self, pUserLogout, int nRequestID):
         """
         登出请求
         :return:
