@@ -78,8 +78,9 @@ cdef class MdApiWrapper:
     def Init(self):
 
         if self._api is not NULL:
-            self._spi = new CMdSpi(<PyObject *> self)
+
             with nogil:
+                self._spi = new CMdSpi(<PyObject *> self)
                 self._api.RegisterSpi(self._spi)
                 self._api.Init()
 
