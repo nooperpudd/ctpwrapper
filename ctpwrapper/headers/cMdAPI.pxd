@@ -70,7 +70,7 @@ cdef extern from 'ThostFtdcMdApi.h':
 
         #  注册回调接口
         #  @param pSpi 派生自回调接口类的实例
-        void RegisterSpi(CMdSpi *pSpi) except +
+        void RegisterSpi(CMdSpi *pSpi) nogil except +
 
         #  订阅行情。
         #  @param ppInstrumentID 合约ID
@@ -102,6 +102,6 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +
 
 
-cdef extern from 'CMdAPI.h' nogil:
+cdef extern from 'CMdAPI.h':
     cdef cppclass CMdSpi:
         CMdSpi(PyObject *obj)
