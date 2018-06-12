@@ -86,8 +86,8 @@ cdef class MdApiWrapper:
 
         cdef int result
         if self._spi is not NULL:
-            with nogil:
-                result = self._api.Join()
+
+            result = self._api.Join()
             return result
 
     def ReqUserLogin(self, pReqUserLoginField, int nRequestID):
