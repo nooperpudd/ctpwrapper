@@ -64,8 +64,8 @@ cdef class MdApiWrapper:
 
     def Create(self, const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast):
 
-        with nogil:
-            self._api = CreateFtdcMdApi(pszFlowPath, bIsUsingUdp, bIsMulticast)
+
+        self._api = CreateFtdcMdApi(pszFlowPath, bIsUsingUdp, bIsMulticast)
 
         if not self._api:
             raise MemoryError()
@@ -78,16 +78,16 @@ cdef class MdApiWrapper:
 
         if self._api is not NULL:
             self._spi = new CMdSpi(<PyObject *> self)
-            with nogil:
-                self._api.RegisterSpi(self._spi)
-                self._api.Init()
+
+            self._api.RegisterSpi(self._spi)
+            self._api.Init()
 
     def Join(self):
 
         cdef int result
         if self._spi is not NULL:
-            with nogil:
-                result = self._api.Join()
+
+            result = self._api.Join()
             return result
 
     def ReqUserLogin(self, pReqUserLoginField, int nRequestID):
@@ -100,8 +100,8 @@ cdef class MdApiWrapper:
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pReqUserLoginField)
-            with nogil:
-                result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *>address , nRequestID)
+
+            result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *>address , nRequestID)
             return result
 
     def ReqUserLogout(self, pUserLogout, int nRequestID):
@@ -113,8 +113,8 @@ cdef class MdApiWrapper:
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pUserLogout)
-            with nogil:
-                result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *>address, nRequestID)
+
+            result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *>address, nRequestID)
 
             return result
 
@@ -128,8 +128,8 @@ cdef class MdApiWrapper:
         cdef const_char *result
 
         if self._spi is not NULL:
-            with nogil:
-                result = self._api.GetTradingDay()
+
+            result = self._api.GetTradingDay()
             return result
 
     def RegisterFront(self, char *pszFrontAddress):
@@ -141,8 +141,8 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            with nogil:
-                self._api.RegisterFront(pszFrontAddress)
+
+            self._api.RegisterFront(pszFrontAddress)
 
     def RegisterNameServer(self, char *pszNsAddress):
         """
@@ -154,8 +154,8 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            with nogil:
-                self._api.RegisterNameServer(pszNsAddress)
+
+            self._api.RegisterNameServer(pszNsAddress)
 
     def RegisterFensUserInfo(self, pFensUserInfo):
         """
@@ -166,8 +166,8 @@ cdef class MdApiWrapper:
         cdef size_t address
         if self._api is not NULL:
             address = ctypes.addressof(pFensUserInfo)
-            with nogil:
-                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *>address)
+
+            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *>address)
 
 
     def SubscribeMarketData(self, pInstrumentID):
@@ -194,8 +194,8 @@ cdef class MdApiWrapper:
             try:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
-                with nogil:
-                    result = self._api.SubscribeMarketData(InstrumentIDs, <int>count)
+
+                result = self._api.SubscribeMarketData(InstrumentIDs, <int>count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -218,8 +218,8 @@ cdef class MdApiWrapper:
             try:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
-                with nogil:
-                    result = self._api.UnSubscribeMarketData(InstrumentIDs, <int>count)
+
+                result = self._api.UnSubscribeMarketData(InstrumentIDs, <int>count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -242,8 +242,8 @@ cdef class MdApiWrapper:
             try:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
-                with nogil:
-                    result = self._api.SubscribeForQuoteRsp(InstrumentIDs, <int>count)
+
+                result = self._api.SubscribeForQuoteRsp(InstrumentIDs, <int>count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -265,8 +265,8 @@ cdef class MdApiWrapper:
             try:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
-                with nogil:
-                    result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs, <int>count)
+
+                result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs, <int>count)
             finally:
                 free(InstrumentIDs)
             return result
