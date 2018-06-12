@@ -104,4 +104,4 @@ cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
 
 cdef extern from 'CMdAPI.h':
     cdef cppclass CMdSpi:
-        CMdSpi(PyObject *obj)  # todo nogil
+        CMdSpi(PyObject *obj)
