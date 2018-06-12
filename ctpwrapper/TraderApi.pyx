@@ -66,16 +66,15 @@ cdef class TraderApiWrapper:
         if self._api is not NULL:
             self._spi = new CTraderSpi(<PyObject *> self)
 
-            with nogil:
-                self._api.RegisterSpi(self._spi)
-                self._api.Init()
+            self._api.RegisterSpi(self._spi)
+            self._api.Init()
 
     def Join(self):
 
         cdef int result
         if self._spi is not NULL:
-            with nogil:
-                result = self._api.Join()
+
+            result = self._api.Join()
             return result
 
     def GetTradingDay(self):
@@ -89,13 +88,13 @@ cdef class TraderApiWrapper:
     def RegisterFront(self, char *pszFrontAddress):
 
         if self._api is not NULL:
-            with nogil:
-                self._api.RegisterFront(pszFrontAddress)
+
+            self._api.RegisterFront(pszFrontAddress)
 
     def RegisterNameServer(self, char *pszNsAddress):
         if self._api is not NULL:
-            with nogil:
-                self._api.RegisterNameServer(pszNsAddress)
+
+            self._api.RegisterNameServer(pszNsAddress)
 
     def RegisterFensUserInfo(self, pFensUserInfo):
         if self._api is not NULL:
@@ -103,8 +102,8 @@ cdef class TraderApiWrapper:
 
     def SubscribePrivateTopic(self, THOST_TE_RESUME_TYPE nResumeType):
         if self._api is not NULL:
-            with nogil:
-                self._api.SubscribePrivateTopic(nResumeType)
+
+            self._api.SubscribePrivateTopic(nResumeType)
     #订阅公共流。
     #@param nResumeType 公共流重传方式
     #        THOST_TERT_RESTART:从本交易日开始重传
@@ -113,8 +112,8 @@ cdef class TraderApiWrapper:
     #@remark 该方法要在Init方法前调用。若不调用则不会收到公共流的数据。
     def SubscribePublicTopic(self, THOST_TE_RESUME_TYPE nResumeType):
         if self._api is not NULL:
-            with nogil:
-                self._api.SubscribePublicTopic(nResumeType)
+
+            self._api.SubscribePublicTopic(nResumeType)
 
     #客户端认证请求
     def ReqAuthenticate(self, pReqAuthenticateField, int nRequestID):

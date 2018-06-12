@@ -325,4 +325,4 @@ cdef extern from "ThostFtdcTraderApi.h" namespace "CThostFtdcTraderApi":
 
 cdef extern from "CTraderAPI.h":
     cdef cppclass CTraderSpi:
-        CTraderSpi(PyObject *obj)  # todo nogil
+        CTraderSpi(PyObject *obj)
