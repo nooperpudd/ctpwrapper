@@ -18,14 +18,13 @@ You should have received a copy of the GNU General Public License
 along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
+
+
 from cpython cimport PyObject
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
 
-# from libcpp.memory cimport shared_ptr,make_shared
-
-from .headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
 from .headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
@@ -36,10 +35,12 @@ CThostFtdcFensUserInfoField,
 CThostFtdcReqUserLoginField,
 CThostFtdcForQuoteRspField
 )
+from .headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
 
 import ctypes
 
 from . import ApiStructure
+# from libcpp.memory cimport shared_ptr,make_shared
 
 
 cdef class MdApiWrapper:
@@ -65,7 +66,6 @@ cdef class MdApiWrapper:
     def Create(self, const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast):
 
         with nogil:
-
             self._api = CreateFtdcMdApi(pszFlowPath, bIsUsingUdp, bIsMulticast)
 
         if not self._api:
@@ -102,7 +102,7 @@ cdef class MdApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pReqUserLoginField)
             with nogil:
-                result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *>address , nRequestID)
+                result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *> address, nRequestID)
             return result
 
     def ReqUserLogout(self, pUserLogout, int nRequestID):
@@ -116,7 +116,7 @@ cdef class MdApiWrapper:
             address = ctypes.addressof(pUserLogout)
 
             with nogil:
-                result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *>address, nRequestID)
+                result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *> address, nRequestID)
 
             return result
 
@@ -169,8 +169,7 @@ cdef class MdApiWrapper:
         if self._api is not NULL:
             address = ctypes.addressof(pFensUserInfo)
             with nogil:
-                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *>address)
-
+                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
 
     def SubscribeMarketData(self, pInstrumentID):
         """
