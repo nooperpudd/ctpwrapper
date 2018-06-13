@@ -41,8 +41,8 @@ cdef class TraderApiWrapper:
         self.Release()
 
     def Create(self, const_char *pszFlowPath):
-        with nogil:
-            self._api = CreateFtdcTraderApi(pszFlowPath)
+
+        self._api = CreateFtdcTraderApi(pszFlowPath)
         if not self._api:
             raise MemoryError()
 
@@ -62,9 +62,11 @@ cdef class TraderApiWrapper:
         if self._api is not NULL:
             self._spi = new CTraderSpi(<PyObject *> self)
 
-            with nogil:
+            if self._spi is not NULL:
                 self._api.RegisterSpi(self._spi)
                 self._api.Init()
+            else:
+                raise MemoryError()
 
     def Join(self):
 
@@ -86,25 +88,25 @@ cdef class TraderApiWrapper:
     def RegisterFront(self, char *pszFrontAddress):
 
         if self._api is not NULL:
-            with nogil:
-                self._api.RegisterFront(pszFrontAddress)
+
+            self._api.RegisterFront(pszFrontAddress)
 
     def RegisterNameServer(self, char *pszNsAddress):
         if self._api is not NULL:
-            with nogil:
-                self._api.RegisterNameServer(pszNsAddress)
+
+            self._api.RegisterNameServer(pszNsAddress)
 
     def RegisterFensUserInfo(self, pFensUserInfo):
         cdef size_t address
         if self._api is not NULL:
             address = ctypes.addressof(pFensUserInfo)
-            with nogil:
-                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
+
+            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
 
     def SubscribePrivateTopic(self, THOST_TE_RESUME_TYPE nResumeType):
         if self._api is not NULL:
-            with nogil:
-                self._api.SubscribePrivateTopic(nResumeType)
+
+            self._api.SubscribePrivateTopic(nResumeType)
     #订阅公共流。
     #@param nResumeType 公共流重传方式
     #        THOST_TERT_RESTART:从本交易日开始重传
@@ -113,8 +115,8 @@ cdef class TraderApiWrapper:
     #@remark 该方法要在Init方法前调用。若不调用则不会收到公共流的数据。
     def SubscribePublicTopic(self, THOST_TE_RESUME_TYPE nResumeType):
         if self._api is not NULL:
-            with nogil:
-                self._api.SubscribePublicTopic(nResumeType)
+
+            self._api.SubscribePublicTopic(nResumeType)
 
     #客户端认证请求
     def ReqAuthenticate(self, pReqAuthenticateField, int nRequestID):
