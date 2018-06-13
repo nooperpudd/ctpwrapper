@@ -65,8 +65,7 @@ cdef class MdApiWrapper:
 
     def Create(self, const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast):
 
-        with nogil:
-            self._api = CreateFtdcMdApi(pszFlowPath, bIsUsingUdp, bIsMulticast)
+        self._api = CreateFtdcMdApi(pszFlowPath, bIsUsingUdp, bIsMulticast)
 
         if not self._api:
             raise MemoryError()
@@ -79,9 +78,12 @@ cdef class MdApiWrapper:
 
         if self._api is not NULL:
             self._spi = new CMdSpi(<PyObject *> self)
-            with nogil:
+
+            if self._spi is not NULL:
                 self._api.RegisterSpi(self._spi)
                 self._api.Init()
+            else:
+                raise MemoryError()
 
     def Join(self):
 
@@ -143,8 +145,8 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            with nogil:
-                self._api.RegisterFront(pszFrontAddress)
+
+            self._api.RegisterFront(pszFrontAddress)
 
     def RegisterNameServer(self, char *pszNsAddress):
         """
@@ -156,8 +158,8 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-            with nogil:
-                self._api.RegisterNameServer(pszNsAddress)
+
+            self._api.RegisterNameServer(pszNsAddress)
 
     def RegisterFensUserInfo(self, pFensUserInfo):
         """
@@ -168,8 +170,8 @@ cdef class MdApiWrapper:
         cdef size_t address
         if self._api is not NULL:
             address = ctypes.addressof(pFensUserInfo)
-            with nogil:
-                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
+
+            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
 
     def SubscribeMarketData(self, pInstrumentID):
         """
