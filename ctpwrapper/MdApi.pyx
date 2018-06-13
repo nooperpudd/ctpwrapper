@@ -79,9 +79,12 @@ cdef class MdApiWrapper:
 
         if self._api is not NULL:
             self._spi = new CMdSpi(<PyObject *> self)
-            with nogil:
+
+            if self._spi:
                 self._api.RegisterSpi(self._spi)
                 self._api.Init()
+            else:
+                raise MemoryError()
 
     def Join(self):
 
