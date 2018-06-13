@@ -80,7 +80,7 @@ cdef class MdApiWrapper:
         if self._api is not NULL:
             self._spi = new CMdSpi(<PyObject *> self)
 
-            if self._spi:
+            if self._spi is not NULL:
                 self._api.RegisterSpi(self._spi)
                 self._api.Init()
             else:
