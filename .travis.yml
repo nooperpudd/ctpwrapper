@@ -5,7 +5,8 @@ python:
   - "3.6.5"
   - "3.7"
   - "pypy3"
-
+  
+dist: "xenial"
 compiler:
   - clang
 
