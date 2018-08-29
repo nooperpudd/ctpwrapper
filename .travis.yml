@@ -1,18 +1,17 @@
 language: python
 
-python:
-  - "3.5.5"
-  - "3.6.5"
-  - "3.7"
-  - "pypy3"
-  
-dist: "xenial"
-compiler:
-  - clang
-
-sudo: false
-
-cache: pip
+matrix:
+  include:
+    # others still work and don't install python3.7
+    - python: pypy3
+      sudo: required
+    - python: 3.5
+      sudo: required
+    - python: 3.6
+      sudo: required
+    - python: 3.7
+      sudo: required
+      dist: xenial
 
 install:
   - python -c "import struct; print(struct.calcsize('P') * 8)"
