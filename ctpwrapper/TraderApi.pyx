@@ -88,12 +88,10 @@ cdef class TraderApiWrapper:
     def RegisterFront(self, char *pszFrontAddress):
 
         if self._api is not NULL:
-
             self._api.RegisterFront(pszFrontAddress)
 
     def RegisterNameServer(self, char *pszNsAddress):
         if self._api is not NULL:
-
             self._api.RegisterNameServer(pszNsAddress)
 
     def RegisterFensUserInfo(self, pFensUserInfo):
@@ -105,7 +103,6 @@ cdef class TraderApiWrapper:
 
     def SubscribePrivateTopic(self, THOST_TE_RESUME_TYPE nResumeType):
         if self._api is not NULL:
-
             self._api.SubscribePrivateTopic(nResumeType)
     #订阅公共流。
     #@param nResumeType 公共流重传方式
@@ -115,7 +112,6 @@ cdef class TraderApiWrapper:
     #@remark 该方法要在Init方法前调用。若不调用则不会收到公共流的数据。
     def SubscribePublicTopic(self, THOST_TE_RESUME_TYPE nResumeType):
         if self._api is not NULL:
-
             self._api.SubscribePublicTopic(nResumeType)
 
     #客户端认证请求
@@ -240,7 +236,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pSettlementInfoConfirm)
             with nogil:
-                result = self._api.ReqSettlementInfoConfirm(<CThostFtdcSettlementInfoConfirmField *> address, nRequestID)
+                result = self._api.ReqSettlementInfoConfirm(<CThostFtdcSettlementInfoConfirmField *> address,
+                                                            nRequestID)
             return result
     #请求删除预埋单
     def ReqRemoveParkedOrder(self, pRemoveParkedOrder, int nRequestID):
@@ -258,7 +255,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pRemoveParkedOrderAction)
             with nogil:
-                result = self._api.ReqRemoveParkedOrderAction(<CThostFtdcRemoveParkedOrderActionField *> address, nRequestID)
+                result = self._api.ReqRemoveParkedOrderAction(<CThostFtdcRemoveParkedOrderActionField *> address,
+                                                              nRequestID)
             return result
     #执行宣告录入请求
     def ReqExecOrderInsert(self, pInputExecOrder, int nRequestID):
@@ -333,7 +331,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pInputOptionSelfCloseAction)
             with nogil:
-                result = self._api.ReqOptionSelfCloseAction(<CThostFtdcInputOptionSelfCloseActionField *> address, nRequestID)
+                result = self._api.ReqOptionSelfCloseAction(<CThostFtdcInputOptionSelfCloseActionField *> address,
+                                                            nRequestID)
             return result
 
     #申请组合录入请求
@@ -354,7 +353,7 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryOrder(<CThostFtdcQryOrderField *> address, nRequestID)
             return result
-        #请求查询成交
+    #请求查询成交
     def ReqQryTrade(self, pQryTrade, int nRequestID):
         cdef int result
         cdef size_t address
@@ -363,15 +362,16 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryTrade(<CThostFtdcQryTradeField *> address, nRequestID)
             return result
-        #请求查询投资者持仓
+    #请求查询投资者持仓
     def ReqQryInvestorPosition(self, pQryInvestorPosition, int nRequestID):
         cdef int result
+        cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInvestorPosition)
             with nogil:
                 result = self._api.ReqQryInvestorPosition(<CThostFtdcQryInvestorPositionField *> address, nRequestID)
             return result
-        #请求查询资金账户
+    #请求查询资金账户
     def ReqQryTradingAccount(self, pQryTradingAccount, int nRequestID):
         cdef int result
         cdef size_t address
@@ -380,7 +380,7 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryTradingAccount(<CThostFtdcQryTradingAccountField *> address, nRequestID)
             return result
-        #请求查询投资者
+    #请求查询投资者
     def ReqQryInvestor(self, pQryInvestor, int nRequestID):
         cdef int result
         cdef size_t address
@@ -389,7 +389,7 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryInvestor(<CThostFtdcQryInvestorField *> address, nRequestID)
             return result
-        #请求查询交易编码
+    #请求查询交易编码
     def ReqQryTradingCode(self, pQryTradingCode, int nRequestID):
         cdef int result
         cdef size_t address
@@ -398,25 +398,27 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryTradingCode(<CThostFtdcQryTradingCodeField *> address, nRequestID)
             return result
-        #请求查询合约保证金率
+    #请求查询合约保证金率
     def ReqQryInstrumentMarginRate(self, pQryInstrumentMarginRate, int nRequestID):
         cdef int result
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInstrumentMarginRate)
             with nogil:
-                result = self._api.ReqQryInstrumentMarginRate(<CThostFtdcQryInstrumentMarginRateField *> address, nRequestID)
+                result = self._api.ReqQryInstrumentMarginRate(<CThostFtdcQryInstrumentMarginRateField *> address,
+                                                              nRequestID)
             return result
-        #请求查询合约手续费率
+    #请求查询合约手续费率
     def ReqQryInstrumentCommissionRate(self, pQryInstrumentCommissionRate, int nRequestID):
         cdef int result
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInstrumentCommissionRate)
             with nogil:
-                result = self._api.ReqQryInstrumentCommissionRate(<CThostFtdcQryInstrumentCommissionRateField *> address, nRequestID)
+                result = self._api.ReqQryInstrumentCommissionRate(
+                    <CThostFtdcQryInstrumentCommissionRateField *> address, nRequestID)
             return result
-        #请求查询交易所
+    #请求查询交易所
     def ReqQryExchange(self, pQryExchange, int nRequestID):
         cdef int result
         cdef size_t address
@@ -425,7 +427,7 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryExchange(<CThostFtdcQryExchangeField *> address, nRequestID)
             return result
-        #请求查询产品
+    #请求查询产品
     def ReqQryProduct(self, pQryProduct, int nRequestID):
         cdef int result
         cdef size_t address
@@ -434,7 +436,7 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryProduct(<CThostFtdcQryProductField *> address, nRequestID)
             return result
-        #请求查询合约
+    #请求查询合约
     def ReqQryInstrument(self, pQryInstrument, int nRequestID):
         cdef int result
         cdef size_t address
@@ -443,7 +445,7 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryInstrument(<CThostFtdcQryInstrumentField *> address, nRequestID)
             return result
-        #请求查询行情
+    #请求查询行情
     def ReqQryDepthMarketData(self, pQryDepthMarketData, int nRequestID):
         cdef int result
         cdef size_t address
@@ -452,7 +454,7 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryDepthMarketData(<CThostFtdcQryDepthMarketDataField *> address, nRequestID)
             return result
-        #请求查询投资者结算结果
+    #请求查询投资者结算结果
     def ReqQrySettlementInfo(self, pQrySettlementInfo, int nRequestID):
         cdef int result
         cdef size_t address
@@ -461,7 +463,7 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQrySettlementInfo(<CThostFtdcQrySettlementInfoField *> address, nRequestID)
             return result
-        #请求查询转帐银行
+    #请求查询转帐银行
     def ReqQryTransferBank(self, pQryTransferBank, int nRequestID):
         cdef int result
         cdef size_t address
@@ -471,16 +473,17 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryTransferBank(<CThostFtdcQryTransferBankField *> address, nRequestID)
             return result
-        #请求查询投资者持仓明细
+    #请求查询投资者持仓明细
     def ReqQryInvestorPositionDetail(self, pQryInvestorPositionDetail, int nRequestID):
         cdef int result
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInvestorPositionDetail)
             with nogil:
-                result = self._api.ReqQryInvestorPositionDetail(<CThostFtdcQryInvestorPositionDetailField *> address, nRequestID)
+                result = self._api.ReqQryInvestorPositionDetail(<CThostFtdcQryInvestorPositionDetailField *> address,
+                                                                nRequestID)
             return result
-        #请求查询客户通知
+    #请求查询客户通知
     def ReqQryNotice(self, pQryNotice, int nRequestID):
         cdef int result
         cdef size_t address
@@ -490,34 +493,37 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryNotice(<CThostFtdcQryNoticeField *> address, nRequestID)
             return result
-        #请求查询结算信息确认
+    #请求查询结算信息确认
     def ReqQrySettlementInfoConfirm(self, pQrySettlementInfoConfirm, int nRequestID):
         cdef int result
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQrySettlementInfoConfirm)
             with nogil:
-                result = self._api.ReqQrySettlementInfoConfirm(<CThostFtdcQrySettlementInfoConfirmField *> address, nRequestID)
+                result = self._api.ReqQrySettlementInfoConfirm(<CThostFtdcQrySettlementInfoConfirmField *> address,
+                                                               nRequestID)
             return result
-        #请求查询投资者持仓明细
+    #请求查询投资者持仓明细
     def ReqQryInvestorPositionCombineDetail(self, pQryInvestorPositionCombineDetail, int nRequestID):
         cdef int result
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInvestorPositionCombineDetail)
             with nogil:
-                result = self._api.ReqQryInvestorPositionCombineDetail(<CThostFtdcQryInvestorPositionCombineDetailField *> address, nRequestID)
+                result = self._api.ReqQryInvestorPositionCombineDetail(
+                    <CThostFtdcQryInvestorPositionCombineDetailField *> address, nRequestID)
             return result
-        #请求查询保证金监管系统经纪公司资金账户密钥
+    #请求查询保证金监管系统经纪公司资金账户密钥
     def ReqQryCFMMCTradingAccountKey(self, pQryCFMMCTradingAccountKey, int nRequestID):
         cdef int result
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQryCFMMCTradingAccountKey)
             with nogil:
-                result = self._api.ReqQryCFMMCTradingAccountKey(<CThostFtdcQryCFMMCTradingAccountKeyField *> address, nRequestID)
+                result = self._api.ReqQryCFMMCTradingAccountKey(<CThostFtdcQryCFMMCTradingAccountKeyField *> address,
+                                                                nRequestID)
             return result
-        #请求查询仓单折抵信息
+    #请求查询仓单折抵信息
     def ReqQryEWarrantOffset(self, pQryEWarrantOffset, int nRequestID):
         cdef int result
         cdef size_t address
@@ -526,16 +532,17 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQryEWarrantOffset(<CThostFtdcQryEWarrantOffsetField *> address, nRequestID)
             return result
-        #请求查询投资者品种/跨品种保证金
+    #请求查询投资者品种/跨品种保证金
     def ReqQryInvestorProductGroupMargin(self, pQryInvestorProductGroupMargin, int nRequestID):
         cdef int result
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInvestorProductGroupMargin)
             with nogil:
-                result = self._api.ReqQryInvestorProductGroupMargin(<CThostFtdcQryInvestorProductGroupMarginField *> address, nRequestID)
+                result = self._api.ReqQryInvestorProductGroupMargin(
+                    <CThostFtdcQryInvestorProductGroupMarginField *> address, nRequestID)
             return result
-        #请求查询交易所保证金率
+    #请求查询交易所保证金率
     def ReqQryExchangeMarginRate(self, pQryExchangeMarginRate, int nRequestID):
         cdef int result
         cdef size_t address
@@ -543,16 +550,18 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryExchangeMarginRate)
             with nogil:
-                result = self._api.ReqQryExchangeMarginRate(<CThostFtdcQryExchangeMarginRateField *> address, nRequestID)
+                result = self._api.ReqQryExchangeMarginRate(<CThostFtdcQryExchangeMarginRateField *> address,
+                                                            nRequestID)
             return result
-        #请求查询交易所调整保证金率
+    #请求查询交易所调整保证金率
     def ReqQryExchangeMarginRateAdjust(self, pQryExchangeMarginRateAdjust, int nRequestID):
         cdef int result
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQryExchangeMarginRateAdjust)
             with nogil:
-                result = self._api.ReqQryExchangeMarginRateAdjust(<CThostFtdcQryExchangeMarginRateAdjustField *> address, nRequestID)
+                result = self._api.ReqQryExchangeMarginRateAdjust(
+                    <CThostFtdcQryExchangeMarginRateAdjustField *> address, nRequestID)
             return result
     #请求查询汇率
     def ReqQryExchangeRate(self, pQryExchangeRate, int nRequestID):
@@ -601,7 +610,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryMMInstrumentCommissionRate)
             with nogil:
-                result = self._api.ReqQryMMInstrumentCommissionRate(<CThostFtdcQryMMInstrumentCommissionRateField *> address, nRequestID)
+                result = self._api.ReqQryMMInstrumentCommissionRate(
+                    <CThostFtdcQryMMInstrumentCommissionRateField *> address, nRequestID)
             return result
 
     #请求查询做市商期权合约手续费
@@ -611,7 +621,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryMMOptionInstrCommRate)
             with nogil:
-                result = self._api.ReqQryMMOptionInstrCommRate(<CThostFtdcQryMMOptionInstrCommRateField *> address, nRequestID)
+                result = self._api.ReqQryMMOptionInstrCommRate(<CThostFtdcQryMMOptionInstrCommRateField *> address,
+                                                               nRequestID)
             return result
 
     #请求查询报单手续费
@@ -621,7 +632,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInstrumentOrderCommRate)
             with nogil:
-                result = self._api.ReqQryInstrumentOrderCommRate(<CThostFtdcQryInstrumentOrderCommRateField *> address, nRequestID)
+                result = self._api.ReqQryInstrumentOrderCommRate(<CThostFtdcQryInstrumentOrderCommRateField *> address,
+                                                                 nRequestID)
             return result
 
     #请求查询资金账户
@@ -632,7 +644,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryTradingAccount)
             with nogil:
-                result = self._api.ReqQrySecAgentTradingAccount(<CThostFtdcQryTradingAccountField *> address, nRequestID)
+                result = self._api.ReqQrySecAgentTradingAccount(<CThostFtdcQryTradingAccountField *> address,
+                                                                nRequestID)
             return result
 
     #请求查询二级代理商资金校验模式
@@ -653,7 +666,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryOptionInstrTradeCost)
             with nogil:
-                result = self._api.ReqQryOptionInstrTradeCost(<CThostFtdcQryOptionInstrTradeCostField *> address, nRequestID)
+                result = self._api.ReqQryOptionInstrTradeCost(<CThostFtdcQryOptionInstrTradeCostField *> address,
+                                                              nRequestID)
             return result
         #请求查询期权合约手续费
     def ReqQryOptionInstrCommRate(self, pQryOptionInstrCommRate, int nRequestID):
@@ -662,7 +676,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryOptionInstrCommRate)
             with nogil:
-                result = self._api.ReqQryOptionInstrCommRate(<CThostFtdcQryOptionInstrCommRateField *> address, nRequestID)
+                result = self._api.ReqQryOptionInstrCommRate(<CThostFtdcQryOptionInstrCommRateField *> address,
+                                                             nRequestID)
             return result
         #请求查询执行宣告
     def ReqQryExecOrder(self, pQryExecOrder, int nRequestID):
@@ -717,7 +732,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryCombInstrumentGuard)
             with nogil:
-                result = self._api.ReqQryCombInstrumentGuard(<CThostFtdcQryCombInstrumentGuardField *> address, nRequestID)
+                result = self._api.ReqQryCombInstrumentGuard(<CThostFtdcQryCombInstrumentGuardField *> address,
+                                                             nRequestID)
             return result
         #请求查询申请组合
     def ReqQryCombAction(self, pQryCombAction, int nRequestID):
@@ -789,7 +805,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryBrokerTradingParams)
             with nogil:
-                result = self._api.ReqQryBrokerTradingParams(<CThostFtdcQryBrokerTradingParamsField *> address, nRequestID)
+                result = self._api.ReqQryBrokerTradingParams(<CThostFtdcQryBrokerTradingParamsField *> address,
+                                                             nRequestID)
             return result
         #请求查询经纪公司交易算法
     def ReqQryBrokerTradingAlgos(self, pQryBrokerTradingAlgos, int nRequestID):
@@ -798,7 +815,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryBrokerTradingAlgos)
             with nogil:
-                result = self._api.ReqQryBrokerTradingAlgos(<CThostFtdcQryBrokerTradingAlgosField *> address, nRequestID)
+                result = self._api.ReqQryBrokerTradingAlgos(<CThostFtdcQryBrokerTradingAlgosField *> address,
+                                                            nRequestID)
             return result
         #请求查询监控中心用户令牌
     def ReqQueryCFMMCTradingAccountToken(self, pQueryCFMMCTradingAccountToken, int nRequestID):
@@ -807,7 +825,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQueryCFMMCTradingAccountToken)
             with nogil:
-                result = self._api.ReqQueryCFMMCTradingAccountToken(<CThostFtdcQueryCFMMCTradingAccountTokenField *> address, nRequestID)
+                result = self._api.ReqQueryCFMMCTradingAccountToken(
+                    <CThostFtdcQueryCFMMCTradingAccountTokenField *> address, nRequestID)
             return result
         #期货发起银行资金转期货请求
     def ReqFromBankToFutureByFuture(self, pReqTransfer, int nRequestID):
@@ -835,7 +854,8 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pReqQueryAccount)
             with nogil:
-                result = self._api.ReqQueryBankAccountMoneyByFuture(<CThostFtdcReqQueryAccountField *> address, nRequestID)
+                result = self._api.ReqQueryBankAccountMoneyByFuture(<CThostFtdcReqQueryAccountField *> address,
+                                                                    nRequestID)
             return result
 
 cdef extern int TraderSpi_OnFrontConnected(self) except -1:
@@ -881,7 +901,8 @@ cdef extern int TraderSpi_OnRspUserPasswordUpdate(self, CThostFtdcUserPasswordUp
                                                   CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspUserPasswordUpdate(
-        None if pUserPasswordUpdate is NULL else ApiStructure.UserPasswordUpdateField.from_address(<size_t> pUserPasswordUpdate),
+        None if pUserPasswordUpdate is NULL else ApiStructure.UserPasswordUpdateField.from_address(
+            <size_t> pUserPasswordUpdate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID, bIsLast)
     return 0
@@ -1662,57 +1683,79 @@ cdef extern int TraderSpi_OnRspQueryBankAccountMoneyByFuture(self, CThostFtdcReq
     return 0
 
 cdef extern int TraderSpi_OnRtnOpenAccountByBank(self, CThostFtdcOpenAccountField *pOpenAccount) except -1:
-    self.OnRtnOpenAccountByBank(None if pOpenAccount is NULL else ApiStructure.OpenAccountField.from_address(<size_t> pOpenAccount))
+    self.OnRtnOpenAccountByBank(
+        None if pOpenAccount is NULL else ApiStructure.OpenAccountField.from_address(<size_t> pOpenAccount))
     return 0
 
 cdef extern int TraderSpi_OnRtnCancelAccountByBank(self, CThostFtdcCancelAccountField *pCancelAccount) except -1:
-    self.OnRtnCancelAccountByBank(None if pCancelAccount is NULL else ApiStructure.CancelAccountField.from_address(<size_t> pCancelAccount))
+    self.OnRtnCancelAccountByBank(
+        None if pCancelAccount is NULL else ApiStructure.CancelAccountField.from_address(<size_t> pCancelAccount))
     return 0
 
 cdef extern int TraderSpi_OnRtnChangeAccountByBank(self, CThostFtdcChangeAccountField *pChangeAccount) except -1:
-    self.OnRtnChangeAccountByBank(None if pChangeAccount is NULL else ApiStructure.ChangeAccountField.from_address(<size_t> pChangeAccount))
+    self.OnRtnChangeAccountByBank(
+        None if pChangeAccount is NULL else ApiStructure.ChangeAccountField.from_address(<size_t> pChangeAccount))
     return 0
 
-cdef extern int TraderSpi_OnErrRtnBatchOrderAction(self, CThostFtdcBatchOrderActionField *pBatchOrderAction, CThostFtdcRspInfoField *pRspInfo) except -1:
+cdef extern int TraderSpi_OnErrRtnBatchOrderAction(self, CThostFtdcBatchOrderActionField *pBatchOrderAction,
+                                                   CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnBatchOrderAction(
-        None if pBatchOrderAction is NULL else ApiStructure.BatchOrderActionField.from_address(<size_t> pBatchOrderAction),
+        None if pBatchOrderAction is NULL else ApiStructure.BatchOrderActionField.from_address(
+            <size_t> pBatchOrderAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
     return 0
 
 cdef extern int TraderSpi_OnRtnBulletin(self, CThostFtdcBulletinField *pBulletin) except -1:
     self.OnRtnBulletin(None if pBulletin is NULL else ApiStructure.BulletinField.from_address(<size_t> pBulletin))
     return 0
-cdef extern int TraderSpi_OnRspQryInstrumentOrderCommRate(self, CThostFtdcInstrumentOrderCommRateField *pInstrumentOrderCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+cdef extern int TraderSpi_OnRspQryInstrumentOrderCommRate(self,
+                                                          CThostFtdcInstrumentOrderCommRateField *pInstrumentOrderCommRate,
+                                                          CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                          cbool bIsLast) except -1:
     self.OnRspQryInstrumentOrderCommRate(
-        None if pInstrumentOrderCommRate is NULL else ApiStructure.InstrumentOrderCommRateField.from_address(<size_t> pInstrumentOrderCommRate),
+        None if pInstrumentOrderCommRate is NULL else ApiStructure.InstrumentOrderCommRateField.from_address(
+            <size_t> pInstrumentOrderCommRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
     return 0
-cdef extern int TraderSpi_OnRspQryMMOptionInstrCommRate(self, CThostFtdcMMOptionInstrCommRateField *pMMOptionInstrCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+cdef extern int TraderSpi_OnRspQryMMOptionInstrCommRate(self,
+                                                        CThostFtdcMMOptionInstrCommRateField *pMMOptionInstrCommRate,
+                                                        CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                        cbool bIsLast) except -1:
     self.OnRspQryMMOptionInstrCommRate(
-        None if pMMOptionInstrCommRate is NULL else ApiStructure.MMOptionInstrCommRateField.from_address(<size_t> pMMOptionInstrCommRate),
+        None if pMMOptionInstrCommRate is NULL else ApiStructure.MMOptionInstrCommRateField.from_address(
+            <size_t> pMMOptionInstrCommRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
     return 0
-cdef extern int TraderSpi_OnRspBatchOrderAction(self, CThostFtdcInputBatchOrderActionField *pInputBatchOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+cdef extern int TraderSpi_OnRspBatchOrderAction(self, CThostFtdcInputBatchOrderActionField *pInputBatchOrderAction,
+                                                CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                cbool bIsLast) except -1:
     self.OnRspBatchOrderAction(
-        None if pInputBatchOrderAction is NULL else ApiStructure.InputBatchOrderActionField.from_address(<size_t> pInputBatchOrderAction),
+        None if pInputBatchOrderAction is NULL else ApiStructure.InputBatchOrderActionField.from_address(
+            <size_t> pInputBatchOrderAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast)
     return 0
-cdef extern int TraderSpi_OnRspQryMMInstrumentCommissionRate(self, CThostFtdcMMInstrumentCommissionRateField *pMMInstrumentCommissionRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+cdef extern int TraderSpi_OnRspQryMMInstrumentCommissionRate(self,
+                                                             CThostFtdcMMInstrumentCommissionRateField *pMMInstrumentCommissionRate,
+                                                             CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                             cbool bIsLast) except -1:
     self.OnRspQryMMInstrumentCommissionRate(
-        None if pRspInfo is NULL else ApiStructure.MMInstrumentCommissionRateField.from_address(<size_t> pMMInstrumentCommissionRate),
+        None if pRspInfo is NULL else ApiStructure.MMInstrumentCommissionRateField.from_address(
+            <size_t> pMMInstrumentCommissionRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast)
     return 0
-cdef extern int TraderSpi_OnRspQryProductGroup(self, CThostFtdcProductGroupField *pProductGroup, CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+cdef extern int TraderSpi_OnRspQryProductGroup(self, CThostFtdcProductGroupField *pProductGroup,
+                                               CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                               cbool bIsLast) except -1:
     self.OnRspQryProductGroup(
         None if pProductGroup is NULL else ApiStructure.ProductGroupField.from_address(<size_t> pProductGroup),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
@@ -1722,26 +1765,32 @@ cdef extern int TraderSpi_OnRspQryProductGroup(self, CThostFtdcProductGroupField
 
     #期权自对冲录入请求响应
 cdef extern int TraderSpi_OnRspOptionSelfCloseInsert(self, CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose,
-                                                     CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+                                                     CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                     cbool bIsLast) except -1:
     self.OnRspOptionSelfCloseInsert(
-        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(<size_t> pInputOptionSelfClose),
+        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(
+            <size_t> pInputOptionSelfClose),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast)
     return 0
 
     #期权自对冲操作请求响应
-cdef extern int TraderSpi_OnRspOptionSelfCloseAction(self, CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfCloseAction,
-                                                     CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+cdef extern int TraderSpi_OnRspOptionSelfCloseAction(self,
+                                                     CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfCloseAction,
+                                                     CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                     cbool bIsLast) except -1:
     self.OnRspOptionSelfCloseAction(
-        None if pInputOptionSelfCloseAction is NULL else ApiStructure.InputOptionSelfCloseActionField.from_address(<size_t> pInputOptionSelfCloseAction),
+        None if pInputOptionSelfCloseAction is NULL else ApiStructure.InputOptionSelfCloseActionField.from_address(
+            <size_t> pInputOptionSelfCloseAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast)
     return 0
 
 #请求查询资金账户响应
-cdef extern int TraderSpi_OnRspQrySecAgentTradingAccount(self, CThostFtdcTradingAccountField *pTradingAccount, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQrySecAgentTradingAccount(self, CThostFtdcTradingAccountField *pTradingAccount,
+                                                         CThostFtdcRspInfoField *pRspInfo,
                                                          int nRequestID, cbool bIsLast) except -1:
     self.OnRspQrySecAgentTradingAccount(
         None if pTradingAccount is NULL else ApiStructure.TradingAccountField.from_address(<size_t> pTradingAccount),
@@ -1751,17 +1800,20 @@ cdef extern int TraderSpi_OnRspQrySecAgentTradingAccount(self, CThostFtdcTrading
     return 0
 
 #请求查询二级代理商资金校验模式响应
-cdef extern int TraderSpi_OnRspQrySecAgentCheckMode(self, CThostFtdcSecAgentCheckModeField *pSecAgentCheckMode, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQrySecAgentCheckMode(self, CThostFtdcSecAgentCheckModeField *pSecAgentCheckMode,
+                                                    CThostFtdcRspInfoField *pRspInfo,
                                                     int nRequestID, cbool bIsLast) except -1:
     self.OnRspQrySecAgentCheckMode(
-        None if pSecAgentCheckMode is NULL else ApiStructure.SecAgentCheckModeField.from_address(<size_t> pSecAgentCheckMode),
+        None if pSecAgentCheckMode is NULL else ApiStructure.SecAgentCheckModeField.from_address(
+            <size_t> pSecAgentCheckMode),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast)
     return 0
 
     #请求查询期权自对冲响应
-cdef extern int TraderSpi_OnRspQryOptionSelfClose(self, CThostFtdcOptionSelfCloseField *pOptionSelfClose, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQryOptionSelfClose(self, CThostFtdcOptionSelfCloseField *pOptionSelfClose,
+                                                  CThostFtdcRspInfoField *pRspInfo,
                                                   int nRequestID, cbool bIsLast) except -1:
     self.OnRspQryOptionSelfClose(
         None if pOptionSelfClose is NULL else ApiStructure.OptionSelfCloseField.from_address(<size_t> pOptionSelfClose),
@@ -1771,7 +1823,8 @@ cdef extern int TraderSpi_OnRspQryOptionSelfClose(self, CThostFtdcOptionSelfClos
     return 0
 
     #请求查询投资单元响应
-cdef extern int TraderSpi_OnRspQryInvestUnit(self, CThostFtdcInvestUnitField *pInvestUnit, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQryInvestUnit(self, CThostFtdcInvestUnitField *pInvestUnit,
+                                             CThostFtdcRspInfoField *pRspInfo,
                                              int nRequestID, cbool bIsLast) except -1:
     self.OnRspQryInvestUnit(
         None if pInvestUnit is NULL else ApiStructure.InvestUnitField.from_address(<size_t> pInvestUnit),
@@ -1787,18 +1840,22 @@ cdef extern int TraderSpi_OnRtnOptionSelfClose(self, CThostFtdcOptionSelfCloseFi
     )
     return 0
     #期权自对冲录入错误回报
-cdef extern int TraderSpi_OnErrRtnOptionSelfCloseInsert(self, CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose,
+cdef extern int TraderSpi_OnErrRtnOptionSelfCloseInsert(self,
+                                                        CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose,
                                                         CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnOptionSelfCloseInsert(
-        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(<size_t> pInputOptionSelfClose),
+        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(
+            <size_t> pInputOptionSelfClose),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
     )
     return 0
     #期权自对冲操作错误回报
-cdef extern int TraderSpi_OnErrRtnOptionSelfCloseAction(self, CThostFtdcOptionSelfCloseActionField *pOptionSelfCloseAction,
+cdef extern int TraderSpi_OnErrRtnOptionSelfCloseAction(self,
+                                                        CThostFtdcOptionSelfCloseActionField *pOptionSelfCloseAction,
                                                         CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnOptionSelfCloseAction(
-        None if pOptionSelfCloseAction is NULL else ApiStructure.OptionSelfCloseActionField.from_address(<size_t> pOptionSelfCloseAction),
+        None if pOptionSelfCloseAction is NULL else ApiStructure.OptionSelfCloseActionField.from_address(
+            <size_t> pOptionSelfCloseAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
     )
     return 0
