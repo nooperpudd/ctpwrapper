@@ -47,7 +47,7 @@ class Parse(object):
                     }
                 elif type_ == "char":
                     self.data_type[name] = {
-                        "type": "str",
+                        "type": "char",
                     }
                 else:
                     self.data_type[name] = {
@@ -100,7 +100,7 @@ def generate_struct(struct, struct_doc, py_file):
             if field.endswith("_doc"):
                 continue
             field_data = struct_dict[field]
-            field_doc = struct[item][field+"_doc"]
+            field_doc = struct[item][field + "_doc"]
 
             if field_data["type"] == "double":
                 py_file.write("        ('{field}', ctypes.c_double),  # {doc}\n".format(field=field, doc=field_doc))
@@ -108,12 +108,12 @@ def generate_struct(struct, struct_doc, py_file):
                 py_file.write("        ('{field}', ctypes.c_int),  # {doc}\n".format(field=field, doc=field_doc))
             elif field_data["type"] == "short":
                 py_file.write("        ('{field}', ctypes.c_short),  # {doc}\n".format(field=field, doc=field_doc))
-            elif field_data["type"] == "str" and "length" not in field_data:
-                py_file.write("        ('{field}', ctypes.c_char),  # {doc} \n ".format(field=field, doc=field_doc))
+            elif field_data["type"] == "char":
+                py_file.write("        ('{field}', ctypes.c_char_p),  # {doc} \n ".format(field=field, doc=field_doc))
             elif field_data["type"] == "str" and "length" in field_data:
                 py_file.write("        ('{field}', ctypes.c_char*{len}),  # {doc}\n".format(field=field,
-                                                                                           len=field_data["length"],
-                                                                                           doc=field_doc))
+                                                                                            len=field_data["length"],
+                                                                                            doc=field_doc))
 
         py_file.write("    ]\n")
 
@@ -128,7 +128,9 @@ def generate_struct(struct, struct_doc, py_file):
                 struct_fields.append("%s=0.0" % field)
             elif field_data["type"] in ["int", "short"]:
                 struct_fields.append("%s=0" % field)
-            else:
+            elif field_data["type"] == "char":
+                struct_fields.append("%s=None" % field)
+            elif field_data["type"] == "str":
                 struct_fields.append("%s=''" % field)
         py_file.write("    def __init__(self,%s):\n" % ",".join(struct_fields))
         py_file.write("        super({class_name},self).__init__()\n".format(class_name=item.replace("CThostFtdc", "")))
@@ -140,7 +142,7 @@ def generate_struct(struct, struct_doc, py_file):
                 py_file.write("        self.%s=float(%s)\n" % (field, field))
             if struct_dict[field]["type"] in ["int", "short"]:
                 py_file.write("        self.%s=int(%s)\n" % (field, field))
-            if struct_dict[field]["type"] == "str":
+            if struct_dict[field]["type"] in ["str", "char"]:
                 py_file.write("        self.%s=self._to_bytes(%s)\n" % (field, field))
 
 
