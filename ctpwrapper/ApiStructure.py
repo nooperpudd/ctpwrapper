@@ -17,7 +17,6 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 import ctypes
-
 from ctpwrapper.base import Base
 
 
@@ -257,14 +256,15 @@ class TransferBankToFutureReqField(Base):
     """银行资金转期货请求，TradeCode=202001"""
     _fields_ = [
         ('FutureAccount', ctypes.c_char * 13),  # 期货资金账户
-        ('FuturePwdFlag', ctypes.c_char),  # 密码标志
+        ('FuturePwdFlag', ctypes.c_char_p),  # 密码标志
         ('FutureAccPwd', ctypes.c_char * 17),  # 密码
         ('TradeAmt', ctypes.c_double),  # 转账金额
         ('CustFee', ctypes.c_double),  # 客户手续费
         ('CurrencyCode', ctypes.c_char * 4),  # 币种：RMB-人民币 USD-美圆 HKD-港元
     ]
 
-    def __init__(self, FutureAccount='', FuturePwdFlag='', FutureAccPwd='', TradeAmt=0.0, CustFee=0.0, CurrencyCode=''):
+    def __init__(self, FutureAccount='', FuturePwdFlag=None, FutureAccPwd='', TradeAmt=0.0, CustFee=0.0,
+                 CurrencyCode=''):
         super(TransferBankToFutureReqField, self).__init__()
         self.FutureAccount = self._to_bytes(FutureAccount)
         self.FuturePwdFlag = self._to_bytes(FuturePwdFlag)
@@ -299,14 +299,15 @@ class TransferFutureToBankReqField(Base):
     """期货资金转银行请求，TradeCode=202002"""
     _fields_ = [
         ('FutureAccount', ctypes.c_char * 13),  # 期货资金账户
-        ('FuturePwdFlag', ctypes.c_char),  # 密码标志
+        ('FuturePwdFlag', ctypes.c_char_p),  # 密码标志
         ('FutureAccPwd', ctypes.c_char * 17),  # 密码
         ('TradeAmt', ctypes.c_double),  # 转账金额
         ('CustFee', ctypes.c_double),  # 客户手续费
         ('CurrencyCode', ctypes.c_char * 4),  # 币种：RMB-人民币 USD-美圆 HKD-港元
     ]
 
-    def __init__(self, FutureAccount='', FuturePwdFlag='', FutureAccPwd='', TradeAmt=0.0, CustFee=0.0, CurrencyCode=''):
+    def __init__(self, FutureAccount='', FuturePwdFlag=None, FutureAccPwd='', TradeAmt=0.0, CustFee=0.0,
+                 CurrencyCode=''):
         super(TransferFutureToBankReqField, self).__init__()
         self.FutureAccount = self._to_bytes(FutureAccount)
         self.FuturePwdFlag = self._to_bytes(FuturePwdFlag)
@@ -341,12 +342,12 @@ class TransferQryBankReqField(Base):
     """查询银行资金请求，TradeCode=204002"""
     _fields_ = [
         ('FutureAccount', ctypes.c_char * 13),  # 期货资金账户
-        ('FuturePwdFlag', ctypes.c_char),  # 密码标志
+        ('FuturePwdFlag', ctypes.c_char_p),  # 密码标志
         ('FutureAccPwd', ctypes.c_char * 17),  # 密码
         ('CurrencyCode', ctypes.c_char * 4),  # 币种：RMB-人民币 USD-美圆 HKD-港元
     ]
 
-    def __init__(self, FutureAccount='', FuturePwdFlag='', FutureAccPwd='', CurrencyCode=''):
+    def __init__(self, FutureAccount='', FuturePwdFlag=None, FutureAccPwd='', CurrencyCode=''):
         super(TransferQryBankReqField, self).__init__()
         self.FutureAccount = self._to_bytes(FutureAccount)
         self.FuturePwdFlag = self._to_bytes(FuturePwdFlag)
@@ -405,12 +406,12 @@ class TransferQryDetailRspField(Base):
         ('CertCode', ctypes.c_char * 21),  # 证件号码
         ('CurrencyCode', ctypes.c_char * 4),  # 货币代码
         ('TxAmount', ctypes.c_double),  # 发生金额
-        ('Flag', ctypes.c_char),  # 有效标志
+        ('Flag', ctypes.c_char_p),  # 有效标志
     ]
 
     def __init__(self, TradeDate='', TradeTime='', TradeCode='', FutureSerial=0, FutureID='', FutureAccount='',
                  BankSerial=0, BankID='', BankBrchID='', BankAccount='', CertCode='', CurrencyCode='', TxAmount=0.0,
-                 Flag=''):
+                 Flag=None):
         super(TransferQryDetailRspField, self).__init__()
         self.TradeDate = self._to_bytes(TradeDate)
         self.TradeTime = self._to_bytes(TradeTime)
@@ -446,10 +447,10 @@ class ExchangeField(Base):
     _fields_ = [
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ExchangeName', ctypes.c_char * 61),  # 交易所名称
-        ('ExchangeProperty', ctypes.c_char),  # 交易所属性
+        ('ExchangeProperty', ctypes.c_char_p),  # 交易所属性
     ]
 
-    def __init__(self, ExchangeID='', ExchangeName='', ExchangeProperty=''):
+    def __init__(self, ExchangeID='', ExchangeName='', ExchangeProperty=None):
         super(ExchangeField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.ExchangeName = self._to_bytes(ExchangeName)
@@ -462,26 +463,26 @@ class ProductField(Base):
         ('ProductID', ctypes.c_char * 31),  # 产品代码
         ('ProductName', ctypes.c_char * 21),  # 产品名称
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
-        ('ProductClass', ctypes.c_char),  # 产品类型
+        ('ProductClass', ctypes.c_char_p),  # 产品类型
         ('VolumeMultiple', ctypes.c_int),  # 合约数量乘数
         ('PriceTick', ctypes.c_double),  # 最小变动价位
         ('MaxMarketOrderVolume', ctypes.c_int),  # 市价单最大下单量
         ('MinMarketOrderVolume', ctypes.c_int),  # 市价单最小下单量
         ('MaxLimitOrderVolume', ctypes.c_int),  # 限价单最大下单量
         ('MinLimitOrderVolume', ctypes.c_int),  # 限价单最小下单量
-        ('PositionType', ctypes.c_char),  # 持仓类型
-        ('PositionDateType', ctypes.c_char),  # 持仓日期类型
-        ('CloseDealType', ctypes.c_char),  # 平仓处理类型
+        ('PositionType', ctypes.c_char_p),  # 持仓类型
+        ('PositionDateType', ctypes.c_char_p),  # 持仓日期类型
+        ('CloseDealType', ctypes.c_char_p),  # 平仓处理类型
         ('TradeCurrencyID', ctypes.c_char * 4),  # 交易币种类型
-        ('MortgageFundUseRange', ctypes.c_char),  # 质押资金可用范围
+        ('MortgageFundUseRange', ctypes.c_char_p),  # 质押资金可用范围
         ('ExchangeProductID', ctypes.c_char * 31),  # 交易所产品代码
         ('UnderlyingMultiple', ctypes.c_double),  # 合约基础商品乘数
     ]
 
-    def __init__(self, ProductID='', ProductName='', ExchangeID='', ProductClass='', VolumeMultiple=0, PriceTick=0.0,
+    def __init__(self, ProductID='', ProductName='', ExchangeID='', ProductClass=None, VolumeMultiple=0, PriceTick=0.0,
                  MaxMarketOrderVolume=0, MinMarketOrderVolume=0, MaxLimitOrderVolume=0, MinLimitOrderVolume=0,
-                 PositionType='', PositionDateType='', CloseDealType='', TradeCurrencyID='', MortgageFundUseRange='',
-                 ExchangeProductID='', UnderlyingMultiple=0.0):
+                 PositionType=None, PositionDateType=None, CloseDealType=None, TradeCurrencyID='',
+                 MortgageFundUseRange=None, ExchangeProductID='', UnderlyingMultiple=0.0):
         super(ProductField, self).__init__()
         self.ProductID = self._to_bytes(ProductID)
         self.ProductName = self._to_bytes(ProductName)
@@ -510,7 +511,7 @@ class InstrumentField(Base):
         ('InstrumentName', ctypes.c_char * 21),  # 合约名称
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
         ('ProductID', ctypes.c_char * 31),  # 产品代码
-        ('ProductClass', ctypes.c_char),  # 产品类型
+        ('ProductClass', ctypes.c_char_p),  # 产品类型
         ('DeliveryYear', ctypes.c_int),  # 交割年份
         ('DeliveryMonth', ctypes.c_int),  # 交割月
         ('MaxMarketOrderVolume', ctypes.c_int),  # 市价单最大下单量
@@ -524,27 +525,27 @@ class InstrumentField(Base):
         ('ExpireDate', ctypes.c_char * 9),  # 到期日
         ('StartDelivDate', ctypes.c_char * 9),  # 开始交割日
         ('EndDelivDate', ctypes.c_char * 9),  # 结束交割日
-        ('InstLifePhase', ctypes.c_char),  # 合约生命周期状态
+        ('InstLifePhase', ctypes.c_char_p),  # 合约生命周期状态
         ('IsTrading', ctypes.c_int),  # 当前是否交易
-        ('PositionType', ctypes.c_char),  # 持仓类型
-        ('PositionDateType', ctypes.c_char),  # 持仓日期类型
+        ('PositionType', ctypes.c_char_p),  # 持仓类型
+        ('PositionDateType', ctypes.c_char_p),  # 持仓日期类型
         ('LongMarginRatio', ctypes.c_double),  # 多头保证金率
         ('ShortMarginRatio', ctypes.c_double),  # 空头保证金率
-        ('MaxMarginSideAlgorithm', ctypes.c_char),  # 是否使用大额单边保证金算法
+        ('MaxMarginSideAlgorithm', ctypes.c_char_p),  # 是否使用大额单边保证金算法
         ('UnderlyingInstrID', ctypes.c_char * 31),  # 基础商品代码
         ('StrikePrice', ctypes.c_double),  # 执行价
-        ('OptionsType', ctypes.c_char),  # 期权类型
+        ('OptionsType', ctypes.c_char_p),  # 期权类型
         ('UnderlyingMultiple', ctypes.c_double),  # 合约基础商品乘数
-        ('CombinationType', ctypes.c_char),  # 组合类型
+        ('CombinationType', ctypes.c_char_p),  # 组合类型
     ]
 
     def __init__(self, InstrumentID='', ExchangeID='', InstrumentName='', ExchangeInstID='', ProductID='',
-                 ProductClass='', DeliveryYear=0, DeliveryMonth=0, MaxMarketOrderVolume=0, MinMarketOrderVolume=0,
+                 ProductClass=None, DeliveryYear=0, DeliveryMonth=0, MaxMarketOrderVolume=0, MinMarketOrderVolume=0,
                  MaxLimitOrderVolume=0, MinLimitOrderVolume=0, VolumeMultiple=0, PriceTick=0.0, CreateDate='',
-                 OpenDate='', ExpireDate='', StartDelivDate='', EndDelivDate='', InstLifePhase='', IsTrading=0,
-                 PositionType='', PositionDateType='', LongMarginRatio=0.0, ShortMarginRatio=0.0,
-                 MaxMarginSideAlgorithm='', UnderlyingInstrID='', StrikePrice=0.0, OptionsType='',
-                 UnderlyingMultiple=0.0, CombinationType=''):
+                 OpenDate='', ExpireDate='', StartDelivDate='', EndDelivDate='', InstLifePhase=None, IsTrading=0,
+                 PositionType=None, PositionDateType=None, LongMarginRatio=0.0, ShortMarginRatio=0.0,
+                 MaxMarginSideAlgorithm=None, UnderlyingInstrID='', StrikePrice=0.0, OptionsType=None,
+                 UnderlyingMultiple=0.0, CombinationType=None):
         super(InstrumentField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -624,7 +625,7 @@ class InvestorField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorGroupID', ctypes.c_char * 13),  # 投资者分组代码
         ('InvestorName', ctypes.c_char * 81),  # 投资者名称
-        ('IdentifiedCardType', ctypes.c_char),  # 证件类型
+        ('IdentifiedCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
         ('IsActive', ctypes.c_int),  # 是否活跃
         ('Telephone', ctypes.c_char * 41),  # 联系电话
@@ -635,7 +636,7 @@ class InvestorField(Base):
         ('MarginModelID', ctypes.c_char * 13),  # 保证金率模板代码
     ]
 
-    def __init__(self, InvestorID='', BrokerID='', InvestorGroupID='', InvestorName='', IdentifiedCardType='',
+    def __init__(self, InvestorID='', BrokerID='', InvestorGroupID='', InvestorName='', IdentifiedCardType=None,
                  IdentifiedCardNo='', IsActive=0, Telephone='', Address='', OpenDate='', Mobile='', CommModelID='',
                  MarginModelID=''):
         super(InvestorField, self).__init__()
@@ -662,14 +663,14 @@ class TradingCodeField(Base):
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('IsActive', ctypes.c_int),  # 是否活跃
-        ('ClientIDType', ctypes.c_char),  # 交易编码类型
+        ('ClientIDType', ctypes.c_char_p),  # 交易编码类型
         ('BranchID', ctypes.c_char * 9),  # 营业部编号
-        ('BizType', ctypes.c_char),  # 业务类型
+        ('BizType', ctypes.c_char_p),  # 业务类型
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, InvestorID='', BrokerID='', ExchangeID='', ClientID='', IsActive=0, ClientIDType='', BranchID='',
-                 BizType='', InvestUnitID=''):
+    def __init__(self, InvestorID='', BrokerID='', ExchangeID='', ClientID='', IsActive=0, ClientIDType=None,
+                 BranchID='', BizType=None, InvestUnitID=''):
         super(TradingCodeField, self).__init__()
         self.InvestorID = self._to_bytes(InvestorID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -720,10 +721,10 @@ class SuperUserFunctionField(Base):
     """管理用户功能权限"""
     _fields_ = [
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('FunctionCode', ctypes.c_char),  # 功能代码
+        ('FunctionCode', ctypes.c_char_p),  # 功能代码
     ]
 
-    def __init__(self, UserID='', FunctionCode=''):
+    def __init__(self, UserID='', FunctionCode=None):
         super(SuperUserFunctionField, self).__init__()
         self.UserID = self._to_bytes(UserID)
         self.FunctionCode = self._to_bytes(FunctionCode)
@@ -793,7 +794,7 @@ class TradingAccountField(Base):
         ('SpecProductCloseProfit', ctypes.c_double),  # 特殊产品平仓盈亏
         ('SpecProductPositionProfitByAlg', ctypes.c_double),  # 根据持仓盈亏算法计算的特殊产品持仓盈亏
         ('SpecProductExchangeMargin', ctypes.c_double),  # 特殊产品交易所保证金
-        ('BizType', ctypes.c_char),  # 业务类型
+        ('BizType', ctypes.c_char_p),  # 业务类型
         ('FrozenSwap', ctypes.c_double),  # 延时换汇冻结金额
         ('RemainSwap', ctypes.c_double),  # 剩余换汇额度
     ]
@@ -807,7 +808,7 @@ class TradingAccountField(Base):
                  PreFundMortgageOut=0.0, FundMortgageIn=0.0, FundMortgageOut=0.0, FundMortgageAvailable=0.0,
                  MortgageableFund=0.0, SpecProductMargin=0.0, SpecProductFrozenMargin=0.0, SpecProductCommission=0.0,
                  SpecProductFrozenCommission=0.0, SpecProductPositionProfit=0.0, SpecProductCloseProfit=0.0,
-                 SpecProductPositionProfitByAlg=0.0, SpecProductExchangeMargin=0.0, BizType='', FrozenSwap=0.0,
+                 SpecProductPositionProfitByAlg=0.0, SpecProductExchangeMargin=0.0, BizType=None, FrozenSwap=0.0,
                  RemainSwap=0.0):
         super(TradingAccountField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -867,9 +868,9 @@ class InvestorPositionField(Base):
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('PosiDirection', ctypes.c_char),  # 持仓多空方向
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
-        ('PositionDate', ctypes.c_char),  # 持仓日期
+        ('PosiDirection', ctypes.c_char_p),  # 持仓多空方向
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
+        ('PositionDate', ctypes.c_char_p),  # 持仓日期
         ('YdPosition', ctypes.c_int),  # 上日持仓
         ('Position', ctypes.c_int),  # 今日持仓
         ('LongFrozen', ctypes.c_int),  # 多头冻结
@@ -912,15 +913,15 @@ class InvestorPositionField(Base):
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection='', HedgeFlag='', PositionDate='',
-                 YdPosition=0, Position=0, LongFrozen=0, ShortFrozen=0, LongFrozenAmount=0.0, ShortFrozenAmount=0.0,
-                 OpenVolume=0, CloseVolume=0, OpenAmount=0.0, CloseAmount=0.0, PositionCost=0.0, PreMargin=0.0,
-                 UseMargin=0.0, FrozenMargin=0.0, FrozenCash=0.0, FrozenCommission=0.0, CashIn=0.0, Commission=0.0,
-                 CloseProfit=0.0, PositionProfit=0.0, PreSettlementPrice=0.0, SettlementPrice=0.0, TradingDay='',
-                 SettlementID=0, OpenCost=0.0, ExchangeMargin=0.0, CombPosition=0, CombLongFrozen=0, CombShortFrozen=0,
-                 CloseProfitByDate=0.0, CloseProfitByTrade=0.0, TodayPosition=0, MarginRateByMoney=0.0,
-                 MarginRateByVolume=0.0, StrikeFrozen=0, StrikeFrozenAmount=0.0, AbandonFrozen=0, ExchangeID='',
-                 YdStrikeFrozen=0, InvestUnitID=''):
+    def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection=None, HedgeFlag=None,
+                 PositionDate=None, YdPosition=0, Position=0, LongFrozen=0, ShortFrozen=0, LongFrozenAmount=0.0,
+                 ShortFrozenAmount=0.0, OpenVolume=0, CloseVolume=0, OpenAmount=0.0, CloseAmount=0.0, PositionCost=0.0,
+                 PreMargin=0.0, UseMargin=0.0, FrozenMargin=0.0, FrozenCash=0.0, FrozenCommission=0.0, CashIn=0.0,
+                 Commission=0.0, CloseProfit=0.0, PositionProfit=0.0, PreSettlementPrice=0.0, SettlementPrice=0.0,
+                 TradingDay='', SettlementID=0, OpenCost=0.0, ExchangeMargin=0.0, CombPosition=0, CombLongFrozen=0,
+                 CombShortFrozen=0, CloseProfitByDate=0.0, CloseProfitByTrade=0.0, TodayPosition=0,
+                 MarginRateByMoney=0.0, MarginRateByVolume=0.0, StrikeFrozen=0, StrikeFrozenAmount=0.0, AbandonFrozen=0,
+                 ExchangeID='', YdStrikeFrozen=0, InvestUnitID=''):
         super(InvestorPositionField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -974,10 +975,10 @@ class InstrumentMarginRateField(Base):
     """合约保证金率"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('LongMarginRatioByMoney', ctypes.c_double),  # 多头保证金率
         ('LongMarginRatioByVolume', ctypes.c_double),  # 多头保证金费
         ('ShortMarginRatioByMoney', ctypes.c_double),  # 空头保证金率
@@ -987,7 +988,7 @@ class InstrumentMarginRateField(Base):
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='',
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', HedgeFlag=None,
                  LongMarginRatioByMoney=0.0, LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0,
                  ShortMarginRatioByVolume=0.0, IsRelative=0, ExchangeID='', InvestUnitID=''):
         super(InstrumentMarginRateField, self).__init__()
@@ -1009,7 +1010,7 @@ class InstrumentCommissionRateField(Base):
     """合约手续费率"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('OpenRatioByMoney', ctypes.c_double),  # 开仓手续费率
@@ -1019,13 +1020,13 @@ class InstrumentCommissionRateField(Base):
         ('CloseTodayRatioByMoney', ctypes.c_double),  # 平今手续费率
         ('CloseTodayRatioByVolume', ctypes.c_double),  # 平今手续费
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
-        ('BizType', ctypes.c_char),  # 业务类型
+        ('BizType', ctypes.c_char_p),  # 业务类型
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
                  OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0, CloseTodayRatioByMoney=0.0,
-                 CloseTodayRatioByVolume=0.0, ExchangeID='', BizType='', InvestUnitID=''):
+                 CloseTodayRatioByVolume=0.0, ExchangeID='', BizType=None, InvestUnitID=''):
         super(InstrumentCommissionRateField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -1150,13 +1151,13 @@ class InstrumentTradingRightField(Base):
     """投资者合约交易权限"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('TradingRight', ctypes.c_char),  # 交易权限
+        ('TradingRight', ctypes.c_char_p),  # 交易权限
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', TradingRight=''):
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', TradingRight=None):
         super(InstrumentTradingRightField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -1171,13 +1172,13 @@ class BrokerUserField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('UserName', ctypes.c_char * 81),  # 用户名称
-        ('UserType', ctypes.c_char),  # 用户类型
+        ('UserType', ctypes.c_char_p),  # 用户类型
         ('IsActive', ctypes.c_int),  # 是否活跃
         ('IsUsingOTP', ctypes.c_int),  # 是否使用令牌
         ('IsAuthForce', ctypes.c_int),  # 是否强制终端认证
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserName='', UserType='', IsActive=0, IsUsingOTP=0, IsAuthForce=0):
+    def __init__(self, BrokerID='', UserID='', UserName='', UserType=None, IsActive=0, IsUsingOTP=0, IsAuthForce=0):
         super(BrokerUserField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -1217,10 +1218,10 @@ class BrokerUserFunctionField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('BrokerFunctionCode', ctypes.c_char),  # 经纪公司功能代码
+        ('BrokerFunctionCode', ctypes.c_char_p),  # 经纪公司功能代码
     ]
 
-    def __init__(self, BrokerID='', UserID='', BrokerFunctionCode=''):
+    def __init__(self, BrokerID='', UserID='', BrokerFunctionCode=None):
         super(BrokerUserFunctionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -1236,7 +1237,7 @@ class TraderOfferField(Base):
         ('Password', ctypes.c_char * 41),  # 密码
         ('InstallID', ctypes.c_int),  # 安装编号
         ('OrderLocalID', ctypes.c_char * 13),  # 本地报单编号
-        ('TraderConnectStatus', ctypes.c_char),  # 交易所交易员连接状态
+        ('TraderConnectStatus', ctypes.c_char_p),  # 交易所交易员连接状态
         ('ConnectRequestDate', ctypes.c_char * 9),  # 发出连接请求的日期
         ('ConnectRequestTime', ctypes.c_char * 9),  # 发出连接请求的时间
         ('LastReportDate', ctypes.c_char * 9),  # 上次报告日期
@@ -1252,7 +1253,7 @@ class TraderOfferField(Base):
     ]
 
     def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallID=0, OrderLocalID='',
-                 TraderConnectStatus='', ConnectRequestDate='', ConnectRequestTime='', LastReportDate='',
+                 TraderConnectStatus=None, ConnectRequestDate='', ConnectRequestTime='', LastReportDate='',
                  LastReportTime='', ConnectDate='', ConnectTime='', StartDate='', StartTime='', TradingDay='',
                  BrokerID='', MaxTradeID='', MaxOrderMessageReference=''):
         super(TraderOfferField, self).__init__()
@@ -1307,10 +1308,10 @@ class InstrumentMarginRateAdjustField(Base):
     """合约保证金率调整"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('LongMarginRatioByMoney', ctypes.c_double),  # 多头保证金率
         ('LongMarginRatioByVolume', ctypes.c_double),  # 多头保证金费
         ('ShortMarginRatioByMoney', ctypes.c_double),  # 空头保证金率
@@ -1318,7 +1319,7 @@ class InstrumentMarginRateAdjustField(Base):
         ('IsRelative', ctypes.c_int),  # 是否相对交易所收取
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='',
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', HedgeFlag=None,
                  LongMarginRatioByMoney=0.0, LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0,
                  ShortMarginRatioByVolume=0.0, IsRelative=0):
         super(InstrumentMarginRateAdjustField, self).__init__()
@@ -1339,7 +1340,7 @@ class ExchangeMarginRateField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('LongMarginRatioByMoney', ctypes.c_double),  # 多头保证金率
         ('LongMarginRatioByVolume', ctypes.c_double),  # 多头保证金费
         ('ShortMarginRatioByMoney', ctypes.c_double),  # 空头保证金率
@@ -1347,7 +1348,7 @@ class ExchangeMarginRateField(Base):
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
     ]
 
-    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag='', LongMarginRatioByMoney=0.0,
+    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag=None, LongMarginRatioByMoney=0.0,
                  LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0, ShortMarginRatioByVolume=0.0, ExchangeID=''):
         super(ExchangeMarginRateField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -1365,7 +1366,7 @@ class ExchangeMarginRateAdjustField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('LongMarginRatioByMoney', ctypes.c_double),  # 跟随交易所投资者多头保证金率
         ('LongMarginRatioByVolume', ctypes.c_double),  # 跟随交易所投资者多头保证金费
         ('ShortMarginRatioByMoney', ctypes.c_double),  # 跟随交易所投资者空头保证金率
@@ -1380,7 +1381,7 @@ class ExchangeMarginRateAdjustField(Base):
         ('NoShortMarginRatioByVolume', ctypes.c_double),  # 不跟随交易所投资者空头保证金费
     ]
 
-    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag='', LongMarginRatioByMoney=0.0,
+    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag=None, LongMarginRatioByMoney=0.0,
                  LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0, ShortMarginRatioByVolume=0.0,
                  ExchLongMarginRatioByMoney=0.0, ExchLongMarginRatioByVolume=0.0, ExchShortMarginRatioByMoney=0.0,
                  ExchShortMarginRatioByVolume=0.0, NoLongMarginRatioByMoney=0.0, NoLongMarginRatioByVolume=0.0,
@@ -1582,19 +1583,19 @@ class InputOrderField(Base):
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('OrderRef', ctypes.c_char * 13),  # 报单引用
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('OrderPriceType', ctypes.c_char),  # 报单价格条件
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('OrderPriceType', ctypes.c_char_p),  # 报单价格条件
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('CombOffsetFlag', ctypes.c_char * 5),  # 组合开平标志
         ('CombHedgeFlag', ctypes.c_char * 5),  # 组合投机套保标志
         ('LimitPrice', ctypes.c_double),  # 价格
         ('VolumeTotalOriginal', ctypes.c_int),  # 数量
-        ('TimeCondition', ctypes.c_char),  # 有效期类型
+        ('TimeCondition', ctypes.c_char_p),  # 有效期类型
         ('GTDDate', ctypes.c_char * 9),  # GTD日期
-        ('VolumeCondition', ctypes.c_char),  # 成交量类型
+        ('VolumeCondition', ctypes.c_char_p),  # 成交量类型
         ('MinVolume', ctypes.c_int),  # 最小成交量
-        ('ContingentCondition', ctypes.c_char),  # 触发条件
+        ('ContingentCondition', ctypes.c_char_p),  # 触发条件
         ('StopPrice', ctypes.c_double),  # 止损价
-        ('ForceCloseReason', ctypes.c_char),  # 强平原因
+        ('ForceCloseReason', ctypes.c_char_p),  # 强平原因
         ('IsAutoSuspend', ctypes.c_int),  # 自动挂起标志
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
         ('RequestID', ctypes.c_int),  # 请求编号
@@ -1609,11 +1610,12 @@ class InputOrderField(Base):
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType='',
-                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
-                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0, ContingentCondition='', StopPrice=0.0,
-                 ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='', RequestID=0, UserForceClose=0, IsSwapOrder=0,
-                 ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='', ClientID='', IPAddress='', MacAddress=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType=None,
+                 Direction=None, CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
+                 TimeCondition=None, GTDDate='', VolumeCondition=None, MinVolume=0, ContingentCondition=None,
+                 StopPrice=0.0, ForceCloseReason=None, IsAutoSuspend=0, BusinessUnit='', RequestID=0, UserForceClose=0,
+                 IsSwapOrder=0, ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='', ClientID='', IPAddress='',
+                 MacAddress=''):
         super(InputOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -1655,19 +1657,19 @@ class OrderField(Base):
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('OrderRef', ctypes.c_char * 13),  # 报单引用
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('OrderPriceType', ctypes.c_char),  # 报单价格条件
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('OrderPriceType', ctypes.c_char_p),  # 报单价格条件
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('CombOffsetFlag', ctypes.c_char * 5),  # 组合开平标志
         ('CombHedgeFlag', ctypes.c_char * 5),  # 组合投机套保标志
         ('LimitPrice', ctypes.c_double),  # 价格
         ('VolumeTotalOriginal', ctypes.c_int),  # 数量
-        ('TimeCondition', ctypes.c_char),  # 有效期类型
+        ('TimeCondition', ctypes.c_char_p),  # 有效期类型
         ('GTDDate', ctypes.c_char * 9),  # GTD日期
-        ('VolumeCondition', ctypes.c_char),  # 成交量类型
+        ('VolumeCondition', ctypes.c_char_p),  # 成交量类型
         ('MinVolume', ctypes.c_int),  # 最小成交量
-        ('ContingentCondition', ctypes.c_char),  # 触发条件
+        ('ContingentCondition', ctypes.c_char_p),  # 触发条件
         ('StopPrice', ctypes.c_double),  # 止损价
-        ('ForceCloseReason', ctypes.c_char),  # 强平原因
+        ('ForceCloseReason', ctypes.c_char_p),  # 强平原因
         ('IsAutoSuspend', ctypes.c_int),  # 自动挂起标志
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
         ('RequestID', ctypes.c_int),  # 请求编号
@@ -1678,14 +1680,14 @@ class OrderField(Base):
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('OrderSubmitStatus', ctypes.c_char),  # 报单提交状态
+        ('OrderSubmitStatus', ctypes.c_char_p),  # 报单提交状态
         ('NotifySequence', ctypes.c_int),  # 报单提示序号
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
         ('OrderSysID', ctypes.c_char * 21),  # 报单编号
-        ('OrderSource', ctypes.c_char),  # 报单来源
-        ('OrderStatus', ctypes.c_char),  # 报单状态
-        ('OrderType', ctypes.c_char),  # 报单类型
+        ('OrderSource', ctypes.c_char_p),  # 报单来源
+        ('OrderStatus', ctypes.c_char_p),  # 报单状态
+        ('OrderType', ctypes.c_char_p),  # 报单类型
         ('VolumeTraded', ctypes.c_int),  # 今成交数量
         ('VolumeTotal', ctypes.c_int),  # 剩余数量
         ('InsertDate', ctypes.c_char * 9),  # 报单日期
@@ -1715,17 +1717,17 @@ class OrderField(Base):
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType='',
-                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
-                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0, ContingentCondition='', StopPrice=0.0,
-                 ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='', RequestID=0, OrderLocalID='', ExchangeID='',
-                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, OrderSubmitStatus='',
-                 NotifySequence=0, TradingDay='', SettlementID=0, OrderSysID='', OrderSource='', OrderStatus='',
-                 OrderType='', VolumeTraded=0, VolumeTotal=0, InsertDate='', InsertTime='', ActiveTime='',
-                 SuspendTime='', UpdateTime='', CancelTime='', ActiveTraderID='', ClearingPartID='', SequenceNo=0,
-                 FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='', UserForceClose=0, ActiveUserID='',
-                 BrokerOrderSeq=0, RelativeOrderSysID='', ZCETotalTradedVolume=0, IsSwapOrder=0, BranchID='',
-                 InvestUnitID='', AccountID='', CurrencyID='', IPAddress='', MacAddress=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType=None,
+                 Direction=None, CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
+                 TimeCondition=None, GTDDate='', VolumeCondition=None, MinVolume=0, ContingentCondition=None,
+                 StopPrice=0.0, ForceCloseReason=None, IsAutoSuspend=0, BusinessUnit='', RequestID=0, OrderLocalID='',
+                 ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0,
+                 OrderSubmitStatus=None, NotifySequence=0, TradingDay='', SettlementID=0, OrderSysID='',
+                 OrderSource=None, OrderStatus=None, OrderType=None, VolumeTraded=0, VolumeTotal=0, InsertDate='',
+                 InsertTime='', ActiveTime='', SuspendTime='', UpdateTime='', CancelTime='', ActiveTraderID='',
+                 ClearingPartID='', SequenceNo=0, FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='',
+                 UserForceClose=0, ActiveUserID='', BrokerOrderSeq=0, RelativeOrderSysID='', ZCETotalTradedVolume=0,
+                 IsSwapOrder=0, BranchID='', InvestUnitID='', AccountID='', CurrencyID='', IPAddress='', MacAddress=''):
         super(OrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -1795,19 +1797,19 @@ class OrderField(Base):
 class ExchangeOrderField(Base):
     """交易所报单"""
     _fields_ = [
-        ('OrderPriceType', ctypes.c_char),  # 报单价格条件
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('OrderPriceType', ctypes.c_char_p),  # 报单价格条件
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('CombOffsetFlag', ctypes.c_char * 5),  # 组合开平标志
         ('CombHedgeFlag', ctypes.c_char * 5),  # 组合投机套保标志
         ('LimitPrice', ctypes.c_double),  # 价格
         ('VolumeTotalOriginal', ctypes.c_int),  # 数量
-        ('TimeCondition', ctypes.c_char),  # 有效期类型
+        ('TimeCondition', ctypes.c_char_p),  # 有效期类型
         ('GTDDate', ctypes.c_char * 9),  # GTD日期
-        ('VolumeCondition', ctypes.c_char),  # 成交量类型
+        ('VolumeCondition', ctypes.c_char_p),  # 成交量类型
         ('MinVolume', ctypes.c_int),  # 最小成交量
-        ('ContingentCondition', ctypes.c_char),  # 触发条件
+        ('ContingentCondition', ctypes.c_char_p),  # 触发条件
         ('StopPrice', ctypes.c_double),  # 止损价
-        ('ForceCloseReason', ctypes.c_char),  # 强平原因
+        ('ForceCloseReason', ctypes.c_char_p),  # 强平原因
         ('IsAutoSuspend', ctypes.c_int),  # 自动挂起标志
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
         ('RequestID', ctypes.c_int),  # 请求编号
@@ -1818,14 +1820,14 @@ class ExchangeOrderField(Base):
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('OrderSubmitStatus', ctypes.c_char),  # 报单提交状态
+        ('OrderSubmitStatus', ctypes.c_char_p),  # 报单提交状态
         ('NotifySequence', ctypes.c_int),  # 报单提示序号
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
         ('OrderSysID', ctypes.c_char * 21),  # 报单编号
-        ('OrderSource', ctypes.c_char),  # 报单来源
-        ('OrderStatus', ctypes.c_char),  # 报单状态
-        ('OrderType', ctypes.c_char),  # 报单类型
+        ('OrderSource', ctypes.c_char_p),  # 报单来源
+        ('OrderStatus', ctypes.c_char_p),  # 报单状态
+        ('OrderType', ctypes.c_char_p),  # 报单类型
         ('VolumeTraded', ctypes.c_int),  # 今成交数量
         ('VolumeTotal', ctypes.c_int),  # 剩余数量
         ('InsertDate', ctypes.c_char * 9),  # 报单日期
@@ -1842,12 +1844,12 @@ class ExchangeOrderField(Base):
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, OrderPriceType='', Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0,
-                 VolumeTotalOriginal=0, TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0,
-                 ContingentCondition='', StopPrice=0.0, ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='',
+    def __init__(self, OrderPriceType=None, Direction=None, CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0,
+                 VolumeTotalOriginal=0, TimeCondition=None, GTDDate='', VolumeCondition=None, MinVolume=0,
+                 ContingentCondition=None, StopPrice=0.0, ForceCloseReason=None, IsAutoSuspend=0, BusinessUnit='',
                  RequestID=0, OrderLocalID='', ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='',
-                 TraderID='', InstallID=0, OrderSubmitStatus='', NotifySequence=0, TradingDay='', SettlementID=0,
-                 OrderSysID='', OrderSource='', OrderStatus='', OrderType='', VolumeTraded=0, VolumeTotal=0,
+                 TraderID='', InstallID=0, OrderSubmitStatus=None, NotifySequence=0, TradingDay='', SettlementID=0,
+                 OrderSysID='', OrderSource=None, OrderStatus=None, OrderType=None, VolumeTraded=0, VolumeTotal=0,
                  InsertDate='', InsertTime='', ActiveTime='', SuspendTime='', UpdateTime='', CancelTime='',
                  ActiveTraderID='', ClearingPartID='', SequenceNo=0, BranchID='', IPAddress='', MacAddress=''):
         super(ExchangeOrderField, self).__init__()
@@ -1934,7 +1936,7 @@ class InputOrderActionField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('OrderSysID', ctypes.c_char * 21),  # 报单编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('LimitPrice', ctypes.c_double),  # 价格
         ('VolumeChange', ctypes.c_int),  # 数量变化
         ('UserID', ctypes.c_char * 16),  # 用户代码
@@ -1945,7 +1947,7 @@ class InputOrderActionField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', OrderActionRef=0, OrderRef='', RequestID=0, FrontID=0, SessionID=0,
-                 ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice=0.0, VolumeChange=0, UserID='',
+                 ExchangeID='', OrderSysID='', ActionFlag=None, LimitPrice=0.0, VolumeChange=0, UserID='',
                  InstrumentID='', InvestUnitID='', IPAddress='', MacAddress=''):
         super(InputOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -1979,7 +1981,7 @@ class OrderActionField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('OrderSysID', ctypes.c_char * 21),  # 报单编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('LimitPrice', ctypes.c_double),  # 价格
         ('VolumeChange', ctypes.c_int),  # 数量变化
         ('ActionDate', ctypes.c_char * 9),  # 操作日期
@@ -1991,7 +1993,7 @@ class OrderActionField(Base):
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OrderActionStatus', ctypes.c_char),  # 报单操作状态
+        ('OrderActionStatus', ctypes.c_char_p),  # 报单操作状态
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('StatusMsg', ctypes.c_char * 81),  # 状态信息
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
@@ -2002,9 +2004,9 @@ class OrderActionField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', OrderActionRef=0, OrderRef='', RequestID=0, FrontID=0, SessionID=0,
-                 ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice=0.0, VolumeChange=0, ActionDate='',
+                 ExchangeID='', OrderSysID='', ActionFlag=None, LimitPrice=0.0, VolumeChange=0, ActionDate='',
                  ActionTime='', TraderID='', InstallID=0, OrderLocalID='', ActionLocalID='', ParticipantID='',
-                 ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', StatusMsg='', InstrumentID='',
+                 ClientID='', BusinessUnit='', OrderActionStatus=None, UserID='', StatusMsg='', InstrumentID='',
                  BranchID='', InvestUnitID='', IPAddress='', MacAddress=''):
         super(OrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -2043,7 +2045,7 @@ class ExchangeOrderActionField(Base):
     _fields_ = [
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('OrderSysID', ctypes.c_char * 21),  # 报单编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('LimitPrice', ctypes.c_double),  # 价格
         ('VolumeChange', ctypes.c_int),  # 数量变化
         ('ActionDate', ctypes.c_char * 9),  # 操作日期
@@ -2055,16 +2057,16 @@ class ExchangeOrderActionField(Base):
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OrderActionStatus', ctypes.c_char),  # 报单操作状态
+        ('OrderActionStatus', ctypes.c_char_p),  # 报单操作状态
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('BranchID', ctypes.c_char * 9),  # 营业部编号
         ('IPAddress', ctypes.c_char * 16),  # IP地址
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice=0.0, VolumeChange=0, ActionDate='',
+    def __init__(self, ExchangeID='', OrderSysID='', ActionFlag=None, LimitPrice=0.0, VolumeChange=0, ActionDate='',
                  ActionTime='', TraderID='', InstallID=0, OrderLocalID='', ActionLocalID='', ParticipantID='',
-                 ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', BranchID='', IPAddress='',
+                 ClientID='', BusinessUnit='', OrderActionStatus=None, UserID='', BranchID='', IPAddress='',
                  MacAddress=''):
         super(ExchangeOrderActionField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -2119,32 +2121,32 @@ class ExchangeTradeField(Base):
     _fields_ = [
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('TradeID', ctypes.c_char * 21),  # 成交编号
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('OrderSysID', ctypes.c_char * 21),  # 报单编号
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
-        ('TradingRole', ctypes.c_char),  # 交易角色
+        ('TradingRole', ctypes.c_char_p),  # 交易角色
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
-        ('OffsetFlag', ctypes.c_char),  # 开平标志
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('OffsetFlag', ctypes.c_char_p),  # 开平标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('Price', ctypes.c_double),  # 价格
         ('Volume', ctypes.c_int),  # 数量
         ('TradeDate', ctypes.c_char * 9),  # 成交时期
         ('TradeTime', ctypes.c_char * 9),  # 成交时间
-        ('TradeType', ctypes.c_char),  # 成交类型
-        ('PriceSource', ctypes.c_char),  # 成交价来源
+        ('TradeType', ctypes.c_char_p),  # 成交类型
+        ('PriceSource', ctypes.c_char_p),  # 成交价来源
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('OrderLocalID', ctypes.c_char * 13),  # 本地报单编号
         ('ClearingPartID', ctypes.c_char * 11),  # 结算会员编号
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
         ('SequenceNo', ctypes.c_int),  # 序号
-        ('TradeSource', ctypes.c_char),  # 成交来源
+        ('TradeSource', ctypes.c_char_p),  # 成交来源
     ]
 
-    def __init__(self, ExchangeID='', TradeID='', Direction='', OrderSysID='', ParticipantID='', ClientID='',
-                 TradingRole='', ExchangeInstID='', OffsetFlag='', HedgeFlag='', Price=0.0, Volume=0, TradeDate='',
-                 TradeTime='', TradeType='', PriceSource='', TraderID='', OrderLocalID='', ClearingPartID='',
-                 BusinessUnit='', SequenceNo=0, TradeSource=''):
+    def __init__(self, ExchangeID='', TradeID='', Direction=None, OrderSysID='', ParticipantID='', ClientID='',
+                 TradingRole=None, ExchangeInstID='', OffsetFlag=None, HedgeFlag=None, Price=0.0, Volume=0,
+                 TradeDate='', TradeTime='', TradeType=None, PriceSource=None, TraderID='', OrderLocalID='',
+                 ClearingPartID='', BusinessUnit='', SequenceNo=0, TradeSource=None):
         super(ExchangeTradeField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.TradeID = self._to_bytes(TradeID)
@@ -2180,20 +2182,20 @@ class TradeField(Base):
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('TradeID', ctypes.c_char * 21),  # 成交编号
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('OrderSysID', ctypes.c_char * 21),  # 报单编号
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
-        ('TradingRole', ctypes.c_char),  # 交易角色
+        ('TradingRole', ctypes.c_char_p),  # 交易角色
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
-        ('OffsetFlag', ctypes.c_char),  # 开平标志
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('OffsetFlag', ctypes.c_char_p),  # 开平标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('Price', ctypes.c_double),  # 价格
         ('Volume', ctypes.c_int),  # 数量
         ('TradeDate', ctypes.c_char * 9),  # 成交时期
         ('TradeTime', ctypes.c_char * 9),  # 成交时间
-        ('TradeType', ctypes.c_char),  # 成交类型
-        ('PriceSource', ctypes.c_char),  # 成交价来源
+        ('TradeType', ctypes.c_char_p),  # 成交类型
+        ('PriceSource', ctypes.c_char_p),  # 成交价来源
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('OrderLocalID', ctypes.c_char * 13),  # 本地报单编号
         ('ClearingPartID', ctypes.c_char * 11),  # 结算会员编号
@@ -2202,15 +2204,15 @@ class TradeField(Base):
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
         ('BrokerOrderSeq', ctypes.c_int),  # 经纪公司报单编号
-        ('TradeSource', ctypes.c_char),  # 成交来源
+        ('TradeSource', ctypes.c_char_p),  # 成交来源
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', ExchangeID='', TradeID='',
-                 Direction='', OrderSysID='', ParticipantID='', ClientID='', TradingRole='', ExchangeInstID='',
-                 OffsetFlag='', HedgeFlag='', Price=0.0, Volume=0, TradeDate='', TradeTime='', TradeType='',
-                 PriceSource='', TraderID='', OrderLocalID='', ClearingPartID='', BusinessUnit='', SequenceNo=0,
-                 TradingDay='', SettlementID=0, BrokerOrderSeq=0, TradeSource='', InvestUnitID=''):
+                 Direction=None, OrderSysID='', ParticipantID='', ClientID='', TradingRole=None, ExchangeInstID='',
+                 OffsetFlag=None, HedgeFlag=None, Price=0.0, Volume=0, TradeDate='', TradeTime='', TradeType=None,
+                 PriceSource=None, TraderID='', OrderLocalID='', ClearingPartID='', BusinessUnit='', SequenceNo=0,
+                 TradingDay='', SettlementID=0, BrokerOrderSeq=0, TradeSource=None, InvestUnitID=''):
         super(TradeField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -2285,15 +2287,15 @@ class QueryMaxOrderVolumeField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('Direction', ctypes.c_char),  # 买卖方向
-        ('OffsetFlag', ctypes.c_char),  # 开平标志
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('Direction', ctypes.c_char_p),  # 买卖方向
+        ('OffsetFlag', ctypes.c_char_p),  # 开平标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('MaxVolume', ctypes.c_int),  # 最大允许报单数量
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', Direction='', OffsetFlag='', HedgeFlag='',
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', Direction=None, OffsetFlag=None, HedgeFlag=None,
                  MaxVolume=0, ExchangeID='', InvestUnitID=''):
         super(QueryMaxOrderVolumeField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -2392,7 +2394,7 @@ class SyncingInvestorField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorGroupID', ctypes.c_char * 13),  # 投资者分组代码
         ('InvestorName', ctypes.c_char * 81),  # 投资者名称
-        ('IdentifiedCardType', ctypes.c_char),  # 证件类型
+        ('IdentifiedCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
         ('IsActive', ctypes.c_int),  # 是否活跃
         ('Telephone', ctypes.c_char * 41),  # 联系电话
@@ -2403,7 +2405,7 @@ class SyncingInvestorField(Base):
         ('MarginModelID', ctypes.c_char * 13),  # 保证金率模板代码
     ]
 
-    def __init__(self, InvestorID='', BrokerID='', InvestorGroupID='', InvestorName='', IdentifiedCardType='',
+    def __init__(self, InvestorID='', BrokerID='', InvestorGroupID='', InvestorName='', IdentifiedCardType=None,
                  IdentifiedCardNo='', IsActive=0, Telephone='', Address='', OpenDate='', Mobile='', CommModelID='',
                  MarginModelID=''):
         super(SyncingInvestorField, self).__init__()
@@ -2430,10 +2432,10 @@ class SyncingTradingCodeField(Base):
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('IsActive', ctypes.c_int),  # 是否活跃
-        ('ClientIDType', ctypes.c_char),  # 交易编码类型
+        ('ClientIDType', ctypes.c_char_p),  # 交易编码类型
     ]
 
-    def __init__(self, InvestorID='', BrokerID='', ExchangeID='', ClientID='', IsActive=0, ClientIDType=''):
+    def __init__(self, InvestorID='', BrokerID='', ExchangeID='', ClientID='', IsActive=0, ClientIDType=None):
         super(SyncingTradingCodeField, self).__init__()
         self.InvestorID = self._to_bytes(InvestorID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -2578,9 +2580,9 @@ class SyncingInvestorPositionField(Base):
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('PosiDirection', ctypes.c_char),  # 持仓多空方向
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
-        ('PositionDate', ctypes.c_char),  # 持仓日期
+        ('PosiDirection', ctypes.c_char_p),  # 持仓多空方向
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
+        ('PositionDate', ctypes.c_char_p),  # 持仓日期
         ('YdPosition', ctypes.c_int),  # 上日持仓
         ('Position', ctypes.c_int),  # 今日持仓
         ('LongFrozen', ctypes.c_int),  # 多头冻结
@@ -2623,15 +2625,15 @@ class SyncingInvestorPositionField(Base):
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection='', HedgeFlag='', PositionDate='',
-                 YdPosition=0, Position=0, LongFrozen=0, ShortFrozen=0, LongFrozenAmount=0.0, ShortFrozenAmount=0.0,
-                 OpenVolume=0, CloseVolume=0, OpenAmount=0.0, CloseAmount=0.0, PositionCost=0.0, PreMargin=0.0,
-                 UseMargin=0.0, FrozenMargin=0.0, FrozenCash=0.0, FrozenCommission=0.0, CashIn=0.0, Commission=0.0,
-                 CloseProfit=0.0, PositionProfit=0.0, PreSettlementPrice=0.0, SettlementPrice=0.0, TradingDay='',
-                 SettlementID=0, OpenCost=0.0, ExchangeMargin=0.0, CombPosition=0, CombLongFrozen=0, CombShortFrozen=0,
-                 CloseProfitByDate=0.0, CloseProfitByTrade=0.0, TodayPosition=0, MarginRateByMoney=0.0,
-                 MarginRateByVolume=0.0, StrikeFrozen=0, StrikeFrozenAmount=0.0, AbandonFrozen=0, ExchangeID='',
-                 YdStrikeFrozen=0, InvestUnitID=''):
+    def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection=None, HedgeFlag=None,
+                 PositionDate=None, YdPosition=0, Position=0, LongFrozen=0, ShortFrozen=0, LongFrozenAmount=0.0,
+                 ShortFrozenAmount=0.0, OpenVolume=0, CloseVolume=0, OpenAmount=0.0, CloseAmount=0.0, PositionCost=0.0,
+                 PreMargin=0.0, UseMargin=0.0, FrozenMargin=0.0, FrozenCash=0.0, FrozenCommission=0.0, CashIn=0.0,
+                 Commission=0.0, CloseProfit=0.0, PositionProfit=0.0, PreSettlementPrice=0.0, SettlementPrice=0.0,
+                 TradingDay='', SettlementID=0, OpenCost=0.0, ExchangeMargin=0.0, CombPosition=0, CombLongFrozen=0,
+                 CombShortFrozen=0, CloseProfitByDate=0.0, CloseProfitByTrade=0.0, TodayPosition=0,
+                 MarginRateByMoney=0.0, MarginRateByVolume=0.0, StrikeFrozen=0, StrikeFrozenAmount=0.0, AbandonFrozen=0,
+                 ExchangeID='', YdStrikeFrozen=0, InvestUnitID=''):
         super(SyncingInvestorPositionField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -2685,10 +2687,10 @@ class SyncingInstrumentMarginRateField(Base):
     """正在同步中的合约保证金率"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('LongMarginRatioByMoney', ctypes.c_double),  # 多头保证金率
         ('LongMarginRatioByVolume', ctypes.c_double),  # 多头保证金费
         ('ShortMarginRatioByMoney', ctypes.c_double),  # 空头保证金率
@@ -2696,7 +2698,7 @@ class SyncingInstrumentMarginRateField(Base):
         ('IsRelative', ctypes.c_int),  # 是否相对交易所收取
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='',
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', HedgeFlag=None,
                  LongMarginRatioByMoney=0.0, LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0,
                  ShortMarginRatioByVolume=0.0, IsRelative=0):
         super(SyncingInstrumentMarginRateField, self).__init__()
@@ -2716,7 +2718,7 @@ class SyncingInstrumentCommissionRateField(Base):
     """正在同步中的合约手续费率"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('OpenRatioByMoney', ctypes.c_double),  # 开仓手续费率
@@ -2727,7 +2729,7 @@ class SyncingInstrumentCommissionRateField(Base):
         ('CloseTodayRatioByVolume', ctypes.c_double),  # 平今手续费
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
                  OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0, CloseTodayRatioByMoney=0.0,
                  CloseTodayRatioByVolume=0.0):
         super(SyncingInstrumentCommissionRateField, self).__init__()
@@ -2747,13 +2749,13 @@ class SyncingInstrumentTradingRightField(Base):
     """正在同步中的合约交易权限"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('TradingRight', ctypes.c_char),  # 交易权限
+        ('TradingRight', ctypes.c_char_p),  # 交易权限
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', TradingRight=''):
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', TradingRight=None):
         super(SyncingInstrumentTradingRightField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -2839,11 +2841,11 @@ class QryTradingAccountField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
-        ('BizType', ctypes.c_char),  # 业务类型
+        ('BizType', ctypes.c_char_p),  # 业务类型
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', CurrencyID='', BizType='', AccountID=''):
+    def __init__(self, BrokerID='', InvestorID='', CurrencyID='', BizType=None, AccountID=''):
         super(QryTradingAccountField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -2872,11 +2874,11 @@ class QryTradingCodeField(Base):
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
-        ('ClientIDType', ctypes.c_char),  # 交易编码类型
+        ('ClientIDType', ctypes.c_char_p),  # 交易编码类型
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', ExchangeID='', ClientID='', ClientIDType='', InvestUnitID=''):
+    def __init__(self, BrokerID='', InvestorID='', ExchangeID='', ClientID='', ClientIDType=None, InvestUnitID=''):
         super(QryTradingCodeField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -2903,12 +2905,12 @@ class QryInstrumentMarginRateField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', HedgeFlag='', ExchangeID='', InvestUnitID=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', HedgeFlag=None, ExchangeID='', InvestUnitID=''):
         super(QryInstrumentMarginRateField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -3109,11 +3111,11 @@ class QryProductField(Base):
     """查询产品"""
     _fields_ = [
         ('ProductID', ctypes.c_char * 31),  # 产品代码
-        ('ProductClass', ctypes.c_char),  # 产品类型
+        ('ProductClass', ctypes.c_char_p),  # 产品类型
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
     ]
 
-    def __init__(self, ProductID='', ProductClass='', ExchangeID=''):
+    def __init__(self, ProductID='', ProductClass=None, ExchangeID=''):
         super(QryProductField, self).__init__()
         self.ProductID = self._to_bytes(ProductID)
         self.ProductClass = self._to_bytes(ProductClass)
@@ -3228,11 +3230,11 @@ class QryExchangeMarginRateField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
     ]
 
-    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag='', ExchangeID=''):
+    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag=None, ExchangeID=''):
         super(QryExchangeMarginRateField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InstrumentID = self._to_bytes(InstrumentID)
@@ -3245,10 +3247,10 @@ class QryExchangeMarginRateAdjustField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
     ]
 
-    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag=''):
+    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag=None):
         super(QryExchangeMarginRateAdjustField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InstrumentID = self._to_bytes(InstrumentID)
@@ -3315,15 +3317,15 @@ class OptionInstrMiniMarginField(Base):
     """当前期权合约最小保证金"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('MinMargin', ctypes.c_double),  # 单位（手）期权合约最小保证金
-        ('ValueMethod', ctypes.c_char),  # 取值方式
+        ('ValueMethod', ctypes.c_char_p),  # 取值方式
         ('IsRelative', ctypes.c_int),  # 是否跟随交易所收取
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', MinMargin=0.0, ValueMethod='',
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', MinMargin=0.0, ValueMethod=None,
                  IsRelative=0):
         super(OptionInstrMiniMarginField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
@@ -3339,7 +3341,7 @@ class OptionInstrMarginAdjustField(Base):
     """当前期权合约保证金调整系数"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('SShortMarginRatioByMoney', ctypes.c_double),  # 投机空头保证金调整系数
@@ -3353,7 +3355,7 @@ class OptionInstrMarginAdjustField(Base):
         ('MShortMarginRatioByVolume', ctypes.c_double),  # 做市商空头保证金调整系数
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', SShortMarginRatioByMoney=0.0,
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', SShortMarginRatioByMoney=0.0,
                  SShortMarginRatioByVolume=0.0, HShortMarginRatioByMoney=0.0, HShortMarginRatioByVolume=0.0,
                  AShortMarginRatioByMoney=0.0, AShortMarginRatioByVolume=0.0, IsRelative=0,
                  MShortMarginRatioByMoney=0.0, MShortMarginRatioByVolume=0.0):
@@ -3377,7 +3379,7 @@ class OptionInstrCommRateField(Base):
     """当前期权合约手续费的详细内容"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('OpenRatioByMoney', ctypes.c_double),  # 开仓手续费率
@@ -3392,7 +3394,7 @@ class OptionInstrCommRateField(Base):
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
                  OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0, CloseTodayRatioByMoney=0.0,
                  CloseTodayRatioByVolume=0.0, StrikeRatioByMoney=0.0, StrikeRatioByVolume=0.0, ExchangeID='',
                  InvestUnitID=''):
@@ -3419,7 +3421,7 @@ class OptionInstrTradeCostField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('FixedMargin', ctypes.c_double),  # 期权合约保证金不变部分
         ('MiniMargin', ctypes.c_double),  # 期权合约最小保证金
         ('Royalty', ctypes.c_double),  # 期权合约权利金
@@ -3429,7 +3431,7 @@ class OptionInstrTradeCostField(Base):
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', HedgeFlag='', FixedMargin=0.0, MiniMargin=0.0,
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', HedgeFlag=None, FixedMargin=0.0, MiniMargin=0.0,
                  Royalty=0.0, ExchFixedMargin=0.0, ExchMiniMargin=0.0, ExchangeID='', InvestUnitID=''):
         super(OptionInstrTradeCostField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -3451,14 +3453,14 @@ class QryOptionInstrTradeCostField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('InputPrice', ctypes.c_double),  # 期权合约报价
         ('UnderlyingPrice', ctypes.c_double),  # 标的价格,填0则用昨结算价
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', HedgeFlag='', InputPrice=0.0, UnderlyingPrice=0.0,
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', HedgeFlag=None, InputPrice=0.0, UnderlyingPrice=0.0,
                  ExchangeID='', InvestUnitID=''):
         super(QryOptionInstrTradeCostField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -3516,12 +3518,12 @@ class InputExecOrderField(Base):
         ('Volume', ctypes.c_int),  # 数量
         ('RequestID', ctypes.c_int),  # 请求编号
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OffsetFlag', ctypes.c_char),  # 开平标志
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
-        ('ActionType', ctypes.c_char),  # 执行类型
-        ('PosiDirection', ctypes.c_char),  # 保留头寸申请的持仓方向
-        ('ReservePositionFlag', ctypes.c_char),  # 期权行权后是否保留期货头寸的标记,该字段已废弃
-        ('CloseFlag', ctypes.c_char),  # 期权行权后生成的头寸是否自动平仓
+        ('OffsetFlag', ctypes.c_char_p),  # 开平标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
+        ('ActionType', ctypes.c_char_p),  # 执行类型
+        ('PosiDirection', ctypes.c_char_p),  # 保留头寸申请的持仓方向
+        ('ReservePositionFlag', ctypes.c_char_p),  # 期权行权后是否保留期货头寸的标记,该字段已废弃
+        ('CloseFlag', ctypes.c_char_p),  # 期权行权后生成的头寸是否自动平仓
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
         ('AccountID', ctypes.c_char * 13),  # 资金账号
@@ -3532,9 +3534,9 @@ class InputExecOrderField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ExecOrderRef='', UserID='', Volume=0, RequestID=0,
-                 BusinessUnit='', OffsetFlag='', HedgeFlag='', ActionType='', PosiDirection='', ReservePositionFlag='',
-                 CloseFlag='', ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='', ClientID='', IPAddress='',
-                 MacAddress=''):
+                 BusinessUnit='', OffsetFlag=None, HedgeFlag=None, ActionType=None, PosiDirection=None,
+                 ReservePositionFlag=None, CloseFlag=None, ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='',
+                 ClientID='', IPAddress='', MacAddress=''):
         super(InputExecOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -3571,7 +3573,7 @@ class InputExecOrderActionField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ExecOrderSysID', ctypes.c_char * 21),  # 执行宣告操作编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
@@ -3580,7 +3582,7 @@ class InputExecOrderActionField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', ExecOrderActionRef=0, ExecOrderRef='', RequestID=0, FrontID=0,
-                 SessionID=0, ExchangeID='', ExecOrderSysID='', ActionFlag='', UserID='', InstrumentID='',
+                 SessionID=0, ExchangeID='', ExecOrderSysID='', ActionFlag=None, UserID='', InstrumentID='',
                  InvestUnitID='', IPAddress='', MacAddress=''):
         super(InputExecOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -3611,12 +3613,12 @@ class ExecOrderField(Base):
         ('Volume', ctypes.c_int),  # 数量
         ('RequestID', ctypes.c_int),  # 请求编号
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OffsetFlag', ctypes.c_char),  # 开平标志
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
-        ('ActionType', ctypes.c_char),  # 执行类型
-        ('PosiDirection', ctypes.c_char),  # 保留头寸申请的持仓方向
-        ('ReservePositionFlag', ctypes.c_char),  # 期权行权后是否保留期货头寸的标记,该字段已废弃
-        ('CloseFlag', ctypes.c_char),  # 期权行权后生成的头寸是否自动平仓
+        ('OffsetFlag', ctypes.c_char_p),  # 开平标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
+        ('ActionType', ctypes.c_char_p),  # 执行类型
+        ('PosiDirection', ctypes.c_char_p),  # 保留头寸申请的持仓方向
+        ('ReservePositionFlag', ctypes.c_char_p),  # 期权行权后是否保留期货头寸的标记,该字段已废弃
+        ('CloseFlag', ctypes.c_char_p),  # 期权行权后生成的头寸是否自动平仓
         ('ExecOrderLocalID', ctypes.c_char * 13),  # 本地执行宣告编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
@@ -3624,7 +3626,7 @@ class ExecOrderField(Base):
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('OrderSubmitStatus', ctypes.c_char),  # 执行宣告提交状态
+        ('OrderSubmitStatus', ctypes.c_char_p),  # 执行宣告提交状态
         ('NotifySequence', ctypes.c_int),  # 报单提示序号
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
@@ -3632,7 +3634,7 @@ class ExecOrderField(Base):
         ('InsertDate', ctypes.c_char * 9),  # 报单日期
         ('InsertTime', ctypes.c_char * 9),  # 插入时间
         ('CancelTime', ctypes.c_char * 9),  # 撤销时间
-        ('ExecResult', ctypes.c_char),  # 执行结果
+        ('ExecResult', ctypes.c_char_p),  # 执行结果
         ('ClearingPartID', ctypes.c_char * 11),  # 结算会员编号
         ('SequenceNo', ctypes.c_int),  # 序号
         ('FrontID', ctypes.c_int),  # 前置编号
@@ -3650,13 +3652,13 @@ class ExecOrderField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ExecOrderRef='', UserID='', Volume=0, RequestID=0,
-                 BusinessUnit='', OffsetFlag='', HedgeFlag='', ActionType='', PosiDirection='', ReservePositionFlag='',
-                 CloseFlag='', ExecOrderLocalID='', ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='',
-                 TraderID='', InstallID=0, OrderSubmitStatus='', NotifySequence=0, TradingDay='', SettlementID=0,
-                 ExecOrderSysID='', InsertDate='', InsertTime='', CancelTime='', ExecResult='', ClearingPartID='',
-                 SequenceNo=0, FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='', ActiveUserID='',
-                 BrokerExecOrderSeq=0, BranchID='', InvestUnitID='', AccountID='', CurrencyID='', IPAddress='',
-                 MacAddress=''):
+                 BusinessUnit='', OffsetFlag=None, HedgeFlag=None, ActionType=None, PosiDirection=None,
+                 ReservePositionFlag=None, CloseFlag=None, ExecOrderLocalID='', ExchangeID='', ParticipantID='',
+                 ClientID='', ExchangeInstID='', TraderID='', InstallID=0, OrderSubmitStatus=None, NotifySequence=0,
+                 TradingDay='', SettlementID=0, ExecOrderSysID='', InsertDate='', InsertTime='', CancelTime='',
+                 ExecResult=None, ClearingPartID='', SequenceNo=0, FrontID=0, SessionID=0, UserProductInfo='',
+                 StatusMsg='', ActiveUserID='', BrokerExecOrderSeq=0, BranchID='', InvestUnitID='', AccountID='',
+                 CurrencyID='', IPAddress='', MacAddress=''):
         super(ExecOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -3716,7 +3718,7 @@ class ExecOrderActionField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ExecOrderSysID', ctypes.c_char * 21),  # 执行宣告操作编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('ActionDate', ctypes.c_char * 9),  # 操作日期
         ('ActionTime', ctypes.c_char * 9),  # 操作时间
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
@@ -3726,9 +3728,9 @@ class ExecOrderActionField(Base):
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OrderActionStatus', ctypes.c_char),  # 报单操作状态
+        ('OrderActionStatus', ctypes.c_char_p),  # 报单操作状态
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('ActionType', ctypes.c_char),  # 执行类型
+        ('ActionType', ctypes.c_char_p),  # 执行类型
         ('StatusMsg', ctypes.c_char * 81),  # 状态信息
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('BranchID', ctypes.c_char * 9),  # 营业部编号
@@ -3738,9 +3740,9 @@ class ExecOrderActionField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', ExecOrderActionRef=0, ExecOrderRef='', RequestID=0, FrontID=0,
-                 SessionID=0, ExchangeID='', ExecOrderSysID='', ActionFlag='', ActionDate='', ActionTime='',
+                 SessionID=0, ExchangeID='', ExecOrderSysID='', ActionFlag=None, ActionDate='', ActionTime='',
                  TraderID='', InstallID=0, ExecOrderLocalID='', ActionLocalID='', ParticipantID='', ClientID='',
-                 BusinessUnit='', OrderActionStatus='', UserID='', ActionType='', StatusMsg='', InstrumentID='',
+                 BusinessUnit='', OrderActionStatus=None, UserID='', ActionType=None, StatusMsg='', InstrumentID='',
                  BranchID='', InvestUnitID='', IPAddress='', MacAddress=''):
         super(ExecOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -3803,12 +3805,12 @@ class ExchangeExecOrderField(Base):
         ('Volume', ctypes.c_int),  # 数量
         ('RequestID', ctypes.c_int),  # 请求编号
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OffsetFlag', ctypes.c_char),  # 开平标志
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
-        ('ActionType', ctypes.c_char),  # 执行类型
-        ('PosiDirection', ctypes.c_char),  # 保留头寸申请的持仓方向
-        ('ReservePositionFlag', ctypes.c_char),  # 期权行权后是否保留期货头寸的标记,该字段已废弃
-        ('CloseFlag', ctypes.c_char),  # 期权行权后生成的头寸是否自动平仓
+        ('OffsetFlag', ctypes.c_char_p),  # 开平标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
+        ('ActionType', ctypes.c_char_p),  # 执行类型
+        ('PosiDirection', ctypes.c_char_p),  # 保留头寸申请的持仓方向
+        ('ReservePositionFlag', ctypes.c_char_p),  # 期权行权后是否保留期货头寸的标记,该字段已废弃
+        ('CloseFlag', ctypes.c_char_p),  # 期权行权后生成的头寸是否自动平仓
         ('ExecOrderLocalID', ctypes.c_char * 13),  # 本地执行宣告编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
@@ -3816,7 +3818,7 @@ class ExchangeExecOrderField(Base):
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('OrderSubmitStatus', ctypes.c_char),  # 执行宣告提交状态
+        ('OrderSubmitStatus', ctypes.c_char_p),  # 执行宣告提交状态
         ('NotifySequence', ctypes.c_int),  # 报单提示序号
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
@@ -3824,7 +3826,7 @@ class ExchangeExecOrderField(Base):
         ('InsertDate', ctypes.c_char * 9),  # 报单日期
         ('InsertTime', ctypes.c_char * 9),  # 插入时间
         ('CancelTime', ctypes.c_char * 9),  # 撤销时间
-        ('ExecResult', ctypes.c_char),  # 执行结果
+        ('ExecResult', ctypes.c_char_p),  # 执行结果
         ('ClearingPartID', ctypes.c_char * 11),  # 结算会员编号
         ('SequenceNo', ctypes.c_int),  # 序号
         ('BranchID', ctypes.c_char * 9),  # 营业部编号
@@ -3832,11 +3834,11 @@ class ExchangeExecOrderField(Base):
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, Volume=0, RequestID=0, BusinessUnit='', OffsetFlag='', HedgeFlag='', ActionType='',
-                 PosiDirection='', ReservePositionFlag='', CloseFlag='', ExecOrderLocalID='', ExchangeID='',
-                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, OrderSubmitStatus='',
+    def __init__(self, Volume=0, RequestID=0, BusinessUnit='', OffsetFlag=None, HedgeFlag=None, ActionType=None,
+                 PosiDirection=None, ReservePositionFlag=None, CloseFlag=None, ExecOrderLocalID='', ExchangeID='',
+                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, OrderSubmitStatus=None,
                  NotifySequence=0, TradingDay='', SettlementID=0, ExecOrderSysID='', InsertDate='', InsertTime='',
-                 CancelTime='', ExecResult='', ClearingPartID='', SequenceNo=0, BranchID='', IPAddress='',
+                 CancelTime='', ExecResult=None, ClearingPartID='', SequenceNo=0, BranchID='', IPAddress='',
                  MacAddress=''):
         super(ExchangeExecOrderField, self).__init__()
         self.Volume = int(Volume)
@@ -3910,7 +3912,7 @@ class ExchangeExecOrderActionField(Base):
     _fields_ = [
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ExecOrderSysID', ctypes.c_char * 21),  # 执行宣告操作编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('ActionDate', ctypes.c_char * 9),  # 操作日期
         ('ActionTime', ctypes.c_char * 9),  # 操作时间
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
@@ -3920,17 +3922,17 @@ class ExchangeExecOrderActionField(Base):
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OrderActionStatus', ctypes.c_char),  # 报单操作状态
+        ('OrderActionStatus', ctypes.c_char_p),  # 报单操作状态
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('ActionType', ctypes.c_char),  # 执行类型
+        ('ActionType', ctypes.c_char_p),  # 执行类型
         ('BranchID', ctypes.c_char * 9),  # 营业部编号
         ('IPAddress', ctypes.c_char * 16),  # IP地址
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, ExchangeID='', ExecOrderSysID='', ActionFlag='', ActionDate='', ActionTime='', TraderID='',
+    def __init__(self, ExchangeID='', ExecOrderSysID='', ActionFlag=None, ActionDate='', ActionTime='', TraderID='',
                  InstallID=0, ExecOrderLocalID='', ActionLocalID='', ParticipantID='', ClientID='', BusinessUnit='',
-                 OrderActionStatus='', UserID='', ActionType='', BranchID='', IPAddress='', MacAddress=''):
+                 OrderActionStatus=None, UserID='', ActionType=None, BranchID='', IPAddress='', MacAddress=''):
         super(ExchangeExecOrderActionField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.ExecOrderSysID = self._to_bytes(ExecOrderSysID)
@@ -3980,12 +3982,12 @@ class ErrExecOrderField(Base):
         ('Volume', ctypes.c_int),  # 数量
         ('RequestID', ctypes.c_int),  # 请求编号
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OffsetFlag', ctypes.c_char),  # 开平标志
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
-        ('ActionType', ctypes.c_char),  # 执行类型
-        ('PosiDirection', ctypes.c_char),  # 保留头寸申请的持仓方向
-        ('ReservePositionFlag', ctypes.c_char),  # 期权行权后是否保留期货头寸的标记,该字段已废弃
-        ('CloseFlag', ctypes.c_char),  # 期权行权后生成的头寸是否自动平仓
+        ('OffsetFlag', ctypes.c_char_p),  # 开平标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
+        ('ActionType', ctypes.c_char_p),  # 执行类型
+        ('PosiDirection', ctypes.c_char_p),  # 保留头寸申请的持仓方向
+        ('ReservePositionFlag', ctypes.c_char_p),  # 期权行权后是否保留期货头寸的标记,该字段已废弃
+        ('CloseFlag', ctypes.c_char_p),  # 期权行权后生成的头寸是否自动平仓
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
         ('AccountID', ctypes.c_char * 13),  # 资金账号
@@ -3998,9 +4000,9 @@ class ErrExecOrderField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ExecOrderRef='', UserID='', Volume=0, RequestID=0,
-                 BusinessUnit='', OffsetFlag='', HedgeFlag='', ActionType='', PosiDirection='', ReservePositionFlag='',
-                 CloseFlag='', ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='', ClientID='', IPAddress='',
-                 MacAddress='', ErrorID=0, ErrorMsg=''):
+                 BusinessUnit='', OffsetFlag=None, HedgeFlag=None, ActionType=None, PosiDirection=None,
+                 ReservePositionFlag=None, CloseFlag=None, ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='',
+                 ClientID='', IPAddress='', MacAddress='', ErrorID=0, ErrorMsg=''):
         super(ErrExecOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -4052,7 +4054,7 @@ class ErrExecOrderActionField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ExecOrderSysID', ctypes.c_char * 21),  # 执行宣告操作编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
@@ -4063,7 +4065,7 @@ class ErrExecOrderActionField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', ExecOrderActionRef=0, ExecOrderRef='', RequestID=0, FrontID=0,
-                 SessionID=0, ExchangeID='', ExecOrderSysID='', ActionFlag='', UserID='', InstrumentID='',
+                 SessionID=0, ExchangeID='', ExecOrderSysID='', ActionFlag=None, UserID='', InstrumentID='',
                  InvestUnitID='', IPAddress='', MacAddress='', ErrorID=0, ErrorMsg=''):
         super(ErrExecOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -4102,14 +4104,15 @@ class OptionInstrTradingRightField(Base):
     """投资者期权合约交易权限"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('Direction', ctypes.c_char),  # 买卖方向
-        ('TradingRight', ctypes.c_char),  # 交易权限
+        ('Direction', ctypes.c_char_p),  # 买卖方向
+        ('TradingRight', ctypes.c_char_p),  # 交易权限
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', Direction='', TradingRight=''):
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', Direction=None,
+                 TradingRight=None):
         super(OptionInstrTradingRightField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -4125,10 +4128,10 @@ class QryOptionInstrTradingRightField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('Direction', ctypes.c_char_p),  # 买卖方向
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', Direction=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', Direction=None):
         super(QryOptionInstrTradingRightField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -4181,7 +4184,7 @@ class ForQuoteField(Base):
         ('InstallID', ctypes.c_int),  # 安装编号
         ('InsertDate', ctypes.c_char * 9),  # 报单日期
         ('InsertTime', ctypes.c_char * 9),  # 插入时间
-        ('ForQuoteStatus', ctypes.c_char),  # 询价状态
+        ('ForQuoteStatus', ctypes.c_char_p),  # 询价状态
         ('FrontID', ctypes.c_int),  # 前置编号
         ('SessionID', ctypes.c_int),  # 会话编号
         ('StatusMsg', ctypes.c_char * 81),  # 状态信息
@@ -4194,8 +4197,8 @@ class ForQuoteField(Base):
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', ForQuoteRef='', UserID='', ForQuoteLocalID='',
                  ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0,
-                 InsertDate='', InsertTime='', ForQuoteStatus='', FrontID=0, SessionID=0, StatusMsg='', ActiveUserID='',
-                 BrokerForQutoSeq=0, InvestUnitID='', IPAddress='', MacAddress=''):
+                 InsertDate='', InsertTime='', ForQuoteStatus=None, FrontID=0, SessionID=0, StatusMsg='',
+                 ActiveUserID='', BrokerForQutoSeq=0, InvestUnitID='', IPAddress='', MacAddress=''):
         super(ForQuoteField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -4258,13 +4261,13 @@ class ExchangeForQuoteField(Base):
         ('InstallID', ctypes.c_int),  # 安装编号
         ('InsertDate', ctypes.c_char * 9),  # 报单日期
         ('InsertTime', ctypes.c_char * 9),  # 插入时间
-        ('ForQuoteStatus', ctypes.c_char),  # 询价状态
+        ('ForQuoteStatus', ctypes.c_char_p),  # 询价状态
         ('IPAddress', ctypes.c_char * 16),  # IP地址
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
     def __init__(self, ForQuoteLocalID='', ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='', TraderID='',
-                 InstallID=0, InsertDate='', InsertTime='', ForQuoteStatus='', IPAddress='', MacAddress=''):
+                 InstallID=0, InsertDate='', InsertTime='', ForQuoteStatus=None, IPAddress='', MacAddress=''):
         super(ExchangeForQuoteField, self).__init__()
         self.ForQuoteLocalID = self._to_bytes(ForQuoteLocalID)
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -4313,10 +4316,10 @@ class InputQuoteField(Base):
         ('BidVolume', ctypes.c_int),  # 买数量
         ('RequestID', ctypes.c_int),  # 请求编号
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('AskOffsetFlag', ctypes.c_char),  # 卖开平标志
-        ('BidOffsetFlag', ctypes.c_char),  # 买开平标志
-        ('AskHedgeFlag', ctypes.c_char),  # 卖投机套保标志
-        ('BidHedgeFlag', ctypes.c_char),  # 买投机套保标志
+        ('AskOffsetFlag', ctypes.c_char_p),  # 卖开平标志
+        ('BidOffsetFlag', ctypes.c_char_p),  # 买开平标志
+        ('AskHedgeFlag', ctypes.c_char_p),  # 卖投机套保标志
+        ('BidHedgeFlag', ctypes.c_char_p),  # 买投机套保标志
         ('AskOrderRef', ctypes.c_char * 13),  # 衍生卖报单引用
         ('BidOrderRef', ctypes.c_char * 13),  # 衍生买报单引用
         ('ForQuoteSysID', ctypes.c_char * 21),  # 应价编号
@@ -4328,8 +4331,8 @@ class InputQuoteField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', QuoteRef='', UserID='', AskPrice=0.0, BidPrice=0.0,
-                 AskVolume=0, BidVolume=0, RequestID=0, BusinessUnit='', AskOffsetFlag='', BidOffsetFlag='',
-                 AskHedgeFlag='', BidHedgeFlag='', AskOrderRef='', BidOrderRef='', ForQuoteSysID='', ExchangeID='',
+                 AskVolume=0, BidVolume=0, RequestID=0, BusinessUnit='', AskOffsetFlag=None, BidOffsetFlag=None,
+                 AskHedgeFlag=None, BidHedgeFlag=None, AskOrderRef='', BidOrderRef='', ForQuoteSysID='', ExchangeID='',
                  InvestUnitID='', ClientID='', IPAddress='', MacAddress=''):
         super(InputQuoteField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -4369,7 +4372,7 @@ class InputQuoteActionField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('QuoteSysID', ctypes.c_char * 21),  # 报价操作编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
@@ -4379,8 +4382,8 @@ class InputQuoteActionField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', QuoteActionRef=0, QuoteRef='', RequestID=0, FrontID=0, SessionID=0,
-                 ExchangeID='', QuoteSysID='', ActionFlag='', UserID='', InstrumentID='', InvestUnitID='', ClientID='',
-                 IPAddress='', MacAddress=''):
+                 ExchangeID='', QuoteSysID='', ActionFlag=None, UserID='', InstrumentID='', InvestUnitID='',
+                 ClientID='', IPAddress='', MacAddress=''):
         super(InputQuoteActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -4414,10 +4417,10 @@ class QuoteField(Base):
         ('BidVolume', ctypes.c_int),  # 买数量
         ('RequestID', ctypes.c_int),  # 请求编号
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('AskOffsetFlag', ctypes.c_char),  # 卖开平标志
-        ('BidOffsetFlag', ctypes.c_char),  # 买开平标志
-        ('AskHedgeFlag', ctypes.c_char),  # 卖投机套保标志
-        ('BidHedgeFlag', ctypes.c_char),  # 买投机套保标志
+        ('AskOffsetFlag', ctypes.c_char_p),  # 卖开平标志
+        ('BidOffsetFlag', ctypes.c_char_p),  # 买开平标志
+        ('AskHedgeFlag', ctypes.c_char_p),  # 卖投机套保标志
+        ('BidHedgeFlag', ctypes.c_char_p),  # 买投机套保标志
         ('QuoteLocalID', ctypes.c_char * 13),  # 本地报价编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
@@ -4426,14 +4429,14 @@ class QuoteField(Base):
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('InstallID', ctypes.c_int),  # 安装编号
         ('NotifySequence', ctypes.c_int),  # 报价提示序号
-        ('OrderSubmitStatus', ctypes.c_char),  # 报价提交状态
+        ('OrderSubmitStatus', ctypes.c_char_p),  # 报价提交状态
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
         ('QuoteSysID', ctypes.c_char * 21),  # 报价编号
         ('InsertDate', ctypes.c_char * 9),  # 报单日期
         ('InsertTime', ctypes.c_char * 9),  # 插入时间
         ('CancelTime', ctypes.c_char * 9),  # 撤销时间
-        ('QuoteStatus', ctypes.c_char),  # 报价状态
+        ('QuoteStatus', ctypes.c_char_p),  # 报价状态
         ('ClearingPartID', ctypes.c_char * 11),  # 结算会员编号
         ('SequenceNo', ctypes.c_int),  # 序号
         ('AskOrderSysID', ctypes.c_char * 21),  # 卖方报单编号
@@ -4456,10 +4459,10 @@ class QuoteField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', QuoteRef='', UserID='', AskPrice=0.0, BidPrice=0.0,
-                 AskVolume=0, BidVolume=0, RequestID=0, BusinessUnit='', AskOffsetFlag='', BidOffsetFlag='',
-                 AskHedgeFlag='', BidHedgeFlag='', QuoteLocalID='', ExchangeID='', ParticipantID='', ClientID='',
-                 ExchangeInstID='', TraderID='', InstallID=0, NotifySequence=0, OrderSubmitStatus='', TradingDay='',
-                 SettlementID=0, QuoteSysID='', InsertDate='', InsertTime='', CancelTime='', QuoteStatus='',
+                 AskVolume=0, BidVolume=0, RequestID=0, BusinessUnit='', AskOffsetFlag=None, BidOffsetFlag=None,
+                 AskHedgeFlag=None, BidHedgeFlag=None, QuoteLocalID='', ExchangeID='', ParticipantID='', ClientID='',
+                 ExchangeInstID='', TraderID='', InstallID=0, NotifySequence=0, OrderSubmitStatus=None, TradingDay='',
+                 SettlementID=0, QuoteSysID='', InsertDate='', InsertTime='', CancelTime='', QuoteStatus=None,
                  ClearingPartID='', SequenceNo=0, AskOrderSysID='', BidOrderSysID='', FrontID=0, SessionID=0,
                  UserProductInfo='', StatusMsg='', ActiveUserID='', BrokerQuoteSeq=0, AskOrderRef='', BidOrderRef='',
                  ForQuoteSysID='', BranchID='', InvestUnitID='', AccountID='', CurrencyID='', IPAddress='',
@@ -4529,7 +4532,7 @@ class QuoteActionField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('QuoteSysID', ctypes.c_char * 21),  # 报价操作编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('ActionDate', ctypes.c_char * 9),  # 操作日期
         ('ActionTime', ctypes.c_char * 9),  # 操作时间
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
@@ -4539,7 +4542,7 @@ class QuoteActionField(Base):
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OrderActionStatus', ctypes.c_char),  # 报单操作状态
+        ('OrderActionStatus', ctypes.c_char_p),  # 报单操作状态
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('StatusMsg', ctypes.c_char * 81),  # 状态信息
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
@@ -4550,9 +4553,9 @@ class QuoteActionField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', QuoteActionRef=0, QuoteRef='', RequestID=0, FrontID=0, SessionID=0,
-                 ExchangeID='', QuoteSysID='', ActionFlag='', ActionDate='', ActionTime='', TraderID='', InstallID=0,
+                 ExchangeID='', QuoteSysID='', ActionFlag=None, ActionDate='', ActionTime='', TraderID='', InstallID=0,
                  QuoteLocalID='', ActionLocalID='', ParticipantID='', ClientID='', BusinessUnit='',
-                 OrderActionStatus='', UserID='', StatusMsg='', InstrumentID='', BranchID='', InvestUnitID='',
+                 OrderActionStatus=None, UserID='', StatusMsg='', InstrumentID='', BranchID='', InvestUnitID='',
                  IPAddress='', MacAddress=''):
         super(QuoteActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -4619,10 +4622,10 @@ class ExchangeQuoteField(Base):
         ('BidVolume', ctypes.c_int),  # 买数量
         ('RequestID', ctypes.c_int),  # 请求编号
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('AskOffsetFlag', ctypes.c_char),  # 卖开平标志
-        ('BidOffsetFlag', ctypes.c_char),  # 买开平标志
-        ('AskHedgeFlag', ctypes.c_char),  # 卖投机套保标志
-        ('BidHedgeFlag', ctypes.c_char),  # 买投机套保标志
+        ('AskOffsetFlag', ctypes.c_char_p),  # 卖开平标志
+        ('BidOffsetFlag', ctypes.c_char_p),  # 买开平标志
+        ('AskHedgeFlag', ctypes.c_char_p),  # 卖投机套保标志
+        ('BidHedgeFlag', ctypes.c_char_p),  # 买投机套保标志
         ('QuoteLocalID', ctypes.c_char * 13),  # 本地报价编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
@@ -4631,14 +4634,14 @@ class ExchangeQuoteField(Base):
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('InstallID', ctypes.c_int),  # 安装编号
         ('NotifySequence', ctypes.c_int),  # 报价提示序号
-        ('OrderSubmitStatus', ctypes.c_char),  # 报价提交状态
+        ('OrderSubmitStatus', ctypes.c_char_p),  # 报价提交状态
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
         ('QuoteSysID', ctypes.c_char * 21),  # 报价编号
         ('InsertDate', ctypes.c_char * 9),  # 报单日期
         ('InsertTime', ctypes.c_char * 9),  # 插入时间
         ('CancelTime', ctypes.c_char * 9),  # 撤销时间
-        ('QuoteStatus', ctypes.c_char),  # 报价状态
+        ('QuoteStatus', ctypes.c_char_p),  # 报价状态
         ('ClearingPartID', ctypes.c_char * 11),  # 结算会员编号
         ('SequenceNo', ctypes.c_int),  # 序号
         ('AskOrderSysID', ctypes.c_char * 21),  # 卖方报单编号
@@ -4650,11 +4653,11 @@ class ExchangeQuoteField(Base):
     ]
 
     def __init__(self, AskPrice=0.0, BidPrice=0.0, AskVolume=0, BidVolume=0, RequestID=0, BusinessUnit='',
-                 AskOffsetFlag='', BidOffsetFlag='', AskHedgeFlag='', BidHedgeFlag='', QuoteLocalID='', ExchangeID='',
-                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, NotifySequence=0,
-                 OrderSubmitStatus='', TradingDay='', SettlementID=0, QuoteSysID='', InsertDate='', InsertTime='',
-                 CancelTime='', QuoteStatus='', ClearingPartID='', SequenceNo=0, AskOrderSysID='', BidOrderSysID='',
-                 ForQuoteSysID='', BranchID='', IPAddress='', MacAddress=''):
+                 AskOffsetFlag=None, BidOffsetFlag=None, AskHedgeFlag=None, BidHedgeFlag=None, QuoteLocalID='',
+                 ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0,
+                 NotifySequence=0, OrderSubmitStatus=None, TradingDay='', SettlementID=0, QuoteSysID='', InsertDate='',
+                 InsertTime='', CancelTime='', QuoteStatus=None, ClearingPartID='', SequenceNo=0, AskOrderSysID='',
+                 BidOrderSysID='', ForQuoteSysID='', BranchID='', IPAddress='', MacAddress=''):
         super(ExchangeQuoteField, self).__init__()
         self.AskPrice = float(AskPrice)
         self.BidPrice = float(BidPrice)
@@ -4731,7 +4734,7 @@ class ExchangeQuoteActionField(Base):
     _fields_ = [
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('QuoteSysID', ctypes.c_char * 21),  # 报价操作编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('ActionDate', ctypes.c_char * 9),  # 操作日期
         ('ActionTime', ctypes.c_char * 9),  # 操作时间
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
@@ -4741,15 +4744,15 @@ class ExchangeQuoteActionField(Base):
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OrderActionStatus', ctypes.c_char),  # 报单操作状态
+        ('OrderActionStatus', ctypes.c_char_p),  # 报单操作状态
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('IPAddress', ctypes.c_char * 16),  # IP地址
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, ExchangeID='', QuoteSysID='', ActionFlag='', ActionDate='', ActionTime='', TraderID='',
+    def __init__(self, ExchangeID='', QuoteSysID='', ActionFlag=None, ActionDate='', ActionTime='', TraderID='',
                  InstallID=0, QuoteLocalID='', ActionLocalID='', ParticipantID='', ClientID='', BusinessUnit='',
-                 OrderActionStatus='', UserID='', IPAddress='', MacAddress=''):
+                 OrderActionStatus=None, UserID='', IPAddress='', MacAddress=''):
         super(ExchangeQuoteActionField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.QuoteSysID = self._to_bytes(QuoteSysID)
@@ -4790,13 +4793,13 @@ class OptionInstrDeltaField(Base):
     """期权合约delta值"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('Delta', ctypes.c_double),  # Delta值
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', Delta=0.0):
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', Delta=0.0):
         super(OptionInstrDeltaField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -4830,14 +4833,14 @@ class StrikeOffsetField(Base):
     """当前期权合约执行偏移值的详细内容"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('Offset', ctypes.c_double),  # 执行偏移值
-        ('OffsetType', ctypes.c_char),  # 执行偏移类型
+        ('OffsetType', ctypes.c_char_p),  # 执行偏移类型
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', Offset=0.0, OffsetType=''):
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', Offset=0.0, OffsetType=None):
         super(StrikeOffsetField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -4912,7 +4915,7 @@ class BatchOrderActionField(Base):
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OrderActionStatus', ctypes.c_char),  # 报单操作状态
+        ('OrderActionStatus', ctypes.c_char_p),  # 报单操作状态
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('StatusMsg', ctypes.c_char * 81),  # 状态信息
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
@@ -4922,7 +4925,7 @@ class BatchOrderActionField(Base):
 
     def __init__(self, BrokerID='', InvestorID='', OrderActionRef=0, RequestID=0, FrontID=0, SessionID=0, ExchangeID='',
                  ActionDate='', ActionTime='', TraderID='', InstallID=0, ActionLocalID='', ParticipantID='',
-                 ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', StatusMsg='', InvestUnitID='',
+                 ClientID='', BusinessUnit='', OrderActionStatus=None, UserID='', StatusMsg='', InvestUnitID='',
                  IPAddress='', MacAddress=''):
         super(BatchOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -4960,14 +4963,14 @@ class ExchangeBatchOrderActionField(Base):
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OrderActionStatus', ctypes.c_char),  # 报单操作状态
+        ('OrderActionStatus', ctypes.c_char_p),  # 报单操作状态
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('IPAddress', ctypes.c_char * 16),  # IP地址
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
     def __init__(self, ExchangeID='', ActionDate='', ActionTime='', TraderID='', InstallID=0, ActionLocalID='',
-                 ParticipantID='', ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', IPAddress='',
+                 ParticipantID='', ClientID='', BusinessUnit='', OrderActionStatus=None, UserID='', IPAddress='',
                  MacAddress=''):
         super(ExchangeBatchOrderActionField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -5040,18 +5043,19 @@ class InputCombActionField(Base):
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('CombActionRef', ctypes.c_char * 13),  # 组合引用
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('Volume', ctypes.c_int),  # 数量
-        ('CombDirection', ctypes.c_char),  # 组合指令方向
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('CombDirection', ctypes.c_char_p),  # 组合指令方向
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('IPAddress', ctypes.c_char * 16),  # IP地址
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', CombActionRef='', UserID='', Direction='', Volume=0,
-                 CombDirection='', HedgeFlag='', ExchangeID='', IPAddress='', MacAddress='', InvestUnitID=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', CombActionRef='', UserID='', Direction=None,
+                 Volume=0, CombDirection=None, HedgeFlag=None, ExchangeID='', IPAddress='', MacAddress='',
+                 InvestUnitID=''):
         super(InputCombActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -5076,10 +5080,10 @@ class CombActionField(Base):
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('CombActionRef', ctypes.c_char * 13),  # 组合引用
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('Volume', ctypes.c_int),  # 数量
-        ('CombDirection', ctypes.c_char),  # 组合指令方向
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('CombDirection', ctypes.c_char_p),  # 组合指令方向
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('ActionLocalID', ctypes.c_char * 13),  # 本地申请组合编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
@@ -5087,7 +5091,7 @@ class CombActionField(Base):
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('ActionStatus', ctypes.c_char),  # 组合状态
+        ('ActionStatus', ctypes.c_char_p),  # 组合状态
         ('NotifySequence', ctypes.c_int),  # 报单提示序号
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
@@ -5103,11 +5107,11 @@ class CombActionField(Base):
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', CombActionRef='', UserID='', Direction='', Volume=0,
-                 CombDirection='', HedgeFlag='', ActionLocalID='', ExchangeID='', ParticipantID='', ClientID='',
-                 ExchangeInstID='', TraderID='', InstallID=0, ActionStatus='', NotifySequence=0, TradingDay='',
-                 SettlementID=0, SequenceNo=0, FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='', IPAddress='',
-                 MacAddress='', ComTradeID='', BranchID='', InvestUnitID=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', CombActionRef='', UserID='', Direction=None,
+                 Volume=0, CombDirection=None, HedgeFlag=None, ActionLocalID='', ExchangeID='', ParticipantID='',
+                 ClientID='', ExchangeInstID='', TraderID='', InstallID=0, ActionStatus=None, NotifySequence=0,
+                 TradingDay='', SettlementID=0, SequenceNo=0, FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='',
+                 IPAddress='', MacAddress='', ComTradeID='', BranchID='', InvestUnitID=''):
         super(CombActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -5163,10 +5167,10 @@ class QryCombActionField(Base):
 class ExchangeCombActionField(Base):
     """交易所申请组合信息"""
     _fields_ = [
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('Volume', ctypes.c_int),  # 数量
-        ('CombDirection', ctypes.c_char),  # 组合指令方向
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('CombDirection', ctypes.c_char_p),  # 组合指令方向
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('ActionLocalID', ctypes.c_char * 13),  # 本地申请组合编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
@@ -5174,7 +5178,7 @@ class ExchangeCombActionField(Base):
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('ActionStatus', ctypes.c_char),  # 组合状态
+        ('ActionStatus', ctypes.c_char_p),  # 组合状态
         ('NotifySequence', ctypes.c_int),  # 报单提示序号
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
@@ -5185,8 +5189,8 @@ class ExchangeCombActionField(Base):
         ('BranchID', ctypes.c_char * 9),  # 营业部编号
     ]
 
-    def __init__(self, Direction='', Volume=0, CombDirection='', HedgeFlag='', ActionLocalID='', ExchangeID='',
-                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, ActionStatus='',
+    def __init__(self, Direction=None, Volume=0, CombDirection=None, HedgeFlag=None, ActionLocalID='', ExchangeID='',
+                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, ActionStatus=None,
                  NotifySequence=0, TradingDay='', SettlementID=0, SequenceNo=0, IPAddress='', MacAddress='',
                  ComTradeID='', BranchID=''):
         super(ExchangeCombActionField, self).__init__()
@@ -5299,7 +5303,7 @@ class MMOptionInstrCommRateField(Base):
     """当前做市商期权合约手续费的详细内容"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('OpenRatioByMoney', ctypes.c_double),  # 开仓手续费率
@@ -5312,7 +5316,7 @@ class MMOptionInstrCommRateField(Base):
         ('StrikeRatioByVolume', ctypes.c_double),  # 执行手续费
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
                  OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0, CloseTodayRatioByMoney=0.0,
                  CloseTodayRatioByVolume=0.0, StrikeRatioByMoney=0.0, StrikeRatioByVolume=0.0):
         super(MMOptionInstrCommRateField, self).__init__()
@@ -5349,7 +5353,7 @@ class MMInstrumentCommissionRateField(Base):
     """做市商合约手续费率"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('OpenRatioByMoney', ctypes.c_double),  # 开仓手续费率
@@ -5360,7 +5364,7 @@ class MMInstrumentCommissionRateField(Base):
         ('CloseTodayRatioByVolume', ctypes.c_double),  # 平今手续费
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', OpenRatioByMoney=0.0,
                  OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0, CloseTodayRatioByMoney=0.0,
                  CloseTodayRatioByVolume=0.0):
         super(MMInstrumentCommissionRateField, self).__init__()
@@ -5395,17 +5399,17 @@ class InstrumentOrderCommRateField(Base):
     """当前报单手续费的详细内容"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('OrderCommByVolume', ctypes.c_double),  # 报单手续费
         ('OrderActionCommByVolume', ctypes.c_double),  # 撤单手续费
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='',
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', HedgeFlag=None,
                  OrderCommByVolume=0.0, OrderActionCommByVolume=0.0, ExchangeID='', InvestUnitID=''):
         super(InstrumentOrderCommRateField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
@@ -5438,12 +5442,12 @@ class TradeParamField(Base):
     """交易参数"""
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
-        ('TradeParamID', ctypes.c_char),  # 参数代码
+        ('TradeParamID', ctypes.c_char_p),  # 参数代码
         ('TradeParamValue', ctypes.c_char * 256),  # 参数代码值
         ('Memo', ctypes.c_char * 161),  # 备注
     ]
 
-    def __init__(self, BrokerID='', TradeParamID='', TradeParamValue='', Memo=''):
+    def __init__(self, BrokerID='', TradeParamID=None, TradeParamValue='', Memo=''):
         super(TradeParamField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.TradeParamID = self._to_bytes(TradeParamID)
@@ -5455,17 +5459,17 @@ class InstrumentMarginRateULField(Base):
     """合约保证金率调整"""
     _fields_ = [
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('LongMarginRatioByMoney', ctypes.c_double),  # 多头保证金率
         ('LongMarginRatioByVolume', ctypes.c_double),  # 多头保证金费
         ('ShortMarginRatioByMoney', ctypes.c_double),  # 空头保证金率
         ('ShortMarginRatioByVolume', ctypes.c_double),  # 空头保证金费
     ]
 
-    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='',
+    def __init__(self, InstrumentID='', InvestorRange=None, BrokerID='', InvestorID='', HedgeFlag=None,
                  LongMarginRatioByMoney=0.0, LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0,
                  ShortMarginRatioByVolume=0.0):
         super(InstrumentMarginRateULField, self).__init__()
@@ -5483,7 +5487,7 @@ class InstrumentMarginRateULField(Base):
 class FutureLimitPosiParamField(Base):
     """期货持仓限制参数"""
     _fields_ = [
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('ProductID', ctypes.c_char * 31),  # 产品代码
@@ -5492,7 +5496,7 @@ class FutureLimitPosiParamField(Base):
         ('OpenVolume', ctypes.c_int),  # 当日投机+套利开仓数量限制
     ]
 
-    def __init__(self, InvestorRange='', BrokerID='', InvestorID='', ProductID='', SpecOpenVolume=0, ArbiOpenVolume=0,
+    def __init__(self, InvestorRange=None, BrokerID='', InvestorID='', ProductID='', SpecOpenVolume=0, ArbiOpenVolume=0,
                  OpenVolume=0):
         super(FutureLimitPosiParamField, self).__init__()
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -5539,8 +5543,8 @@ class InputOptionSelfCloseField(Base):
         ('Volume', ctypes.c_int),  # 数量
         ('RequestID', ctypes.c_int),  # 请求编号
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
-        ('OptSelfCloseFlag', ctypes.c_char),  # 期权行权的头寸是否自对冲
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
+        ('OptSelfCloseFlag', ctypes.c_char_p),  # 期权行权的头寸是否自对冲
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
         ('AccountID', ctypes.c_char * 13),  # 资金账号
@@ -5551,7 +5555,7 @@ class InputOptionSelfCloseField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OptionSelfCloseRef='', UserID='', Volume=0,
-                 RequestID=0, BusinessUnit='', HedgeFlag='', OptSelfCloseFlag='', ExchangeID='', InvestUnitID='',
+                 RequestID=0, BusinessUnit='', HedgeFlag=None, OptSelfCloseFlag=None, ExchangeID='', InvestUnitID='',
                  AccountID='', CurrencyID='', ClientID='', IPAddress='', MacAddress=''):
         super(InputOptionSelfCloseField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -5585,7 +5589,7 @@ class InputOptionSelfCloseActionField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('OptionSelfCloseSysID', ctypes.c_char * 21),  # 期权自对冲操作编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
@@ -5594,7 +5598,7 @@ class InputOptionSelfCloseActionField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', OptionSelfCloseActionRef=0, OptionSelfCloseRef='', RequestID=0,
-                 FrontID=0, SessionID=0, ExchangeID='', OptionSelfCloseSysID='', ActionFlag='', UserID='',
+                 FrontID=0, SessionID=0, ExchangeID='', OptionSelfCloseSysID='', ActionFlag=None, UserID='',
                  InstrumentID='', InvestUnitID='', IPAddress='', MacAddress=''):
         super(InputOptionSelfCloseActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -5625,8 +5629,8 @@ class OptionSelfCloseField(Base):
         ('Volume', ctypes.c_int),  # 数量
         ('RequestID', ctypes.c_int),  # 请求编号
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
-        ('OptSelfCloseFlag', ctypes.c_char),  # 期权行权的头寸是否自对冲
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
+        ('OptSelfCloseFlag', ctypes.c_char_p),  # 期权行权的头寸是否自对冲
         ('OptionSelfCloseLocalID', ctypes.c_char * 13),  # 本地期权自对冲编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
@@ -5634,7 +5638,7 @@ class OptionSelfCloseField(Base):
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('OrderSubmitStatus', ctypes.c_char),  # 期权自对冲提交状态
+        ('OrderSubmitStatus', ctypes.c_char_p),  # 期权自对冲提交状态
         ('NotifySequence', ctypes.c_int),  # 报单提示序号
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
@@ -5642,7 +5646,7 @@ class OptionSelfCloseField(Base):
         ('InsertDate', ctypes.c_char * 9),  # 报单日期
         ('InsertTime', ctypes.c_char * 9),  # 插入时间
         ('CancelTime', ctypes.c_char * 9),  # 撤销时间
-        ('ExecResult', ctypes.c_char),  # 自对冲结果
+        ('ExecResult', ctypes.c_char_p),  # 自对冲结果
         ('ClearingPartID', ctypes.c_char * 11),  # 结算会员编号
         ('SequenceNo', ctypes.c_int),  # 序号
         ('FrontID', ctypes.c_int),  # 前置编号
@@ -5660,11 +5664,11 @@ class OptionSelfCloseField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OptionSelfCloseRef='', UserID='', Volume=0,
-                 RequestID=0, BusinessUnit='', HedgeFlag='', OptSelfCloseFlag='', OptionSelfCloseLocalID='',
+                 RequestID=0, BusinessUnit='', HedgeFlag=None, OptSelfCloseFlag=None, OptionSelfCloseLocalID='',
                  ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0,
-                 OrderSubmitStatus='', NotifySequence=0, TradingDay='', SettlementID=0, OptionSelfCloseSysID='',
-                 InsertDate='', InsertTime='', CancelTime='', ExecResult='', ClearingPartID='', SequenceNo=0, FrontID=0,
-                 SessionID=0, UserProductInfo='', StatusMsg='', ActiveUserID='', BrokerOptionSelfCloseSeq=0,
+                 OrderSubmitStatus=None, NotifySequence=0, TradingDay='', SettlementID=0, OptionSelfCloseSysID='',
+                 InsertDate='', InsertTime='', CancelTime='', ExecResult=None, ClearingPartID='', SequenceNo=0,
+                 FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='', ActiveUserID='', BrokerOptionSelfCloseSeq=0,
                  BranchID='', InvestUnitID='', AccountID='', CurrencyID='', IPAddress='', MacAddress=''):
         super(OptionSelfCloseField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -5721,7 +5725,7 @@ class OptionSelfCloseActionField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('OptionSelfCloseSysID', ctypes.c_char * 21),  # 期权自对冲操作编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('ActionDate', ctypes.c_char * 9),  # 操作日期
         ('ActionTime', ctypes.c_char * 9),  # 操作时间
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
@@ -5731,7 +5735,7 @@ class OptionSelfCloseActionField(Base):
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OrderActionStatus', ctypes.c_char),  # 报单操作状态
+        ('OrderActionStatus', ctypes.c_char_p),  # 报单操作状态
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('StatusMsg', ctypes.c_char * 81),  # 状态信息
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
@@ -5742,9 +5746,9 @@ class OptionSelfCloseActionField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', OptionSelfCloseActionRef=0, OptionSelfCloseRef='', RequestID=0,
-                 FrontID=0, SessionID=0, ExchangeID='', OptionSelfCloseSysID='', ActionFlag='', ActionDate='',
+                 FrontID=0, SessionID=0, ExchangeID='', OptionSelfCloseSysID='', ActionFlag=None, ActionDate='',
                  ActionTime='', TraderID='', InstallID=0, OptionSelfCloseLocalID='', ActionLocalID='', ParticipantID='',
-                 ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', StatusMsg='', InstrumentID='',
+                 ClientID='', BusinessUnit='', OrderActionStatus=None, UserID='', StatusMsg='', InstrumentID='',
                  BranchID='', InvestUnitID='', IPAddress='', MacAddress=''):
         super(OptionSelfCloseActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -5806,8 +5810,8 @@ class ExchangeOptionSelfCloseField(Base):
         ('Volume', ctypes.c_int),  # 数量
         ('RequestID', ctypes.c_int),  # 请求编号
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
-        ('OptSelfCloseFlag', ctypes.c_char),  # 期权行权的头寸是否自对冲
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
+        ('OptSelfCloseFlag', ctypes.c_char_p),  # 期权行权的头寸是否自对冲
         ('OptionSelfCloseLocalID', ctypes.c_char * 13),  # 本地期权自对冲编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
@@ -5815,7 +5819,7 @@ class ExchangeOptionSelfCloseField(Base):
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('OrderSubmitStatus', ctypes.c_char),  # 期权自对冲提交状态
+        ('OrderSubmitStatus', ctypes.c_char_p),  # 期权自对冲提交状态
         ('NotifySequence', ctypes.c_int),  # 报单提示序号
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
@@ -5823,7 +5827,7 @@ class ExchangeOptionSelfCloseField(Base):
         ('InsertDate', ctypes.c_char * 9),  # 报单日期
         ('InsertTime', ctypes.c_char * 9),  # 插入时间
         ('CancelTime', ctypes.c_char * 9),  # 撤销时间
-        ('ExecResult', ctypes.c_char),  # 自对冲结果
+        ('ExecResult', ctypes.c_char_p),  # 自对冲结果
         ('ClearingPartID', ctypes.c_char * 11),  # 结算会员编号
         ('SequenceNo', ctypes.c_int),  # 序号
         ('BranchID', ctypes.c_char * 9),  # 营业部编号
@@ -5831,11 +5835,11 @@ class ExchangeOptionSelfCloseField(Base):
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, Volume=0, RequestID=0, BusinessUnit='', HedgeFlag='', OptSelfCloseFlag='',
+    def __init__(self, Volume=0, RequestID=0, BusinessUnit='', HedgeFlag=None, OptSelfCloseFlag=None,
                  OptionSelfCloseLocalID='', ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='',
-                 TraderID='', InstallID=0, OrderSubmitStatus='', NotifySequence=0, TradingDay='', SettlementID=0,
-                 OptionSelfCloseSysID='', InsertDate='', InsertTime='', CancelTime='', ExecResult='', ClearingPartID='',
-                 SequenceNo=0, BranchID='', IPAddress='', MacAddress=''):
+                 TraderID='', InstallID=0, OrderSubmitStatus=None, NotifySequence=0, TradingDay='', SettlementID=0,
+                 OptionSelfCloseSysID='', InsertDate='', InsertTime='', CancelTime='', ExecResult=None,
+                 ClearingPartID='', SequenceNo=0, BranchID='', IPAddress='', MacAddress=''):
         super(ExchangeOptionSelfCloseField, self).__init__()
         self.Volume = int(Volume)
         self.RequestID = int(RequestID)
@@ -5885,7 +5889,7 @@ class ExchangeOptionSelfCloseActionField(Base):
     _fields_ = [
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('OptionSelfCloseSysID', ctypes.c_char * 21),  # 期权自对冲操作编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('ActionDate', ctypes.c_char * 9),  # 操作日期
         ('ActionTime', ctypes.c_char * 9),  # 操作时间
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
@@ -5895,16 +5899,16 @@ class ExchangeOptionSelfCloseActionField(Base):
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OrderActionStatus', ctypes.c_char),  # 报单操作状态
+        ('OrderActionStatus', ctypes.c_char_p),  # 报单操作状态
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('BranchID', ctypes.c_char * 9),  # 营业部编号
         ('IPAddress', ctypes.c_char * 16),  # IP地址
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, ExchangeID='', OptionSelfCloseSysID='', ActionFlag='', ActionDate='', ActionTime='', TraderID='',
-                 InstallID=0, OptionSelfCloseLocalID='', ActionLocalID='', ParticipantID='', ClientID='',
-                 BusinessUnit='', OrderActionStatus='', UserID='', BranchID='', IPAddress='', MacAddress=''):
+    def __init__(self, ExchangeID='', OptionSelfCloseSysID='', ActionFlag=None, ActionDate='', ActionTime='',
+                 TraderID='', InstallID=0, OptionSelfCloseLocalID='', ActionLocalID='', ParticipantID='', ClientID='',
+                 BusinessUnit='', OrderActionStatus=None, UserID='', BranchID='', IPAddress='', MacAddress=''):
         super(ExchangeOptionSelfCloseActionField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.OptionSelfCloseSysID = self._to_bytes(OptionSelfCloseSysID)
@@ -6280,14 +6284,14 @@ class InstrumentStatusField(Base):
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
         ('SettlementGroupID', ctypes.c_char * 9),  # 结算组代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('InstrumentStatus', ctypes.c_char),  # 合约交易状态
+        ('InstrumentStatus', ctypes.c_char_p),  # 合约交易状态
         ('TradingSegmentSN', ctypes.c_int),  # 交易阶段编号
         ('EnterTime', ctypes.c_char * 9),  # 进入本状态时间
-        ('EnterReason', ctypes.c_char),  # 进入本状态原因
+        ('EnterReason', ctypes.c_char_p),  # 进入本状态原因
     ]
 
-    def __init__(self, ExchangeID='', ExchangeInstID='', SettlementGroupID='', InstrumentID='', InstrumentStatus='',
-                 TradingSegmentSN=0, EnterTime='', EnterReason=''):
+    def __init__(self, ExchangeID='', ExchangeInstID='', SettlementGroupID='', InstrumentID='', InstrumentStatus=None,
+                 TradingSegmentSN=0, EnterTime='', EnterReason=None):
         super(InstrumentStatusField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.ExchangeInstID = self._to_bytes(ExchangeInstID)
@@ -6334,12 +6338,12 @@ class PositionProfitAlgorithmField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
-        ('Algorithm', ctypes.c_char),  # 盈亏算法
+        ('Algorithm', ctypes.c_char_p),  # 盈亏算法
         ('Memo', ctypes.c_char * 161),  # 备注
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
     ]
 
-    def __init__(self, BrokerID='', AccountID='', Algorithm='', Memo='', CurrencyID=''):
+    def __init__(self, BrokerID='', AccountID='', Algorithm=None, Memo='', CurrencyID=''):
         super(PositionProfitAlgorithmField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.AccountID = self._to_bytes(AccountID)
@@ -6352,12 +6356,12 @@ class DiscountField(Base):
     """会员资金折扣"""
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('Discount', ctypes.c_double),  # 资金折扣比例
     ]
 
-    def __init__(self, BrokerID='', InvestorRange='', InvestorID='', Discount=0.0):
+    def __init__(self, BrokerID='', InvestorRange=None, InvestorID='', Discount=0.0):
         super(DiscountField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -6420,15 +6424,15 @@ class InvestorPositionDetailField(Base):
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
-        ('Direction', ctypes.c_char),  # 买卖
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
+        ('Direction', ctypes.c_char_p),  # 买卖
         ('OpenDate', ctypes.c_char * 9),  # 开仓日期
         ('TradeID', ctypes.c_char * 21),  # 成交编号
         ('Volume', ctypes.c_int),  # 数量
         ('OpenPrice', ctypes.c_double),  # 开仓价
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
-        ('TradeType', ctypes.c_char),  # 成交类型
+        ('TradeType', ctypes.c_char_p),  # 成交类型
         ('CombInstrumentID', ctypes.c_char * 31),  # 组合合约代码
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('CloseProfitByDate', ctypes.c_double),  # 逐日盯市平仓盈亏
@@ -6446,11 +6450,12 @@ class InvestorPositionDetailField(Base):
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, InstrumentID='', BrokerID='', InvestorID='', HedgeFlag='', Direction='', OpenDate='', TradeID='',
-                 Volume=0, OpenPrice=0.0, TradingDay='', SettlementID=0, TradeType='', CombInstrumentID='',
-                 ExchangeID='', CloseProfitByDate=0.0, CloseProfitByTrade=0.0, PositionProfitByDate=0.0,
-                 PositionProfitByTrade=0.0, Margin=0.0, ExchMargin=0.0, MarginRateByMoney=0.0, MarginRateByVolume=0.0,
-                 LastSettlementPrice=0.0, SettlementPrice=0.0, CloseVolume=0, CloseAmount=0.0, InvestUnitID=''):
+    def __init__(self, InstrumentID='', BrokerID='', InvestorID='', HedgeFlag=None, Direction=None, OpenDate='',
+                 TradeID='', Volume=0, OpenPrice=0.0, TradingDay='', SettlementID=0, TradeType=None,
+                 CombInstrumentID='', ExchangeID='', CloseProfitByDate=0.0, CloseProfitByTrade=0.0,
+                 PositionProfitByDate=0.0, PositionProfitByTrade=0.0, Margin=0.0, ExchMargin=0.0, MarginRateByMoney=0.0,
+                 MarginRateByVolume=0.0, LastSettlementPrice=0.0, SettlementPrice=0.0, CloseVolume=0, CloseAmount=0.0,
+                 InvestUnitID=''):
         super(InvestorPositionDetailField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -6507,7 +6512,7 @@ class MDTraderOfferField(Base):
         ('Password', ctypes.c_char * 41),  # 密码
         ('InstallID', ctypes.c_int),  # 安装编号
         ('OrderLocalID', ctypes.c_char * 13),  # 本地报单编号
-        ('TraderConnectStatus', ctypes.c_char),  # 交易所交易员连接状态
+        ('TraderConnectStatus', ctypes.c_char_p),  # 交易所交易员连接状态
         ('ConnectRequestDate', ctypes.c_char * 9),  # 发出连接请求的日期
         ('ConnectRequestTime', ctypes.c_char * 9),  # 发出连接请求的时间
         ('LastReportDate', ctypes.c_char * 9),  # 上次报告日期
@@ -6523,7 +6528,7 @@ class MDTraderOfferField(Base):
     ]
 
     def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallID=0, OrderLocalID='',
-                 TraderConnectStatus='', ConnectRequestDate='', ConnectRequestTime='', LastReportDate='',
+                 TraderConnectStatus=None, ConnectRequestDate='', ConnectRequestTime='', LastReportDate='',
                  LastReportTime='', ConnectDate='', ConnectTime='', StartDate='', StartTime='', TradingDay='',
                  BrokerID='', MaxTradeID='', MaxOrderMessageReference=''):
         super(MDTraderOfferField, self).__init__()
@@ -6594,11 +6599,11 @@ class UserRightField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('UserRightType', ctypes.c_char),  # 客户权限类型
+        ('UserRightType', ctypes.c_char_p),  # 客户权限类型
         ('IsForbidden', ctypes.c_int),  # 是否禁止
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserRightType='', IsForbidden=0):
+    def __init__(self, BrokerID='', UserID='', UserRightType=None, IsForbidden=0):
         super(UserRightField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -6638,20 +6643,20 @@ class BrokerWithdrawAlgorithmField(Base):
     """经纪公司可提资金算法表"""
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
-        ('WithdrawAlgorithm', ctypes.c_char),  # 可提资金算法
+        ('WithdrawAlgorithm', ctypes.c_char_p),  # 可提资金算法
         ('UsingRatio', ctypes.c_double),  # 资金使用率
-        ('IncludeCloseProfit', ctypes.c_char),  # 可提是否包含平仓盈利
-        ('AllWithoutTrade', ctypes.c_char),  # 本日无仓且无成交客户是否受可提比例限制
-        ('AvailIncludeCloseProfit', ctypes.c_char),  # 可用是否包含平仓盈利
+        ('IncludeCloseProfit', ctypes.c_char_p),  # 可提是否包含平仓盈利
+        ('AllWithoutTrade', ctypes.c_char_p),  # 本日无仓且无成交客户是否受可提比例限制
+        ('AvailIncludeCloseProfit', ctypes.c_char_p),  # 可用是否包含平仓盈利
         ('IsBrokerUserEvent', ctypes.c_int),  # 是否启用用户事件
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('FundMortgageRatio', ctypes.c_double),  # 货币质押比率
-        ('BalanceAlgorithm', ctypes.c_char),  # 权益算法
+        ('BalanceAlgorithm', ctypes.c_char_p),  # 权益算法
     ]
 
-    def __init__(self, BrokerID='', WithdrawAlgorithm='', UsingRatio=0.0, IncludeCloseProfit='', AllWithoutTrade='',
-                 AvailIncludeCloseProfit='', IsBrokerUserEvent=0, CurrencyID='', FundMortgageRatio=0.0,
-                 BalanceAlgorithm=''):
+    def __init__(self, BrokerID='', WithdrawAlgorithm=None, UsingRatio=0.0, IncludeCloseProfit=None,
+                 AllWithoutTrade=None, AvailIncludeCloseProfit=None, IsBrokerUserEvent=0, CurrencyID='',
+                 FundMortgageRatio=0.0, BalanceAlgorithm=None):
         super(BrokerWithdrawAlgorithmField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.WithdrawAlgorithm = self._to_bytes(WithdrawAlgorithm)
@@ -6733,12 +6738,12 @@ class CombinationLegField(Base):
         ('CombInstrumentID', ctypes.c_char * 31),  # 组合合约代码
         ('LegID', ctypes.c_int),  # 单腿编号
         ('LegInstrumentID', ctypes.c_char * 31),  # 单腿合约代码
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('LegMultiple', ctypes.c_int),  # 单腿乘数
         ('ImplyLevel', ctypes.c_int),  # 派生层数
     ]
 
-    def __init__(self, CombInstrumentID='', LegID=0, LegInstrumentID='', Direction='', LegMultiple=0, ImplyLevel=0):
+    def __init__(self, CombInstrumentID='', LegID=0, LegInstrumentID='', Direction=None, LegMultiple=0, ImplyLevel=0):
         super(CombinationLegField, self).__init__()
         self.CombInstrumentID = self._to_bytes(CombInstrumentID)
         self.LegID = int(LegID)
@@ -6752,10 +6757,10 @@ class SyncStatusField(Base):
     """数据同步状态"""
     _fields_ = [
         ('TradingDay', ctypes.c_char * 9),  # 交易日
-        ('DataSyncStatus', ctypes.c_char),  # 数据同步状态
+        ('DataSyncStatus', ctypes.c_char_p),  # 数据同步状态
     ]
 
-    def __init__(self, TradingDay='', DataSyncStatus=''):
+    def __init__(self, TradingDay='', DataSyncStatus=None):
         super(SyncStatusField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.DataSyncStatus = self._to_bytes(DataSyncStatus)
@@ -6779,8 +6784,8 @@ class LinkManField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('PersonType', ctypes.c_char),  # 联系人类型
-        ('IdentifiedCardType', ctypes.c_char),  # 证件类型
+        ('PersonType', ctypes.c_char_p),  # 联系人类型
+        ('IdentifiedCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
         ('PersonName', ctypes.c_char * 81),  # 名称
         ('Telephone', ctypes.c_char * 41),  # 联系电话
@@ -6791,7 +6796,7 @@ class LinkManField(Base):
         ('PersonFullName', ctypes.c_char * 101),  # 全称
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', PersonType='', IdentifiedCardType='', IdentifiedCardNo='',
+    def __init__(self, BrokerID='', InvestorID='', PersonType=None, IdentifiedCardType=None, IdentifiedCardNo='',
                  PersonName='', Telephone='', Address='', ZipCode='', Priority=0, UOAZipCode='', PersonFullName=''):
         super(LinkManField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -6813,10 +6818,10 @@ class QryBrokerUserEventField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('UserEventType', ctypes.c_char),  # 用户事件类型
+        ('UserEventType', ctypes.c_char_p),  # 用户事件类型
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserEventType=''):
+    def __init__(self, BrokerID='', UserID='', UserEventType=None):
         super(QryBrokerUserEventField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -6828,7 +6833,7 @@ class BrokerUserEventField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('UserEventType', ctypes.c_char),  # 用户事件类型
+        ('UserEventType', ctypes.c_char_p),  # 用户事件类型
         ('EventSequenceNo', ctypes.c_int),  # 用户事件序号
         ('EventDate', ctypes.c_char * 9),  # 事件发生日期
         ('EventTime', ctypes.c_char * 9),  # 事件发生时间
@@ -6837,7 +6842,7 @@ class BrokerUserEventField(Base):
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserEventType='', EventSequenceNo=0, EventDate='', EventTime='',
+    def __init__(self, BrokerID='', UserID='', UserEventType=None, EventSequenceNo=0, EventDate='', EventTime='',
                  UserEventInfo='', InvestorID='', InstrumentID=''):
         super(BrokerUserEventField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -6895,8 +6900,8 @@ class InvestorPositionCombineDetailField(Base):
         ('ComTradeID', ctypes.c_char * 21),  # 组合编号
         ('TradeID', ctypes.c_char * 21),  # 撮合编号
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
-        ('Direction', ctypes.c_char),  # 买卖
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
+        ('Direction', ctypes.c_char_p),  # 买卖
         ('TotalAmt', ctypes.c_int),  # 持仓量
         ('Margin', ctypes.c_double),  # 投资者保证金
         ('ExchMargin', ctypes.c_double),  # 交易所保证金
@@ -6910,7 +6915,7 @@ class InvestorPositionCombineDetailField(Base):
     ]
 
     def __init__(self, TradingDay='', OpenDate='', ExchangeID='', SettlementID=0, BrokerID='', InvestorID='',
-                 ComTradeID='', TradeID='', InstrumentID='', HedgeFlag='', Direction='', TotalAmt=0, Margin=0.0,
+                 ComTradeID='', TradeID='', InstrumentID='', HedgeFlag=None, Direction=None, TotalAmt=0, Margin=0.0,
                  ExchMargin=0.0, MarginRateByMoney=0.0, MarginRateByVolume=0.0, LegID=0, LegMultiple=0,
                  CombInstrumentID='', TradeGroupID=0, InvestUnitID=''):
         super(InvestorPositionCombineDetailField, self).__init__()
@@ -6945,27 +6950,27 @@ class ParkedOrderField(Base):
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('OrderRef', ctypes.c_char * 13),  # 报单引用
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('OrderPriceType', ctypes.c_char),  # 报单价格条件
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('OrderPriceType', ctypes.c_char_p),  # 报单价格条件
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('CombOffsetFlag', ctypes.c_char * 5),  # 组合开平标志
         ('CombHedgeFlag', ctypes.c_char * 5),  # 组合投机套保标志
         ('LimitPrice', ctypes.c_double),  # 价格
         ('VolumeTotalOriginal', ctypes.c_int),  # 数量
-        ('TimeCondition', ctypes.c_char),  # 有效期类型
+        ('TimeCondition', ctypes.c_char_p),  # 有效期类型
         ('GTDDate', ctypes.c_char * 9),  # GTD日期
-        ('VolumeCondition', ctypes.c_char),  # 成交量类型
+        ('VolumeCondition', ctypes.c_char_p),  # 成交量类型
         ('MinVolume', ctypes.c_int),  # 最小成交量
-        ('ContingentCondition', ctypes.c_char),  # 触发条件
+        ('ContingentCondition', ctypes.c_char_p),  # 触发条件
         ('StopPrice', ctypes.c_double),  # 止损价
-        ('ForceCloseReason', ctypes.c_char),  # 强平原因
+        ('ForceCloseReason', ctypes.c_char_p),  # 强平原因
         ('IsAutoSuspend', ctypes.c_int),  # 自动挂起标志
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
         ('RequestID', ctypes.c_int),  # 请求编号
         ('UserForceClose', ctypes.c_int),  # 用户强评标志
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('ParkedOrderID', ctypes.c_char * 13),  # 预埋报单编号
-        ('UserType', ctypes.c_char),  # 用户类型
-        ('Status', ctypes.c_char),  # 预埋单状态
+        ('UserType', ctypes.c_char_p),  # 用户类型
+        ('Status', ctypes.c_char_p),  # 预埋单状态
         ('ErrorID', ctypes.c_int),  # 错误代码
         ('ErrorMsg', ctypes.c_char * 81),  # 错误信息
         ('IsSwapOrder', ctypes.c_int),  # 互换单标志
@@ -6977,12 +6982,12 @@ class ParkedOrderField(Base):
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType='',
-                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
-                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0, ContingentCondition='', StopPrice=0.0,
-                 ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='', RequestID=0, UserForceClose=0, ExchangeID='',
-                 ParkedOrderID='', UserType='', Status='', ErrorID=0, ErrorMsg='', IsSwapOrder=0, AccountID='',
-                 CurrencyID='', ClientID='', InvestUnitID='', IPAddress='', MacAddress=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType=None,
+                 Direction=None, CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
+                 TimeCondition=None, GTDDate='', VolumeCondition=None, MinVolume=0, ContingentCondition=None,
+                 StopPrice=0.0, ForceCloseReason=None, IsAutoSuspend=0, BusinessUnit='', RequestID=0, UserForceClose=0,
+                 ExchangeID='', ParkedOrderID='', UserType=None, Status=None, ErrorID=0, ErrorMsg='', IsSwapOrder=0,
+                 AccountID='', CurrencyID='', ClientID='', InvestUnitID='', IPAddress='', MacAddress=''):
         super(ParkedOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -7033,14 +7038,14 @@ class ParkedOrderActionField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('OrderSysID', ctypes.c_char * 21),  # 报单编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('LimitPrice', ctypes.c_double),  # 价格
         ('VolumeChange', ctypes.c_int),  # 数量变化
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('ParkedOrderActionID', ctypes.c_char * 13),  # 预埋撤单单编号
-        ('UserType', ctypes.c_char),  # 用户类型
-        ('Status', ctypes.c_char),  # 预埋撤单状态
+        ('UserType', ctypes.c_char_p),  # 用户类型
+        ('Status', ctypes.c_char_p),  # 预埋撤单状态
         ('ErrorID', ctypes.c_int),  # 错误代码
         ('ErrorMsg', ctypes.c_char * 81),  # 错误信息
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
@@ -7049,8 +7054,8 @@ class ParkedOrderActionField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', OrderActionRef=0, OrderRef='', RequestID=0, FrontID=0, SessionID=0,
-                 ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice=0.0, VolumeChange=0, UserID='',
-                 InstrumentID='', ParkedOrderActionID='', UserType='', Status='', ErrorID=0, ErrorMsg='',
+                 ExchangeID='', OrderSysID='', ActionFlag=None, LimitPrice=0.0, VolumeChange=0, UserID='',
+                 InstrumentID='', ParkedOrderActionID='', UserType=None, Status=None, ErrorID=0, ErrorMsg='',
                  InvestUnitID='', IPAddress='', MacAddress=''):
         super(ParkedOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -7153,14 +7158,14 @@ class InvestorWithdrawAlgorithmField(Base):
     """经纪公司可提资金算法表"""
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('UsingRatio', ctypes.c_double),  # 可提资金比例
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('FundMortgageRatio', ctypes.c_double),  # 货币质押比率
     ]
 
-    def __init__(self, BrokerID='', InvestorRange='', InvestorID='', UsingRatio=0.0, CurrencyID='',
+    def __init__(self, BrokerID='', InvestorRange=None, InvestorID='', UsingRatio=0.0, CurrencyID='',
                  FundMortgageRatio=0.0):
         super(InvestorWithdrawAlgorithmField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -7263,7 +7268,7 @@ class TradingNoticeField(Base):
     """用户事件通知"""
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
-        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorRange', ctypes.c_char_p),  # 投资者范围
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('SequenceSeries', ctypes.c_short),  # 序列系列号
         ('UserID', ctypes.c_char * 16),  # 用户代码
@@ -7273,7 +7278,7 @@ class TradingNoticeField(Base):
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, BrokerID='', InvestorRange='', InvestorID='', SequenceSeries=0, UserID='', SendTime='',
+    def __init__(self, BrokerID='', InvestorRange=None, InvestorID='', SequenceSeries=0, UserID='', SendTime='',
                  SequenceNo=0, FieldContent='', InvestUnitID=''):
         super(TradingNoticeField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -7323,19 +7328,19 @@ class ErrOrderField(Base):
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('OrderRef', ctypes.c_char * 13),  # 报单引用
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('OrderPriceType', ctypes.c_char),  # 报单价格条件
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('OrderPriceType', ctypes.c_char_p),  # 报单价格条件
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('CombOffsetFlag', ctypes.c_char * 5),  # 组合开平标志
         ('CombHedgeFlag', ctypes.c_char * 5),  # 组合投机套保标志
         ('LimitPrice', ctypes.c_double),  # 价格
         ('VolumeTotalOriginal', ctypes.c_int),  # 数量
-        ('TimeCondition', ctypes.c_char),  # 有效期类型
+        ('TimeCondition', ctypes.c_char_p),  # 有效期类型
         ('GTDDate', ctypes.c_char * 9),  # GTD日期
-        ('VolumeCondition', ctypes.c_char),  # 成交量类型
+        ('VolumeCondition', ctypes.c_char_p),  # 成交量类型
         ('MinVolume', ctypes.c_int),  # 最小成交量
-        ('ContingentCondition', ctypes.c_char),  # 触发条件
+        ('ContingentCondition', ctypes.c_char_p),  # 触发条件
         ('StopPrice', ctypes.c_double),  # 止损价
-        ('ForceCloseReason', ctypes.c_char),  # 强平原因
+        ('ForceCloseReason', ctypes.c_char_p),  # 强平原因
         ('IsAutoSuspend', ctypes.c_int),  # 自动挂起标志
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
         ('RequestID', ctypes.c_int),  # 请求编号
@@ -7352,12 +7357,12 @@ class ErrOrderField(Base):
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType='',
-                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
-                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0, ContingentCondition='', StopPrice=0.0,
-                 ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='', RequestID=0, UserForceClose=0, ErrorID=0,
-                 ErrorMsg='', IsSwapOrder=0, ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='', ClientID='',
-                 IPAddress='', MacAddress=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType=None,
+                 Direction=None, CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
+                 TimeCondition=None, GTDDate='', VolumeCondition=None, MinVolume=0, ContingentCondition=None,
+                 StopPrice=0.0, ForceCloseReason=None, IsAutoSuspend=0, BusinessUnit='', RequestID=0, UserForceClose=0,
+                 ErrorID=0, ErrorMsg='', IsSwapOrder=0, ExchangeID='', InvestUnitID='', AccountID='', CurrencyID='',
+                 ClientID='', IPAddress='', MacAddress=''):
         super(ErrOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -7401,19 +7406,19 @@ class ErrorConditionalOrderField(Base):
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
         ('OrderRef', ctypes.c_char * 13),  # 报单引用
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('OrderPriceType', ctypes.c_char),  # 报单价格条件
-        ('Direction', ctypes.c_char),  # 买卖方向
+        ('OrderPriceType', ctypes.c_char_p),  # 报单价格条件
+        ('Direction', ctypes.c_char_p),  # 买卖方向
         ('CombOffsetFlag', ctypes.c_char * 5),  # 组合开平标志
         ('CombHedgeFlag', ctypes.c_char * 5),  # 组合投机套保标志
         ('LimitPrice', ctypes.c_double),  # 价格
         ('VolumeTotalOriginal', ctypes.c_int),  # 数量
-        ('TimeCondition', ctypes.c_char),  # 有效期类型
+        ('TimeCondition', ctypes.c_char_p),  # 有效期类型
         ('GTDDate', ctypes.c_char * 9),  # GTD日期
-        ('VolumeCondition', ctypes.c_char),  # 成交量类型
+        ('VolumeCondition', ctypes.c_char_p),  # 成交量类型
         ('MinVolume', ctypes.c_int),  # 最小成交量
-        ('ContingentCondition', ctypes.c_char),  # 触发条件
+        ('ContingentCondition', ctypes.c_char_p),  # 触发条件
         ('StopPrice', ctypes.c_double),  # 止损价
-        ('ForceCloseReason', ctypes.c_char),  # 强平原因
+        ('ForceCloseReason', ctypes.c_char_p),  # 强平原因
         ('IsAutoSuspend', ctypes.c_int),  # 自动挂起标志
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
         ('RequestID', ctypes.c_int),  # 请求编号
@@ -7424,14 +7429,14 @@ class ErrorConditionalOrderField(Base):
         ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
         ('TraderID', ctypes.c_char * 21),  # 交易所交易员代码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('OrderSubmitStatus', ctypes.c_char),  # 报单提交状态
+        ('OrderSubmitStatus', ctypes.c_char_p),  # 报单提交状态
         ('NotifySequence', ctypes.c_int),  # 报单提示序号
         ('TradingDay', ctypes.c_char * 9),  # 交易日
         ('SettlementID', ctypes.c_int),  # 结算编号
         ('OrderSysID', ctypes.c_char * 21),  # 报单编号
-        ('OrderSource', ctypes.c_char),  # 报单来源
-        ('OrderStatus', ctypes.c_char),  # 报单状态
-        ('OrderType', ctypes.c_char),  # 报单类型
+        ('OrderSource', ctypes.c_char_p),  # 报单来源
+        ('OrderStatus', ctypes.c_char_p),  # 报单状态
+        ('OrderType', ctypes.c_char_p),  # 报单类型
         ('VolumeTraded', ctypes.c_int),  # 今成交数量
         ('VolumeTotal', ctypes.c_int),  # 剩余数量
         ('InsertDate', ctypes.c_char * 9),  # 报单日期
@@ -7463,17 +7468,18 @@ class ErrorConditionalOrderField(Base):
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType='',
-                 Direction='', CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
-                 TimeCondition='', GTDDate='', VolumeCondition='', MinVolume=0, ContingentCondition='', StopPrice=0.0,
-                 ForceCloseReason='', IsAutoSuspend=0, BusinessUnit='', RequestID=0, OrderLocalID='', ExchangeID='',
-                 ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0, OrderSubmitStatus='',
-                 NotifySequence=0, TradingDay='', SettlementID=0, OrderSysID='', OrderSource='', OrderStatus='',
-                 OrderType='', VolumeTraded=0, VolumeTotal=0, InsertDate='', InsertTime='', ActiveTime='',
-                 SuspendTime='', UpdateTime='', CancelTime='', ActiveTraderID='', ClearingPartID='', SequenceNo=0,
-                 FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='', UserForceClose=0, ActiveUserID='',
-                 BrokerOrderSeq=0, RelativeOrderSysID='', ZCETotalTradedVolume=0, ErrorID=0, ErrorMsg='', IsSwapOrder=0,
-                 BranchID='', InvestUnitID='', AccountID='', CurrencyID='', IPAddress='', MacAddress=''):
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', OrderRef='', UserID='', OrderPriceType=None,
+                 Direction=None, CombOffsetFlag='', CombHedgeFlag='', LimitPrice=0.0, VolumeTotalOriginal=0,
+                 TimeCondition=None, GTDDate='', VolumeCondition=None, MinVolume=0, ContingentCondition=None,
+                 StopPrice=0.0, ForceCloseReason=None, IsAutoSuspend=0, BusinessUnit='', RequestID=0, OrderLocalID='',
+                 ExchangeID='', ParticipantID='', ClientID='', ExchangeInstID='', TraderID='', InstallID=0,
+                 OrderSubmitStatus=None, NotifySequence=0, TradingDay='', SettlementID=0, OrderSysID='',
+                 OrderSource=None, OrderStatus=None, OrderType=None, VolumeTraded=0, VolumeTotal=0, InsertDate='',
+                 InsertTime='', ActiveTime='', SuspendTime='', UpdateTime='', CancelTime='', ActiveTraderID='',
+                 ClearingPartID='', SequenceNo=0, FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='',
+                 UserForceClose=0, ActiveUserID='', BrokerOrderSeq=0, RelativeOrderSysID='', ZCETotalTradedVolume=0,
+                 ErrorID=0, ErrorMsg='', IsSwapOrder=0, BranchID='', InvestUnitID='', AccountID='', CurrencyID='',
+                 IPAddress='', MacAddress=''):
         super(ErrorConditionalOrderField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -7567,7 +7573,7 @@ class ErrOrderActionField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('OrderSysID', ctypes.c_char * 21),  # 报单编号
-        ('ActionFlag', ctypes.c_char),  # 操作标志
+        ('ActionFlag', ctypes.c_char_p),  # 操作标志
         ('LimitPrice', ctypes.c_double),  # 价格
         ('VolumeChange', ctypes.c_int),  # 数量变化
         ('ActionDate', ctypes.c_char * 9),  # 操作日期
@@ -7579,7 +7585,7 @@ class ErrOrderActionField(Base):
         ('ParticipantID', ctypes.c_char * 11),  # 会员代码
         ('ClientID', ctypes.c_char * 11),  # 客户代码
         ('BusinessUnit', ctypes.c_char * 21),  # 业务单元
-        ('OrderActionStatus', ctypes.c_char),  # 报单操作状态
+        ('OrderActionStatus', ctypes.c_char_p),  # 报单操作状态
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('StatusMsg', ctypes.c_char * 81),  # 状态信息
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
@@ -7592,9 +7598,9 @@ class ErrOrderActionField(Base):
     ]
 
     def __init__(self, BrokerID='', InvestorID='', OrderActionRef=0, OrderRef='', RequestID=0, FrontID=0, SessionID=0,
-                 ExchangeID='', OrderSysID='', ActionFlag='', LimitPrice=0.0, VolumeChange=0, ActionDate='',
+                 ExchangeID='', OrderSysID='', ActionFlag=None, LimitPrice=0.0, VolumeChange=0, ActionDate='',
                  ActionTime='', TraderID='', InstallID=0, OrderLocalID='', ActionLocalID='', ParticipantID='',
-                 ClientID='', BusinessUnit='', OrderActionStatus='', UserID='', StatusMsg='', InstrumentID='',
+                 ClientID='', BusinessUnit='', OrderActionStatus=None, UserID='', StatusMsg='', InstrumentID='',
                  BranchID='', InvestUnitID='', IPAddress='', MacAddress='', ErrorID=0, ErrorMsg=''):
         super(ErrOrderActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -7646,10 +7652,10 @@ class ExchangeSequenceField(Base):
     _fields_ = [
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('SequenceNo', ctypes.c_int),  # 序号
-        ('MarketStatus', ctypes.c_char),  # 合约交易状态
+        ('MarketStatus', ctypes.c_char_p),  # 合约交易状态
     ]
 
-    def __init__(self, ExchangeID='', SequenceNo=0, MarketStatus=''):
+    def __init__(self, ExchangeID='', SequenceNo=0, MarketStatus=None):
         super(ExchangeSequenceField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.SequenceNo = int(SequenceNo)
@@ -7662,16 +7668,16 @@ class QueryMaxOrderVolumeWithPriceField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('Direction', ctypes.c_char),  # 买卖方向
-        ('OffsetFlag', ctypes.c_char),  # 开平标志
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('Direction', ctypes.c_char_p),  # 买卖方向
+        ('OffsetFlag', ctypes.c_char_p),  # 开平标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('MaxVolume', ctypes.c_int),  # 最大允许报单数量
         ('Price', ctypes.c_double),  # 报单价格
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', Direction='', OffsetFlag='', HedgeFlag='',
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID='', Direction=None, OffsetFlag=None, HedgeFlag=None,
                  MaxVolume=0, Price=0.0, ExchangeID='', InvestUnitID=''):
         super(QueryMaxOrderVolumeWithPriceField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
@@ -7708,16 +7714,16 @@ class BrokerTradingParamsField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('MarginPriceType', ctypes.c_char),  # 保证金价格类型
-        ('Algorithm', ctypes.c_char),  # 盈亏算法
-        ('AvailIncludeCloseProfit', ctypes.c_char),  # 可用是否包含平仓盈利
+        ('MarginPriceType', ctypes.c_char_p),  # 保证金价格类型
+        ('Algorithm', ctypes.c_char_p),  # 盈亏算法
+        ('AvailIncludeCloseProfit', ctypes.c_char_p),  # 可用是否包含平仓盈利
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
-        ('OptionRoyaltyPriceType', ctypes.c_char),  # 期权权利金价格类型
+        ('OptionRoyaltyPriceType', ctypes.c_char_p),  # 期权权利金价格类型
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', MarginPriceType='', Algorithm='', AvailIncludeCloseProfit='',
-                 CurrencyID='', OptionRoyaltyPriceType='', AccountID=''):
+    def __init__(self, BrokerID='', InvestorID='', MarginPriceType=None, Algorithm=None, AvailIncludeCloseProfit=None,
+                 CurrencyID='', OptionRoyaltyPriceType=None, AccountID=''):
         super(BrokerTradingParamsField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -7750,13 +7756,13 @@ class BrokerTradingAlgosField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('HandlePositionAlgoID', ctypes.c_char),  # 持仓处理算法编号
-        ('FindMarginRateAlgoID', ctypes.c_char),  # 寻找保证金率算法编号
-        ('HandleTradingAccountAlgoID', ctypes.c_char),  # 资金处理算法编号
+        ('HandlePositionAlgoID', ctypes.c_char_p),  # 持仓处理算法编号
+        ('FindMarginRateAlgoID', ctypes.c_char_p),  # 寻找保证金率算法编号
+        ('HandleTradingAccountAlgoID', ctypes.c_char_p),  # 资金处理算法编号
     ]
 
-    def __init__(self, BrokerID='', ExchangeID='', InstrumentID='', HandlePositionAlgoID='', FindMarginRateAlgoID='',
-                 HandleTradingAccountAlgoID=''):
+    def __init__(self, BrokerID='', ExchangeID='', InstrumentID='', HandlePositionAlgoID=None,
+                 FindMarginRateAlgoID=None, HandleTradingAccountAlgoID=None):
         super(BrokerTradingAlgosField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -7835,10 +7841,11 @@ class CFMMCBrokerKeyField(Base):
         ('CreateTime', ctypes.c_char * 9),  # 密钥生成时间
         ('KeyID', ctypes.c_int),  # 密钥编号
         ('CurrentKey', ctypes.c_char * 21),  # 动态密钥
-        ('KeyKind', ctypes.c_char),  # 动态密钥类型
+        ('KeyKind', ctypes.c_char_p),  # 动态密钥类型
     ]
 
-    def __init__(self, BrokerID='', ParticipantID='', CreateDate='', CreateTime='', KeyID=0, CurrentKey='', KeyKind=''):
+    def __init__(self, BrokerID='', ParticipantID='', CreateDate='', CreateTime='', KeyID=0, CurrentKey='',
+                 KeyKind=None):
         super(CFMMCBrokerKeyField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.ParticipantID = self._to_bytes(ParticipantID)
@@ -7891,11 +7898,11 @@ class BrokerUserOTPParamField(Base):
         ('AuthKey', ctypes.c_char * 41),  # 令牌密钥
         ('LastDrift', ctypes.c_int),  # 漂移值
         ('LastSuccess', ctypes.c_int),  # 成功值
-        ('OTPType', ctypes.c_char),  # 动态令牌类型
+        ('OTPType', ctypes.c_char_p),  # 动态令牌类型
     ]
 
     def __init__(self, BrokerID='', UserID='', OTPVendorsID='', SerialNumber='', AuthKey='', LastDrift=0, LastSuccess=0,
-                 OTPType=''):
+                 OTPType=None):
         super(BrokerUserOTPParamField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -7912,12 +7919,12 @@ class ManualSyncBrokerUserOTPField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('OTPType', ctypes.c_char),  # 动态令牌类型
+        ('OTPType', ctypes.c_char_p),  # 动态令牌类型
         ('FirstOTP', ctypes.c_char * 41),  # 第一个动态密码
         ('SecondOTP', ctypes.c_char * 41),  # 第二个动态密码
     ]
 
-    def __init__(self, BrokerID='', UserID='', OTPType='', FirstOTP='', SecondOTP=''):
+    def __init__(self, BrokerID='', UserID='', OTPType=None, FirstOTP='', SecondOTP=''):
         super(ManualSyncBrokerUserOTPField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -7990,14 +7997,14 @@ class EWarrantOffsetField(Base):
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InstrumentID', ctypes.c_char * 31),  # 合约代码
-        ('Direction', ctypes.c_char),  # 买卖方向
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('Direction', ctypes.c_char_p),  # 买卖方向
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('Volume', ctypes.c_int),  # 数量
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, TradingDay='', BrokerID='', InvestorID='', ExchangeID='', InstrumentID='', Direction='',
-                 HedgeFlag='', Volume=0, InvestUnitID=''):
+    def __init__(self, TradingDay='', BrokerID='', InvestorID='', ExchangeID='', InstrumentID='', Direction=None,
+                 HedgeFlag=None, Volume=0, InvestUnitID=''):
         super(EWarrantOffsetField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -8035,12 +8042,12 @@ class QryInvestorProductGroupMarginField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('ProductGroupID', ctypes.c_char * 31),  # 品种/跨品种标示
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', ProductGroupID='', HedgeFlag='', ExchangeID='', InvestUnitID=''):
+    def __init__(self, BrokerID='', InvestorID='', ProductGroupID='', HedgeFlag=None, ExchangeID='', InvestUnitID=''):
         super(QryInvestorProductGroupMarginField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -8079,7 +8086,7 @@ class InvestorProductGroupMarginField(Base):
         ('ExchOffsetAmount', ctypes.c_double),  # 交易所折抵总金额
         ('LongExchOffsetAmount', ctypes.c_double),  # 交易所多头折抵总金额
         ('ShortExchOffsetAmount', ctypes.c_double),  # 交易所空头折抵总金额
-        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('HedgeFlag', ctypes.c_char_p),  # 投机套保标志
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
@@ -8089,7 +8096,7 @@ class InvestorProductGroupMarginField(Base):
                  ExchMargin=0.0, LongExchMargin=0.0, ShortExchMargin=0.0, CloseProfit=0.0, FrozenCommission=0.0,
                  Commission=0.0, FrozenCash=0.0, CashIn=0.0, PositionProfit=0.0, OffsetAmount=0.0, LongOffsetAmount=0.0,
                  ShortOffsetAmount=0.0, ExchOffsetAmount=0.0, LongExchOffsetAmount=0.0, ShortExchOffsetAmount=0.0,
-                 HedgeFlag='', ExchangeID='', InvestUnitID=''):
+                 HedgeFlag=None, ExchangeID='', InvestUnitID=''):
         super(InvestorProductGroupMarginField, self).__init__()
         self.ProductGroupID = self._to_bytes(ProductGroupID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -8192,7 +8199,7 @@ class BulletinField(Base):
         ('BulletinID', ctypes.c_int),  # 公告编号
         ('SequenceNo', ctypes.c_int),  # 序列号
         ('NewsType', ctypes.c_char * 3),  # 公告类型
-        ('NewsUrgency', ctypes.c_char),  # 紧急程度
+        ('NewsUrgency', ctypes.c_char_p),  # 紧急程度
         ('SendTime', ctypes.c_char * 9),  # 发送时间
         ('Abstract', ctypes.c_char * 81),  # 消息摘要
         ('ComeFrom', ctypes.c_char * 21),  # 消息来源
@@ -8201,7 +8208,7 @@ class BulletinField(Base):
         ('MarketID', ctypes.c_char * 31),  # 市场代码
     ]
 
-    def __init__(self, ExchangeID='', TradingDay='', BulletinID=0, SequenceNo=0, NewsType='', NewsUrgency='',
+    def __init__(self, ExchangeID='', TradingDay='', BulletinID=0, SequenceNo=0, NewsType='', NewsUrgency=None,
                  SendTime='', Abstract='', ComeFrom='', Content='', URLLink='', MarketID=''):
         super(BulletinField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
@@ -8225,10 +8232,10 @@ class QryBulletinField(Base):
         ('BulletinID', ctypes.c_int),  # 公告编号
         ('SequenceNo', ctypes.c_int),  # 序列号
         ('NewsType', ctypes.c_char * 3),  # 公告类型
-        ('NewsUrgency', ctypes.c_char),  # 紧急程度
+        ('NewsUrgency', ctypes.c_char_p),  # 紧急程度
     ]
 
-    def __init__(self, ExchangeID='', BulletinID=0, SequenceNo=0, NewsType='', NewsUrgency=''):
+    def __init__(self, ExchangeID='', BulletinID=0, SequenceNo=0, NewsType='', NewsUrgency=None):
         super(QryBulletinField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.BulletinID = int(BulletinID)
@@ -8250,37 +8257,37 @@ class ReqOpenAccountField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('Gender', ctypes.c_char),  # 性别
+        ('Gender', ctypes.c_char_p),  # 性别
         ('CountryCode', ctypes.c_char * 21),  # 国家代码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('Address', ctypes.c_char * 101),  # 地址
         ('ZipCode', ctypes.c_char * 7),  # 邮编
         ('Telephone', ctypes.c_char * 41),  # 电话号码
         ('MobilePhone', ctypes.c_char * 21),  # 手机
         ('Fax', ctypes.c_char * 41),  # 传真
         ('EMail', ctypes.c_char * 41),  # 电子邮件
-        ('MoneyAccountStatus', ctypes.c_char),  # 资金账户状态
+        ('MoneyAccountStatus', ctypes.c_char_p),  # 资金账户状态
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
         ('Password', ctypes.c_char * 41),  # 期货密码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
-        ('CashExchangeCode', ctypes.c_char),  # 汇钞标志
+        ('CashExchangeCode', ctypes.c_char_p),  # 汇钞标志
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('DeviceID', ctypes.c_char * 3),  # 渠道标志
-        ('BankSecuAccType', ctypes.c_char),  # 期货单位帐号类型
+        ('BankSecuAccType', ctypes.c_char_p),  # 期货单位帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('BankSecuAcc', ctypes.c_char * 41),  # 期货单位帐号
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('OperNo', ctypes.c_char * 17),  # 交易柜员
         ('TID', ctypes.c_int),  # 交易ID
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -8288,12 +8295,12 @@ class ReqOpenAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
-                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag='',
-                 CurrencyID='', CashExchangeCode='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='',
-                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID=0, UserID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', Gender=None, CountryCode='', CustType=None,
+                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus=None,
+                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag=None,
+                 CurrencyID='', CashExchangeCode=None, Digest='', BankAccType=None, DeviceID='', BankSecuAccType=None,
+                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag=None, SecuPwdFlag=None, OperNo='', TID=0, UserID='',
                  LongCustomerName=''):
         super(ReqOpenAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -8356,37 +8363,37 @@ class ReqCancelAccountField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('Gender', ctypes.c_char),  # 性别
+        ('Gender', ctypes.c_char_p),  # 性别
         ('CountryCode', ctypes.c_char * 21),  # 国家代码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('Address', ctypes.c_char * 101),  # 地址
         ('ZipCode', ctypes.c_char * 7),  # 邮编
         ('Telephone', ctypes.c_char * 41),  # 电话号码
         ('MobilePhone', ctypes.c_char * 21),  # 手机
         ('Fax', ctypes.c_char * 41),  # 传真
         ('EMail', ctypes.c_char * 41),  # 电子邮件
-        ('MoneyAccountStatus', ctypes.c_char),  # 资金账户状态
+        ('MoneyAccountStatus', ctypes.c_char_p),  # 资金账户状态
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
         ('Password', ctypes.c_char * 41),  # 期货密码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
-        ('CashExchangeCode', ctypes.c_char),  # 汇钞标志
+        ('CashExchangeCode', ctypes.c_char_p),  # 汇钞标志
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('DeviceID', ctypes.c_char * 3),  # 渠道标志
-        ('BankSecuAccType', ctypes.c_char),  # 期货单位帐号类型
+        ('BankSecuAccType', ctypes.c_char_p),  # 期货单位帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('BankSecuAcc', ctypes.c_char * 41),  # 期货单位帐号
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('OperNo', ctypes.c_char * 17),  # 交易柜员
         ('TID', ctypes.c_int),  # 交易ID
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -8394,12 +8401,12 @@ class ReqCancelAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
-                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag='',
-                 CurrencyID='', CashExchangeCode='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='',
-                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID=0, UserID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', Gender=None, CountryCode='', CustType=None,
+                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus=None,
+                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag=None,
+                 CurrencyID='', CashExchangeCode=None, Digest='', BankAccType=None, DeviceID='', BankSecuAccType=None,
+                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag=None, SecuPwdFlag=None, OperNo='', TID=0, UserID='',
                  LongCustomerName=''):
         super(ReqCancelAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -8462,46 +8469,46 @@ class ReqChangeAccountField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('Gender', ctypes.c_char),  # 性别
+        ('Gender', ctypes.c_char_p),  # 性别
         ('CountryCode', ctypes.c_char * 21),  # 国家代码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('Address', ctypes.c_char * 101),  # 地址
         ('ZipCode', ctypes.c_char * 7),  # 邮编
         ('Telephone', ctypes.c_char * 41),  # 电话号码
         ('MobilePhone', ctypes.c_char * 21),  # 手机
         ('Fax', ctypes.c_char * 41),  # 传真
         ('EMail', ctypes.c_char * 41),  # 电子邮件
-        ('MoneyAccountStatus', ctypes.c_char),  # 资金账户状态
+        ('MoneyAccountStatus', ctypes.c_char_p),  # 资金账户状态
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('NewBankAccount', ctypes.c_char * 41),  # 新银行帐号
         ('NewBankPassWord', ctypes.c_char * 41),  # 新银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
         ('Password', ctypes.c_char * 41),  # 期货密码
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('TID', ctypes.c_int),  # 交易ID
         ('Digest', ctypes.c_char * 36),  # 摘要
         ('LongCustomerName', ctypes.c_char * 161),  # 长客户姓名
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
-                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', Gender=None, CountryCode='', CustType=None,
+                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus=None,
                  BankAccount='', BankPassWord='', NewBankAccount='', NewBankPassWord='', AccountID='', Password='',
-                 BankAccType='', InstallID=0, VerifyCertNoFlag='', CurrencyID='', BrokerIDByBank='', BankPwdFlag='',
-                 SecuPwdFlag='', TID=0, Digest='', LongCustomerName=''):
+                 BankAccType=None, InstallID=0, VerifyCertNoFlag=None, CurrencyID='', BrokerIDByBank='',
+                 BankPwdFlag=None, SecuPwdFlag=None, TID=0, Digest='', LongCustomerName=''):
         super(ReqChangeAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8559,12 +8566,12 @@ class ReqTransferField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
@@ -8572,36 +8579,37 @@ class ReqTransferField(Base):
         ('InstallID', ctypes.c_int),  # 安装编号
         ('FutureSerial', ctypes.c_int),  # 期货公司流水号
         ('UserID', ctypes.c_char * 16),  # 用户标识
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('TradeAmount', ctypes.c_double),  # 转帐金额
         ('FutureFetchAmount', ctypes.c_double),  # 期货可取金额
-        ('FeePayFlag', ctypes.c_char),  # 费用支付标志
+        ('FeePayFlag', ctypes.c_char_p),  # 费用支付标志
         ('CustFee', ctypes.c_double),  # 应收客户费用
         ('BrokerFee', ctypes.c_double),  # 应收期货公司费用
         ('Message', ctypes.c_char * 129),  # 发送方给接收方的消息
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('DeviceID', ctypes.c_char * 3),  # 渠道标志
-        ('BankSecuAccType', ctypes.c_char),  # 期货单位帐号类型
+        ('BankSecuAccType', ctypes.c_char_p),  # 期货单位帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('BankSecuAcc', ctypes.c_char * 41),  # 期货单位帐号
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('OperNo', ctypes.c_char * 17),  # 交易柜员
         ('RequestID', ctypes.c_int),  # 请求编号
         ('TID', ctypes.c_int),  # 交易ID
-        ('TransferStatus', ctypes.c_char),  # 转账交易状态
+        ('TransferStatus', ctypes.c_char_p),  # 转账交易状态
         ('LongCustomerName', ctypes.c_char * 161),  # 长客户姓名
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='',
-                 AccountID='', Password='', InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag='', CurrencyID='',
-                 TradeAmount=0.0, FutureFetchAmount=0.0, FeePayFlag='', CustFee=0.0, BrokerFee=0.0, Message='',
-                 Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='',
-                 BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID=0, TID=0, TransferStatus='', LongCustomerName=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', CustType=None, BankAccount='', BankPassWord='',
+                 AccountID='', Password='', InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag=None,
+                 CurrencyID='', TradeAmount=0.0, FutureFetchAmount=0.0, FeePayFlag=None, CustFee=0.0, BrokerFee=0.0,
+                 Message='', Digest='', BankAccType=None, DeviceID='', BankSecuAccType=None, BrokerIDByBank='',
+                 BankSecuAcc='', BankPwdFlag=None, SecuPwdFlag=None, OperNo='', RequestID=0, TID=0, TransferStatus=None,
+                 LongCustomerName=''):
         super(ReqTransferField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8662,12 +8670,12 @@ class RspTransferField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
@@ -8675,39 +8683,39 @@ class RspTransferField(Base):
         ('InstallID', ctypes.c_int),  # 安装编号
         ('FutureSerial', ctypes.c_int),  # 期货公司流水号
         ('UserID', ctypes.c_char * 16),  # 用户标识
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('TradeAmount', ctypes.c_double),  # 转帐金额
         ('FutureFetchAmount', ctypes.c_double),  # 期货可取金额
-        ('FeePayFlag', ctypes.c_char),  # 费用支付标志
+        ('FeePayFlag', ctypes.c_char_p),  # 费用支付标志
         ('CustFee', ctypes.c_double),  # 应收客户费用
         ('BrokerFee', ctypes.c_double),  # 应收期货公司费用
         ('Message', ctypes.c_char * 129),  # 发送方给接收方的消息
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('DeviceID', ctypes.c_char * 3),  # 渠道标志
-        ('BankSecuAccType', ctypes.c_char),  # 期货单位帐号类型
+        ('BankSecuAccType', ctypes.c_char_p),  # 期货单位帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('BankSecuAcc', ctypes.c_char * 41),  # 期货单位帐号
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('OperNo', ctypes.c_char * 17),  # 交易柜员
         ('RequestID', ctypes.c_int),  # 请求编号
         ('TID', ctypes.c_int),  # 交易ID
-        ('TransferStatus', ctypes.c_char),  # 转账交易状态
+        ('TransferStatus', ctypes.c_char_p),  # 转账交易状态
         ('ErrorID', ctypes.c_int),  # 错误代码
         ('ErrorMsg', ctypes.c_char * 81),  # 错误信息
         ('LongCustomerName', ctypes.c_char * 161),  # 长客户姓名
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='',
-                 AccountID='', Password='', InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag='', CurrencyID='',
-                 TradeAmount=0.0, FutureFetchAmount=0.0, FeePayFlag='', CustFee=0.0, BrokerFee=0.0, Message='',
-                 Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='',
-                 BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID=0, TID=0, TransferStatus='', ErrorID=0,
-                 ErrorMsg='', LongCustomerName=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', CustType=None, BankAccount='', BankPassWord='',
+                 AccountID='', Password='', InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag=None,
+                 CurrencyID='', TradeAmount=0.0, FutureFetchAmount=0.0, FeePayFlag=None, CustFee=0.0, BrokerFee=0.0,
+                 Message='', Digest='', BankAccType=None, DeviceID='', BankSecuAccType=None, BrokerIDByBank='',
+                 BankSecuAcc='', BankPwdFlag=None, SecuPwdFlag=None, OperNo='', RequestID=0, TID=0, TransferStatus=None,
+                 ErrorID=0, ErrorMsg='', LongCustomerName=''):
         super(RspTransferField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -8762,8 +8770,8 @@ class ReqRepealField(Base):
     _fields_ = [
         ('RepealTimeInterval', ctypes.c_int),  # 冲正时间间隔
         ('RepealedTimes', ctypes.c_int),  # 已经冲正次数
-        ('BankRepealFlag', ctypes.c_char),  # 银行冲正标志
-        ('BrokerRepealFlag', ctypes.c_char),  # 期商冲正标志
+        ('BankRepealFlag', ctypes.c_char_p),  # 银行冲正标志
+        ('BrokerRepealFlag', ctypes.c_char_p),  # 期商冲正标志
         ('PlateRepealSerial', ctypes.c_int),  # 被冲正平台流水号
         ('BankRepealSerial', ctypes.c_char * 13),  # 被冲正银行流水号
         ('FutureRepealSerial', ctypes.c_int),  # 被冲正期货流水号
@@ -8777,12 +8785,12 @@ class ReqRepealField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
@@ -8790,38 +8798,39 @@ class ReqRepealField(Base):
         ('InstallID', ctypes.c_int),  # 安装编号
         ('FutureSerial', ctypes.c_int),  # 期货公司流水号
         ('UserID', ctypes.c_char * 16),  # 用户标识
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('TradeAmount', ctypes.c_double),  # 转帐金额
         ('FutureFetchAmount', ctypes.c_double),  # 期货可取金额
-        ('FeePayFlag', ctypes.c_char),  # 费用支付标志
+        ('FeePayFlag', ctypes.c_char_p),  # 费用支付标志
         ('CustFee', ctypes.c_double),  # 应收客户费用
         ('BrokerFee', ctypes.c_double),  # 应收期货公司费用
         ('Message', ctypes.c_char * 129),  # 发送方给接收方的消息
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('DeviceID', ctypes.c_char * 3),  # 渠道标志
-        ('BankSecuAccType', ctypes.c_char),  # 期货单位帐号类型
+        ('BankSecuAccType', ctypes.c_char_p),  # 期货单位帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('BankSecuAcc', ctypes.c_char * 41),  # 期货单位帐号
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('OperNo', ctypes.c_char * 17),  # 交易柜员
         ('RequestID', ctypes.c_int),  # 请求编号
         ('TID', ctypes.c_int),  # 交易ID
-        ('TransferStatus', ctypes.c_char),  # 转账交易状态
+        ('TransferStatus', ctypes.c_char_p),  # 转账交易状态
         ('LongCustomerName', ctypes.c_char * 161),  # 长客户姓名
     ]
 
-    def __init__(self, RepealTimeInterval=0, RepealedTimes=0, BankRepealFlag='', BrokerRepealFlag='',
+    def __init__(self, RepealTimeInterval=0, RepealedTimes=0, BankRepealFlag=None, BrokerRepealFlag=None,
                  PlateRepealSerial=0, BankRepealSerial='', FutureRepealSerial=0, TradeCode='', BankID='',
                  BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='', TradeTime='', BankSerial='',
-                 TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, CustomerName='', IdCardType='',
-                 IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='', AccountID='', Password='',
-                 InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag='', CurrencyID='', TradeAmount=0.0,
-                 FutureFetchAmount=0.0, FeePayFlag='', CustFee=0.0, BrokerFee=0.0, Message='', Digest='',
-                 BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='',
-                 SecuPwdFlag='', OperNo='', RequestID=0, TID=0, TransferStatus='', LongCustomerName=''):
+                 TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, CustomerName='', IdCardType=None,
+                 IdentifiedCardNo='', CustType=None, BankAccount='', BankPassWord='', AccountID='', Password='',
+                 InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag=None, CurrencyID='', TradeAmount=0.0,
+                 FutureFetchAmount=0.0, FeePayFlag=None, CustFee=0.0, BrokerFee=0.0, Message='', Digest='',
+                 BankAccType=None, DeviceID='', BankSecuAccType=None, BrokerIDByBank='', BankSecuAcc='',
+                 BankPwdFlag=None, SecuPwdFlag=None, OperNo='', RequestID=0, TID=0, TransferStatus=None,
+                 LongCustomerName=''):
         super(ReqRepealField, self).__init__()
         self.RepealTimeInterval = int(RepealTimeInterval)
         self.RepealedTimes = int(RepealedTimes)
@@ -8881,8 +8890,8 @@ class RspRepealField(Base):
     _fields_ = [
         ('RepealTimeInterval', ctypes.c_int),  # 冲正时间间隔
         ('RepealedTimes', ctypes.c_int),  # 已经冲正次数
-        ('BankRepealFlag', ctypes.c_char),  # 银行冲正标志
-        ('BrokerRepealFlag', ctypes.c_char),  # 期商冲正标志
+        ('BankRepealFlag', ctypes.c_char_p),  # 银行冲正标志
+        ('BrokerRepealFlag', ctypes.c_char_p),  # 期商冲正标志
         ('PlateRepealSerial', ctypes.c_int),  # 被冲正平台流水号
         ('BankRepealSerial', ctypes.c_char * 13),  # 被冲正银行流水号
         ('FutureRepealSerial', ctypes.c_int),  # 被冲正期货流水号
@@ -8896,12 +8905,12 @@ class RspRepealField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
@@ -8909,41 +8918,41 @@ class RspRepealField(Base):
         ('InstallID', ctypes.c_int),  # 安装编号
         ('FutureSerial', ctypes.c_int),  # 期货公司流水号
         ('UserID', ctypes.c_char * 16),  # 用户标识
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('TradeAmount', ctypes.c_double),  # 转帐金额
         ('FutureFetchAmount', ctypes.c_double),  # 期货可取金额
-        ('FeePayFlag', ctypes.c_char),  # 费用支付标志
+        ('FeePayFlag', ctypes.c_char_p),  # 费用支付标志
         ('CustFee', ctypes.c_double),  # 应收客户费用
         ('BrokerFee', ctypes.c_double),  # 应收期货公司费用
         ('Message', ctypes.c_char * 129),  # 发送方给接收方的消息
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('DeviceID', ctypes.c_char * 3),  # 渠道标志
-        ('BankSecuAccType', ctypes.c_char),  # 期货单位帐号类型
+        ('BankSecuAccType', ctypes.c_char_p),  # 期货单位帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('BankSecuAcc', ctypes.c_char * 41),  # 期货单位帐号
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('OperNo', ctypes.c_char * 17),  # 交易柜员
         ('RequestID', ctypes.c_int),  # 请求编号
         ('TID', ctypes.c_int),  # 交易ID
-        ('TransferStatus', ctypes.c_char),  # 转账交易状态
+        ('TransferStatus', ctypes.c_char_p),  # 转账交易状态
         ('ErrorID', ctypes.c_int),  # 错误代码
         ('ErrorMsg', ctypes.c_char * 81),  # 错误信息
         ('LongCustomerName', ctypes.c_char * 161),  # 长客户姓名
     ]
 
-    def __init__(self, RepealTimeInterval=0, RepealedTimes=0, BankRepealFlag='', BrokerRepealFlag='',
+    def __init__(self, RepealTimeInterval=0, RepealedTimes=0, BankRepealFlag=None, BrokerRepealFlag=None,
                  PlateRepealSerial=0, BankRepealSerial='', FutureRepealSerial=0, TradeCode='', BankID='',
                  BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='', TradeTime='', BankSerial='',
-                 TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, CustomerName='', IdCardType='',
-                 IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='', AccountID='', Password='',
-                 InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag='', CurrencyID='', TradeAmount=0.0,
-                 FutureFetchAmount=0.0, FeePayFlag='', CustFee=0.0, BrokerFee=0.0, Message='', Digest='',
-                 BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='',
-                 SecuPwdFlag='', OperNo='', RequestID=0, TID=0, TransferStatus='', ErrorID=0, ErrorMsg='',
-                 LongCustomerName=''):
+                 TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, CustomerName='', IdCardType=None,
+                 IdentifiedCardNo='', CustType=None, BankAccount='', BankPassWord='', AccountID='', Password='',
+                 InstallID=0, FutureSerial=0, UserID='', VerifyCertNoFlag=None, CurrencyID='', TradeAmount=0.0,
+                 FutureFetchAmount=0.0, FeePayFlag=None, CustFee=0.0, BrokerFee=0.0, Message='', Digest='',
+                 BankAccType=None, DeviceID='', BankSecuAccType=None, BrokerIDByBank='', BankSecuAcc='',
+                 BankPwdFlag=None, SecuPwdFlag=None, OperNo='', RequestID=0, TID=0, TransferStatus=None, ErrorID=0,
+                 ErrorMsg='', LongCustomerName=''):
         super(RspRepealField, self).__init__()
         self.RepealTimeInterval = int(RepealTimeInterval)
         self.RepealedTimes = int(RepealedTimes)
@@ -9013,12 +9022,12 @@ class ReqQueryAccountField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
@@ -9026,16 +9035,16 @@ class ReqQueryAccountField(Base):
         ('FutureSerial', ctypes.c_int),  # 期货公司流水号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('DeviceID', ctypes.c_char * 3),  # 渠道标志
-        ('BankSecuAccType', ctypes.c_char),  # 期货单位帐号类型
+        ('BankSecuAccType', ctypes.c_char_p),  # 期货单位帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('BankSecuAcc', ctypes.c_char * 41),  # 期货单位帐号
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('OperNo', ctypes.c_char * 17),  # 交易柜员
         ('RequestID', ctypes.c_int),  # 请求编号
         ('TID', ctypes.c_int),  # 交易ID
@@ -9043,11 +9052,12 @@ class ReqQueryAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='',
-                 AccountID='', Password='', FutureSerial=0, InstallID=0, UserID='', VerifyCertNoFlag='', CurrencyID='',
-                 Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='',
-                 BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID=0, TID=0, LongCustomerName=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', CustType=None, BankAccount='', BankPassWord='',
+                 AccountID='', Password='', FutureSerial=0, InstallID=0, UserID='', VerifyCertNoFlag=None,
+                 CurrencyID='', Digest='', BankAccType=None, DeviceID='', BankSecuAccType=None, BrokerIDByBank='',
+                 BankSecuAcc='', BankPwdFlag=None, SecuPwdFlag=None, OperNo='', RequestID=0, TID=0,
+                 LongCustomerName=''):
         super(ReqQueryAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -9101,12 +9111,12 @@ class RspQueryAccountField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
@@ -9114,16 +9124,16 @@ class RspQueryAccountField(Base):
         ('FutureSerial', ctypes.c_int),  # 期货公司流水号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('DeviceID', ctypes.c_char * 3),  # 渠道标志
-        ('BankSecuAccType', ctypes.c_char),  # 期货单位帐号类型
+        ('BankSecuAccType', ctypes.c_char_p),  # 期货单位帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('BankSecuAcc', ctypes.c_char * 41),  # 期货单位帐号
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('OperNo', ctypes.c_char * 17),  # 交易柜员
         ('RequestID', ctypes.c_int),  # 请求编号
         ('TID', ctypes.c_int),  # 交易ID
@@ -9133,12 +9143,12 @@ class RspQueryAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='',
-                 AccountID='', Password='', FutureSerial=0, InstallID=0, UserID='', VerifyCertNoFlag='', CurrencyID='',
-                 Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='',
-                 BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID=0, TID=0, BankUseAmount=0.0, BankFetchAmount=0.0,
-                 LongCustomerName=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', CustType=None, BankAccount='', BankPassWord='',
+                 AccountID='', Password='', FutureSerial=0, InstallID=0, UserID='', VerifyCertNoFlag=None,
+                 CurrencyID='', Digest='', BankAccType=None, DeviceID='', BankSecuAccType=None, BrokerIDByBank='',
+                 BankSecuAcc='', BankPwdFlag=None, SecuPwdFlag=None, OperNo='', RequestID=0, TID=0, BankUseAmount=0.0,
+                 BankFetchAmount=0.0, LongCustomerName=''):
         super(RspQueryAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -9194,7 +9204,7 @@ class FutureSignIOField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -9208,7 +9218,7 @@ class FutureSignIOField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, InstallID=0,
                  UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0):
         super(FutureSignIOField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -9247,7 +9257,7 @@ class RspFutureSignInField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -9265,7 +9275,7 @@ class RspFutureSignInField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, InstallID=0,
                  UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0,
                  ErrorID=0, ErrorMsg='', PinKey='', MacKey=''):
         super(RspFutureSignInField, self).__init__()
@@ -9309,7 +9319,7 @@ class ReqFutureSignOutField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -9323,7 +9333,7 @@ class ReqFutureSignOutField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, InstallID=0,
                  UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0):
         super(ReqFutureSignOutField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -9362,7 +9372,7 @@ class RspFutureSignOutField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -9378,7 +9388,7 @@ class RspFutureSignOutField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, InstallID=0,
                  UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0,
                  ErrorID=0, ErrorMsg=''):
         super(RspFutureSignOutField, self).__init__()
@@ -9420,15 +9430,15 @@ class ReqQueryTradeResultBySerialField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('Reference', ctypes.c_int),  # 流水号
-        ('RefrenceIssureType', ctypes.c_char),  # 本流水号发布者的机构类型
+        ('RefrenceIssureType', ctypes.c_char_p),  # 本流水号发布者的机构类型
         ('RefrenceIssure', ctypes.c_char * 36),  # 本流水号发布者机构编码
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
@@ -9440,9 +9450,9 @@ class ReqQueryTradeResultBySerialField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, Reference=0,
-                 RefrenceIssureType='', RefrenceIssure='', CustomerName='', IdCardType='', IdentifiedCardNo='',
-                 CustType='', BankAccount='', BankPassWord='', AccountID='', Password='', CurrencyID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, Reference=0,
+                 RefrenceIssureType=None, RefrenceIssure='', CustomerName='', IdCardType=None, IdentifiedCardNo='',
+                 CustType=None, BankAccount='', BankPassWord='', AccountID='', Password='', CurrencyID='',
                  TradeAmount=0.0, Digest='', LongCustomerName=''):
         super(ReqQueryTradeResultBySerialField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -9487,12 +9497,12 @@ class RspQueryTradeResultBySerialField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('ErrorID', ctypes.c_int),  # 错误代码
         ('ErrorMsg', ctypes.c_char * 81),  # 错误信息
         ('Reference', ctypes.c_int),  # 流水号
-        ('RefrenceIssureType', ctypes.c_char),  # 本流水号发布者的机构类型
+        ('RefrenceIssureType', ctypes.c_char_p),  # 本流水号发布者的机构类型
         ('RefrenceIssure', ctypes.c_char * 36),  # 本流水号发布者机构编码
         ('OriginReturnCode', ctypes.c_char * 7),  # 原始返回代码
         ('OriginDescrInfoForReturnCode', ctypes.c_char * 129),  # 原始返回码描述
@@ -9506,8 +9516,8 @@ class RspQueryTradeResultBySerialField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, ErrorID=0,
-                 ErrorMsg='', Reference=0, RefrenceIssureType='', RefrenceIssure='', OriginReturnCode='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, ErrorID=0,
+                 ErrorMsg='', Reference=0, RefrenceIssureType=None, RefrenceIssure='', OriginReturnCode='',
                  OriginDescrInfoForReturnCode='', BankAccount='', BankPassWord='', AccountID='', Password='',
                  CurrencyID='', TradeAmount=0.0, Digest=''):
         super(RspQueryTradeResultBySerialField, self).__init__()
@@ -9552,15 +9562,15 @@ class ReqDayEndFileReadyField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
-        ('FileBusinessCode', ctypes.c_char),  # 文件业务功能
+        ('FileBusinessCode', ctypes.c_char_p),  # 文件业务功能
         ('Digest', ctypes.c_char * 36),  # 摘要
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 FileBusinessCode='', Digest=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 FileBusinessCode=None, Digest=''):
         super(ReqDayEndFileReadyField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -9604,7 +9614,7 @@ class VerifyFuturePasswordField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
         ('Password', ctypes.c_char * 41),  # 期货密码
@@ -9616,8 +9626,8 @@ class VerifyFuturePasswordField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, AccountID='',
-                 Password='', BankAccount='', BankPassWord='', InstallID=0, TID=0, CurrencyID=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 AccountID='', Password='', BankAccount='', BankPassWord='', InstallID=0, TID=0, CurrencyID=''):
         super(VerifyFuturePasswordField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -9644,13 +9654,13 @@ class VerifyCustInfoField(Base):
     """验证客户信息"""
     _fields_ = [
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('LongCustomerName', ctypes.c_char * 161),  # 长客户姓名
     ]
 
-    def __init__(self, CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', LongCustomerName=''):
+    def __init__(self, CustomerName='', IdCardType=None, IdentifiedCardNo='', CustType=None, LongCustomerName=''):
         super(VerifyCustInfoField, self).__init__()
         self.CustomerName = self._to_bytes(CustomerName)
         self.IdCardType = self._to_bytes(IdCardType)
@@ -9663,16 +9673,16 @@ class VerifyFuturePasswordAndCustInfoField(Base):
     """验证期货资金密码和客户信息"""
     _fields_ = [
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
         ('Password', ctypes.c_char * 41),  # 期货密码
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('LongCustomerName', ctypes.c_char * 161),  # 长客户姓名
     ]
 
-    def __init__(self, CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', AccountID='', Password='',
+    def __init__(self, CustomerName='', IdCardType=None, IdentifiedCardNo='', CustType=None, AccountID='', Password='',
                  CurrencyID='', LongCustomerName=''):
         super(VerifyFuturePasswordAndCustInfoField, self).__init__()
         self.CustomerName = self._to_bytes(CustomerName)
@@ -9722,7 +9732,7 @@ class ReqSyncKeyField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -9735,7 +9745,7 @@ class ReqSyncKeyField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, InstallID=0,
                  UserID='', Message='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0):
         super(ReqSyncKeyField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -9773,7 +9783,7 @@ class RspSyncKeyField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -9788,7 +9798,7 @@ class RspSyncKeyField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, InstallID=0,
                  UserID='', Message='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0, ErrorID=0,
                  ErrorMsg=''):
         super(RspSyncKeyField, self).__init__()
@@ -9829,12 +9839,12 @@ class NotifyQueryAccountField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
@@ -9842,16 +9852,16 @@ class NotifyQueryAccountField(Base):
         ('FutureSerial', ctypes.c_int),  # 期货公司流水号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('DeviceID', ctypes.c_char * 3),  # 渠道标志
-        ('BankSecuAccType', ctypes.c_char),  # 期货单位帐号类型
+        ('BankSecuAccType', ctypes.c_char_p),  # 期货单位帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('BankSecuAcc', ctypes.c_char * 41),  # 期货单位帐号
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('OperNo', ctypes.c_char * 17),  # 交易柜员
         ('RequestID', ctypes.c_int),  # 请求编号
         ('TID', ctypes.c_int),  # 交易ID
@@ -9863,12 +9873,12 @@ class NotifyQueryAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', CustType='', BankAccount='', BankPassWord='',
-                 AccountID='', Password='', FutureSerial=0, InstallID=0, UserID='', VerifyCertNoFlag='', CurrencyID='',
-                 Digest='', BankAccType='', DeviceID='', BankSecuAccType='', BrokerIDByBank='', BankSecuAcc='',
-                 BankPwdFlag='', SecuPwdFlag='', OperNo='', RequestID=0, TID=0, BankUseAmount=0.0, BankFetchAmount=0.0,
-                 ErrorID=0, ErrorMsg='', LongCustomerName=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', CustType=None, BankAccount='', BankPassWord='',
+                 AccountID='', Password='', FutureSerial=0, InstallID=0, UserID='', VerifyCertNoFlag=None,
+                 CurrencyID='', Digest='', BankAccType=None, DeviceID='', BankSecuAccType=None, BrokerIDByBank='',
+                 BankSecuAcc='', BankPwdFlag=None, SecuPwdFlag=None, OperNo='', RequestID=0, TID=0, BankUseAmount=0.0,
+                 BankFetchAmount=0.0, ErrorID=0, ErrorMsg='', LongCustomerName=''):
         super(NotifyQueryAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -9924,22 +9934,22 @@ class TransferSerialField(Base):
         ('SessionID', ctypes.c_int),  # 会话编号
         ('BankID', ctypes.c_char * 4),  # 银行编码
         ('BankBranchID', ctypes.c_char * 5),  # 银行分支机构编码
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('BrokerID', ctypes.c_char * 11),  # 期货公司编码
         ('BrokerBranchID', ctypes.c_char * 31),  # 期商分支机构代码
-        ('FutureAccType', ctypes.c_char),  # 期货公司帐号类型
+        ('FutureAccType', ctypes.c_char_p),  # 期货公司帐号类型
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('FutureSerial', ctypes.c_int),  # 期货公司流水号
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('TradeAmount', ctypes.c_double),  # 交易金额
         ('CustFee', ctypes.c_double),  # 应收客户费用
         ('BrokerFee', ctypes.c_double),  # 应收期货公司费用
-        ('AvailabilityFlag', ctypes.c_char),  # 有效标志
+        ('AvailabilityFlag', ctypes.c_char_p),  # 有效标志
         ('OperatorCode', ctypes.c_char * 17),  # 操作员
         ('BankNewAccount', ctypes.c_char * 41),  # 新银行帐号
         ('ErrorID', ctypes.c_int),  # 错误代码
@@ -9947,9 +9957,9 @@ class TransferSerialField(Base):
     ]
 
     def __init__(self, PlateSerial=0, TradeDate='', TradingDay='', TradeTime='', TradeCode='', SessionID=0, BankID='',
-                 BankBranchID='', BankAccType='', BankAccount='', BankSerial='', BrokerID='', BrokerBranchID='',
-                 FutureAccType='', AccountID='', InvestorID='', FutureSerial=0, IdCardType='', IdentifiedCardNo='',
-                 CurrencyID='', TradeAmount=0.0, CustFee=0.0, BrokerFee=0.0, AvailabilityFlag='', OperatorCode='',
+                 BankBranchID='', BankAccType=None, BankAccount='', BankSerial='', BrokerID='', BrokerBranchID='',
+                 FutureAccType=None, AccountID='', InvestorID='', FutureSerial=0, IdCardType=None, IdentifiedCardNo='',
+                 CurrencyID='', TradeAmount=0.0, CustFee=0.0, BrokerFee=0.0, AvailabilityFlag=None, OperatorCode='',
                  BankNewAccount='', ErrorID=0, ErrorMsg=''):
         super(TransferSerialField, self).__init__()
         self.PlateSerial = int(PlateSerial)
@@ -10012,7 +10022,7 @@ class NotifyFutureSignInField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -10030,7 +10040,7 @@ class NotifyFutureSignInField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, InstallID=0,
                  UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0,
                  ErrorID=0, ErrorMsg='', PinKey='', MacKey=''):
         super(NotifyFutureSignInField, self).__init__()
@@ -10074,7 +10084,7 @@ class NotifyFutureSignOutField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -10090,7 +10100,7 @@ class NotifyFutureSignOutField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, InstallID=0,
                  UserID='', Digest='', CurrencyID='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0,
                  ErrorID=0, ErrorMsg=''):
         super(NotifyFutureSignOutField, self).__init__()
@@ -10132,7 +10142,7 @@ class NotifySyncKeyField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('InstallID', ctypes.c_int),  # 安装编号
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -10147,7 +10157,7 @@ class NotifySyncKeyField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0, InstallID=0,
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0, InstallID=0,
                  UserID='', Message='', DeviceID='', BrokerIDByBank='', OperNo='', RequestID=0, TID=0, ErrorID=0,
                  ErrorMsg=''):
         super(NotifySyncKeyField, self).__init__()
@@ -10204,22 +10214,22 @@ class AccountregisterField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 期货公司编码
         ('BrokerBranchID', ctypes.c_char * 31),  # 期货公司分支机构编码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
-        ('OpenOrDestroy', ctypes.c_char),  # 开销户类别
+        ('OpenOrDestroy', ctypes.c_char_p),  # 开销户类别
         ('RegDate', ctypes.c_char * 9),  # 签约日期
         ('OutDate', ctypes.c_char * 9),  # 解约日期
         ('TID', ctypes.c_int),  # 交易ID
-        ('CustType', ctypes.c_char),  # 客户类型
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('LongCustomerName', ctypes.c_char * 161),  # 长客户姓名
     ]
 
     def __init__(self, TradeDay='', BankID='', BankBranchID='', BankAccount='', BrokerID='', BrokerBranchID='',
-                 AccountID='', IdCardType='', IdentifiedCardNo='', CustomerName='', CurrencyID='', OpenOrDestroy='',
-                 RegDate='', OutDate='', TID=0, CustType='', BankAccType='', LongCustomerName=''):
+                 AccountID='', IdCardType=None, IdentifiedCardNo='', CustomerName='', CurrencyID='', OpenOrDestroy=None,
+                 RegDate='', OutDate='', TID=0, CustType=None, BankAccType=None, LongCustomerName=''):
         super(AccountregisterField, self).__init__()
         self.TradeDay = self._to_bytes(TradeDay)
         self.BankID = self._to_bytes(BankID)
@@ -10254,37 +10264,37 @@ class OpenAccountField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('Gender', ctypes.c_char),  # 性别
+        ('Gender', ctypes.c_char_p),  # 性别
         ('CountryCode', ctypes.c_char * 21),  # 国家代码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('Address', ctypes.c_char * 101),  # 地址
         ('ZipCode', ctypes.c_char * 7),  # 邮编
         ('Telephone', ctypes.c_char * 41),  # 电话号码
         ('MobilePhone', ctypes.c_char * 21),  # 手机
         ('Fax', ctypes.c_char * 41),  # 传真
         ('EMail', ctypes.c_char * 41),  # 电子邮件
-        ('MoneyAccountStatus', ctypes.c_char),  # 资金账户状态
+        ('MoneyAccountStatus', ctypes.c_char_p),  # 资金账户状态
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
         ('Password', ctypes.c_char * 41),  # 期货密码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
-        ('CashExchangeCode', ctypes.c_char),  # 汇钞标志
+        ('CashExchangeCode', ctypes.c_char_p),  # 汇钞标志
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('DeviceID', ctypes.c_char * 3),  # 渠道标志
-        ('BankSecuAccType', ctypes.c_char),  # 期货单位帐号类型
+        ('BankSecuAccType', ctypes.c_char_p),  # 期货单位帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('BankSecuAcc', ctypes.c_char * 41),  # 期货单位帐号
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('OperNo', ctypes.c_char * 17),  # 交易柜员
         ('TID', ctypes.c_int),  # 交易ID
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -10294,12 +10304,12 @@ class OpenAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
-                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag='',
-                 CurrencyID='', CashExchangeCode='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='',
-                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID=0, UserID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', Gender=None, CountryCode='', CustType=None,
+                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus=None,
+                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag=None,
+                 CurrencyID='', CashExchangeCode=None, Digest='', BankAccType=None, DeviceID='', BankSecuAccType=None,
+                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag=None, SecuPwdFlag=None, OperNo='', TID=0, UserID='',
                  ErrorID=0, ErrorMsg='', LongCustomerName=''):
         super(OpenAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -10364,37 +10374,37 @@ class CancelAccountField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('Gender', ctypes.c_char),  # 性别
+        ('Gender', ctypes.c_char_p),  # 性别
         ('CountryCode', ctypes.c_char * 21),  # 国家代码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('Address', ctypes.c_char * 101),  # 地址
         ('ZipCode', ctypes.c_char * 7),  # 邮编
         ('Telephone', ctypes.c_char * 41),  # 电话号码
         ('MobilePhone', ctypes.c_char * 21),  # 手机
         ('Fax', ctypes.c_char * 41),  # 传真
         ('EMail', ctypes.c_char * 41),  # 电子邮件
-        ('MoneyAccountStatus', ctypes.c_char),  # 资金账户状态
+        ('MoneyAccountStatus', ctypes.c_char_p),  # 资金账户状态
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
         ('Password', ctypes.c_char * 41),  # 期货密码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
-        ('CashExchangeCode', ctypes.c_char),  # 汇钞标志
+        ('CashExchangeCode', ctypes.c_char_p),  # 汇钞标志
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('DeviceID', ctypes.c_char * 3),  # 渠道标志
-        ('BankSecuAccType', ctypes.c_char),  # 期货单位帐号类型
+        ('BankSecuAccType', ctypes.c_char_p),  # 期货单位帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('BankSecuAcc', ctypes.c_char * 41),  # 期货单位帐号
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('OperNo', ctypes.c_char * 17),  # 交易柜员
         ('TID', ctypes.c_int),  # 交易ID
         ('UserID', ctypes.c_char * 16),  # 用户标识
@@ -10404,12 +10414,12 @@ class CancelAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
-                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag='',
-                 CurrencyID='', CashExchangeCode='', Digest='', BankAccType='', DeviceID='', BankSecuAccType='',
-                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag='', SecuPwdFlag='', OperNo='', TID=0, UserID='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', Gender=None, CountryCode='', CustType=None,
+                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus=None,
+                 BankAccount='', BankPassWord='', AccountID='', Password='', InstallID=0, VerifyCertNoFlag=None,
+                 CurrencyID='', CashExchangeCode=None, Digest='', BankAccType=None, DeviceID='', BankSecuAccType=None,
+                 BrokerIDByBank='', BankSecuAcc='', BankPwdFlag=None, SecuPwdFlag=None, OperNo='', TID=0, UserID='',
                  ErrorID=0, ErrorMsg='', LongCustomerName=''):
         super(CancelAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -10474,34 +10484,34 @@ class ChangeAccountField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 51),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('Gender', ctypes.c_char),  # 性别
+        ('Gender', ctypes.c_char_p),  # 性别
         ('CountryCode', ctypes.c_char * 21),  # 国家代码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('Address', ctypes.c_char * 101),  # 地址
         ('ZipCode', ctypes.c_char * 7),  # 邮编
         ('Telephone', ctypes.c_char * 41),  # 电话号码
         ('MobilePhone', ctypes.c_char * 21),  # 手机
         ('Fax', ctypes.c_char * 41),  # 传真
         ('EMail', ctypes.c_char * 41),  # 电子邮件
-        ('MoneyAccountStatus', ctypes.c_char),  # 资金账户状态
+        ('MoneyAccountStatus', ctypes.c_char_p),  # 资金账户状态
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('NewBankAccount', ctypes.c_char * 41),  # 新银行帐号
         ('NewBankPassWord', ctypes.c_char * 41),  # 新银行密码
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
         ('Password', ctypes.c_char * 41),  # 期货密码
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
-        ('BankPwdFlag', ctypes.c_char),  # 银行密码标志
-        ('SecuPwdFlag', ctypes.c_char),  # 期货资金密码核对标志
+        ('BankPwdFlag', ctypes.c_char_p),  # 银行密码标志
+        ('SecuPwdFlag', ctypes.c_char_p),  # 期货资金密码核对标志
         ('TID', ctypes.c_int),  # 交易ID
         ('Digest', ctypes.c_char * 36),  # 摘要
         ('ErrorID', ctypes.c_int),  # 错误代码
@@ -10510,12 +10520,12 @@ class ChangeAccountField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
-                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', Gender=None, CountryCode='', CustType=None,
+                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus=None,
                  BankAccount='', BankPassWord='', NewBankAccount='', NewBankPassWord='', AccountID='', Password='',
-                 BankAccType='', InstallID=0, VerifyCertNoFlag='', CurrencyID='', BrokerIDByBank='', BankPwdFlag='',
-                 SecuPwdFlag='', TID=0, Digest='', ErrorID=0, ErrorMsg='', LongCustomerName=''):
+                 BankAccType=None, InstallID=0, VerifyCertNoFlag=None, CurrencyID='', BrokerIDByBank='',
+                 BankPwdFlag=None, SecuPwdFlag=None, TID=0, Digest='', ErrorID=0, ErrorMsg='', LongCustomerName=''):
         super(ChangeAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -10650,10 +10660,10 @@ class FensUserInfoField(Base):
     _fields_ = [
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('UserID', ctypes.c_char * 16),  # 用户代码
-        ('LoginMode', ctypes.c_char),  # 登录模式
+        ('LoginMode', ctypes.c_char_p),  # 登录模式
     ]
 
-    def __init__(self, BrokerID='', UserID='', LoginMode=''):
+    def __init__(self, BrokerID='', UserID='', LoginMode=None):
         super(FensUserInfoField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -10779,28 +10789,28 @@ class ReserveOpenAccountConfirmField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 161),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('Gender', ctypes.c_char),  # 性别
+        ('Gender', ctypes.c_char_p),  # 性别
         ('CountryCode', ctypes.c_char * 21),  # 国家代码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('Address', ctypes.c_char * 101),  # 地址
         ('ZipCode', ctypes.c_char * 7),  # 邮编
         ('Telephone', ctypes.c_char * 41),  # 电话号码
         ('MobilePhone', ctypes.c_char * 21),  # 手机
         ('Fax', ctypes.c_char * 41),  # 传真
         ('EMail', ctypes.c_char * 41),  # 电子邮件
-        ('MoneyAccountStatus', ctypes.c_char),  # 资金账户状态
+        ('MoneyAccountStatus', ctypes.c_char_p),  # 资金账户状态
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('TID', ctypes.c_int),  # 交易ID
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
@@ -10813,11 +10823,11 @@ class ReserveOpenAccountConfirmField(Base):
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
-                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', InstallID=0, VerifyCertNoFlag='', CurrencyID='', Digest='',
-                 BankAccType='', BrokerIDByBank='', TID=0, AccountID='', Password='', BankReserveOpenSeq='',
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', Gender=None, CountryCode='', CustType=None,
+                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus=None,
+                 BankAccount='', BankPassWord='', InstallID=0, VerifyCertNoFlag=None, CurrencyID='', Digest='',
+                 BankAccType=None, BrokerIDByBank='', TID=0, AccountID='', Password='', BankReserveOpenSeq='',
                  BookDate='', BookPsw='', ErrorID=0, ErrorMsg=''):
         super(ReserveOpenAccountConfirmField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
@@ -10876,41 +10886,41 @@ class ReserveOpenAccountField(Base):
         ('BankSerial', ctypes.c_char * 13),  # 银行流水号
         ('TradingDay', ctypes.c_char * 9),  # 交易系统日期
         ('PlateSerial', ctypes.c_int),  # 银期平台消息流水号
-        ('LastFragment', ctypes.c_char),  # 最后分片标志
+        ('LastFragment', ctypes.c_char_p),  # 最后分片标志
         ('SessionID', ctypes.c_int),  # 会话号
         ('CustomerName', ctypes.c_char * 161),  # 客户姓名
-        ('IdCardType', ctypes.c_char),  # 证件类型
+        ('IdCardType', ctypes.c_char_p),  # 证件类型
         ('IdentifiedCardNo', ctypes.c_char * 51),  # 证件号码
-        ('Gender', ctypes.c_char),  # 性别
+        ('Gender', ctypes.c_char_p),  # 性别
         ('CountryCode', ctypes.c_char * 21),  # 国家代码
-        ('CustType', ctypes.c_char),  # 客户类型
+        ('CustType', ctypes.c_char_p),  # 客户类型
         ('Address', ctypes.c_char * 101),  # 地址
         ('ZipCode', ctypes.c_char * 7),  # 邮编
         ('Telephone', ctypes.c_char * 41),  # 电话号码
         ('MobilePhone', ctypes.c_char * 21),  # 手机
         ('Fax', ctypes.c_char * 41),  # 传真
         ('EMail', ctypes.c_char * 41),  # 电子邮件
-        ('MoneyAccountStatus', ctypes.c_char),  # 资金账户状态
+        ('MoneyAccountStatus', ctypes.c_char_p),  # 资金账户状态
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('InstallID', ctypes.c_int),  # 安装编号
-        ('VerifyCertNoFlag', ctypes.c_char),  # 验证客户证件号码标志
+        ('VerifyCertNoFlag', ctypes.c_char_p),  # 验证客户证件号码标志
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
         ('Digest', ctypes.c_char * 36),  # 摘要
-        ('BankAccType', ctypes.c_char),  # 银行帐号类型
+        ('BankAccType', ctypes.c_char_p),  # 银行帐号类型
         ('BrokerIDByBank', ctypes.c_char * 33),  # 期货公司银行编码
         ('TID', ctypes.c_int),  # 交易ID
-        ('ReserveOpenAccStas', ctypes.c_char),  # 预约开户状态
+        ('ReserveOpenAccStas', ctypes.c_char_p),  # 预约开户状态
         ('ErrorID', ctypes.c_int),  # 错误代码
         ('ErrorMsg', ctypes.c_char * 81),  # 错误信息
     ]
 
     def __init__(self, TradeCode='', BankID='', BankBranchID='', BrokerID='', BrokerBranchID='', TradeDate='',
-                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment='', SessionID=0,
-                 CustomerName='', IdCardType='', IdentifiedCardNo='', Gender='', CountryCode='', CustType='',
-                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus='',
-                 BankAccount='', BankPassWord='', InstallID=0, VerifyCertNoFlag='', CurrencyID='', Digest='',
-                 BankAccType='', BrokerIDByBank='', TID=0, ReserveOpenAccStas='', ErrorID=0, ErrorMsg=''):
+                 TradeTime='', BankSerial='', TradingDay='', PlateSerial=0, LastFragment=None, SessionID=0,
+                 CustomerName='', IdCardType=None, IdentifiedCardNo='', Gender=None, CountryCode='', CustType=None,
+                 Address='', ZipCode='', Telephone='', MobilePhone='', Fax='', EMail='', MoneyAccountStatus=None,
+                 BankAccount='', BankPassWord='', InstallID=0, VerifyCertNoFlag=None, CurrencyID='', Digest='',
+                 BankAccType=None, BrokerIDByBank='', TID=0, ReserveOpenAccStas=None, ErrorID=0, ErrorMsg=''):
         super(ReserveOpenAccountField, self).__init__()
         self.TradeCode = self._to_bytes(TradeCode)
         self.BankID = self._to_bytes(BankID)
@@ -10961,7 +10971,7 @@ class AccountPropertyField(Base):
         ('OpenName', ctypes.c_char * 101),  # 银行账户的开户人名称
         ('OpenBank', ctypes.c_char * 101),  # 银行账户的开户行
         ('IsActive', ctypes.c_int),  # 是否活跃
-        ('AccountSourceType', ctypes.c_char),  # 账户来源
+        ('AccountSourceType', ctypes.c_char_p),  # 账户来源
         ('OpenDate', ctypes.c_char * 9),  # 开户日期
         ('CancelDate', ctypes.c_char * 9),  # 注销日期
         ('OperatorID', ctypes.c_char * 65),  # 录入员代码
@@ -10971,7 +10981,7 @@ class AccountPropertyField(Base):
     ]
 
     def __init__(self, BrokerID='', AccountID='', BankID='', BankAccount='', OpenName='', OpenBank='', IsActive=0,
-                 AccountSourceType='', OpenDate='', CancelDate='', OperatorID='', OperateDate='', OperateTime='',
+                 AccountSourceType=None, OpenDate='', CancelDate='', OperatorID='', OperateDate='', OperateTime='',
                  CurrencyID=''):
         super(AccountPropertyField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)

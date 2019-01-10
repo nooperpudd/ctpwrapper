@@ -25,7 +25,9 @@ class Base(ctypes.Structure):
         """
         :return:
         """
-        if isinstance(value, bytes):
+        if value is None:
+            return None
+        elif isinstance(value, bytes):
             return value
         else:
             return bytes(str(value), encoding="utf-8")
