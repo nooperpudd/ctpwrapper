@@ -20,7 +20,6 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 from cpython cimport PyObject
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
-
 from .headers.ThostFtdcUserApiStruct cimport *
 from .headers.cTraderApi cimport CTraderSpi, CTraderApi, CreateFtdcTraderApi
 
@@ -28,6 +27,11 @@ from .headers.cTraderApi cimport CTraderSpi, CTraderApi, CreateFtdcTraderApi
 import ctypes
 
 from . import ApiStructure
+
+
+cdef extern from "<iostream>" namespace "std":
+    cdef cppclass ostream:
+        ostream& write(const char*, int) except +
 
 cdef class TraderApiWrapper:
     cdef CTraderApi *_api
@@ -386,6 +390,7 @@ cdef class TraderApiWrapper:
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInvestor)
+
             with nogil:
                 result = self._api.ReqQryInvestor(<CThostFtdcQryInvestorField *> address, nRequestID)
             return result
@@ -1070,6 +1075,7 @@ cdef extern int TraderSpi_OnRspQryTrade(self, CThostFtdcTradeField *pTrade, CTho
 cdef extern int TraderSpi_OnRspQryInvestorPosition(self, CThostFtdcInvestorPositionField *pInvestorPosition,
                                                    CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                                                    cbool bIsLast) except -1:
+
     self.OnRspQryInvestorPosition(
         None if pInvestorPosition is NULL else ApiStructure.InvestorPositionField.from_address(
             <size_t> pInvestorPosition),
@@ -1089,6 +1095,10 @@ cdef extern int TraderSpi_OnRspQryTradingAccount(self, CThostFtdcTradingAccountF
 cdef extern int TraderSpi_OnRspQryInvestor(self, CThostFtdcInvestorField *pInvestor, CThostFtdcRspInfoField *pRspInfo,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
+
+    cdef ostream *buffer
+    buffer.write(pInvestor)
+    
     self.OnRspQryInvestor(None if pInvestor is NULL else ApiStructure.InvestorField.from_address(<size_t> pInvestor),
                           None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(
                               <size_t> pRspInfo), nRequestID, bIsLast)
