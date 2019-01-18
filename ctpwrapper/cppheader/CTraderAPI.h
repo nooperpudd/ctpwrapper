@@ -23,6 +23,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 #include "pythread.h"
 #include "ThostFtdcTraderApi.h"
 #include <iostream>
+#include <typeinfo>
 
 static inline int TraderSpi_OnFrontConnected(PyObject *);
 static inline int TraderSpi_OnFrontDisconnected(PyObject *, int);
@@ -371,7 +372,8 @@ public:
     ///请求查询投资者响应
     virtual void OnRspQryInvestor(CThostFtdcInvestorField *pInvestor, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                                   bool bIsLast) {
-                                  std::cout <<"pInvestor.IdentifiedCardType"<< pInvestor->IdentifiedCardType <<std::endl;
+                                  std::cout <<"pInvestor.IdentifiedCardType:"<< pInvestor->IdentifiedCardType <<std::endl;
+                                  std::cout << typeid(pInvestor->IdentifiedCardType).name();
                                   Python_GIL(TraderSpi_OnRspQryInvestor(self,pInvestor,pRspInfo,nRequestID,bIsLast));
                                   };
 
