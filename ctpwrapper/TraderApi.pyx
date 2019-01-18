@@ -1096,8 +1096,6 @@ cdef extern int TraderSpi_OnRspQryTradingAccount(self, CThostFtdcTradingAccountF
 cdef extern int TraderSpi_OnRspQryInvestor(self, CThostFtdcInvestorField *pInvestor, CThostFtdcRspInfoField *pRspInfo,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
-    cdef ostream *buffer = new ostream()
-    buffer.write(pInvestor)
 
     self.OnRspQryInvestor(None if pInvestor is NULL else ApiStructure.InvestorField.from_address(<size_t> pInvestor),
                           None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(

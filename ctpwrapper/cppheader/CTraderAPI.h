@@ -22,6 +22,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 #include "Python.h"
 #include "pythread.h"
 #include "ThostFtdcTraderApi.h"
+#include <iostream>
 
 static inline int TraderSpi_OnFrontConnected(PyObject *);
 static inline int TraderSpi_OnFrontDisconnected(PyObject *, int);
@@ -332,6 +333,7 @@ public:
     ///请求查询投资者持仓响应
     virtual void OnRspQryInvestorPosition(CThostFtdcInvestorPositionField *pInvestorPosition, CThostFtdcRspInfoField *pRspInfo,
                              int nRequestID, bool bIsLast) {
+
                              Python_GIL(TraderSpi_OnRspQryInvestorPosition(self,pInvestorPosition,pRspInfo,nRequestID,bIsLast));
                              };
 
@@ -341,9 +343,35 @@ public:
                            Python_GIL(TraderSpi_OnRspQryTradingAccount(self,pTradingAccount,pRspInfo,nRequestID,bIsLast));
                            };
 
+//   TThostFtdcInvestorIDType InvestorID;
+//    ///经纪公司代码
+//    TThostFtdcBrokerIDType BrokerID;
+//    ///投资者分组代码
+//    TThostFtdcInvestorIDType InvestorGroupID;
+//    ///投资者名称
+//    TThostFtdcPartyNameType InvestorName;
+//    ///证件类型
+//    TThostFtdcIdCardTypeType IdentifiedCardType;
+//    ///证件号码
+//    TThostFtdcIdentifiedCardNoType IdentifiedCardNo;
+//    ///是否活跃
+//    TThostFtdcBoolType IsActive;
+//    ///联系电话
+//    TThostFtdcTelephoneType Telephone;
+//    ///通讯地址
+//    TThostFtdcAddressType Address;
+//    ///开户日期
+//    TThostFtdcDateType OpenDate;
+//    ///手机
+//    TThostFtdcMobileType Mobile;
+//    ///手续费率模板代码
+//    TThostFtdcInvestorIDType CommModelID;
+//    ///保证金率模板代码
+//    TThostFtdcInvestorIDType MarginModelID;
     ///请求查询投资者响应
     virtual void OnRspQryInvestor(CThostFtdcInvestorField *pInvestor, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                                   bool bIsLast) {
+                                  std::cout <<"pInvestor.IdentifiedCardType"<< pInvestor->IdentifiedCardType <<endl;
                                   Python_GIL(TraderSpi_OnRspQryInvestor(self,pInvestor,pRspInfo,nRequestID,bIsLast));
                                   };
 
