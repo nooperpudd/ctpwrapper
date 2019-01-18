@@ -371,7 +371,7 @@ public:
     ///请求查询投资者响应
     virtual void OnRspQryInvestor(CThostFtdcInvestorField *pInvestor, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                                   bool bIsLast) {
-                                  std::cout <<"pInvestor.IdentifiedCardType"<< pInvestor->IdentifiedCardType <<endl;
+                                  std::cout <<"pInvestor.IdentifiedCardType"<< pInvestor->IdentifiedCardType <<std::endl;
                                   Python_GIL(TraderSpi_OnRspQryInvestor(self,pInvestor,pRspInfo,nRequestID,bIsLast));
                                   };
 
