@@ -7,6 +7,7 @@
 [![status](https://img.shields.io/pypi/status/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
 [![pyversion](https://img.shields.io/pypi/pyversions/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
 [![implementation](https://img.shields.io/pypi/implementation/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
+[![Downloads](https://pepy.tech/badge/ctpwrapper)](https://pepy.tech/project/ctpwrapper)
 
 [CTP Website](http://www.sfit.com.cn/5_2_DocumentDown.htm)
 
