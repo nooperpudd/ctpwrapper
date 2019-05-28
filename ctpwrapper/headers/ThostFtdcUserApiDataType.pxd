@@ -1,22 +1,4 @@
 # encoding:utf-8
-# distutils: language=c++
-"""
-(Copyright) 2018, Winton Wang <365504029@qq.com>
-
-ctpwrapper is free software: you can redistribute it and/or modify
-it under the terms of the GNU LGPLv3 as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
-
-"""
 
 cdef extern from 'ThostFtdcUserApiDataType.h':
  
@@ -325,6 +307,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcAMLIdCardTypeType[3]
     ctypedef char TThostFtdcAMLTradeDirectType[3]
     ctypedef char TThostFtdcAMLTradeModelType[3]
+    ctypedef char TThostFtdcAMLParamIDType[21]
     ctypedef double TThostFtdcAMLOpParamValueType
     ctypedef char TThostFtdcAMLCustomerCardTypeType[81]
     ctypedef char TThostFtdcAMLInstitutionNameType[65]
@@ -747,6 +730,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef int TThostFtdcStrikeSequenceType
     ctypedef char TThostFtdcStrikeTimeType[13]
     ctypedef char TThostFtdcCombinationTypeType
+    ctypedef char TThostFtdcDceCombinationTypeType
     ctypedef char TThostFtdcOptionRoyaltyPriceTypeType
     ctypedef char TThostFtdcBalanceAlgorithmType
     ctypedef char TThostFtdcActionTypeType
@@ -777,3 +761,28 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcRandomStringType[17]
     ctypedef char TThostFtdcOptSelfCloseFlagType
     ctypedef char TThostFtdcBizTypeType
+    ctypedef char TThostFtdcAppTypeType
+    ctypedef char TThostFtdcAppIDType[33]
+    ctypedef int TThostFtdcSystemInfoLenType
+    ctypedef int TThostFtdcAdditionalInfoLenType
+    ctypedef char TThostFtdcClientSystemInfoType[273]
+    ctypedef char TThostFtdcAdditionalInfoType[261]
+    ctypedef char TThostFtdcBase64ClientSystemInfoType[365]
+    ctypedef char TThostFtdcBase64AdditionalInfoType[349]
+    ctypedef int TThostFtdcCurrentAuthMethodType
+    ctypedef int TThostFtdcCaptchaInfoLenType
+    ctypedef char TThostFtdcCaptchaInfoType[2561]
+    ctypedef int TThostFtdcUserTextSeqType
+    ctypedef char TThostFtdcHandshakeDataType[301]
+    ctypedef int TThostFtdcHandshakeDataLenType
+    ctypedef char TThostFtdcCryptoKeyVersionType[31]
+    ctypedef int TThostFtdcRsaKeyVersionType
+    ctypedef char TThostFtdcSoftwareProviderIDType[22]
+    ctypedef char TThostFtdcCollectTimeType[21]
+    ctypedef int TThostFtdcQueryFreqType
+    ctypedef char TThostFtdcResponseValueType
+    ctypedef char TThostFtdcOTCTradeTypeType
+    ctypedef char TThostFtdcMatchTypeType
+    ctypedef char TThostFtdcOTCTraderIDType[31]
+    ctypedef double TThostFtdcRiskValueType
+    ctypedef char TThostFtdcIDBNameType[100]

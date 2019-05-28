@@ -83,11 +83,11 @@ common_args = {
 ext_modules = [
     Cython_Extension(name="ctpwrapper.MdApi",
                      sources=["ctpwrapper/MdApi.pyx"],
-                     libraries=["thostmduserapi"],
+                     libraries=["thostmduserapi_se"],
                      **common_args),
     Cython_Extension(name="ctpwrapper.TraderApi",
                      sources=["ctpwrapper/TraderApi.pyx"],
-                     libraries=["thosttraderapi"],
+                     libraries=["thosttraderapi_se"],
                      **common_args)
 ]
 
@@ -95,7 +95,7 @@ ext_modules = [
 setup(
     name="ctpwrapper",
     version=find_version("ctpwrapper", "__init__.py"),
-    description="CTP client v6.3.11",
+    description="CTP client v6.3.15",
     long_description=codecs.open("README.md", encoding="utf-8").read(),
     long_description_content_type='text/markdown',
     license="LGPLv3",
