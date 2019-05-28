@@ -19,7 +19,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from ctpwrapper import ApiStructure
+from ctp_md_se import ApiStructure
 
 
 class TestStructure(unittest.TestCase):

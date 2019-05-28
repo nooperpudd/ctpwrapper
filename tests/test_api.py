@@ -19,12 +19,9 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from ctpwrapper import TraderApiPy, MdApiPy
+from ctp_md_se import MdApiPy
 
 
 class ApiTest(unittest.TestCase):
     def test_md_version(self):
         print(MdApiPy.GetApiVersion())
-
-    def test_trader_version(self):
-        print(TraderApiPy.GetApiVersion())
