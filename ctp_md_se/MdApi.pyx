@@ -420,7 +420,7 @@ cdef extern int MdSpi_OnRtnForQuoteRsp(self, CThostFtdcForQuoteRspField *pForQuo
     return 0
 
 cdef extern int MdSpi_OnRspQryMulticastInstrument(self, CThostFtdcMulticastInstrumentField *pMulticastInstrument,
-                                                  CThostFtdcRspInfoField *pRspInfo,
+	                                              CThostFtdcRspInfoField *pRspInfo,
                                                   int nRequestID, cbool bIsLast) except -1:
 
     if pMulticastInstrument is NULL:
@@ -433,6 +433,6 @@ cdef extern int MdSpi_OnRspQryMulticastInstrument(self, CThostFtdcMulticastInstr
     else:
         rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
 
-    self.OnRspQryMulticastInstrument(instrument,rsp_info,nRequestID, bIsLast)
+    self.OnRspQryMulticastInstrument(instrument, rsp_info, nRequestID, bIsLast)
     return 0
 
