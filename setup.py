@@ -40,7 +40,7 @@ if platform.architecture()[0] != "64bit":
     raise EnvironmentError("Please install Python x86-64")
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-project_dir = os.path.join(base_dir, "ctpwrapper")
+project_dir = os.path.join(base_dir, "ctp_md_se")
 ctp_dir = os.path.join(base_dir, "ctp")
 cython_headers = os.path.join(project_dir, "headers")
 header_dir = os.path.join(ctp_dir, "header")
@@ -81,31 +81,28 @@ common_args = {
 }
 
 ext_modules = [
-    Cython_Extension(name="ctpwrapper.MdApi",
-                     sources=["ctpwrapper/MdApi.pyx"],
-                     libraries=["thostmduserapi"],
+    Cython_Extension(name="ctp_md_se.MdApi",
+                     sources=["ctp_md_se/MdApi.pyx"],
+                     libraries=["thostmduserapi_se"],
                      **common_args),
-    Cython_Extension(name="ctpwrapper.TraderApi",
-                     sources=["ctpwrapper/TraderApi.pyx"],
-                     libraries=["thosttraderapi"],
-                     **common_args)
+
 ]
 
 
 setup(
-    name="ctpwrapper",
-    version=find_version("ctpwrapper", "__init__.py"),
-    description="CTP client v6.3.11",
+    name="ctp_md_wrapper_se",
+    version=find_version("ctp_md_se", "__init__.py"),
+    description="CTP MD_se client v6.3.15",
     long_description=codecs.open("README.md", encoding="utf-8").read(),
     long_description_content_type='text/markdown',
     license="LGPLv3",
     keywords="CTP,Future,SHFE,Shanghai Future Exchange",
     author="Winton Wang",
     author_email="365504029@qq.com",
-    url="https://github.com/nooperpudd/ctpwrapper",
+    url="https://github.com/nooperpudd/ctpwrapper/tree/md_api_se",
     include_dirs=[header_dir, cpp_header_dir],
     platforms=["win32", "linux"],
-    packages=["ctpwrapper"],
+    packages=["ctp_md_se"],
     package_data={"": package_data},
     python_requires=">=3.5",
     # cython: binding=True

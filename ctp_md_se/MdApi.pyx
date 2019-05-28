@@ -33,7 +33,9 @@ CThostFtdcSpecificInstrumentField,
 CThostFtdcDepthMarketDataField,
 CThostFtdcFensUserInfoField,
 CThostFtdcReqUserLoginField,
-CThostFtdcForQuoteRspField
+CThostFtdcForQuoteRspField,
+CThostFtdcQryMulticastInstrumentField,
+CThostFtdcMulticastInstrumentField
 )
 from .headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
 
@@ -273,6 +275,15 @@ cdef class MdApiWrapper:
             finally:
                 free(InstrumentIDs)
             return result
+    # 请求查询组播合约
+    def ReqQryMulticastInstrument(self, pQryMulticastInstrument, int nRequestID):
+
+        cdef size_t address
+        if self._api is not NULL:
+            address = ctypes.addressof(pQryMulticastInstrument)
+            with nogil:
+                self._api.ReqQryMulticastInstrument(<CThostFtdcQryMulticastInstrumentField *> address, nRequestID)
+
 
 cdef extern int MdSpi_OnFrontConnected(self) except -1:
     self.OnFrontConnected()
@@ -407,3 +418,21 @@ cdef extern int MdSpi_OnRtnForQuoteRsp(self, CThostFtdcForQuoteRspField *pForQuo
 
     self.OnRtnForQuoteRsp(quote)
     return 0
+
+cdef extern int MdSpi_OnRspQryMulticastInstrument(self, CThostFtdcMulticastInstrumentField *pMulticastInstrument,
+	                                              CThostFtdcRspInfoField *pRspInfo,
+                                                  int nRequestID, cbool bIsLast) except -1:
+
+    if pMulticastInstrument is NULL:
+        instrument = None
+    else:
+        instrument = ApiStructure.MulticastInstrumentField.from_address(<size_t> pMulticastInstrument)
+
+    if pRspInfo is NULL:
+        rsp_info = None
+    else:
+        rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+
+    self.OnRspQryMulticastInstrument(instrument, rsp_info, nRequestID, bIsLast)
+    return 0
+

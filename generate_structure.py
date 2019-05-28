@@ -9,7 +9,7 @@ CTP_PATH = os.path.join(os.path.dirname(__file__), "ctp")
 HEADER_PATH = os.path.join(CTP_PATH, "header")
 USERAPI_DATA_FILE = os.path.join(HEADER_PATH, "ThostFtdcUserApiDataType.h")
 USERAPI_STRUCT_FILE = os.path.join(HEADER_PATH, "ThostFtdcUserApiStruct.h")
-GENERATE_FILE = os.path.join(os.path.dirname(__file__), "ctpwrapper/ApiStructure.py")
+GENERATE_FILE = os.path.join(os.path.dirname(__file__), "ctp_md_se/ApiStructure.py")
 
 
 class Parse(object):
@@ -154,7 +154,7 @@ def generate_interface():
 
     py_file.write('# encoding=utf-8\n')
     py_file.write("import ctypes\n")
-    py_file.write("from ctpwrapper.base import Base\n")
+    py_file.write("from .base import Base\n")
     py_file.write("\n" * 2)
 
     generate_struct(structure, struct_doc, py_file)

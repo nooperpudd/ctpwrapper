@@ -36,6 +36,7 @@ static inline int MdSpi_OnRspSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstru
 static inline int MdSpi_OnRspUnSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, bool);
 static inline int MdSpi_OnRtnDepthMarketData(PyObject *, CThostFtdcDepthMarketDataField *);
 static inline int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField *);
+static inline int MdSpi_OnRspQryMulticastInstrument(PyObject *, CThostFtdcMulticastInstrumentField *, CThostFtdcRspInfoField *, int, bool);
 
 
 #define Python_GIL(func) \
@@ -100,6 +101,12 @@ public:
 	virtual void OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {
 		Python_GIL(MdSpi_OnRtnForQuoteRsp(self, pForQuoteRsp));
 	};
+
+	virtual void OnRspQryMulticastInstrument(CThostFtdcMulticastInstrumentField *pMulticastInstrument,
+	                                         CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+	    Python_GIL(MdSpi_OnRspQryMulticastInstrument(self, pMulticastInstrument, pRspInfo, nRequestID, bIsLast));
+	};
+
 
 private:
 	PyObject *self;
