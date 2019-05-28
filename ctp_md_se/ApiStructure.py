@@ -1,23 +1,4 @@
 # encoding=utf-8
-
-"""
-(Copyright) 2018, Winton Wang <365504029@qq.com>
-
-ctpwrapper is free software: you can redistribute it and/or modify
-it under the terms of the GNU LGPLv3 as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
-
-"""
-
 import ctypes
 
 from .base import Base
@@ -8284,6 +8265,40 @@ class QryBulletinField(Base):
         self.SequenceNo = int(SequenceNo)
         self.NewsType = self._to_bytes(NewsType)
         self.NewsUrgency = self._to_bytes(NewsUrgency)
+
+
+class MulticastInstrumentField(Base):
+    """MulticastInstrument"""
+    _fields_ = [
+        ('TopicID', ctypes.c_int),  # 主题号
+        ('InstrumentID', ctypes.c_char * 31),  # 合约代码
+        ('InstrumentNo', ctypes.c_int),  # 合约编号
+        ('CodePrice', ctypes.c_double),  # 基准价
+        ('VolumeMultiple', ctypes.c_int),  # 合约数量乘数
+        ('PriceTick', ctypes.c_double),  # 最小变动价位
+    ]
+
+    def __init__(self, TopicID=0, InstrumentID='', InstrumentNo=0, CodePrice=0.0, VolumeMultiple=0, PriceTick=0.0):
+        super(MulticastInstrumentField, self).__init__()
+        self.TopicID = int(TopicID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.InstrumentNo = int(InstrumentNo)
+        self.CodePrice = float(CodePrice)
+        self.VolumeMultiple = int(VolumeMultiple)
+        self.PriceTick = float(PriceTick)
+
+
+class QryMulticastInstrumentField(Base):
+    """QryMulticastInstrument"""
+    _fields_ = [
+        ('TopicID', ctypes.c_int),  # 主题号
+        ('InstrumentID', ctypes.c_char * 31),  # 合约代码
+    ]
+
+    def __init__(self, TopicID=0, InstrumentID=''):
+        super(QryMulticastInstrumentField, self).__init__()
+        self.TopicID = int(TopicID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
 
 
 class ReqOpenAccountField(Base):

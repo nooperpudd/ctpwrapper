@@ -13,6 +13,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 """
+
 from .ThostFtdcUserApiDataType cimport *
 
 
@@ -3002,6 +3003,16 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcSequenceNoType SequenceNo
         TThostFtdcNewsTypeType NewsType
         TThostFtdcNewsUrgencyType NewsUrgency
+    cdef struct CThostFtdcMulticastInstrumentField:
+        TThostFtdcInstallIDType TopicID
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcInstallIDType InstrumentNo
+        TThostFtdcPriceType CodePrice
+        TThostFtdcVolumeMultipleType VolumeMultiple
+        TThostFtdcPriceType PriceTick
+    cdef struct CThostFtdcQryMulticastInstrumentField:
+        TThostFtdcInstallIDType TopicID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcReqOpenAccountField:
         TThostFtdcTradeCodeType TradeCode
         TThostFtdcBankIDType BankID
