@@ -282,7 +282,7 @@ cdef class MdApiWrapper:
         if self._api is not NULL:
             address = ctypes.addressof(pQryMulticastInstrument)
             with nogil:
-                self._api.RegisterFensUserInfo(<CThostFtdcQryMulticastInstrumentField *> address, nRequestID)
+                self._api.ReqQryMulticastInstrument(<CThostFtdcQryMulticastInstrumentField *> address, nRequestID)
 
 
 cdef extern int MdSpi_OnFrontConnected(self) except -1:
