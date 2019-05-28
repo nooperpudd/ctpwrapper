@@ -152,6 +152,17 @@ static inline int TraderSpi_OnErrRtnOptionSelfCloseInsert(PyObject *, CThostFtdc
 
 static inline int TraderSpi_OnErrRtnOptionSelfCloseAction(PyObject *, CThostFtdcOptionSelfCloseActionField *, CThostFtdcRspInfoField *);
 
+static inline int TraderSpi_OnRspQrySecAgentTradeInfo(PyObject *, CThostFtdcSecAgentTradeInfoField *, CThostFtdcRspInfoField *, int, bool);
+
+///查询用户当前支持的认证模式的回复
+static inline int TraderSpi_OnRspUserAuthMethod(PyObject *, CThostFtdcRspUserAuthMethodField *, CThostFtdcRspInfoField *, int, bool);
+
+///获取图形验证码请求的回复
+static inline int TraderSpi_OnRspGenUserCaptcha(PyObject *, CThostFtdcRspGenUserCaptchaField *, CThostFtdcRspInfoField *, int, bool);
+
+///获取短信验证码请求的回复
+static inline int TraderSpi_OnRspGenUserText(PyObject *, CThostFtdcRspGenUserTextField *, CThostFtdcRspInfoField *, int, bool);
+
 
 
 
@@ -520,6 +531,7 @@ public:
                                              Python_GIL(TraderSpi_OnRspQryOptionInstrCommRate(self,pOptionInstrCommRate,pRspInfo,nRequestID,bIsLast));
                                              };
 
+
     ///请求查询执行宣告响应
     virtual void OnRspQryExecOrder(CThostFtdcExecOrderField *pExecOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID,
                       bool bIsLast) {
@@ -859,6 +871,27 @@ public:
     virtual void OnRtnChangeAccountByBank(CThostFtdcChangeAccountField *pChangeAccount) {
         Python_GIL(TraderSpi_OnRtnChangeAccountByBank(self,pChangeAccount));
     };
+
+    ///请求查询二级代理商信息响应
+	virtual void OnRspQrySecAgentTradeInfo(CThostFtdcSecAgentTradeInfoField *pSecAgentTradeInfo, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+	     Python_GIL(TraderSpi_OnRspQrySecAgentTradeInfo(self,pSecAgentTradeInfo, pRspInfo, nRequestID, bIsLast));
+	};
+
+    ///查询用户当前支持的认证模式的回复
+    virtual void OnRspUserAuthMethod(CThostFtdcRspUserAuthMethodField *pRspUserAuthMethod, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspUserAuthMethod(self,pRspUserAuthMethod, pRspInfo, nRequestID, bIsLast));
+    };
+
+    ///获取图形验证码请求的回复
+    virtual void OnRspGenUserCaptcha(CThostFtdcRspGenUserCaptchaField *pRspGenUserCaptcha, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspGenUserCaptcha(self,pRspGenUserCaptcha, pRspInfo, nRequestID, bIsLast));
+    };
+
+    ///获取短信验证码请求的回复
+    virtual void OnRspGenUserText(CThostFtdcRspGenUserTextField *pRspGenUserText, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspGenUserText(self,pRspGenUserText, pRspInfo, nRequestID, bIsLast));
+    };
+
 
 private:
 	PyObject *self;
