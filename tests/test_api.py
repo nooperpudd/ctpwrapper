@@ -19,7 +19,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from ctp_md_se import MdApiPy
+from ctp_md import MdApiPy
 
 
 class ApiTest(unittest.TestCase):

@@ -11,7 +11,7 @@ HEADER_PATH = os.path.join(CTP_PATH, "header")
 USERAPI_DATA_FILE = os.path.join(HEADER_PATH, "ThostFtdcUserApiDataType.h")
 USERAPI_STRUCT_FILE = os.path.join(HEADER_PATH, "ThostFtdcUserApiStruct.h")
 
-GENERATE_PATH = os.path.join(os.path.dirname(__file__), "ctp_md_se/headers")
+GENERATE_PATH = os.path.join(os.path.dirname(__file__), "ctp_md/headers")
 
 
 def generate_structure(datatype_dict):
