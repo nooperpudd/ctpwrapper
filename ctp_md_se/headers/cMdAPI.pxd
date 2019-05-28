@@ -103,6 +103,7 @@ cdef extern from 'ThostFtdcMdApi.h':
         # 请求查询组播合约
         int ReqQryMulticastInstrument(CThostFtdcQryMulticastInstrumentField *pQryMulticastInstrument, int nRequestID) nogil except +
 
+
 cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +
 

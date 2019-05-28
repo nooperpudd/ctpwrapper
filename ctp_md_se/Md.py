@@ -17,6 +17,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 import time
+
 from .MdApi import MdApiWrapper
 
 
@@ -133,6 +134,15 @@ class MdApiPy(MdApiWrapper):
         ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
 
         return super(MdApiPy, self).UnSubscribeForQuoteRsp(ids)
+
+    def ReqQryMulticastInstrument(self, pQryMulticastInstrument, nRequestID):
+        """
+        请求查询组播合约
+        :param pQryMulticastInstrument:
+        :param nRequestID:
+        :return:
+        """
+        return super(MdApiPy, self).ReqQryMulticastInstrument(pQryMulticastInstrument, nRequestID)
 
     # for receive message
 
@@ -259,6 +269,17 @@ class MdApiPy(MdApiWrapper):
         """
         询价通知
         :param pForQuoteRsp:
+        :return:
+        """
+        pass
+
+    def OnRspQryMulticastInstrument(self, pMulticastInstrument, pRspInfo, nRequestID, bIsLast):
+        """
+        请求查询组播合约响应
+        :param pMulticastInstrument:
+        :param pRspInfo:
+        :param nRequestID:
+        :param bIsLast:
         :return:
         """
         pass
