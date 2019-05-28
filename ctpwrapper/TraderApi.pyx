@@ -124,6 +124,14 @@ cdef class TraderApiWrapper:
                 result = self._api.ReqAuthenticate(<CThostFtdcReqAuthenticateField *> address, nRequestID)
             return result
 
+    # 注册用户终端信息，用于中继服务器多连接模式
+    # 需要在终端认证成功后，用户登录前调用该接口
+    def RegisterUserSystemInfo(self, pUserSystemInfo):
+        pass
+    # 上报用户终端信息，用于中继服务器操作员登录模式
+    # 操作员登录后，可以多次调用该接口上报客户信息
+    def SubmitUserSystemInfo(self, pUserSystemInfo):
+        pass
     #用户登录请求
     def ReqUserLogin(self, pReqUserLoginField, int nRequestID):
         cdef int result
@@ -163,25 +171,24 @@ cdef class TraderApiWrapper:
                 result = self._api.ReqTradingAccountPasswordUpdate(<CThostFtdcTradingAccountPasswordUpdateField *> address, nRequestID)
             return result
 
-    #登录请求2
-    def ReqUserLogin2(self, pReqUserLogin, int nRequestID):
-        cdef int result
-        cdef size_t address
-        if self._spi is not NULL:
-            address = ctypes.addressof(pReqUserLogin)
-            with nogil:
-                result = self._api.ReqUserLogin2(<CThostFtdcReqUserLoginField *> address, nRequestID)
-            return result
-
-    # 用户口令更新请求2
-    def ReqUserPasswordUpdate2(self, pUserPasswordUpdate, int nRequestID):
-        cdef int result
-        cdef size_t address
-        if self._spi is not NULL:
-            address = ctypes.addressof(pUserPasswordUpdate)
-            with nogil:
-                result = self._api.ReqUserPasswordUpdate2(<CThostFtdcUserPasswordUpdateField *> address, nRequestID)
-            return result
+    # 查询用户当前支持的认证模式
+    def ReqUserAuthMethod(self,pReqUserAuthMethod, int nRequestID):
+        pass
+    # 用户发出获取图形验证码请求
+    def ReqGenUserCaptcha(self,pReqGenUserCaptcha, int nRequestID):
+        pass
+    # 用户发出获取短信验证码请求
+    def ReqGenUserText(self,pReqGenUserText, int nRequestID):
+        pass
+    # 用户发出带有图片验证码的登陆请求
+    def ReqUserLoginWithCaptcha(self,pReqUserLoginWithCaptcha, int nRequestID):
+        pass
+    # 用户发出带有短信验证码的登陆请求
+    def ReqUserLoginWithText(self,pReqUserLoginWithText, int nRequestID):
+        pass
+    # 用户发出带有动态口令的登陆请求
+    def ReqUserLoginWithOTP(self,pReqUserLoginWithOTP, int nRequestID):
+        pass
 
     #报单录入请求
     def ReqOrderInsert(self, pInputOrder, int nRequestID):
@@ -582,6 +589,7 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQrySecAgentACIDMap(<CThostFtdcQrySecAgentACIDMapField *> address, nRequestID)
             return result
+    
 
     #请求查询产品报价汇率
     def ReqQryProductExchRate(self, pQryProductExchRate, int nRequestID):
@@ -857,6 +865,11 @@ cdef class TraderApiWrapper:
                 result = self._api.ReqQueryBankAccountMoneyByFuture(<CThostFtdcReqQueryAccountField *> address,
                                                                     nRequestID)
             return result
+    
+    # 请求查询二级代理商信息
+    def ReqQrySecAgentTradeInfo(self,pQrySecAgentTradeInfo, int nRequestID):
+        pass
+	
 
 cdef extern int TraderSpi_OnFrontConnected(self) except -1:
     self.OnFrontConnected()
