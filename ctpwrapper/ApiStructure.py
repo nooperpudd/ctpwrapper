@@ -1,21 +1,4 @@
 # encoding=utf-8
-"""
-(Copyright) 2018, Winton Wang <365504029@qq.com>
-
-ctpwrapper is free software: you can redistribute it and/or modify
-it under the terms of the GNU LGPLv3 as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
-
-"""
 import ctypes
 
 from ctpwrapper.base import Base
@@ -48,10 +31,12 @@ class ReqUserLoginField(Base):
         ('OneTimePassword', ctypes.c_char * 41),  # 动态密码
         ('ClientIPAddress', ctypes.c_char * 16),  # 终端IP地址
         ('LoginRemark', ctypes.c_char * 36),  # 登录备注
+        ('ClientIPPort', ctypes.c_int),  # 终端IP端口
     ]
 
     def __init__(self, TradingDay='', BrokerID='', UserID='', Password='', UserProductInfo='', InterfaceProductInfo='',
-                 ProtocolInfo='', MacAddress='', OneTimePassword='', ClientIPAddress='', LoginRemark=''):
+                 ProtocolInfo='', MacAddress='', OneTimePassword='', ClientIPAddress='', LoginRemark='',
+                 ClientIPPort=0):
         super(ReqUserLoginField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -64,6 +49,7 @@ class ReqUserLoginField(Base):
         self.OneTimePassword = self._to_bytes(OneTimePassword)
         self.ClientIPAddress = self._to_bytes(ClientIPAddress)
         self.LoginRemark = self._to_bytes(LoginRemark)
+        self.ClientIPPort = int(ClientIPPort)
 
 
 class RspUserLoginField(Base):
@@ -135,14 +121,16 @@ class ReqAuthenticateField(Base):
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('UserProductInfo', ctypes.c_char * 11),  # 用户端产品信息
         ('AuthCode', ctypes.c_char * 17),  # 认证码
+        ('AppID', ctypes.c_char * 33),  # App代码
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserProductInfo='', AuthCode=''):
+    def __init__(self, BrokerID='', UserID='', UserProductInfo='', AuthCode='', AppID=''):
         super(ReqAuthenticateField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
         self.UserProductInfo = self._to_bytes(UserProductInfo)
         self.AuthCode = self._to_bytes(AuthCode)
+        self.AppID = self._to_bytes(AppID)
 
 
 class RspAuthenticateField(Base):
@@ -151,13 +139,17 @@ class RspAuthenticateField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('UserID', ctypes.c_char * 16),  # 用户代码
         ('UserProductInfo', ctypes.c_char * 11),  # 用户端产品信息
+        ('AppID', ctypes.c_char * 33),  # App代码
+        ('AppType', ctypes.c_char),  # App类型
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserProductInfo=''):
+    def __init__(self, BrokerID='', UserID='', UserProductInfo='', AppID='', AppType=''):
         super(RspAuthenticateField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
         self.UserProductInfo = self._to_bytes(UserProductInfo)
+        self.AppID = self._to_bytes(AppID)
+        self.AppType = self._to_bytes(AppType)
 
 
 class AuthenticationInfoField(Base):
@@ -168,15 +160,19 @@ class AuthenticationInfoField(Base):
         ('UserProductInfo', ctypes.c_char * 11),  # 用户端产品信息
         ('AuthInfo', ctypes.c_char * 129),  # 认证信息
         ('IsResult', ctypes.c_int),  # 是否为认证结果
+        ('AppID', ctypes.c_char * 33),  # App代码
+        ('AppType', ctypes.c_char),  # App类型
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserProductInfo='', AuthInfo='', IsResult=0):
+    def __init__(self, BrokerID='', UserID='', UserProductInfo='', AuthInfo='', IsResult=0, AppID='', AppType=''):
         super(AuthenticationInfoField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
         self.UserProductInfo = self._to_bytes(UserProductInfo)
         self.AuthInfo = self._to_bytes(AuthInfo)
         self.IsResult = int(IsResult)
+        self.AppID = self._to_bytes(AppID)
+        self.AppType = self._to_bytes(AppType)
 
 
 class RspUserLogin2Field(Base):
@@ -910,6 +906,7 @@ class InvestorPositionField(Base):
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('YdStrikeFrozen', ctypes.c_int),  # 执行冻结的昨仓
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
+        ('PositionCostOffset', ctypes.c_double),  # 大商所持仓成本差值，只有大商所使用
     ]
 
     def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection='', HedgeFlag='', PositionDate='',
@@ -920,7 +917,7 @@ class InvestorPositionField(Base):
                  SettlementID=0, OpenCost=0.0, ExchangeMargin=0.0, CombPosition=0, CombLongFrozen=0, CombShortFrozen=0,
                  CloseProfitByDate=0.0, CloseProfitByTrade=0.0, TodayPosition=0, MarginRateByMoney=0.0,
                  MarginRateByVolume=0.0, StrikeFrozen=0, StrikeFrozenAmount=0.0, AbandonFrozen=0, ExchangeID='',
-                 YdStrikeFrozen=0, InvestUnitID=''):
+                 YdStrikeFrozen=0, InvestUnitID='', PositionCostOffset=0.0):
         super(InvestorPositionField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -968,6 +965,7 @@ class InvestorPositionField(Base):
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.YdStrikeFrozen = int(YdStrikeFrozen)
         self.InvestUnitID = self._to_bytes(InvestUnitID)
+        self.PositionCostOffset = float(PositionCostOffset)
 
 
 class InstrumentMarginRateField(Base):
@@ -2621,6 +2619,7 @@ class SyncingInvestorPositionField(Base):
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('YdStrikeFrozen', ctypes.c_int),  # 执行冻结的昨仓
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
+        ('PositionCostOffset', ctypes.c_double),  # 大商所持仓成本差值，只有大商所使用
     ]
 
     def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection='', HedgeFlag='', PositionDate='',
@@ -2631,7 +2630,7 @@ class SyncingInvestorPositionField(Base):
                  SettlementID=0, OpenCost=0.0, ExchangeMargin=0.0, CombPosition=0, CombLongFrozen=0, CombShortFrozen=0,
                  CloseProfitByDate=0.0, CloseProfitByTrade=0.0, TodayPosition=0, MarginRateByMoney=0.0,
                  MarginRateByVolume=0.0, StrikeFrozen=0, StrikeFrozenAmount=0.0, AbandonFrozen=0, ExchangeID='',
-                 YdStrikeFrozen=0, InvestUnitID=''):
+                 YdStrikeFrozen=0, InvestUnitID='', PositionCostOffset=0.0):
         super(SyncingInvestorPositionField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -2679,6 +2678,7 @@ class SyncingInvestorPositionField(Base):
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.YdStrikeFrozen = int(YdStrikeFrozen)
         self.InvestUnitID = self._to_bytes(InvestUnitID)
+        self.PositionCostOffset = float(PositionCostOffset)
 
 
 class SyncingInstrumentMarginRateField(Base):
@@ -3926,11 +3926,14 @@ class ExchangeExecOrderActionField(Base):
         ('BranchID', ctypes.c_char * 9),  # 营业部编号
         ('IPAddress', ctypes.c_char * 16),  # IP地址
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
+        ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
+        ('Volume', ctypes.c_int),  # 数量
     ]
 
     def __init__(self, ExchangeID='', ExecOrderSysID='', ActionFlag='', ActionDate='', ActionTime='', TraderID='',
                  InstallID=0, ExecOrderLocalID='', ActionLocalID='', ParticipantID='', ClientID='', BusinessUnit='',
-                 OrderActionStatus='', UserID='', ActionType='', BranchID='', IPAddress='', MacAddress=''):
+                 OrderActionStatus='', UserID='', ActionType='', BranchID='', IPAddress='', MacAddress='',
+                 ExchangeInstID='', Volume=0):
         super(ExchangeExecOrderActionField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.ExecOrderSysID = self._to_bytes(ExecOrderSysID)
@@ -3950,6 +3953,8 @@ class ExchangeExecOrderActionField(Base):
         self.BranchID = self._to_bytes(BranchID)
         self.IPAddress = self._to_bytes(IPAddress)
         self.MacAddress = self._to_bytes(MacAddress)
+        self.ExchangeInstID = self._to_bytes(ExchangeInstID)
+        self.Volume = int(Volume)
 
 
 class QryExchangeExecOrderActionField(Base):
@@ -5900,11 +5905,14 @@ class ExchangeOptionSelfCloseActionField(Base):
         ('BranchID', ctypes.c_char * 9),  # 营业部编号
         ('IPAddress', ctypes.c_char * 16),  # IP地址
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
+        ('ExchangeInstID', ctypes.c_char * 31),  # 合约在交易所的代码
+        ('OptSelfCloseFlag', ctypes.c_char),  # 期权行权的头寸是否自对冲
     ]
 
     def __init__(self, ExchangeID='', OptionSelfCloseSysID='', ActionFlag='', ActionDate='', ActionTime='', TraderID='',
                  InstallID=0, OptionSelfCloseLocalID='', ActionLocalID='', ParticipantID='', ClientID='',
-                 BusinessUnit='', OrderActionStatus='', UserID='', BranchID='', IPAddress='', MacAddress=''):
+                 BusinessUnit='', OrderActionStatus='', UserID='', BranchID='', IPAddress='', MacAddress='',
+                 ExchangeInstID='', OptSelfCloseFlag=''):
         super(ExchangeOptionSelfCloseActionField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.OptionSelfCloseSysID = self._to_bytes(OptionSelfCloseSysID)
@@ -5923,6 +5931,8 @@ class ExchangeOptionSelfCloseActionField(Base):
         self.BranchID = self._to_bytes(BranchID)
         self.IPAddress = self._to_bytes(IPAddress)
         self.MacAddress = self._to_bytes(MacAddress)
+        self.ExchangeInstID = self._to_bytes(ExchangeInstID)
+        self.OptSelfCloseFlag = self._to_bytes(OptSelfCloseFlag)
 
 
 class SyncDelaySwapField(Base):
@@ -6026,6 +6036,23 @@ class SecAgentCheckModeField(Base):
         self.CurrencyID = self._to_bytes(CurrencyID)
         self.BrokerSecAgentID = self._to_bytes(BrokerSecAgentID)
         self.CheckSelfAccount = int(CheckSelfAccount)
+
+
+class SecAgentTradeInfoField(Base):
+    """二级代理商信息"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('BrokerSecAgentID', ctypes.c_char * 13),  # 境外中介机构资金帐号
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('LongCustomerName', ctypes.c_char * 161),  # 二级代理商姓名
+    ]
+
+    def __init__(self, BrokerID='', BrokerSecAgentID='', InvestorID='', LongCustomerName=''):
+        super(SecAgentTradeInfoField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.BrokerSecAgentID = self._to_bytes(BrokerSecAgentID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.LongCustomerName = self._to_bytes(LongCustomerName)
 
 
 class MarketDataField(Base):
@@ -6443,6 +6470,7 @@ class InvestorPositionDetailField(Base):
         ('SettlementPrice', ctypes.c_double),  # 结算价
         ('CloseVolume', ctypes.c_int),  # 平仓量
         ('CloseAmount', ctypes.c_double),  # 平仓金额
+        ('TimeFirstVolume', ctypes.c_int),  # 按照时间顺序平仓的笔数,大商所专用
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
     ]
 
@@ -6450,7 +6478,8 @@ class InvestorPositionDetailField(Base):
                  Volume=0, OpenPrice=0.0, TradingDay='', SettlementID=0, TradeType='', CombInstrumentID='',
                  ExchangeID='', CloseProfitByDate=0.0, CloseProfitByTrade=0.0, PositionProfitByDate=0.0,
                  PositionProfitByTrade=0.0, Margin=0.0, ExchMargin=0.0, MarginRateByMoney=0.0, MarginRateByVolume=0.0,
-                 LastSettlementPrice=0.0, SettlementPrice=0.0, CloseVolume=0, CloseAmount=0.0, InvestUnitID=''):
+                 LastSettlementPrice=0.0, SettlementPrice=0.0, CloseVolume=0, CloseAmount=0.0, TimeFirstVolume=0,
+                 InvestUnitID=''):
         super(InvestorPositionDetailField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -6478,6 +6507,7 @@ class InvestorPositionDetailField(Base):
         self.SettlementPrice = float(SettlementPrice)
         self.CloseVolume = int(CloseVolume)
         self.CloseAmount = float(CloseAmount)
+        self.TimeFirstVolume = int(TimeFirstVolume)
         self.InvestUnitID = self._to_bytes(InvestUnitID)
 
 
@@ -11023,3 +11053,295 @@ class QrySecAgentCheckModeField(Base):
         super(QrySecAgentCheckModeField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
+
+
+class QrySecAgentTradeInfoField(Base):
+    """查询二级代理商信息"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('BrokerSecAgentID', ctypes.c_char * 13),  # 境外中介机构资金帐号
+    ]
+
+    def __init__(self, BrokerID='', BrokerSecAgentID=''):
+        super(QrySecAgentTradeInfoField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.BrokerSecAgentID = self._to_bytes(BrokerSecAgentID)
+
+
+class UserSystemInfoField(Base):
+    """用户系统信息"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+        ('ClientSystemInfoLen', ctypes.c_int),  # 用户端系统内部信息长度
+        ('ClientSystemInfo', ctypes.c_char * 273),  # 用户端系统内部信息
+        ('ClientPublicIP', ctypes.c_char * 16),  # 用户公网IP
+        ('ClientIPPort', ctypes.c_int),  # 终端IP端口
+        ('ClientLoginTime', ctypes.c_char * 9),  # 登录成功时间
+        ('ClientAppID', ctypes.c_char * 33),  # App代码
+    ]
+
+    def __init__(self, BrokerID='', UserID='', ClientSystemInfoLen=0, ClientSystemInfo='', ClientPublicIP='',
+                 ClientIPPort=0, ClientLoginTime='', ClientAppID=''):
+        super(UserSystemInfoField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)
+        self.ClientSystemInfoLen = int(ClientSystemInfoLen)
+        self.ClientSystemInfo = self._to_bytes(ClientSystemInfo)
+        self.ClientPublicIP = self._to_bytes(ClientPublicIP)
+        self.ClientIPPort = int(ClientIPPort)
+        self.ClientLoginTime = self._to_bytes(ClientLoginTime)
+        self.ClientAppID = self._to_bytes(ClientAppID)
+
+
+class ReqUserAuthMethodField(Base):
+    """用户发出获取安全安全登陆方法请求"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+    ]
+
+    def __init__(self, TradingDay='', BrokerID='', UserID=''):
+        super(ReqUserAuthMethodField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)
+
+
+class RspUserAuthMethodField(Base):
+    """用户发出获取安全安全登陆方法回复"""
+    _fields_ = [
+        ('UsableAuthMethod', ctypes.c_int),  # 当前可以用的认证模式
+    ]
+
+    def __init__(self, UsableAuthMethod=0):
+        super(RspUserAuthMethodField, self).__init__()
+        self.UsableAuthMethod = int(UsableAuthMethod)
+
+
+class ReqGenUserCaptchaField(Base):
+    """用户发出获取安全安全登陆方法请求"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+    ]
+
+    def __init__(self, TradingDay='', BrokerID='', UserID=''):
+        super(ReqGenUserCaptchaField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)
+
+
+class RspGenUserCaptchaField(Base):
+    """生成的图片验证码信息"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+        ('CaptchaInfoLen', ctypes.c_int),  # 图片信息长度
+        ('CaptchaInfo', ctypes.c_char * 2561),  # 图片信息
+    ]
+
+    def __init__(self, BrokerID='', UserID='', CaptchaInfoLen=0, CaptchaInfo=''):
+        super(RspGenUserCaptchaField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)
+        self.CaptchaInfoLen = int(CaptchaInfoLen)
+        self.CaptchaInfo = self._to_bytes(CaptchaInfo)
+
+
+class ReqGenUserTextField(Base):
+    """用户发出获取安全安全登陆方法请求"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+    ]
+
+    def __init__(self, TradingDay='', BrokerID='', UserID=''):
+        super(ReqGenUserTextField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)
+
+
+class RspGenUserTextField(Base):
+    """短信验证码生成的回复"""
+    _fields_ = [
+        ('UserTextSeq', ctypes.c_int),  # 短信验证码序号
+    ]
+
+    def __init__(self, UserTextSeq=0):
+        super(RspGenUserTextField, self).__init__()
+        self.UserTextSeq = int(UserTextSeq)
+
+
+class ReqUserLoginWithCaptchaField(Base):
+    """用户发出带图形验证码的登录请求请求"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+        ('Password', ctypes.c_char * 41),  # 密码
+        ('UserProductInfo', ctypes.c_char * 11),  # 用户端产品信息
+        ('InterfaceProductInfo', ctypes.c_char * 11),  # 接口端产品信息
+        ('ProtocolInfo', ctypes.c_char * 11),  # 协议信息
+        ('MacAddress', ctypes.c_char * 21),  # Mac地址
+        ('ClientIPAddress', ctypes.c_char * 16),  # 终端IP地址
+        ('LoginRemark', ctypes.c_char * 36),  # 登录备注
+        ('Captcha', ctypes.c_char * 41),  # 图形验证码的文字内容
+        ('ClientIPPort', ctypes.c_int),  # 终端IP端口
+    ]
+
+    def __init__(self, TradingDay='', BrokerID='', UserID='', Password='', UserProductInfo='', InterfaceProductInfo='',
+                 ProtocolInfo='', MacAddress='', ClientIPAddress='', LoginRemark='', Captcha='', ClientIPPort=0):
+        super(ReqUserLoginWithCaptchaField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)
+        self.Password = self._to_bytes(Password)
+        self.UserProductInfo = self._to_bytes(UserProductInfo)
+        self.InterfaceProductInfo = self._to_bytes(InterfaceProductInfo)
+        self.ProtocolInfo = self._to_bytes(ProtocolInfo)
+        self.MacAddress = self._to_bytes(MacAddress)
+        self.ClientIPAddress = self._to_bytes(ClientIPAddress)
+        self.LoginRemark = self._to_bytes(LoginRemark)
+        self.Captcha = self._to_bytes(Captcha)
+        self.ClientIPPort = int(ClientIPPort)
+
+
+class ReqUserLoginWithTextField(Base):
+    """用户发出带短信验证码的登录请求请求"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+        ('Password', ctypes.c_char * 41),  # 密码
+        ('UserProductInfo', ctypes.c_char * 11),  # 用户端产品信息
+        ('InterfaceProductInfo', ctypes.c_char * 11),  # 接口端产品信息
+        ('ProtocolInfo', ctypes.c_char * 11),  # 协议信息
+        ('MacAddress', ctypes.c_char * 21),  # Mac地址
+        ('ClientIPAddress', ctypes.c_char * 16),  # 终端IP地址
+        ('LoginRemark', ctypes.c_char * 36),  # 登录备注
+        ('Text', ctypes.c_char * 41),  # 短信验证码文字内容
+        ('ClientIPPort', ctypes.c_int),  # 终端IP端口
+    ]
+
+    def __init__(self, TradingDay='', BrokerID='', UserID='', Password='', UserProductInfo='', InterfaceProductInfo='',
+                 ProtocolInfo='', MacAddress='', ClientIPAddress='', LoginRemark='', Text='', ClientIPPort=0):
+        super(ReqUserLoginWithTextField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)
+        self.Password = self._to_bytes(Password)
+        self.UserProductInfo = self._to_bytes(UserProductInfo)
+        self.InterfaceProductInfo = self._to_bytes(InterfaceProductInfo)
+        self.ProtocolInfo = self._to_bytes(ProtocolInfo)
+        self.MacAddress = self._to_bytes(MacAddress)
+        self.ClientIPAddress = self._to_bytes(ClientIPAddress)
+        self.LoginRemark = self._to_bytes(LoginRemark)
+        self.Text = self._to_bytes(Text)
+        self.ClientIPPort = int(ClientIPPort)
+
+
+class ReqUserLoginWithOTPField(Base):
+    """用户发出带动态验证码的登录请求请求"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+        ('Password', ctypes.c_char * 41),  # 密码
+        ('UserProductInfo', ctypes.c_char * 11),  # 用户端产品信息
+        ('InterfaceProductInfo', ctypes.c_char * 11),  # 接口端产品信息
+        ('ProtocolInfo', ctypes.c_char * 11),  # 协议信息
+        ('MacAddress', ctypes.c_char * 21),  # Mac地址
+        ('ClientIPAddress', ctypes.c_char * 16),  # 终端IP地址
+        ('LoginRemark', ctypes.c_char * 36),  # 登录备注
+        ('OTPPassword', ctypes.c_char * 41),  # OTP密码
+        ('ClientIPPort', ctypes.c_int),  # 终端IP端口
+    ]
+
+    def __init__(self, TradingDay='', BrokerID='', UserID='', Password='', UserProductInfo='', InterfaceProductInfo='',
+                 ProtocolInfo='', MacAddress='', ClientIPAddress='', LoginRemark='', OTPPassword='', ClientIPPort=0):
+        super(ReqUserLoginWithOTPField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)
+        self.Password = self._to_bytes(Password)
+        self.UserProductInfo = self._to_bytes(UserProductInfo)
+        self.InterfaceProductInfo = self._to_bytes(InterfaceProductInfo)
+        self.ProtocolInfo = self._to_bytes(ProtocolInfo)
+        self.MacAddress = self._to_bytes(MacAddress)
+        self.ClientIPAddress = self._to_bytes(ClientIPAddress)
+        self.LoginRemark = self._to_bytes(LoginRemark)
+        self.OTPPassword = self._to_bytes(OTPPassword)
+        self.ClientIPPort = int(ClientIPPort)
+
+
+class ReqApiHandshakeField(Base):
+    """api握手请求"""
+    _fields_ = [
+        ('CryptoKeyVersion', ctypes.c_char * 31),  # api与front通信密钥版本号
+    ]
+
+    def __init__(self, CryptoKeyVersion=''):
+        super(ReqApiHandshakeField, self).__init__()
+        self.CryptoKeyVersion = self._to_bytes(CryptoKeyVersion)
+
+
+class RspApiHandshakeField(Base):
+    """front发给api的握手回复"""
+    _fields_ = [
+        ('FrontHandshakeDataLen', ctypes.c_int),  # 握手回复数据长度
+        ('FrontHandshakeData', ctypes.c_char * 301),  # 握手回复数据
+        ('IsApiAuthEnabled', ctypes.c_int),  # API认证是否开启
+    ]
+
+    def __init__(self, FrontHandshakeDataLen=0, FrontHandshakeData='', IsApiAuthEnabled=0):
+        super(RspApiHandshakeField, self).__init__()
+        self.FrontHandshakeDataLen = int(FrontHandshakeDataLen)
+        self.FrontHandshakeData = self._to_bytes(FrontHandshakeData)
+        self.IsApiAuthEnabled = int(IsApiAuthEnabled)
+
+
+class ReqVerifyApiKeyField(Base):
+    """api给front的验证key的请求"""
+    _fields_ = [
+        ('ApiHandshakeDataLen', ctypes.c_int),  # 握手回复数据长度
+        ('ApiHandshakeData', ctypes.c_char * 301),  # 握手回复数据
+    ]
+
+    def __init__(self, ApiHandshakeDataLen=0, ApiHandshakeData=''):
+        super(ReqVerifyApiKeyField, self).__init__()
+        self.ApiHandshakeDataLen = int(ApiHandshakeDataLen)
+        self.ApiHandshakeData = self._to_bytes(ApiHandshakeData)
+
+
+class DepartmentUserField(Base):
+    """操作员组织架构关系"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+    ]
+
+    def __init__(self, BrokerID='', UserID='', InvestorRange='', InvestorID=''):
+        super(DepartmentUserField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)
+        self.InvestorRange = self._to_bytes(InvestorRange)
+        self.InvestorID = self._to_bytes(InvestorID)
+
+
+class QueryFreqField(Base):
+    """查询频率，每秒查询比数"""
+    _fields_ = [
+        ('QueryFreq', ctypes.c_int),  # 查询频率
+    ]
+
+    def __init__(self, QueryFreq=0):
+        super(QueryFreqField, self).__init__()
+        self.QueryFreq = int(QueryFreq)

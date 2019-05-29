@@ -26,7 +26,7 @@ def generate_structure(datatype_dict):
     data_struct_file.write("# encoding:utf-8")
     data_struct_file.write("\n" * 2)
 
-    data_struct_file.write("from ThostFtdcUserApiDataType cimport *\n")
+    data_struct_file.write("from .ThostFtdcUserApiDataType cimport *\n")
     data_struct_file.write("\n" * 2)
 
     data_struct_file.write("cdef extern from 'ThostFtdcUserApiStruct.h':\n")

@@ -6,11 +6,11 @@ import re
 import shutil
 import sys
 from distutils.dir_util import copy_tree
-
 from setuptools import setup
 
 from Cython.Build import cythonize, build_ext
 from Cython.Distutils import Extension as Cython_Extension
+
 
 
 # issue put in the cython library bellow will cause
@@ -83,19 +83,22 @@ common_args = {
 ext_modules = [
     Cython_Extension(name="ctpwrapper.MdApi",
                      sources=["ctpwrapper/MdApi.pyx"],
-                     libraries=["thostmduserapi"],
+                     libraries=["thostmduserapi_se"],
                      **common_args),
     Cython_Extension(name="ctpwrapper.TraderApi",
                      sources=["ctpwrapper/TraderApi.pyx"],
-                     libraries=["thosttraderapi"],
+                     libraries=["thosttraderapi_se"],
+                     **common_args),
+    Cython_Extension(name="ctpwrapper.datacollect",
+                     sources=["ctpwrapper/datacollect.pyx"],
+                     libraries=["LinuxDataCollect"] if sys.platform == "linux" else ["WinDataCollect"],
                      **common_args)
 ]
-
 
 setup(
     name="ctpwrapper",
     version=find_version("ctpwrapper", "__init__.py"),
-    description="CTP client v6.3.11",
+    description="CTP client v6.3.15",
     long_description=codecs.open("README.md", encoding="utf-8").read(),
     long_description_content_type='text/markdown',
     license="LGPLv3",
