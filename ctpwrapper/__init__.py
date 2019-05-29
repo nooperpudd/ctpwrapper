@@ -27,3 +27,5 @@ __all__ = (
     "MdApiPy",
     "TraderApiPy"
 )
+
+from .datacollect import GetSystemInfo

@@ -6,11 +6,11 @@ import re
 import shutil
 import sys
 from distutils.dir_util import copy_tree
-
 from setuptools import setup
 
 from Cython.Build import cythonize, build_ext
 from Cython.Distutils import Extension as Cython_Extension
+
 
 
 # issue put in the cython library bellow will cause
@@ -88,9 +88,12 @@ ext_modules = [
     Cython_Extension(name="ctpwrapper.TraderApi",
                      sources=["ctpwrapper/TraderApi.pyx"],
                      libraries=["thosttraderapi_se"],
+                     **common_args),
+    Cython_Extension(name="ctpwrapper.datacollect",
+                     sources=["ctpwrapper/datacollect.pyx"],
+                     libraries=["LinuxDataCollect"] if sys.platform == "linux" else ["WinDataCollect"],
                      **common_args)
 ]
-
 
 setup(
     name="ctpwrapper",
