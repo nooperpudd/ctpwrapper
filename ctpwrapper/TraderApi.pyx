@@ -129,7 +129,7 @@ cdef class TraderApiWrapper:
     def RegisterUserSystemInfo(self, pUserSystemInfo):
         cdef int result
         cdef size_t address
-        if self._spi is not None:
+        if self._spi is not NULL:
             address = ctypes.addressof(pUserSystemInfo)
             with nogil:
                 result = self._api.RegisterUserSystemInfo(<CThostFtdcUserSystemInfoField *> address)
@@ -140,7 +140,7 @@ cdef class TraderApiWrapper:
     def SubmitUserSystemInfo(self, pUserSystemInfo):
         cdef int result
         cdef size_t address
-        if self._api is not None:
+        if self._api is not NULL:
             address = ctypes.addressof(pUserSystemInfo)
             with nogil:
                 result = self._api.SubmitUserSystemInfo(<CThostFtdcUserSystemInfoField *> address)
@@ -189,7 +189,7 @@ cdef class TraderApiWrapper:
     def ReqUserAuthMethod(self,pReqUserAuthMethod, int nRequestID):
         cdef int result
         cdef size_t address
-        if self._api is not None:
+        if self._api is not NULL:
             address = ctypes.addressof(pReqUserAuthMethod)
             with nogil:
                 result = self._api.ReqUserAuthMethod(<CThostFtdcReqUserAuthMethodField *> address, nRequestID)
@@ -199,7 +199,7 @@ cdef class TraderApiWrapper:
     def ReqGenUserCaptcha(self,pReqGenUserCaptcha, int nRequestID):
         cdef int result
         cdef size_t address
-        if self._api is not None:
+        if self._api is not NULL:
             address = ctypes.addressof(pReqGenUserCaptcha)
             with nogil:
                 result = self._api.ReqGenUserCaptcha(<CThostFtdcReqGenUserCaptchaField *> address, nRequestID)
@@ -208,7 +208,7 @@ cdef class TraderApiWrapper:
     def ReqGenUserText(self,pReqGenUserText, int nRequestID):
         cdef int result
         cdef size_t address
-        if self._api is not None:
+        if self._api is not NULL:
             address = ctypes.addressof(pReqGenUserText)
             with nogil:
                 result = self._api.ReqGenUserText(<CThostFtdcReqGenUserTextField *> address, nRequestID)
@@ -217,7 +217,7 @@ cdef class TraderApiWrapper:
     def ReqUserLoginWithCaptcha(self,pReqUserLoginWithCaptcha, int nRequestID):
         cdef int result
         cdef size_t address
-        if self._api is not None:
+        if self._api is not NULL:
             address = ctypes.addressof(pReqUserLoginWithCaptcha)
             with nogil:
                 result = self._api.ReqUserLoginWithCaptcha(<CThostFtdcReqUserLoginWithCaptchaField *> address, nRequestID)
@@ -226,7 +226,7 @@ cdef class TraderApiWrapper:
     def ReqUserLoginWithText(self,pReqUserLoginWithText, int nRequestID):
         cdef int result
         cdef size_t address
-        if self._api is not None:
+        if self._api is not NULL:
             address = ctypes.addressof(pReqUserLoginWithText)
             with nogil:
                 result = self._api.ReqUserLoginWithText(<CThostFtdcReqUserLoginWithTextField *> address, nRequestID)
@@ -235,7 +235,7 @@ cdef class TraderApiWrapper:
     def ReqUserLoginWithOTP(self,pReqUserLoginWithOTP, int nRequestID):
         cdef int result
         cdef size_t address
-        if self._api is not None:
+        if self._api is not NULL:
             address = ctypes.addressof(pReqUserLoginWithOTP)
             with nogil:
                 result = self._api.ReqUserLoginWithOTP(<CThostFtdcReqUserLoginWithOTPField *> address, nRequestID)
