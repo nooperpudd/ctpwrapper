@@ -127,11 +127,25 @@ cdef class TraderApiWrapper:
     # 注册用户终端信息，用于中继服务器多连接模式
     # 需要在终端认证成功后，用户登录前调用该接口
     def RegisterUserSystemInfo(self, pUserSystemInfo):
-        pass
+        cdef int result
+        cdef size_t address
+        if self._spi is not None:
+            address = ctypes.addressof(pUserSystemInfo)
+            with nogil:
+                result = self._api.RegisterUserSystemInfo(<CThostFtdcUserSystemInfoField *> address)
+            return result
+
     # 上报用户终端信息，用于中继服务器操作员登录模式
     # 操作员登录后，可以多次调用该接口上报客户信息
     def SubmitUserSystemInfo(self, pUserSystemInfo):
-        pass
+        cdef int result
+        cdef size_t address
+        if self._api is not None:
+            address = ctypes.addressof(pUserSystemInfo)
+            with nogil:
+                result = self._api.SubmitUserSystemInfo(<CThostFtdcUserSystemInfoField *> address)
+            return result
+
     #用户登录请求
     def ReqUserLogin(self, pReqUserLoginField, int nRequestID):
         cdef int result
@@ -173,22 +187,59 @@ cdef class TraderApiWrapper:
 
     # 查询用户当前支持的认证模式
     def ReqUserAuthMethod(self,pReqUserAuthMethod, int nRequestID):
-        pass
+        cdef int result
+        cdef size_t address
+        if self._api is not None:
+            address = ctypes.addressof(pReqUserAuthMethod)
+            with nogil:
+                result = self._api.ReqUserAuthMethod(<CThostFtdcReqUserAuthMethodField *> address, nRequestID)
+            return result
+
     # 用户发出获取图形验证码请求
     def ReqGenUserCaptcha(self,pReqGenUserCaptcha, int nRequestID):
-        pass
+        cdef int result
+        cdef size_t address
+        if self._api is not None:
+            address = ctypes.addressof(pReqGenUserCaptcha)
+            with nogil:
+                result = self._api.ReqGenUserCaptcha(<CThostFtdcReqGenUserCaptchaField *> address, nRequestID)
+            return result
     # 用户发出获取短信验证码请求
     def ReqGenUserText(self,pReqGenUserText, int nRequestID):
-        pass
+        cdef int result
+        cdef size_t address
+        if self._api is not None:
+            address = ctypes.addressof(pReqGenUserText)
+            with nogil:
+                result = self._api.ReqGenUserText(<CThostFtdcReqGenUserTextField *> address, nRequestID)
+            return result
     # 用户发出带有图片验证码的登陆请求
     def ReqUserLoginWithCaptcha(self,pReqUserLoginWithCaptcha, int nRequestID):
-        pass
+        cdef int result
+        cdef size_t address
+        if self._api is not None:
+            address = ctypes.addressof(pReqUserLoginWithCaptcha)
+            with nogil:
+                result = self._api.ReqUserLoginWithCaptcha(<CThostFtdcReqUserLoginWithCaptchaField *> address, nRequestID)
+            return result
     # 用户发出带有短信验证码的登陆请求
     def ReqUserLoginWithText(self,pReqUserLoginWithText, int nRequestID):
-        pass
+        cdef int result
+        cdef size_t address
+        if self._api is not None:
+            address = ctypes.addressof(pReqUserLoginWithText)
+            with nogil:
+                result = self._api.ReqUserLoginWithText(<CThostFtdcReqUserLoginWithTextField *> address, nRequestID)
+            return result
     # 用户发出带有动态口令的登陆请求
     def ReqUserLoginWithOTP(self,pReqUserLoginWithOTP, int nRequestID):
-        pass
+        cdef int result
+        cdef size_t address
+        if self._api is not None:
+            address = ctypes.addressof(pReqUserLoginWithOTP)
+            with nogil:
+                result = self._api.ReqUserLoginWithOTP(<CThostFtdcReqUserLoginWithOTPField *> address, nRequestID)
+            return result
 
     #报单录入请求
     def ReqOrderInsert(self, pInputOrder, int nRequestID):
@@ -868,7 +919,13 @@ cdef class TraderApiWrapper:
     
     # 请求查询二级代理商信息
     def ReqQrySecAgentTradeInfo(self,pQrySecAgentTradeInfo, int nRequestID):
-        pass
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQrySecAgentTradeInfo)
+            with nogil:
+                result = self._api.ReqQrySecAgentTradeInfo(<CThostFtdcQrySecAgentTradeInfoField *> address,
+                                                                    nRequestID)
+            return result
 	
 
 cdef extern int TraderSpi_OnFrontConnected(self) except -1:
@@ -1870,5 +1927,45 @@ cdef extern int TraderSpi_OnErrRtnOptionSelfCloseAction(self,
         None if pOptionSelfCloseAction is NULL else ApiStructure.OptionSelfCloseActionField.from_address(
             <size_t> pOptionSelfCloseAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+    )
+    return 0
+
+# 查询用户当前支持的认证模式的回复
+cdef extern int TraderSpi_OnRspUserAuthMethod(self, CThostFtdcRspUserAuthMethodField *pRspUserAuthMethod,
+                                              CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast):
+
+    self.OnErrRtnOptionSelfCloseAction(
+        None if pRspUserAuthMethod is NULL else ApiStructure.RspUserAuthMethodField.from_address(<size_t> pRspUserAuthMethod),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID, bIsLast
+    )
+    return 0
+# 获取图形验证码请求的回复
+cdef extern int TraderSpi_OnRspGenUserCaptcha(self, CThostFtdcRspGenUserCaptchaField *pRspGenUserCaptcha,
+                                              CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast):
+    self.OnErrRtnOptionSelfCloseAction(
+        None if pRspGenUserCaptcha is NULL else ApiStructure.RspGenUserCaptchaField.from_address(<size_t> pRspGenUserCaptcha),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID, bIsLast
+    )
+    return 0
+# 获取短信验证码请求的回复
+cdef extern int TraderSpi_OnRspGenUserText(self, CThostFtdcRspGenUserTextField *pRspGenUserText,
+                                           CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast):
+    self.OnErrRtnOptionSelfCloseAction(
+        None if pRspGenUserText is NULL else ApiStructure.RspGenUserTextField.from_address(<size_t> pRspGenUserText),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID, bIsLast
+    )
+    return 0
+
+#请求查询二级代理商信息响应
+cdef extern int TraderSpi_OnRspQrySecAgentTradeInfo(self,CThostFtdcSecAgentTradeInfoField *pSecAgentTradeInfo, CThostFtdcRspInfoField *pRspInfo,
+                                                    int nRequestID, cbool bIsLast):
+
+    self.OnErrRtnOptionSelfCloseAction(
+        None if pSecAgentTradeInfo is NULL else ApiStructure.SecAgentTradeInfoField.from_address(<size_t> pSecAgentTradeInfo),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID, bIsLast
     )
     return 0

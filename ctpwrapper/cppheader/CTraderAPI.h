@@ -163,6 +163,9 @@ static inline int TraderSpi_OnRspGenUserCaptcha(PyObject *, CThostFtdcRspGenUser
 ///获取短信验证码请求的回复
 static inline int TraderSpi_OnRspGenUserText(PyObject *, CThostFtdcRspGenUserTextField *, CThostFtdcRspInfoField *, int, bool);
 
+///请求查询二级代理商信息响应
+static inline int TraderSpi_OnRspQrySecAgentTradeInfo(PyObject *, CThostFtdcSecAgentTradeInfoField *, CThostFtdcRspInfoField *, int, bool);
+
 
 
 
