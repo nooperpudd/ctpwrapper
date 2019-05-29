@@ -11,7 +11,7 @@
 
 [CTP Website](http://www.sfit.com.cn/5_2_DocumentDown.htm)
 
-Version: v6.3.11_20180109
+Version: v6.3.15
 
 Platform: Linux 64bit, Windows 64bit
 
