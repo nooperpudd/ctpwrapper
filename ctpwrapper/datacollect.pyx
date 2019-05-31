@@ -1,3 +1,6 @@
+# encoding:utf-8
+# distutils: language=c++
+
 from .headers.DataCollect cimport CTP_GetSystemInfo
 
 def GetSystemInfo(char *pSystemInfo,int nLen):
