@@ -1,4 +1,4 @@
-#ifndef  DATA_COLLECT_H
+﻿#ifndef  DATA_COLLECT_H
 #define  DATA_COLLECT_H
 
 #define DLL_EXPORT   __declspec(dllexport)
