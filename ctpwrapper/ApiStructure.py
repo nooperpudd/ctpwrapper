@@ -8267,6 +8267,61 @@ class QryBulletinField(Base):
         self.NewsUrgency = self._to_bytes(NewsUrgency)
 
 
+class MulticastInstrumentField(Base):
+    """
+    """
+    _fields_ = [
+        ("TopicID", ctypes.c_int),  # 主题号
+        ("InstrumentID", ctypes.c_char * 31),  # 合约代码
+        ("InstrumentNo", ctypes.c_int),  # 合约编号
+        ("CodePrice", ctypes.c_double),  # 基准价
+        ("VolumeMultiple", ctypes.c_int),  # 合约数量乘数
+        ("PriceTick", ctypes.c_double),  # 最小变动价位
+    ]
+
+    def __init__(self, TopicID=0, InstrumentID='', InstrumentNo=0,
+                 CodePrice=0.0, VolumeMultiple=0, PriceTick=0.0):
+        super(MulticastInstrumentField, self).__init__()
+        self.TopicID = int(TopicID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.InstrumentNo = int(InstrumentNo)
+        self.CodePrice = float(CodePrice)
+        self.VolumeMultiple = int(VolumeMultiple)
+        self.PriceTick = float(PriceTick)
+
+
+class QryMulticastInstrumentField(Base):
+    """
+
+    """
+    _fields_ = [
+        ("TopicID", ctypes.c_int),  # 主题号
+        ("InstrumentID", ctypes.c_char * 31),  # 合约代码
+    ]
+
+    def __init__(self, TopicID=0, InstrumentID=''):
+        super(QryMulticastInstrumentField, self).__init__()
+        self.TopicID = int(TopicID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+
+
+class AppIDAuthAssignField(Base):
+    """
+    App客户端权限分配
+    """
+    _fields_ = [
+        ("BrokerID", ctypes.c_char * 11),  # 经纪公司代码
+        ("AppID", ctypes.c_char * 33),  # App代码
+        ("DRIdentityID", ctypes.c_int)  # 交易中心代码
+    ]
+
+    def __init__(self, BrokerID='', AppID='', DRIdentityID=0):
+        super(AppIDAuthAssignField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.AppID = self._to_bytes(AppID)
+        self.DRIdentityID = int(DRIdentityID)
+
+
 class ReqOpenAccountField(Base):
     """转帐开户请求"""
     _fields_ = [
@@ -11345,3 +11400,53 @@ class QueryFreqField(Base):
     def __init__(self, QueryFreq=0):
         super(QueryFreqField, self).__init__()
         self.QueryFreq = int(QueryFreq)
+
+
+class AuthForbiddenIPField(Base):
+    """
+    禁止认证IP
+    """
+    _fields_ = [
+        ('IPAddress', ctypes.c_char * 16),  # IP地址
+    ]
+
+    def __init__(self, IPAddress=''):
+        super(AuthForbiddenIPField, self).__init__()
+        self.IPAddress = self._to_bytes(IPAddress)
+
+
+class QryAuthForbiddenIPField(Base):
+    """
+    查询禁止认证IP
+    """
+    _fields_ = [
+        ('IPAddress', ctypes.c_char * 16),  # IP地址
+    ]
+
+    def __init__(self, IPAddress=''):
+        super(QryAuthForbiddenIPField, self).__init__()
+        self.IPAddress = self._to_bytes(IPAddress)
+
+
+class SyncDelaySwapFrozenField(Base):
+    """
+    换汇可提冻结
+    """
+    _fields_ = [
+        ('DelaySwapSeqNo', ctypes.c_char * 11),  # 换汇流水号
+        ('BrokerID', ctypes.c_char * 16),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('FromCurrencyID', ctypes.c_char * 13),  # 源币种
+        ('FromRemainSwap', ctypes.c_double),  # 源剩余换汇额度(可提冻结)
+        ('IsManualSwap', ctypes.c_int)  # 是否手工换汇
+    ]
+
+    def __init__(self, DelaySwapSeqNo='', BrokerID='', InvestorID='',
+                 FromCurrencyID='', FromRemainSwap=0.0, IsManualSwap=0):
+        super(SyncDelaySwapFrozenField, self).__init__()
+        self.DelaySwapSeqNo = self._to_bytes(DelaySwapSeqNo)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.FromCurrencyID = self._to_bytes(FromCurrencyID)
+        self.FromRemainSwap = float(FromRemainSwap)
+        self.IsManualSwap = int(IsManualSwap)

@@ -33,7 +33,9 @@ CThostFtdcSpecificInstrumentField,
 CThostFtdcDepthMarketDataField,
 CThostFtdcFensUserInfoField,
 CThostFtdcReqUserLoginField,
-CThostFtdcForQuoteRspField
+CThostFtdcForQuoteRspField,
+CThostFtdcQryMulticastInstrumentField,
+CThostFtdcMulticastInstrumentField
 )
 from .headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
 
@@ -122,6 +124,21 @@ cdef class MdApiWrapper:
 
             return result
 
+    def ReqQryMulticastInstrument(self, pQryMulticastInstrument, nRequestID):
+        """
+        请求查询组播合约
+        :param pQryMulticastInstrument:
+        :param nRequestID:
+        :return:
+        """
+        cdef int result
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQryMulticastInstrument)
+
+            with nogil:
+                result = self._api.ReqQryMulticastInstrument(<CThostFtdcQryMulticastInstrumentField *> address, nRequestID)
+            return result
     def GetTradingDay(self):
         """
         获取当前交易日
@@ -406,4 +423,18 @@ cdef extern int MdSpi_OnRtnForQuoteRsp(self, CThostFtdcForQuoteRspField *pForQuo
         quote = ApiStructure.ForQuoteRspField.from_address(<size_t> pForQuoteRsp)
 
     self.OnRtnForQuoteRsp(quote)
+    return 0
+
+cdef extern int MdSpi_OnRspQryMulticastInstrument(self, CThostFtdcMulticastInstrumentField *pMulticastInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+    if pMulticastInstrument is NULL:
+        MulticastInstrument = None
+    else:
+        MulticastInstrument = ApiStructure.MulticastInstrumentField.from_address(<size_t> pMulticastInstrument)
+
+    if pRspInfo is NULL:
+        rsp_info = None
+    else:
+        rsp_info = ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+
+    self.OnRspQryMulticastInstrument(MulticastInstrument, rsp_info, nRequestID, bIsLast)
     return 0

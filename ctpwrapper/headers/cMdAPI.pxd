@@ -23,9 +23,12 @@ from libcpp cimport bool as cbool
 
 # from libcpp.memory cimport shared_ptr,make_shared
 
-from .ThostFtdcUserApiStruct cimport (CThostFtdcReqUserLoginField,
- CThostFtdcUserLogoutField,
- CThostFtdcFensUserInfoField)
+from .ThostFtdcUserApiStruct cimport (
+CThostFtdcReqUserLoginField,
+CThostFtdcUserLogoutField,
+CThostFtdcFensUserInfoField,
+CThostFtdcQryMulticastInstrumentField
+)
 
 cdef extern from 'ThostFtdcMdApi.h':
 
@@ -97,6 +100,9 @@ cdef extern from 'ThostFtdcMdApi.h':
 
         #  登出请求
         int ReqUserLogout(CThostFtdcUserLogoutField *pUserLogout, int nRequestID) nogil except +
+
+        # 请求查询组播合约
+        int ReqQryMulticastInstrument(CThostFtdcQryMulticastInstrumentField *pQryMulticastInstrument, int nRequestID) nogil except +
 
 cdef extern from 'ThostFtdcMdApi.h' namespace "CThostFtdcMdApi":
     CMdApi  *CreateFtdcMdApi(const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast) nogil except +
