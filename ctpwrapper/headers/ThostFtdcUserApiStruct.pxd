@@ -76,6 +76,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcBoolType IsResult
         TThostFtdcAppIDType AppID
         TThostFtdcAppTypeType AppType
+        TThostFtdcIPAddressType ClientIPAddress
     cdef struct CThostFtdcRspUserLogin2Field:
         TThostFtdcDateType TradingDay
         TThostFtdcTimeType LoginTime
@@ -371,6 +372,8 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcVolumeType YdStrikeFrozen
         TThostFtdcInvestUnitIDType InvestUnitID
         TThostFtdcMoneyType PositionCostOffset
+        TThostFtdcVolumeType TasPosition
+        TThostFtdcMoneyType TasPositionCost
     cdef struct CThostFtdcInstrumentMarginRateField:
         TThostFtdcInstrumentIDType InstrumentID
         TThostFtdcInvestorRangeType InvestorRange
@@ -1040,6 +1043,8 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcVolumeType YdStrikeFrozen
         TThostFtdcInvestUnitIDType InvestUnitID
         TThostFtdcMoneyType PositionCostOffset
+        TThostFtdcVolumeType TasPosition
+        TThostFtdcMoneyType TasPositionCost
     cdef struct CThostFtdcSyncingInstrumentMarginRateField:
         TThostFtdcInstrumentIDType InstrumentID
         TThostFtdcInvestorRangeType InvestorRange
@@ -1893,6 +1898,8 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcIPAddressType IPAddress
         TThostFtdcMacAddressType MacAddress
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcFrontIDType FrontID
+        TThostFtdcSessionIDType SessionID
     cdef struct CThostFtdcCombActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2221,6 +2228,8 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcMoneyType FromRemainSwap
         TThostFtdcCurrencyIDType ToCurrencyID
         TThostFtdcMoneyType ToAmount
+        TThostFtdcBoolType IsManualSwap
+        TThostFtdcBoolType IsAllRemainSetZero
     cdef struct CThostFtdcQrySyncDelaySwapField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcDepositSeqNoType DelaySwapSeqNo
@@ -2398,6 +2407,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcMoneyType CloseAmount
         TThostFtdcVolumeType TimeFirstVolume
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcSpecPosiTypeType SpecPosiType
     cdef struct CThostFtdcTradingAccountPasswordField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcAccountIDType AccountID
@@ -3005,6 +3015,20 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcSequenceNoType SequenceNo
         TThostFtdcNewsTypeType NewsType
         TThostFtdcNewsUrgencyType NewsUrgency
+    cdef struct CThostFtdcMulticastInstrumentField:
+        TThostFtdcInstallIDType TopicID
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcInstallIDType InstrumentNo
+        TThostFtdcPriceType CodePrice
+        TThostFtdcVolumeMultipleType VolumeMultiple
+        TThostFtdcPriceType PriceTick
+    cdef struct CThostFtdcQryMulticastInstrumentField:
+        TThostFtdcInstallIDType TopicID
+        TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcAppIDAuthAssignField:
+        TThostFtdcBrokerIDType BrokerID
+        TThostFtdcAppIDType AppID
+        TThostFtdcDRIdentityIDType DRIdentityID
     cdef struct CThostFtdcReqOpenAccountField:
         TThostFtdcTradeCodeType TradeCode
         TThostFtdcBankIDType BankID
@@ -4226,3 +4250,14 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcInvestorIDType InvestorID
     cdef struct CThostFtdcQueryFreqField:
         TThostFtdcQueryFreqType QueryFreq
+    cdef struct CThostFtdcAuthForbiddenIPField:
+        TThostFtdcIPAddressType IPAddress
+    cdef struct CThostFtdcQryAuthForbiddenIPField:
+        TThostFtdcIPAddressType IPAddress
+    cdef struct CThostFtdcSyncDelaySwapFrozenField:
+        TThostFtdcDepositSeqNoType DelaySwapSeqNo
+        TThostFtdcBrokerIDType BrokerID
+        TThostFtdcInvestorIDType InvestorID
+        TThostFtdcCurrencyIDType FromCurrencyID
+        TThostFtdcMoneyType FromRemainSwap
+        TThostFtdcBoolType IsManualSwap

@@ -11,13 +11,13 @@
 
 [CTP Website](http://www.sfit.com.cn/5_2_DocumentDown.htm)
 
-Version: v6.3.15
+Version: v6.3.19 P1
 
 Platform: Linux 64bit, Windows 64bit
 
 Python Requirement: x86-64
 
-**Especially Support PyPy3-v5.10.1-3.5.3 Linux 64bit**
+**Especially Support PyPy3-3.6 Linux 64bit**
 
 Inspire By lovelylain 
 

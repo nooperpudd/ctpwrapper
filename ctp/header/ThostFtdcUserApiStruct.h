@@ -142,6 +142,8 @@ struct CThostFtdcAuthenticationInfoField {
     TThostFtdcAppIDType AppID;
     ///App类型
     TThostFtdcAppTypeType AppType;
+    ///终端IP地址
+    TThostFtdcIPAddressType ClientIPAddress;
 };
 
 ///用户登录应答2
@@ -780,6 +782,10 @@ struct CThostFtdcInvestorPositionField {
     TThostFtdcInvestUnitIDType InvestUnitID;
     ///大商所持仓成本差值，只有大商所使用
     TThostFtdcMoneyType PositionCostOffset;
+    ///tas持仓手数
+    TThostFtdcVolumeType TasPosition;
+    ///tas持仓成本
+    TThostFtdcMoneyType TasPositionCost;
 };
 
 ///合约保证金率
@@ -2200,6 +2206,10 @@ struct CThostFtdcSyncingInvestorPositionField {
     TThostFtdcInvestUnitIDType InvestUnitID;
     ///大商所持仓成本差值，只有大商所使用
     TThostFtdcMoneyType PositionCostOffset;
+    ///tas持仓手数
+    TThostFtdcVolumeType TasPosition;
+    ///tas持仓成本
+    TThostFtdcMoneyType TasPositionCost;
 };
 
 ///正在同步中的合约保证金率
@@ -4078,6 +4088,10 @@ struct CThostFtdcInputCombActionField {
     TThostFtdcMacAddressType MacAddress;
     ///投资单元代码
     TThostFtdcInvestUnitIDType InvestUnitID;
+    ///前置编号
+    TThostFtdcFrontIDType FrontID;
+    ///会话编号
+    TThostFtdcSessionIDType SessionID;
 };
 
 ///申请组合
@@ -4790,6 +4804,10 @@ struct CThostFtdcSyncDelaySwapField {
     TThostFtdcCurrencyIDType ToCurrencyID;
     ///目标金额
     TThostFtdcMoneyType ToAmount;
+    ///是否手工换汇
+    TThostFtdcBoolType IsManualSwap;
+    ///是否将所有外币的剩余换汇额度设置为0
+    TThostFtdcBoolType IsAllRemainSetZero;
 };
 
 ///查询延时换汇同步
@@ -5192,10 +5210,12 @@ struct CThostFtdcInvestorPositionDetailField {
     TThostFtdcVolumeType CloseVolume;
     ///平仓金额
     TThostFtdcMoneyType CloseAmount;
-    ///按照时间顺序平仓的笔数,大商所专用
+    ///先开先平剩余数量（DCE）
     TThostFtdcVolumeType TimeFirstVolume;
     ///投资单元代码
     TThostFtdcInvestUnitIDType InvestUnitID;
+    ///特殊持仓标志
+    TThostFtdcSpecPosiTypeType SpecPosiType;
 };
 
 ///资金账户口令域
@@ -6550,6 +6570,40 @@ struct CThostFtdcQryBulletinField {
     TThostFtdcNewsTypeType NewsType;
     ///紧急程度
     TThostFtdcNewsUrgencyType NewsUrgency;
+};
+
+///MulticastInstrument
+struct CThostFtdcMulticastInstrumentField {
+    ///主题号
+    TThostFtdcInstallIDType TopicID;
+    ///合约代码
+    TThostFtdcInstrumentIDType InstrumentID;
+    ///合约编号
+    TThostFtdcInstallIDType InstrumentNo;
+    ///基准价
+    TThostFtdcPriceType CodePrice;
+    ///合约数量乘数
+    TThostFtdcVolumeMultipleType VolumeMultiple;
+    ///最小变动价位
+    TThostFtdcPriceType PriceTick;
+};
+
+///QryMulticastInstrument
+struct CThostFtdcQryMulticastInstrumentField {
+    ///主题号
+    TThostFtdcInstallIDType TopicID;
+    ///合约代码
+    TThostFtdcInstrumentIDType InstrumentID;
+};
+
+///App客户端权限分配
+struct CThostFtdcAppIDAuthAssignField {
+    ///经纪公司代码
+    TThostFtdcBrokerIDType BrokerID;
+    ///App代码
+    TThostFtdcAppIDType AppID;
+    ///交易中心代码
+    TThostFtdcDRIdentityIDType DRIdentityID;
 };
 
 ///转帐开户请求
@@ -9132,6 +9186,34 @@ struct CThostFtdcDepartmentUserField {
 struct CThostFtdcQueryFreqField {
     ///查询频率
     TThostFtdcQueryFreqType QueryFreq;
+};
+
+///禁止认证IP
+struct CThostFtdcAuthForbiddenIPField {
+    ///IP地址
+    TThostFtdcIPAddressType IPAddress;
+};
+
+///查询禁止认证IP
+struct CThostFtdcQryAuthForbiddenIPField {
+    ///IP地址
+    TThostFtdcIPAddressType IPAddress;
+};
+
+///换汇可提冻结
+struct CThostFtdcSyncDelaySwapFrozenField {
+    ///换汇流水号
+    TThostFtdcDepositSeqNoType DelaySwapSeqNo;
+    ///经纪公司代码
+    TThostFtdcBrokerIDType BrokerID;
+    ///投资者代码
+    TThostFtdcInvestorIDType InvestorID;
+    ///源币种
+    TThostFtdcCurrencyIDType FromCurrencyID;
+    ///源剩余换汇额度(可提冻结)
+    TThostFtdcMoneyType FromRemainSwap;
+    ///是否手工换汇
+    TThostFtdcBoolType IsManualSwap;
 };
 
 

@@ -17,6 +17,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 import time
+
 from ctpwrapper.MdApi import MdApiWrapper
 
 
@@ -58,6 +59,15 @@ class MdApiPy(MdApiWrapper):
         :return:
         """
         return super(MdApiPy, self).ReqUserLogout(pUserLogout, nRequestID)
+
+    def ReqQryMulticastInstrument(self, pQryMulticastInstrument, nRequestID) -> int:
+        """
+        请求查询组播合约
+        :param pQryMulticastInstrument:
+        :param nRequestID:
+        :return:
+        """
+        return super(MdApiPy, self).ReqQryMulticastInstrument(pQryMulticastInstrument, nRequestID)
 
     def GetTradingDay(self) -> str:
         """
@@ -186,6 +196,17 @@ class MdApiPy(MdApiWrapper):
         """
         登出请求响应
         :param pUserLogout:
+        :param pRspInfo:
+        :param nRequestID:
+        :param bIsLast:
+        :return:
+        """
+        pass
+
+    def OnRspQryMulticastInstrument(self, pMulticastInstrument, pRspInfo, nRequestID, bIsLast):
+        """
+        请求查询组播合约响应
+        :param pMulticastInstrument:
         :param pRspInfo:
         :param nRequestID:
         :param bIsLast:

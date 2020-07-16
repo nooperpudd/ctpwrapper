@@ -83,6 +83,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcPositionDateTypeType
     ctypedef char TThostFtdcTradingRoleType
     ctypedef char TThostFtdcProductClassType
+    ctypedef char TThostFtdcAPIProductClassType
     ctypedef char TThostFtdcInstLifePhaseType
     ctypedef char TThostFtdcDirectionType
     ctypedef char TThostFtdcPositionTypeType
@@ -103,6 +104,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcTradingRightType
     ctypedef char TThostFtdcOrderSourceType
     ctypedef char TThostFtdcTradeTypeType
+    ctypedef char TThostFtdcSpecPosiTypeType
     ctypedef char TThostFtdcPriceSourceType
     ctypedef char TThostFtdcInstrumentStatusType
     ctypedef char TThostFtdcInstStatusEnterReasonType

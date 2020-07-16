@@ -36,7 +36,7 @@ static inline int MdSpi_OnRspSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstru
 static inline int MdSpi_OnRspUnSubForQuoteRsp(PyObject *, CThostFtdcSpecificInstrumentField *, CThostFtdcRspInfoField *, int, bool);
 static inline int MdSpi_OnRtnDepthMarketData(PyObject *, CThostFtdcDepthMarketDataField *);
 static inline int MdSpi_OnRtnForQuoteRsp(PyObject *, CThostFtdcForQuoteRspField *);
-
+static inline int MdSpi_OnRspQryMulticastInstrument(PyObject *, CThostFtdcMulticastInstrumentField *, CThostFtdcRspInfoField *, int, bool);
 
 #define Python_GIL(func) \
 	do { \
@@ -72,6 +72,10 @@ public:
 	virtual void OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
 		Python_GIL(MdSpi_OnRspUserLogout(self, pUserLogout, pRspInfo, nRequestID, bIsLast));
 	};
+
+    virtual void OnRspQryMulticastInstrument(CThostFtdcMulticastInstrumentField *pMulticastInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(MdSpi_OnRspQryMulticastInstrument(self, pMulticastInstrument, pRspInfo, nRequestID, bIsLast));
+    };
 
 	virtual void OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
 		Python_GIL(MdSpi_OnRspError(self, pRspInfo, nRequestID, bIsLast));

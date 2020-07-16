@@ -251,6 +251,10 @@ typedef char TThostFtdcIdentifiedCardNoType[51];
 #define THOST_FTDC_ICT_FrgPrmtRdCard 'K'
 ///资管产品备案函
 #define THOST_FTDC_ICT_CptMngPrdLetter 'L'
+///统一社会信用代码
+#define THOST_FTDC_ICT_UniformSocialCreditCode 'N'
+///机构成立证明文件
+#define THOST_FTDC_ICT_CorporationCertNo 'O'
 ///其他证件
 #define THOST_FTDC_ICT_OtherCard 'x'
 
@@ -623,8 +627,34 @@ typedef char TThostFtdcTradingRoleType;
 #define THOST_FTDC_PC_EFP '5'
 ///现货期权
 #define THOST_FTDC_PC_SpotOption '6'
+///TAS合约
+#define THOST_FTDC_PC_TAS '7'
+///金属指数
+#define THOST_FTDC_PC_MI 'I'
 
 typedef char TThostFtdcProductClassType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcAPIProductClassType是一个产品类型类型
+/////////////////////////////////////////////////////////////////////////
+///期货单一合约
+#define THOST_FTDC_APC_FutureSingle '1'
+///期权单一合约
+#define THOST_FTDC_APC_OptionSingle '2'
+///可交易期货(含期货组合和期货单一合约)
+#define THOST_FTDC_APC_Futures '3'
+///可交易期权(含期权组合和期权单一合约)
+#define THOST_FTDC_APC_Options '4'
+///可下单组合（目前包含DCE和ZCE的期货组合）
+#define THOST_FTDC_APC_TradingComb '5'
+///可申请的组合（dce可以申请的组合合约 包含dce可以交易的合约）
+#define THOST_FTDC_APC_UnTradingComb '6'
+///所有可以交易合约
+#define THOST_FTDC_APC_AllTrading '7'
+///所有合约（包含不能交易合约 慎用）
+#define THOST_FTDC_APC_All '8'
+
+typedef char TThostFtdcAPIProductClassType;
 
 /////////////////////////////////////////////////////////////////////////
 ///TFtdcInstLifePhaseType是一个合约生命周期状态类型
@@ -963,6 +993,16 @@ typedef char TThostFtdcOrderSourceType;
 #define THOST_FTDC_TRDT_BlockTrade '5'
 
 typedef char TThostFtdcTradeTypeType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcSpecPosiTypeType是一个特殊持仓明细标识类型
+/////////////////////////////////////////////////////////////////////////
+///普通持仓明细
+#define THOST_FTDC_SPOST_Common '#'
+///TAS合约成交产生的标的合约持仓明细
+#define THOST_FTDC_SPOST_Tas '0'
+
+typedef char TThostFtdcSpecPosiTypeType;
 
 /////////////////////////////////////////////////////////////////////////
 ///TFtdcPriceSourceType是一个成交价来源类型
@@ -2509,6 +2549,10 @@ typedef char TThostFtdcClearbarchIDType[6];
 #define THOST_FTDC_UET_UpdatePassword '5'
 ///客户端认证
 #define THOST_FTDC_UET_Authenticate '6'
+///终端信息上报
+#define THOST_FTDC_UET_SubmitSysInfo '7'
+///转账
+#define THOST_FTDC_UET_Transfer '8'
 ///其他
 #define THOST_FTDC_UET_Other '9'
 
@@ -6186,6 +6230,10 @@ typedef char TThostFtdcStrikeTimeType[13];
 #define THOST_FTDC_COMBT_PRT '5'
 ///时间价差组合
 #define THOST_FTDC_COMBT_CLD '6'
+///期权对锁组合
+#define THOST_FTDC_COMBT_OPL '7'
+///买备兑组合
+#define THOST_FTDC_COMBT_BFO '8'
 
 typedef char TThostFtdcCombinationTypeType;
 
@@ -6380,6 +6428,8 @@ typedef char TThostFtdcCFFEXUploadFileNameType;
 #define THOST_FTDC_CMDR_Comb '0'
 ///申请拆分
 #define THOST_FTDC_CMDR_UnComb '1'
+///操作员删组合单
+#define THOST_FTDC_CMDR_DelComb '2'
 
 typedef char TThostFtdcCombDirectionType;
 
