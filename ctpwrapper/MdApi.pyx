@@ -124,7 +124,7 @@ cdef class MdApiWrapper:
 
             return result
 
-    def ReqQryMulticastInstrument(self, pQryMulticastInstrument, nRequestID):
+    def ReqQryMulticastInstrument(self, pQryMulticastInstrument, int nRequestID):
         """
         请求查询组播合约
         :param pQryMulticastInstrument:
@@ -135,10 +135,10 @@ cdef class MdApiWrapper:
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQryMulticastInstrument)
-
             with nogil:
                 result = self._api.ReqQryMulticastInstrument(<CThostFtdcQryMulticastInstrumentField *> address, nRequestID)
             return result
+
     def GetTradingDay(self):
         """
         获取当前交易日

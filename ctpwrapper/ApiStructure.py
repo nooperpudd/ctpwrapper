@@ -162,9 +162,11 @@ class AuthenticationInfoField(Base):
         ('IsResult', ctypes.c_int),  # 是否为认证结果
         ('AppID', ctypes.c_char * 33),  # App代码
         ('AppType', ctypes.c_char),  # App类型
+        ('ClientIPAddress', ctypes.c_char * 16)  # 终端IP地址
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserProductInfo='', AuthInfo='', IsResult=0, AppID='', AppType=''):
+    def __init__(self, BrokerID='', UserID='', UserProductInfo='', AuthInfo='',
+                 IsResult=0, AppID='', AppType='', ClientIPAddress=''):
         super(AuthenticationInfoField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -173,6 +175,7 @@ class AuthenticationInfoField(Base):
         self.IsResult = int(IsResult)
         self.AppID = self._to_bytes(AppID)
         self.AppType = self._to_bytes(AppType)
+        self.ClientIPAddress = self._to_bytes(ClientIPAddress)
 
 
 class RspUserLogin2Field(Base):
@@ -907,6 +910,8 @@ class InvestorPositionField(Base):
         ('YdStrikeFrozen', ctypes.c_int),  # 执行冻结的昨仓
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
         ('PositionCostOffset', ctypes.c_double),  # 大商所持仓成本差值，只有大商所使用
+        ('TasPosition', ctypes.c_int),  # tas持仓手数
+        ("TasPositionCost", ctypes.c_double)  # tas持仓成本
     ]
 
     def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection='', HedgeFlag='', PositionDate='',
@@ -917,7 +922,7 @@ class InvestorPositionField(Base):
                  SettlementID=0, OpenCost=0.0, ExchangeMargin=0.0, CombPosition=0, CombLongFrozen=0, CombShortFrozen=0,
                  CloseProfitByDate=0.0, CloseProfitByTrade=0.0, TodayPosition=0, MarginRateByMoney=0.0,
                  MarginRateByVolume=0.0, StrikeFrozen=0, StrikeFrozenAmount=0.0, AbandonFrozen=0, ExchangeID='',
-                 YdStrikeFrozen=0, InvestUnitID='', PositionCostOffset=0.0):
+                 YdStrikeFrozen=0, InvestUnitID='', PositionCostOffset=0.0, TasPosition=0, TasPositionCost=0.0):
         super(InvestorPositionField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -966,6 +971,8 @@ class InvestorPositionField(Base):
         self.YdStrikeFrozen = int(YdStrikeFrozen)
         self.InvestUnitID = self._to_bytes(InvestUnitID)
         self.PositionCostOffset = float(PositionCostOffset)
+        self.TasPosition = int(TasPosition)
+        self.TasPositionCost = float(TasPositionCost)
 
 
 class InstrumentMarginRateField(Base):
@@ -983,6 +990,7 @@ class InstrumentMarginRateField(Base):
         ('IsRelative', ctypes.c_int),  # 是否相对交易所收取
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
+
     ]
 
     def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='',
@@ -2620,6 +2628,9 @@ class SyncingInvestorPositionField(Base):
         ('YdStrikeFrozen', ctypes.c_int),  # 执行冻结的昨仓
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
         ('PositionCostOffset', ctypes.c_double),  # 大商所持仓成本差值，只有大商所使用
+        ('TasPosition', ctypes.c_int),  # tas持仓手数
+        ("TasPositionCost", ctypes.c_double)  # tas持仓成本
+
     ]
 
     def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection='', HedgeFlag='', PositionDate='',
@@ -2630,7 +2641,7 @@ class SyncingInvestorPositionField(Base):
                  SettlementID=0, OpenCost=0.0, ExchangeMargin=0.0, CombPosition=0, CombLongFrozen=0, CombShortFrozen=0,
                  CloseProfitByDate=0.0, CloseProfitByTrade=0.0, TodayPosition=0, MarginRateByMoney=0.0,
                  MarginRateByVolume=0.0, StrikeFrozen=0, StrikeFrozenAmount=0.0, AbandonFrozen=0, ExchangeID='',
-                 YdStrikeFrozen=0, InvestUnitID='', PositionCostOffset=0.0):
+                 YdStrikeFrozen=0, InvestUnitID='', PositionCostOffset=0.0, TasPosition=0, TasPositionCost=0.0):
         super(SyncingInvestorPositionField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -2679,6 +2690,8 @@ class SyncingInvestorPositionField(Base):
         self.YdStrikeFrozen = int(YdStrikeFrozen)
         self.InvestUnitID = self._to_bytes(InvestUnitID)
         self.PositionCostOffset = float(PositionCostOffset)
+        self.TasPosition = int(TasPosition)
+        self.TasPositionCost = float(TasPositionCost)
 
 
 class SyncingInstrumentMarginRateField(Base):
@@ -5053,10 +5066,13 @@ class InputCombActionField(Base):
         ('IPAddress', ctypes.c_char * 16),  # IP地址
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
+        ('FrontID', ctypes.c_int),  # 前置编号
+        ('SessionID', ctypes.c_int),  # 会话编号
     ]
 
     def __init__(self, BrokerID='', InvestorID='', InstrumentID='', CombActionRef='', UserID='', Direction='', Volume=0,
-                 CombDirection='', HedgeFlag='', ExchangeID='', IPAddress='', MacAddress='', InvestUnitID=''):
+                 CombDirection='', HedgeFlag='', ExchangeID='', IPAddress='', MacAddress='', InvestUnitID='', FrontID=0,
+                 SessionID=0):
         super(InputCombActionField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -5071,6 +5087,8 @@ class InputCombActionField(Base):
         self.IPAddress = self._to_bytes(IPAddress)
         self.MacAddress = self._to_bytes(MacAddress)
         self.InvestUnitID = self._to_bytes(InvestUnitID)
+        self.FrontID = int(FrontID)
+        self.SessionID = int(SessionID)
 
 
 class CombActionField(Base):
@@ -5947,10 +5965,13 @@ class SyncDelaySwapField(Base):
         ('FromRemainSwap', ctypes.c_double),  # 源剩余换汇额度(可提冻结)
         ('ToCurrencyID', ctypes.c_char * 4),  # 目标币种
         ('ToAmount', ctypes.c_double),  # 目标金额
+        ('IsManualSwap', ctypes.c_int),  # 是否手工换汇
+        ('IsAllRemainSetZero', ctypes.c_int),  # 是否将所有外币的剩余换汇额度设置为0
     ]
 
     def __init__(self, DelaySwapSeqNo='', BrokerID='', InvestorID='', FromCurrencyID='', FromAmount=0.0,
-                 FromFrozenSwap=0.0, FromRemainSwap=0.0, ToCurrencyID='', ToAmount=0.0):
+                 FromFrozenSwap=0.0, FromRemainSwap=0.0, ToCurrencyID='', ToAmount=0.0, IsManualSwap=0,
+                 IsAllRemainSetZero=0):
         super(SyncDelaySwapField, self).__init__()
         self.DelaySwapSeqNo = self._to_bytes(DelaySwapSeqNo)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -5961,6 +5982,8 @@ class SyncDelaySwapField(Base):
         self.FromRemainSwap = float(FromRemainSwap)
         self.ToCurrencyID = self._to_bytes(ToCurrencyID)
         self.ToAmount = float(ToAmount)
+        self.IsManualSwap = int(IsManualSwap)
+        self.IsAllRemainSetZero = int(IsAllRemainSetZero)
 
 
 class QrySyncDelaySwapField(Base):
@@ -6470,8 +6493,9 @@ class InvestorPositionDetailField(Base):
         ('SettlementPrice', ctypes.c_double),  # 结算价
         ('CloseVolume', ctypes.c_int),  # 平仓量
         ('CloseAmount', ctypes.c_double),  # 平仓金额
-        ('TimeFirstVolume', ctypes.c_int),  # 按照时间顺序平仓的笔数,大商所专用
+        ('TimeFirstVolume', ctypes.c_int),  # 先开先平剩余数量（DCE）
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
+        ('SpecPosiType', ctypes.c_char)  # 特殊持仓标志
     ]
 
     def __init__(self, InstrumentID='', BrokerID='', InvestorID='', HedgeFlag='', Direction='', OpenDate='', TradeID='',
@@ -6479,7 +6503,7 @@ class InvestorPositionDetailField(Base):
                  ExchangeID='', CloseProfitByDate=0.0, CloseProfitByTrade=0.0, PositionProfitByDate=0.0,
                  PositionProfitByTrade=0.0, Margin=0.0, ExchMargin=0.0, MarginRateByMoney=0.0, MarginRateByVolume=0.0,
                  LastSettlementPrice=0.0, SettlementPrice=0.0, CloseVolume=0, CloseAmount=0.0, TimeFirstVolume=0,
-                 InvestUnitID=''):
+                 InvestUnitID='', SpecPosiType=''):
         super(InvestorPositionDetailField, self).__init__()
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -6509,6 +6533,7 @@ class InvestorPositionDetailField(Base):
         self.CloseAmount = float(CloseAmount)
         self.TimeFirstVolume = int(TimeFirstVolume)
         self.InvestUnitID = self._to_bytes(InvestUnitID)
+        self.SpecPosiType = self._to_bytes(SpecPosiType)
 
 
 class TradingAccountPasswordField(Base):
@@ -8292,7 +8317,6 @@ class MulticastInstrumentField(Base):
 
 class QryMulticastInstrumentField(Base):
     """
-
     """
     _fields_ = [
         ("TopicID", ctypes.c_int),  # 主题号
