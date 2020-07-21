@@ -15,8 +15,8 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
-
 """
+
 cdef extern from 'ThostFtdcUserApiDataType.h':
     cdef enum THOST_TE_RESUME_TYPE:
         THOST_TERT_RESTART = 0
