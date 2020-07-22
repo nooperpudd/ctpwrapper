@@ -55,6 +55,7 @@ class Md(MdApiPy):
         self.investor_id = investor_id
         self.password = password
         self.request_id = request_id
+        self.is_login = False
 
     def OnRspError(self, pRspInfo, nRequestID, bIsLast):
 
@@ -78,7 +79,9 @@ class Md(MdApiPy):
         user_login = ApiStructure.ReqUserLoginField(BrokerID=self.broker_id,
                                                     UserID=self.investor_id,
                                                     Password=self.password)
-        self.ReqUserLogin(user_login, self.request_id)
+        result = self.ReqUserLogin(user_login, self.request_id)
+        if result == 0:
+            self.is_login = True
 
     def OnFrontDisconnected(self, nReason):
 
@@ -101,10 +104,10 @@ class Md(MdApiPy):
         :return:
         """
         if pRspInfo.ErrorID != 0:
-            print("Md OnRspUserLogin failed error_id=%s msg:%s",
+            print("OnRspUserLogin failed error_id=%s msg:%s",
                   pRspInfo.ErrorID, pRspInfo.ErrorMsg.decode('gbk'))
         else:
-            print("Md user login successfully")
+            print("user login successfully")
             print(pRspUserLogin)
             print(pRspInfo)
 
@@ -114,6 +117,7 @@ class Md(MdApiPy):
         :param pDepthMarketData:
         :return:
         """
+        print("OnRtnDepthMarketData")
         market_data = pDepthMarketData.to_dict()
         print(market_data)
 
@@ -148,24 +152,35 @@ def main():
     investor_id = "089303"
     broker_id = "9999"
     password = "198759"
-    server = "tcp://180.168.146.187:10011"
+    server = "tcp://180.168.146.187:10131"
+    app_id = "simnow_client_test"
+    verify_code = "0000000000000000"
 
     if check_address_port(server):
-
+        print("connect to md sever successfully")
+        # 1 create
+        # 2 register
+        # 3 register front
+        # 4 init
         md = Md(broker_id, investor_id, password)
         md.Create()
-        md.RegisterFront(server)
+
         md.Init()
+        md.RegisterFront(server)
         day = md.GetTradingDay()
         print(day)
-
-        print("md_start")
-
-        md.SubscribeMarketData(["rb1810"])
+        # md.ReqUserLogin()
+        # md.ReqQryMulticastInstrument()
+        result = md.SubscribeMarketData(["v2104"])
+        if result == 0:
+            print("SubscribeMarketData success")
+        else:
+            print("SubscribeMarketData failed")
         md.Join()
+        print("join")
 
     else:
-        print("md server down")
+        print("md server is down")
 
 
 if __name__ == "__main__":
