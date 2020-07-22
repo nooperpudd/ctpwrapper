@@ -21,6 +21,21 @@ import time
 from ctpwrapper.MdApi import MdApiWrapper
 
 
+def decorator_sleep(secs=0.5):
+    """
+    :return:
+    """
+    def wrapper(func):
+        def inner(self, *args, **kwargs):
+            result = func(self, *args, **kwargs)
+            time.sleep(secs)
+            return result
+
+        return inner
+
+    return wrapper
+
+
 class MdApiPy(MdApiWrapper):
 
     def Create(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
@@ -146,6 +161,7 @@ class MdApiPy(MdApiWrapper):
 
     # for receive message
 
+    @decorator_sleep
     def OnFrontConnected(self):
         """
         当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
