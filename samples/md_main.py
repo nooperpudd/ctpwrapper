@@ -23,7 +23,7 @@ import socket
 import sys
 import urllib.parse
 from contextlib import closing
-
+import time
 from ctpwrapper import ApiStructure
 from ctpwrapper import MdApiPy
 
@@ -167,6 +167,7 @@ def main():
 
         md.Init()
         md.RegisterFront(server)
+        time.sleep(1)
         day = md.GetTradingDay()
         print(day)
         # md.ReqUserLogin()

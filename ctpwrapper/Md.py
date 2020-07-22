@@ -28,6 +28,7 @@ def decorator_sleep(secs=0.5):
     def wrapper(func):
         def inner(self, *args, **kwargs):
             result = func(self, *args, **kwargs)
+            print("timesleep")
             time.sleep(secs)
             return result
 
