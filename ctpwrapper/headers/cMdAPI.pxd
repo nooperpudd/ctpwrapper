@@ -35,19 +35,19 @@ cdef extern from 'ThostFtdcMdApi.h':
     cdef cppclass CMdApi "CThostFtdcMdApi":
 
         @staticmethod
-        const_char *GetApiVersion() nogil
+        const_char *GetApiVersion()
 
         #  删除接口对象本身
         #  @remark 不再使用本接口对象时,调用该函数删除接口对象
-        void Release() nogil
+        void Release() nogil except +
 
         #  初始化
         #  @remark 初始化运行环境,只有调用后,接口才开始工作
-        void Init() nogil
+        void Init() nogil except +
 
         #  等待接口线程结束运行
         #  @return 线程退出代码
-        int Join() nogil
+        int Join() nogil except +
 
         #  获取当前交易日
         #  @retrun 获取到的交易日

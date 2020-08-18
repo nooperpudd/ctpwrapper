@@ -67,7 +67,8 @@ cdef class MdApiWrapper:
 
     def Create(self, const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast):
 
-        self._api = CreateFtdcMdApi(pszFlowPath, bIsUsingUdp, bIsMulticast)
+        with nogil:
+            self._api = CreateFtdcMdApi(pszFlowPath, bIsUsingUdp, bIsMulticast)
 
         if not self._api:
             raise MemoryError()
@@ -82,8 +83,9 @@ cdef class MdApiWrapper:
             self._spi = new CMdSpi(<PyObject *> self)
 
             if self._spi is not NULL:
-                self._api.RegisterSpi(self._spi)
-                self._api.Init()
+                with nogil:
+                    self._api.RegisterSpi(self._spi)
+                    self._api.Init()
             else:
                 raise MemoryError()
 
@@ -118,7 +120,6 @@ cdef class MdApiWrapper:
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pUserLogout)
-
             with nogil:
                 result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *> address, nRequestID)
 
@@ -162,8 +163,8 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-
-            self._api.RegisterFront(pszFrontAddress)
+            with nogil:
+                self._api.RegisterFront(pszFrontAddress)
 
     def RegisterNameServer(self, char *pszNsAddress):
         """
@@ -175,8 +176,8 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-
-            self._api.RegisterNameServer(pszNsAddress)
+            with nogil:
+                self._api.RegisterNameServer(pszNsAddress)
 
     def RegisterFensUserInfo(self, pFensUserInfo):
         """
@@ -187,8 +188,8 @@ cdef class MdApiWrapper:
         cdef size_t address
         if self._api is not NULL:
             address = ctypes.addressof(pFensUserInfo)
-
-            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
+            with nogil:
+                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
 
     def SubscribeMarketData(self, pInstrumentID):
         """

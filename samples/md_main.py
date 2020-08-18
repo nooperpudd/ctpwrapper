@@ -110,6 +110,7 @@ class Md(MdApiPy):
             print("user login successfully")
             print(pRspUserLogin)
             print(pRspInfo)
+            result = self.SubscribeMarketData(["v2104"])
 
     def OnRtnDepthMarketData(self, pDepthMarketData):
         """
@@ -167,18 +168,21 @@ def main():
 
         md.Init()
         md.RegisterFront(server)
-        time.sleep(1)
+        # time.sleep(1)
         day = md.GetTradingDay()
         print(day)
         # md.ReqUserLogin()
         # md.ReqQryMulticastInstrument()
-        result = md.SubscribeMarketData(["v2104"])
-        if result == 0:
-            print("SubscribeMarketData success")
-        else:
-            print("SubscribeMarketData failed")
-        md.Join()
-        print("join")
+
+        # if result == 0:
+        #     print("SubscribeMarketData success")
+        # else:
+        #     print("SubscribeMarketData failed")
+        while True:
+            print("haha")
+            time.sleep(1)
+        # md.Join()
+        # print("join")
 
     else:
         print("md server is down")
