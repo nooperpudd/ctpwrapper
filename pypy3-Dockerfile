@@ -1,0 +1,4 @@
+FROM pypy:3.6
+RUN pypy3 -m ensurepip
+RUN pip3 install cython pip setuptools --upgrade
+WORKDIR /code

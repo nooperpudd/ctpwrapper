@@ -3,7 +3,7 @@ language: python
 matrix:
   include:
     # others still work and don't install python3.7
-    - python: pypy3
+    - python: pypy3.6-7.3.1
       sudo: required
     - python: 3.5
       sudo: required
