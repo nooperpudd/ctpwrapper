@@ -58,4 +58,4 @@ class Base(ctypes.Structure):
                                    getattr(self, item).decode("gbk") if isinstance(getattr(self, item), bytes)
                                    else getattr(self, item))
                  for item, value in self._fields_]
-        return "%s<%s>".format(self.__class__.__name__, ",".join(items))
+        return "{0}<{1}>".format(self.__class__.__name__, ",".join(items))

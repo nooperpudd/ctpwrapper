@@ -63,8 +63,9 @@ cdef class TraderApiWrapper:
             self._spi = new CTraderSpi(<PyObject *> self)
 
             if self._spi is not NULL:
-                self._api.RegisterSpi(self._spi)
-                self._api.Init()
+                with nogil:
+                    self._api.RegisterSpi(self._spi)
+                    self._api.Init()
             else:
                 raise MemoryError()
 
@@ -88,22 +89,25 @@ cdef class TraderApiWrapper:
     def RegisterFront(self, char *pszFrontAddress):
 
         if self._api is not NULL:
-            self._api.RegisterFront(pszFrontAddress)
+            with nogil:
+                self._api.RegisterFront(pszFrontAddress)
 
     def RegisterNameServer(self, char *pszNsAddress):
         if self._api is not NULL:
-            self._api.RegisterNameServer(pszNsAddress)
+            with nogil:
+                self._api.RegisterNameServer(pszNsAddress)
 
     def RegisterFensUserInfo(self, pFensUserInfo):
         cdef size_t address
         if self._api is not NULL:
             address = ctypes.addressof(pFensUserInfo)
-
-            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
+            with nogil:
+                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
 
     def SubscribePrivateTopic(self, THOST_TE_RESUME_TYPE nResumeType):
         if self._api is not NULL:
-            self._api.SubscribePrivateTopic(nResumeType)
+            with nogil:
+                self._api.SubscribePrivateTopic(nResumeType)
     #订阅公共流。
     #@param nResumeType 公共流重传方式
     #        THOST_TERT_RESTART:从本交易日开始重传
@@ -112,7 +116,8 @@ cdef class TraderApiWrapper:
     #@remark 该方法要在Init方法前调用。若不调用则不会收到公共流的数据。
     def SubscribePublicTopic(self, THOST_TE_RESUME_TYPE nResumeType):
         if self._api is not NULL:
-            self._api.SubscribePublicTopic(nResumeType)
+            with nogil:
+                self._api.SubscribePublicTopic(nResumeType)
 
     #客户端认证请求
     def ReqAuthenticate(self, pReqAuthenticateField, int nRequestID):
@@ -186,7 +191,7 @@ cdef class TraderApiWrapper:
             return result
 
     # 查询用户当前支持的认证模式
-    def ReqUserAuthMethod(self,pReqUserAuthMethod, int nRequestID):
+    def ReqUserAuthMethod(self, pReqUserAuthMethod, int nRequestID):
         cdef int result
         cdef size_t address
         if self._api is not NULL:
@@ -196,7 +201,7 @@ cdef class TraderApiWrapper:
             return result
 
     # 用户发出获取图形验证码请求
-    def ReqGenUserCaptcha(self,pReqGenUserCaptcha, int nRequestID):
+    def ReqGenUserCaptcha(self, pReqGenUserCaptcha, int nRequestID):
         cdef int result
         cdef size_t address
         if self._api is not NULL:
@@ -205,7 +210,7 @@ cdef class TraderApiWrapper:
                 result = self._api.ReqGenUserCaptcha(<CThostFtdcReqGenUserCaptchaField *> address, nRequestID)
             return result
     # 用户发出获取短信验证码请求
-    def ReqGenUserText(self,pReqGenUserText, int nRequestID):
+    def ReqGenUserText(self, pReqGenUserText, int nRequestID):
         cdef int result
         cdef size_t address
         if self._api is not NULL:
@@ -214,7 +219,7 @@ cdef class TraderApiWrapper:
                 result = self._api.ReqGenUserText(<CThostFtdcReqGenUserTextField *> address, nRequestID)
             return result
     # 用户发出带有图片验证码的登陆请求
-    def ReqUserLoginWithCaptcha(self,pReqUserLoginWithCaptcha, int nRequestID):
+    def ReqUserLoginWithCaptcha(self, pReqUserLoginWithCaptcha, int nRequestID):
         cdef int result
         cdef size_t address
         if self._api is not NULL:
@@ -223,7 +228,7 @@ cdef class TraderApiWrapper:
                 result = self._api.ReqUserLoginWithCaptcha(<CThostFtdcReqUserLoginWithCaptchaField *> address, nRequestID)
             return result
     # 用户发出带有短信验证码的登陆请求
-    def ReqUserLoginWithText(self,pReqUserLoginWithText, int nRequestID):
+    def ReqUserLoginWithText(self, pReqUserLoginWithText, int nRequestID):
         cdef int result
         cdef size_t address
         if self._api is not NULL:
@@ -232,7 +237,7 @@ cdef class TraderApiWrapper:
                 result = self._api.ReqUserLoginWithText(<CThostFtdcReqUserLoginWithTextField *> address, nRequestID)
             return result
     # 用户发出带有动态口令的登陆请求
-    def ReqUserLoginWithOTP(self,pReqUserLoginWithOTP, int nRequestID):
+    def ReqUserLoginWithOTP(self, pReqUserLoginWithOTP, int nRequestID):
         cdef int result
         cdef size_t address
         if self._api is not NULL:
@@ -294,8 +299,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pSettlementInfoConfirm)
             with nogil:
-                result = self._api.ReqSettlementInfoConfirm(<CThostFtdcSettlementInfoConfirmField *> address,
-                                                            nRequestID)
+                result = self._api.ReqSettlementInfoConfirm(<CThostFtdcSettlementInfoConfirmField *> address, nRequestID)
             return result
     #请求删除预埋单
     def ReqRemoveParkedOrder(self, pRemoveParkedOrder, int nRequestID):
@@ -313,8 +317,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pRemoveParkedOrderAction)
             with nogil:
-                result = self._api.ReqRemoveParkedOrderAction(<CThostFtdcRemoveParkedOrderActionField *> address,
-                                                              nRequestID)
+                result = self._api.ReqRemoveParkedOrderAction(<CThostFtdcRemoveParkedOrderActionField *> address, nRequestID)
             return result
     #执行宣告录入请求
     def ReqExecOrderInsert(self, pInputExecOrder, int nRequestID):
@@ -382,15 +385,13 @@ cdef class TraderApiWrapper:
                 result = self._api.ReqOptionSelfCloseInsert(<CThostFtdcInputOptionSelfCloseField *> address, nRequestID)
             return result
     #期权自对冲操作请求
-    def ReqOptionSelfCloseAction(self, pInputOptionSelfCloseAction,
-                                 int nRequestID):
+    def ReqOptionSelfCloseAction(self, pInputOptionSelfCloseAction, int nRequestID):
         cdef int result
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pInputOptionSelfCloseAction)
             with nogil:
-                result = self._api.ReqOptionSelfCloseAction(<CThostFtdcInputOptionSelfCloseActionField *> address,
-                                                            nRequestID)
+                result = self._api.ReqOptionSelfCloseAction(<CThostFtdcInputOptionSelfCloseActionField *> address, nRequestID)
             return result
 
     #申请组合录入请求
@@ -463,8 +464,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInstrumentMarginRate)
             with nogil:
-                result = self._api.ReqQryInstrumentMarginRate(<CThostFtdcQryInstrumentMarginRateField *> address,
-                                                              nRequestID)
+                result = self._api.ReqQryInstrumentMarginRate(<CThostFtdcQryInstrumentMarginRateField *> address, nRequestID)
             return result
     #请求查询合约手续费率
     def ReqQryInstrumentCommissionRate(self, pQryInstrumentCommissionRate, int nRequestID):
@@ -473,8 +473,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInstrumentCommissionRate)
             with nogil:
-                result = self._api.ReqQryInstrumentCommissionRate(
-                    <CThostFtdcQryInstrumentCommissionRateField *> address, nRequestID)
+                result = self._api.ReqQryInstrumentCommissionRate(<CThostFtdcQryInstrumentCommissionRateField *> address, nRequestID)
             return result
     #请求查询交易所
     def ReqQryExchange(self, pQryExchange, int nRequestID):
@@ -538,8 +537,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInvestorPositionDetail)
             with nogil:
-                result = self._api.ReqQryInvestorPositionDetail(<CThostFtdcQryInvestorPositionDetailField *> address,
-                                                                nRequestID)
+                result = self._api.ReqQryInvestorPositionDetail(<CThostFtdcQryInvestorPositionDetailField *> address, nRequestID)
             return result
     #请求查询客户通知
     def ReqQryNotice(self, pQryNotice, int nRequestID):
@@ -547,7 +545,6 @@ cdef class TraderApiWrapper:
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQryNotice)
-
             with nogil:
                 result = self._api.ReqQryNotice(<CThostFtdcQryNoticeField *> address, nRequestID)
             return result
@@ -558,8 +555,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQrySettlementInfoConfirm)
             with nogil:
-                result = self._api.ReqQrySettlementInfoConfirm(<CThostFtdcQrySettlementInfoConfirmField *> address,
-                                                               nRequestID)
+                result = self._api.ReqQrySettlementInfoConfirm(<CThostFtdcQrySettlementInfoConfirmField *> address, nRequestID)
             return result
     #请求查询投资者持仓明细
     def ReqQryInvestorPositionCombineDetail(self, pQryInvestorPositionCombineDetail, int nRequestID):
@@ -568,8 +564,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInvestorPositionCombineDetail)
             with nogil:
-                result = self._api.ReqQryInvestorPositionCombineDetail(
-                    <CThostFtdcQryInvestorPositionCombineDetailField *> address, nRequestID)
+                result = self._api.ReqQryInvestorPositionCombineDetail(<CThostFtdcQryInvestorPositionCombineDetailField *> address, nRequestID)
             return result
     #请求查询保证金监管系统经纪公司资金账户密钥
     def ReqQryCFMMCTradingAccountKey(self, pQryCFMMCTradingAccountKey, int nRequestID):
@@ -578,8 +573,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryCFMMCTradingAccountKey)
             with nogil:
-                result = self._api.ReqQryCFMMCTradingAccountKey(<CThostFtdcQryCFMMCTradingAccountKeyField *> address,
-                                                                nRequestID)
+                result = self._api.ReqQryCFMMCTradingAccountKey(<CThostFtdcQryCFMMCTradingAccountKeyField *> address, nRequestID)
             return result
     #请求查询仓单折抵信息
     def ReqQryEWarrantOffset(self, pQryEWarrantOffset, int nRequestID):
@@ -597,8 +591,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInvestorProductGroupMargin)
             with nogil:
-                result = self._api.ReqQryInvestorProductGroupMargin(
-                    <CThostFtdcQryInvestorProductGroupMarginField *> address, nRequestID)
+                result = self._api.ReqQryInvestorProductGroupMargin(<CThostFtdcQryInvestorProductGroupMarginField *> address, nRequestID)
             return result
     #请求查询交易所保证金率
     def ReqQryExchangeMarginRate(self, pQryExchangeMarginRate, int nRequestID):
@@ -608,8 +601,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryExchangeMarginRate)
             with nogil:
-                result = self._api.ReqQryExchangeMarginRate(<CThostFtdcQryExchangeMarginRateField *> address,
-                                                            nRequestID)
+                result = self._api.ReqQryExchangeMarginRate(<CThostFtdcQryExchangeMarginRateField *> address, nRequestID)
             return result
     #请求查询交易所调整保证金率
     def ReqQryExchangeMarginRateAdjust(self, pQryExchangeMarginRateAdjust, int nRequestID):
@@ -618,8 +610,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryExchangeMarginRateAdjust)
             with nogil:
-                result = self._api.ReqQryExchangeMarginRateAdjust(
-                    <CThostFtdcQryExchangeMarginRateAdjustField *> address, nRequestID)
+                result = self._api.ReqQryExchangeMarginRateAdjust(<CThostFtdcQryExchangeMarginRateAdjustField *> address, nRequestID)
             return result
     #请求查询汇率
     def ReqQryExchangeRate(self, pQryExchangeRate, int nRequestID):
@@ -640,7 +631,6 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqQrySecAgentACIDMap(<CThostFtdcQrySecAgentACIDMapField *> address, nRequestID)
             return result
-    
 
     #请求查询产品报价汇率
     def ReqQryProductExchRate(self, pQryProductExchRate, int nRequestID):
@@ -669,8 +659,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryMMInstrumentCommissionRate)
             with nogil:
-                result = self._api.ReqQryMMInstrumentCommissionRate(
-                    <CThostFtdcQryMMInstrumentCommissionRateField *> address, nRequestID)
+                result = self._api.ReqQryMMInstrumentCommissionRate(<CThostFtdcQryMMInstrumentCommissionRateField *> address, nRequestID)
             return result
 
     #请求查询做市商期权合约手续费
@@ -680,8 +669,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryMMOptionInstrCommRate)
             with nogil:
-                result = self._api.ReqQryMMOptionInstrCommRate(<CThostFtdcQryMMOptionInstrCommRateField *> address,
-                                                               nRequestID)
+                result = self._api.ReqQryMMOptionInstrCommRate(<CThostFtdcQryMMOptionInstrCommRateField *> address, nRequestID)
             return result
 
     #请求查询报单手续费
@@ -691,8 +679,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryInstrumentOrderCommRate)
             with nogil:
-                result = self._api.ReqQryInstrumentOrderCommRate(<CThostFtdcQryInstrumentOrderCommRateField *> address,
-                                                                 nRequestID)
+                result = self._api.ReqQryInstrumentOrderCommRate(<CThostFtdcQryInstrumentOrderCommRateField *> address, nRequestID)
             return result
 
     #请求查询资金账户
@@ -703,8 +690,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryTradingAccount)
             with nogil:
-                result = self._api.ReqQrySecAgentTradingAccount(<CThostFtdcQryTradingAccountField *> address,
-                                                                nRequestID)
+                result = self._api.ReqQrySecAgentTradingAccount(<CThostFtdcQryTradingAccountField *> address, nRequestID)
             return result
 
     #请求查询二级代理商资金校验模式
@@ -725,8 +711,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryOptionInstrTradeCost)
             with nogil:
-                result = self._api.ReqQryOptionInstrTradeCost(<CThostFtdcQryOptionInstrTradeCostField *> address,
-                                                              nRequestID)
+                result = self._api.ReqQryOptionInstrTradeCost(<CThostFtdcQryOptionInstrTradeCostField *> address, nRequestID)
             return result
         #请求查询期权合约手续费
     def ReqQryOptionInstrCommRate(self, pQryOptionInstrCommRate, int nRequestID):
@@ -735,8 +720,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryOptionInstrCommRate)
             with nogil:
-                result = self._api.ReqQryOptionInstrCommRate(<CThostFtdcQryOptionInstrCommRateField *> address,
-                                                             nRequestID)
+                result = self._api.ReqQryOptionInstrCommRate(<CThostFtdcQryOptionInstrCommRateField *> address, nRequestID)
             return result
         #请求查询执行宣告
     def ReqQryExecOrder(self, pQryExecOrder, int nRequestID):
@@ -791,8 +775,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryCombInstrumentGuard)
             with nogil:
-                result = self._api.ReqQryCombInstrumentGuard(<CThostFtdcQryCombInstrumentGuardField *> address,
-                                                             nRequestID)
+                result = self._api.ReqQryCombInstrumentGuard(<CThostFtdcQryCombInstrumentGuardField *> address, nRequestID)
             return result
         #请求查询申请组合
     def ReqQryCombAction(self, pQryCombAction, int nRequestID):
@@ -864,8 +847,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryBrokerTradingParams)
             with nogil:
-                result = self._api.ReqQryBrokerTradingParams(<CThostFtdcQryBrokerTradingParamsField *> address,
-                                                             nRequestID)
+                result = self._api.ReqQryBrokerTradingParams(<CThostFtdcQryBrokerTradingParamsField *> address, nRequestID)
             return result
         #请求查询经纪公司交易算法
     def ReqQryBrokerTradingAlgos(self, pQryBrokerTradingAlgos, int nRequestID):
@@ -874,8 +856,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQryBrokerTradingAlgos)
             with nogil:
-                result = self._api.ReqQryBrokerTradingAlgos(<CThostFtdcQryBrokerTradingAlgosField *> address,
-                                                            nRequestID)
+                result = self._api.ReqQryBrokerTradingAlgos(<CThostFtdcQryBrokerTradingAlgosField *> address, nRequestID)
             return result
         #请求查询监控中心用户令牌
     def ReqQueryCFMMCTradingAccountToken(self, pQueryCFMMCTradingAccountToken, int nRequestID):
@@ -884,8 +865,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQueryCFMMCTradingAccountToken)
             with nogil:
-                result = self._api.ReqQueryCFMMCTradingAccountToken(
-                    <CThostFtdcQueryCFMMCTradingAccountTokenField *> address, nRequestID)
+                result = self._api.ReqQueryCFMMCTradingAccountToken(<CThostFtdcQueryCFMMCTradingAccountTokenField *> address, nRequestID)
             return result
         #期货发起银行资金转期货请求
     def ReqFromBankToFutureByFuture(self, pReqTransfer, int nRequestID):
@@ -913,20 +893,17 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pReqQueryAccount)
             with nogil:
-                result = self._api.ReqQueryBankAccountMoneyByFuture(<CThostFtdcReqQueryAccountField *> address,
-                                                                    nRequestID)
+                result = self._api.ReqQueryBankAccountMoneyByFuture(<CThostFtdcReqQueryAccountField *> address, nRequestID)
             return result
-    
+
     # 请求查询二级代理商信息
-    def ReqQrySecAgentTradeInfo(self,pQrySecAgentTradeInfo, int nRequestID):
+    def ReqQrySecAgentTradeInfo(self, pQrySecAgentTradeInfo, int nRequestID):
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pQrySecAgentTradeInfo)
             with nogil:
-                result = self._api.ReqQrySecAgentTradeInfo(<CThostFtdcQrySecAgentTradeInfoField *> address,
-                                                                    nRequestID)
+                result = self._api.ReqQrySecAgentTradeInfo(<CThostFtdcQrySecAgentTradeInfoField *> address, nRequestID)
             return result
-	
 
 cdef extern int TraderSpi_OnFrontConnected(self) except -1:
     self.OnFrontConnected()
@@ -940,851 +917,1133 @@ cdef extern int TraderSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
     self.OnHeartBeatWarning(nTimeLapse)
     return 0
 
-cdef extern int TraderSpi_OnRspAuthenticate(self, CThostFtdcRspAuthenticateField *pRspAuthenticate,
+cdef extern int TraderSpi_OnRspAuthenticate(self,
+                                            CThostFtdcRspAuthenticateField *pRspAuthenticate,
                                             CThostFtdcRspInfoField *pRspInfo,
-                                            int nRequestID, cbool bIsLast) except -1:
+                                            int nRequestID,
+                                            cbool bIsLast) except -1:
     self.OnRspAuthenticate(
         None if pRspAuthenticate is NULL else ApiStructure.RspAuthenticateField.from_address(<size_t> pRspAuthenticate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUserLogin,
+cdef extern int TraderSpi_OnRspUserLogin(self,
+                                         CThostFtdcRspUserLoginField *pRspUserLogin,
                                          CThostFtdcRspInfoField *pRspInfo,
-                                         int nRequestID, cbool bIsLast) except -1:
+                                         int nRequestID,
+                                         cbool bIsLast) except -1:
     self.OnRspUserLogin(
         None if pRspUserLogin is NULL else ApiStructure.RspUserLoginField.from_address(<size_t> pRspUserLogin),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspUserLogout(self, CThostFtdcUserLogoutField *pUserLogout,
-                                          CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspUserLogout(self,
+                                          CThostFtdcUserLogoutField *pUserLogout,
+                                          CThostFtdcRspInfoField *pRspInfo,
+                                          int nRequestID,
                                           cbool bIsLast) except -1:
     self.OnRspUserLogout(
         None if pUserLogout is NULL else ApiStructure.UserLogoutField.from_address(<size_t> pUserLogout),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspUserPasswordUpdate(self, CThostFtdcUserPasswordUpdateField *pUserPasswordUpdate,
-                                                  CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspUserPasswordUpdate(self,
+                                                  CThostFtdcUserPasswordUpdateField *pUserPasswordUpdate,
+                                                  CThostFtdcRspInfoField *pRspInfo,
+                                                  int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspUserPasswordUpdate(
-        None if pUserPasswordUpdate is NULL else ApiStructure.UserPasswordUpdateField.from_address(
-            <size_t> pUserPasswordUpdate),
+        None if pUserPasswordUpdate is NULL else ApiStructure.UserPasswordUpdateField.from_address(<size_t> pUserPasswordUpdate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRspTradingAccountPasswordUpdate(self,
                                                             CThostFtdcTradingAccountPasswordUpdateField *pTradingAccountPasswordUpdate,
-                                                            CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                            CThostFtdcRspInfoField *pRspInfo,
+                                                            int nRequestID,
                                                             cbool bIsLast) except -1:
     self.OnRspTradingAccountPasswordUpdate(
-        None if pTradingAccountPasswordUpdate is NULL else ApiStructure.TradingAccountPasswordUpdateField.from_address(
-            <size_t> pTradingAccountPasswordUpdate),
+        None if pTradingAccountPasswordUpdate is NULL else ApiStructure.TradingAccountPasswordUpdateField.from_address(<size_t> pTradingAccountPasswordUpdate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspOrderInsert(self, CThostFtdcInputOrderField *pInputOrder,
-                                           CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspOrderInsert(self,
+                                           CThostFtdcInputOrderField *pInputOrder,
+                                           CThostFtdcRspInfoField *pRspInfo,
+                                           int nRequestID,
                                            cbool bIsLast) except -1:
     self.OnRspOrderInsert(
         None if pInputOrder is NULL else ApiStructure.InputOrderField.from_address(<size_t> pInputOrder),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspParkedOrderInsert(self, CThostFtdcParkedOrderField *pParkedOrder,
+cdef extern int TraderSpi_OnRspParkedOrderInsert(self,
+                                                 CThostFtdcParkedOrderField *pParkedOrder,
                                                  CThostFtdcRspInfoField *pRspInfo,
-                                                 int nRequestID, cbool bIsLast) except -1:
+                                                 int nRequestID,
+                                                 cbool bIsLast) except -1:
     self.OnRspParkedOrderInsert(
         None if pParkedOrder is NULL else ApiStructure.ParkedOrderField.from_address(<size_t> pParkedOrder),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspParkedOrderAction(self, CThostFtdcParkedOrderActionField *pParkedOrderAction,
-                                                 CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspParkedOrderAction(self,
+                                                 CThostFtdcParkedOrderActionField *pParkedOrderAction,
+                                                 CThostFtdcRspInfoField *pRspInfo,
+                                                 int nRequestID,
                                                  cbool bIsLast) except -1:
     self.OnRspParkedOrderAction(
-        None if pParkedOrderAction is NULL else ApiStructure.ParkedOrderActionField.from_address(
-            <size_t> pParkedOrderAction),
+        None if pParkedOrderAction is NULL else ApiStructure.ParkedOrderActionField.from_address(<size_t> pParkedOrderAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspOrderAction(self, CThostFtdcInputOrderActionField *pInputOrderAction,
+cdef extern int TraderSpi_OnRspOrderAction(self,
+                                           CThostFtdcInputOrderActionField *pInputOrderAction,
                                            CThostFtdcRspInfoField *pRspInfo,
-                                           int nRequestID, cbool bIsLast) except -1:
-    self.OnRspOrderAction(None if pInputOrderAction is NULL else ApiStructure.InputOrderActionField.from_address(
-        <size_t> pInputOrderAction),
-                          None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(
-                              <size_t> pRspInfo), nRequestID, bIsLast)
+                                           int nRequestID,
+                                           cbool bIsLast) except -1:
+    self.OnRspOrderAction(
+        None if pInputOrderAction is NULL else ApiStructure.InputOrderActionField.from_address(<size_t> pInputOrderAction),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQueryMaxOrderVolume(self, CThostFtdcQueryMaxOrderVolumeField *pQueryMaxOrderVolume,
-                                                   CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQueryMaxOrderVolume(self,
+                                                   CThostFtdcQueryMaxOrderVolumeField *pQueryMaxOrderVolume,
+                                                   CThostFtdcRspInfoField *pRspInfo,
+                                                   int nRequestID,
                                                    cbool bIsLast) except -1:
     self.OnRspQueryMaxOrderVolume(
-        None if pQueryMaxOrderVolume is NULL else ApiStructure.QueryMaxOrderVolumeField.from_address(
-            <size_t> pQueryMaxOrderVolume),
+        None if pQueryMaxOrderVolume is NULL else ApiStructure.QueryMaxOrderVolumeField.from_address(<size_t> pQueryMaxOrderVolume),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspSettlementInfoConfirm(self, CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm,
-                                                     CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspSettlementInfoConfirm(self,
+                                                     CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm,
+                                                     CThostFtdcRspInfoField *pRspInfo,
+                                                     int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspSettlementInfoConfirm(
-        None if pSettlementInfoConfirm is NULL else ApiStructure.SettlementInfoConfirmField.from_address(
-            <size_t> pSettlementInfoConfirm),
+        None if pSettlementInfoConfirm is NULL else ApiStructure.SettlementInfoConfirmField.from_address(<size_t> pSettlementInfoConfirm),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspRemoveParkedOrder(self, CThostFtdcRemoveParkedOrderField *pRemoveParkedOrder,
-                                                 CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspRemoveParkedOrder(self,
+                                                 CThostFtdcRemoveParkedOrderField *pRemoveParkedOrder,
+                                                 CThostFtdcRspInfoField *pRspInfo,
+                                                 int nRequestID,
                                                  cbool bIsLast) except -1:
     self.OnRspRemoveParkedOrder(
-        None if pRemoveParkedOrder is NULL else ApiStructure.RemoveParkedOrderField.from_address(
-            <size_t> pRemoveParkedOrder),
+        None if pRemoveParkedOrder is NULL else ApiStructure.RemoveParkedOrderField.from_address(<size_t> pRemoveParkedOrder),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRspRemoveParkedOrderAction(self,
                                                        CThostFtdcRemoveParkedOrderActionField *pRemoveParkedOrderAction,
-                                                       CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                       CThostFtdcRspInfoField *pRspInfo,
+                                                       int nRequestID,
                                                        cbool bIsLast) except -1:
     self.OnRspRemoveParkedOrderAction(
-        None if pRemoveParkedOrderAction is NULL else ApiStructure.RemoveParkedOrderAction(
-            <size_t> pRemoveParkedOrderAction),
+        None if pRemoveParkedOrderAction is NULL else ApiStructure.RemoveParkedOrderActionField(<size_t> pRemoveParkedOrderAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspExecOrderInsert(self, CThostFtdcInputExecOrderField *pInputExecOrder,
+cdef extern int TraderSpi_OnRspExecOrderInsert(self,
+                                               CThostFtdcInputExecOrderField *pInputExecOrder,
                                                CThostFtdcRspInfoField *pRspInfo,
-                                               int nRequestID, cbool bIsLast) except -1:
+                                               int nRequestID,
+                                               cbool bIsLast) except -1:
     self.OnRspExecOrderInsert(
         None if pInputExecOrder is NULL else ApiStructure.InputExecOrderField.from_address(<size_t> pInputExecOrder),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspExecOrderAction(self, CThostFtdcInputExecOrderActionField *pInputExecOrderAction,
-                                               CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspExecOrderAction(self,
+                                               CThostFtdcInputExecOrderActionField *pInputExecOrderAction,
+                                               CThostFtdcRspInfoField *pRspInfo,
+                                               int nRequestID,
                                                cbool bIsLast) except -1:
     self.OnRspExecOrderAction(
-        None if pInputExecOrderAction is NULL else ApiStructure.InputExecOrderActionField.from_address(
-            <size_t> pInputExecOrderAction),
+        None if pInputExecOrderAction is NULL else ApiStructure.InputExecOrderActionField.from_address(<size_t> pInputExecOrderAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspForQuoteInsert(self, CThostFtdcInputForQuoteField *pInputForQuote,
+cdef extern int TraderSpi_OnRspForQuoteInsert(self,
+                                              CThostFtdcInputForQuoteField *pInputForQuote,
                                               CThostFtdcRspInfoField *pRspInfo,
-                                              int nRequestID, cbool bIsLast) except -1:
+                                              int nRequestID,
+                                              cbool bIsLast) except -1:
     self.OnRspForQuoteInsert(
         None if pInputForQuote is NULL else ApiStructure.InputForQuoteField.from_address(<size_t> pInputForQuote),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQuoteInsert(self, CThostFtdcInputQuoteField *pInputQuote,
-                                           CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQuoteInsert(self,
+                                           CThostFtdcInputQuoteField *pInputQuote,
+                                           CThostFtdcRspInfoField *pRspInfo,
+                                           int nRequestID,
                                            cbool bIsLast) except -1:
     self.OnRspQuoteInsert(
         None if pInputQuote is NULL else ApiStructure.InputQuoteField.from_address(<size_t> pInputQuote),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQuoteAction(self, CThostFtdcInputQuoteActionField *pInputQuoteAction,
+cdef extern int TraderSpi_OnRspQuoteAction(self,
+                                           CThostFtdcInputQuoteActionField *pInputQuoteAction,
                                            CThostFtdcRspInfoField *pRspInfo,
-                                           int nRequestID, cbool bIsLast) except -1:
-    self.OnRspQuoteAction(None if pInputQuoteAction is NULL else ApiStructure.InputQuoteActionField.from_address(
-        <size_t> pInputQuoteAction),
-                          None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(
-                              <size_t> pRspInfo), nRequestID, bIsLast)
+                                           int nRequestID,
+                                           cbool bIsLast) except -1:
+    self.OnRspQuoteAction(
+        None if pInputQuoteAction is NULL else ApiStructure.InputQuoteActionField.from_address(<size_t> pInputQuoteAction),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspCombActionInsert(self, CThostFtdcInputCombActionField *pInputCombAction,
+cdef extern int TraderSpi_OnRspCombActionInsert(self,
+                                                CThostFtdcInputCombActionField *pInputCombAction,
                                                 CThostFtdcRspInfoField *pRspInfo,
-                                                int nRequestID, cbool bIsLast) except -1:
+                                                int nRequestID,
+                                                cbool bIsLast) except -1:
     self.OnRspCombActionInsert(
         None if pInputCombAction is NULL else ApiStructure.InputCombActionField.from_address(<size_t> pInputCombAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryOrder(self, CThostFtdcOrderField *pOrder, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQryOrder(self,
+                                        CThostFtdcOrderField *pOrder,
+                                        CThostFtdcRspInfoField *pRspInfo,
                                         int nRequestID,
                                         cbool bIsLast) except -1:
-    self.OnRspQryOrder(None if pOrder is NULL else ApiStructure.OrderField.from_address(<size_t> pOrder),
-                       None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(
-                           <size_t> pRspInfo), nRequestID, bIsLast)
+    self.OnRspQryOrder(
+        None if pOrder is NULL else ApiStructure.OrderField.from_address(<size_t> pOrder),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryTrade(self, CThostFtdcTradeField *pTrade, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQryTrade(self,
+                                        CThostFtdcTradeField *pTrade,
+                                        CThostFtdcRspInfoField *pRspInfo,
                                         int nRequestID,
                                         cbool bIsLast) except -1:
-    self.OnRspQryTrade(None if pTrade is NULL else ApiStructure.TradeField.from_address(<size_t> pTrade),
-                       None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(
-                           <size_t> pRspInfo), nRequestID, bIsLast)
+    self.OnRspQryTrade(
+        None if pTrade is NULL else ApiStructure.TradeField.from_address(<size_t> pTrade),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryInvestorPosition(self, CThostFtdcInvestorPositionField *pInvestorPosition,
-                                                   CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryInvestorPosition(self,
+                                                   CThostFtdcInvestorPositionField *pInvestorPosition,
+                                                   CThostFtdcRspInfoField *pRspInfo,
+                                                   int nRequestID,
                                                    cbool bIsLast) except -1:
     self.OnRspQryInvestorPosition(
-        None if pInvestorPosition is NULL else ApiStructure.InvestorPositionField.from_address(
-            <size_t> pInvestorPosition),
+        None if pInvestorPosition is NULL else ApiStructure.InvestorPositionField.from_address(<size_t> pInvestorPosition),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryTradingAccount(self, CThostFtdcTradingAccountField *pTradingAccount,
+cdef extern int TraderSpi_OnRspQryTradingAccount(self,
+                                                 CThostFtdcTradingAccountField *pTradingAccount,
                                                  CThostFtdcRspInfoField *pRspInfo,
-                                                 int nRequestID, cbool bIsLast) except -1:
+                                                 int nRequestID,
+                                                 cbool bIsLast) except -1:
     self.OnRspQryTradingAccount(
         None if pTradingAccount is NULL else ApiStructure.TradingAccountField.from_address(<size_t> pTradingAccount),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryInvestor(self, CThostFtdcInvestorField *pInvestor, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQryInvestor(self,
+                                           CThostFtdcInvestorField *pInvestor,
+                                           CThostFtdcRspInfoField *pRspInfo,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
-    self.OnRspQryInvestor(None if pInvestor is NULL else ApiStructure.InvestorField.from_address(<size_t> pInvestor),
-                          None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(
-                              <size_t> pRspInfo), nRequestID, bIsLast)
+    self.OnRspQryInvestor(
+        None if pInvestor is NULL else ApiStructure.InvestorField.from_address(<size_t> pInvestor),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryTradingCode(self, CThostFtdcTradingCodeField *pTradingCode,
+cdef extern int TraderSpi_OnRspQryTradingCode(self,
+                                              CThostFtdcTradingCodeField *pTradingCode,
                                               CThostFtdcRspInfoField *pRspInfo,
-                                              int nRequestID, cbool bIsLast) except -1:
+                                              int nRequestID,
+                                              cbool bIsLast) except -1:
     self.OnRspQryTradingCode(
         None if pTradingCode is NULL else ApiStructure.TradingCodeField.from_address(<size_t> pTradingCode),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryInstrumentMarginRate(self, CThostFtdcInstrumentMarginRateField *pInstrumentMarginRate,
-                                                       CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryInstrumentMarginRate(self,
+                                                       CThostFtdcInstrumentMarginRateField *pInstrumentMarginRate,
+                                                       CThostFtdcRspInfoField *pRspInfo,
+                                                       int nRequestID,
                                                        cbool bIsLast) except -1:
     self.OnRspQryInstrumentMarginRate(
-        None if pInstrumentMarginRate is NULL else ApiStructure.InstrumentMarginRateField.from_address(
-            <size_t> pInstrumentMarginRate),
+        None if pInstrumentMarginRate is NULL else ApiStructure.InstrumentMarginRateField.from_address(<size_t> pInstrumentMarginRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRspQryInstrumentCommissionRate(self,
                                                            CThostFtdcInstrumentCommissionRateField *pInstrumentCommissionRate,
-                                                           CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                           CThostFtdcRspInfoField *pRspInfo,
+                                                           int nRequestID,
                                                            cbool bIsLast) except -1:
     self.OnRspQryInstrumentCommissionRate(
-        None if pInstrumentCommissionRate is NULL else ApiStructure.InstrumentCommissionRateField.from_address(
-            <size_t> pInstrumentCommissionRate),
+        None if pInstrumentCommissionRate is NULL else ApiStructure.InstrumentCommissionRateField.from_address(<size_t> pInstrumentCommissionRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryExchange(self, CThostFtdcExchangeField *pExchange, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQryExchange(self,
+                                           CThostFtdcExchangeField *pExchange,
+                                           CThostFtdcRspInfoField *pRspInfo,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
-    self.OnRspQryExchange(None if pExchange is NULL else ApiStructure.ExchangeField.from_address(<size_t> pExchange),
-                          None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(
-                              <size_t> pRspInfo), nRequestID, bIsLast)
+    self.OnRspQryExchange(
+        None if pExchange is NULL else ApiStructure.ExchangeField.from_address(<size_t> pExchange),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryProduct(self, CThostFtdcProductField *pProduct, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQryProduct(self,
+                                          CThostFtdcProductField *pProduct,
+                                          CThostFtdcRspInfoField *pRspInfo,
                                           int nRequestID,
                                           cbool bIsLast) except -1:
-    self.OnRspQryProduct(None if pProduct is NULL else ApiStructure.ProductField.from_address(<size_t> pProduct),
-                         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(
-                             <size_t> pRspInfo), nRequestID, bIsLast)
+    self.OnRspQryProduct(
+        None if pProduct is NULL else ApiStructure.ProductField.from_address(<size_t> pProduct),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
+
     return 0
 
-cdef extern int TraderSpi_OnRspQryInstrument(self, CThostFtdcInstrumentField *pInstrument,
+cdef extern int TraderSpi_OnRspQryInstrument(self,
+                                             CThostFtdcInstrumentField *pInstrument,
                                              CThostFtdcRspInfoField *pRspInfo,
-                                             int nRequestID, cbool bIsLast) except -1:
+                                             int nRequestID,
+                                             cbool bIsLast) except -1:
     self.OnRspQryInstrument(
         None if pInstrument is NULL else ApiStructure.InstrumentField.from_address(<size_t> pInstrument),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryDepthMarketData(self, CThostFtdcDepthMarketDataField *pDepthMarketData,
-                                                  CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryDepthMarketData(self,
+                                                  CThostFtdcDepthMarketDataField *pDepthMarketData,
+                                                  CThostFtdcRspInfoField *pRspInfo,
+                                                  int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspQryDepthMarketData(
         None if pDepthMarketData is NULL else ApiStructure.DepthMarketDataField.from_address(<size_t> pDepthMarketData),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQrySettlementInfo(self, CThostFtdcSettlementInfoField *pSettlementInfo,
+cdef extern int TraderSpi_OnRspQrySettlementInfo(self,
+                                                 CThostFtdcSettlementInfoField *pSettlementInfo,
                                                  CThostFtdcRspInfoField *pRspInfo,
-                                                 int nRequestID, cbool bIsLast) except -1:
+                                                 int nRequestID,
+                                                 cbool bIsLast) except -1:
     self.OnRspQrySettlementInfo(
         None if pSettlementInfo is NULL else ApiStructure.SettlementInfoField.from_address(<size_t> pSettlementInfo),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryTransferBank(self, CThostFtdcTransferBankField *pTransferBank,
+cdef extern int TraderSpi_OnRspQryTransferBank(self,
+                                               CThostFtdcTransferBankField *pTransferBank,
                                                CThostFtdcRspInfoField *pRspInfo,
-                                               int nRequestID, cbool bIsLast) except -1:
+                                               int nRequestID,
+                                               cbool bIsLast) except -1:
     self.OnRspQryTransferBank(
         None if pTransferBank is NULL else ApiStructure.TransferBankField.from_address(<size_t> pTransferBank),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRspQryInvestorPositionDetail(self,
                                                          CThostFtdcInvestorPositionDetailField *pInvestorPositionDetail,
-                                                         CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                         CThostFtdcRspInfoField *pRspInfo,
+                                                         int nRequestID,
                                                          cbool bIsLast) except -1:
     self.OnRspQryInvestorPositionDetail(
-        None if pInvestorPositionDetail is NULL else ApiStructure.InvestorPositionDetailField.from_address(
-            <size_t> pInvestorPositionDetail),
+        None if pInvestorPositionDetail is NULL else ApiStructure.InvestorPositionDetailField.from_address(<size_t> pInvestorPositionDetail),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryNotice(self, CThostFtdcNoticeField *pNotice, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQryNotice(self,
+                                         CThostFtdcNoticeField *pNotice,
+                                         CThostFtdcRspInfoField *pRspInfo,
                                          int nRequestID,
                                          cbool bIsLast) except -1:
-    self.OnRspQryNotice(None if pNotice is NULL else ApiStructure.NoticeField.from_address(<size_t> pNotice),
-                        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(
-                            <size_t> pRspInfo), nRequestID, bIsLast)
+    self.OnRspQryNotice(
+        None if pNotice is NULL else ApiStructure.NoticeField.from_address(<size_t> pNotice),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRspQrySettlementInfoConfirm(self,
                                                         CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm,
-                                                        CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                        CThostFtdcRspInfoField *pRspInfo,
+                                                        int nRequestID,
                                                         cbool bIsLast) except -1:
     self.OnRspQrySettlementInfoConfirm(
-        None if pSettlementInfoConfirm is NULL else ApiStructure.SettlementInfoConfirmField.from_address(
-            <size_t> pSettlementInfoConfirm),
+        None if pSettlementInfoConfirm is NULL else ApiStructure.SettlementInfoConfirmField.from_address(<size_t> pSettlementInfoConfirm),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRspQryInvestorPositionCombineDetail(self,
                                                                 CThostFtdcInvestorPositionCombineDetailField *pInvestorPositionCombineDetail,
-                                                                CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                                CThostFtdcRspInfoField *pRspInfo,
+                                                                int nRequestID,
                                                                 cbool bIsLast) except -1:
     self.OnRspQryInvestorPositionCombineDetail(
-        None if pInvestorPositionCombineDetail is NULL else ApiStructure.InvestorPositionCombineDetailField.from_address(
-            <size_t> pInvestorPositionCombineDetail),
+        None if pInvestorPositionCombineDetail is NULL else ApiStructure.InvestorPositionCombineDetailField.from_address(<size_t> pInvestorPositionCombineDetail),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRspQryCFMMCTradingAccountKey(self,
                                                          CThostFtdcCFMMCTradingAccountKeyField *pCFMMCTradingAccountKey,
-                                                         CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                         CThostFtdcRspInfoField *pRspInfo,
+                                                         int nRequestID,
                                                          cbool bIsLast) except -1:
     self.OnRspQryCFMMCTradingAccountKey(
-        None if pCFMMCTradingAccountKey is NULL else ApiStructure.CFMMCTradingAccountKeyField.from_address(
-            <size_t> pCFMMCTradingAccountKey),
+        None if pCFMMCTradingAccountKey is NULL else ApiStructure.CFMMCTradingAccountKeyField.from_address(<size_t> pCFMMCTradingAccountKey),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryEWarrantOffset(self, CThostFtdcEWarrantOffsetField *pEWarrantOffset,
+cdef extern int TraderSpi_OnRspQryEWarrantOffset(self,
+                                                 CThostFtdcEWarrantOffsetField *pEWarrantOffset,
                                                  CThostFtdcRspInfoField *pRspInfo,
-                                                 int nRequestID, cbool bIsLast) except -1:
+                                                 int nRequestID,
+                                                 cbool bIsLast) except -1:
     self.OnRspQryEWarrantOffset(
         None if pEWarrantOffset is NULL else ApiStructure.EWarrantOffsetField.from_address(<size_t> pEWarrantOffset),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRspQryInvestorProductGroupMargin(self,
                                                              CThostFtdcInvestorProductGroupMarginField *pInvestorProductGroupMargin,
-                                                             CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                             CThostFtdcRspInfoField *pRspInfo,
+                                                             int nRequestID,
                                                              cbool bIsLast) except -1:
     self.OnRspQryInvestorProductGroupMargin(
-        None if pInvestorProductGroupMargin is NULL else ApiStructure.InvestorProductGroupMarginField.from_address(
-            <size_t> pInvestorProductGroupMargin),
+        None if pInvestorProductGroupMargin is NULL else ApiStructure.InvestorProductGroupMarginField.from_address(<size_t> pInvestorProductGroupMargin),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryExchangeMarginRate(self, CThostFtdcExchangeMarginRateField *pExchangeMarginRate,
-                                                     CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryExchangeMarginRate(self,
+                                                     CThostFtdcExchangeMarginRateField *pExchangeMarginRate,
+                                                     CThostFtdcRspInfoField *pRspInfo,
+                                                     int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspQryExchangeMarginRate(
-        None if pExchangeMarginRate is NULL else ApiStructure.ExchangeMarginRateField.from_address(
-            <size_t> pExchangeMarginRate),
+        None if pExchangeMarginRate is NULL else ApiStructure.ExchangeMarginRateField.from_address(<size_t> pExchangeMarginRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRspQryExchangeMarginRateAdjust(self,
                                                            CThostFtdcExchangeMarginRateAdjustField *pExchangeMarginRateAdjust,
-                                                           CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                           CThostFtdcRspInfoField *pRspInfo,
+                                                           int nRequestID,
                                                            cbool bIsLast) except -1:
     self.OnRspQryExchangeMarginRateAdjust(
-        None if pExchangeMarginRateAdjust is NULL else ApiStructure.ExchangeMarginRateAdjustField.from_address(
-            <size_t> pExchangeMarginRateAdjust),
+        None if pExchangeMarginRateAdjust is NULL else ApiStructure.ExchangeMarginRateAdjustField.from_address(<size_t> pExchangeMarginRateAdjust),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryExchangeRate(self, CThostFtdcExchangeRateField *pExchangeRate,
+cdef extern int TraderSpi_OnRspQryExchangeRate(self,
+                                               CThostFtdcExchangeRateField *pExchangeRate,
                                                CThostFtdcRspInfoField *pRspInfo,
-                                               int nRequestID, cbool bIsLast) except -1:
+                                               int nRequestID,
+                                               cbool bIsLast) except -1:
     self.OnRspQryExchangeRate(
         None if pExchangeRate is NULL else ApiStructure.ExchangeRateField.from_address(<size_t> pExchangeRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQrySecAgentACIDMap(self, CThostFtdcSecAgentACIDMapField *pSecAgentACIDMap,
-                                                  CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQrySecAgentACIDMap(self,
+                                                  CThostFtdcSecAgentACIDMapField *pSecAgentACIDMap,
+                                                  CThostFtdcRspInfoField *pRspInfo,
+                                                  int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspQrySecAgentACIDMap(
         None if pSecAgentACIDMap is NULL else ApiStructure.SecAgentACIDMapField.from_address(<size_t> pSecAgentACIDMap),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryProductExchRate(self, CThostFtdcProductExchRateField *pProductExchRate,
-                                                  CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryProductExchRate(self,
+                                                  CThostFtdcProductExchRateField *pProductExchRate,
+                                                  CThostFtdcRspInfoField *pRspInfo,
+                                                  int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspQryProductExchRate(
         None if pProductExchRate is NULL else ApiStructure.ProductExchRateField.from_address(<size_t> pProductExchRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryOptionInstrTradeCost(self, CThostFtdcOptionInstrTradeCostField *pOptionInstrTradeCost,
-                                                       CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryOptionInstrTradeCost(self,
+                                                       CThostFtdcOptionInstrTradeCostField *pOptionInstrTradeCost,
+                                                       CThostFtdcRspInfoField *pRspInfo,
+                                                       int nRequestID,
                                                        cbool bIsLast) except -1:
     self.OnRspQryOptionInstrTradeCost(
-        None if pOptionInstrTradeCost is NULL else ApiStructure.OptionInstrTradeCostField.from_address(
-            <size_t> pOptionInstrTradeCost),
+        None if pOptionInstrTradeCost is NULL else ApiStructure.OptionInstrTradeCostField.from_address(<size_t> pOptionInstrTradeCost),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryOptionInstrCommRate(self, CThostFtdcOptionInstrCommRateField *pOptionInstrCommRate,
-                                                      CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryOptionInstrCommRate(self,
+                                                      CThostFtdcOptionInstrCommRateField *pOptionInstrCommRate,
+                                                      CThostFtdcRspInfoField *pRspInfo,
+                                                      int nRequestID,
                                                       cbool bIsLast) except -1:
     self.OnRspQryOptionInstrCommRate(
-        None if pOptionInstrCommRate is NULL else ApiStructure.OptionInstrCommRateField.from_address(
-            <size_t> pOptionInstrCommRate),
+        None if pOptionInstrCommRate is NULL else ApiStructure.OptionInstrCommRateField.from_address(<size_t> pOptionInstrCommRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryExecOrder(self, CThostFtdcExecOrderField *pExecOrder,
-                                            CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryExecOrder(self,
+                                            CThostFtdcExecOrderField *pExecOrder,
+                                            CThostFtdcRspInfoField *pRspInfo,
+                                            int nRequestID,
                                             cbool bIsLast) except -1:
     self.OnRspQryExecOrder(
         None if pExecOrder is NULL else ApiStructure.ExecOrderField.from_address(<size_t> pExecOrder),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryForQuote(self, CThostFtdcForQuoteField *pForQuote, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQryForQuote(self,
+                                           CThostFtdcForQuoteField *pForQuote,
+                                           CThostFtdcRspInfoField *pRspInfo,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
-    self.OnRspQryForQuote(None if pForQuote is NULL else ApiStructure.ForQuoteField.from_address(<size_t> pForQuote),
-                          None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(
-                              <size_t> pRspInfo), nRequestID, bIsLast)
+    self.OnRspQryForQuote(
+        None if pForQuote is NULL else ApiStructure.ForQuoteField.from_address(<size_t> pForQuote),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryQuote(self, CThostFtdcQuoteField *pQuote, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int TraderSpi_OnRspQryQuote(self,
+                                        CThostFtdcQuoteField *pQuote,
+                                        CThostFtdcRspInfoField *pRspInfo,
                                         int nRequestID,
                                         cbool bIsLast) except -1:
-    self.OnRspQryQuote(None if pQuote is NULL else ApiStructure.QuoteField.from_address(<size_t> pQuote),
-                       None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(
-                           <size_t> pRspInfo), nRequestID, bIsLast)
+    self.OnRspQryQuote(
+        None if pQuote is NULL else ApiStructure.QuoteField.from_address(<size_t> pQuote),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryCombInstrumentGuard(self, CThostFtdcCombInstrumentGuardField *pCombInstrumentGuard,
-                                                      CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryCombInstrumentGuard(self,
+                                                      CThostFtdcCombInstrumentGuardField *pCombInstrumentGuard,
+                                                      CThostFtdcRspInfoField *pRspInfo,
+                                                      int nRequestID,
                                                       cbool bIsLast) except -1:
     self.OnRspQryCombInstrumentGuard(
-        None if pCombInstrumentGuard is NULL else ApiStructure.CombInstrumentGuardField.from_address(
-            <size_t> pCombInstrumentGuard),
+        None if pCombInstrumentGuard is NULL else ApiStructure.CombInstrumentGuardField.from_address(<size_t> pCombInstrumentGuard),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryCombAction(self, CThostFtdcCombActionField *pCombAction,
+cdef extern int TraderSpi_OnRspQryCombAction(self,
+                                             CThostFtdcCombActionField *pCombAction,
                                              CThostFtdcRspInfoField *pRspInfo,
-                                             int nRequestID, cbool bIsLast) except -1:
+                                             int nRequestID,
+                                             cbool bIsLast) except -1:
     self.OnRspQryCombAction(
         None if pCombAction is NULL else ApiStructure.CombActionField.from_address(<size_t> pCombAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryTransferSerial(self, CThostFtdcTransferSerialField *pTransferSerial,
+cdef extern int TraderSpi_OnRspQryTransferSerial(self,
+                                                 CThostFtdcTransferSerialField *pTransferSerial,
                                                  CThostFtdcRspInfoField *pRspInfo,
-                                                 int nRequestID, cbool bIsLast) except -1:
+                                                 int nRequestID,
+                                                 cbool bIsLast) except -1:
     self.OnRspQryTransferSerial(
         None if pTransferSerial is NULL else ApiStructure.TransferSerialField.from_address(<size_t> pTransferSerial),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryAccountregister(self, CThostFtdcAccountregisterField *pAccountregister,
-                                                  CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryAccountregister(self,
+                                                  CThostFtdcAccountregisterField *pAccountregister,
+                                                  CThostFtdcRspInfoField *pRspInfo,
+                                                  int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspQryAccountregister(
         None if pAccountregister is NULL else ApiStructure.AccountregisterField.from_address(<size_t> pAccountregister),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
+
     return 0
 
-cdef extern int TraderSpi_OnRspError(self, CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+cdef extern int TraderSpi_OnRspError(self,
+                                     CThostFtdcRspInfoField *pRspInfo,
+                                     int nRequestID,
+                                     cbool bIsLast) except -1:
     self.OnRspError(
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnOrder(self, CThostFtdcOrderField *pOrder) except -1:
-    self.OnRtnOrder(None if pOrder is NULL else ApiStructure.OrderField.from_address(<size_t> pOrder))
+    self.OnRtnOrder(
+        None if pOrder is NULL else ApiStructure.OrderField.from_address(<size_t> pOrder)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnTrade(self, CThostFtdcTradeField *pTrade) except -1:
-    self.OnRtnTrade(None if pTrade is NULL else ApiStructure.TradeField.from_address(<size_t> pTrade))
+    self.OnRtnTrade(
+        None if pTrade is NULL else ApiStructure.TradeField.from_address(<size_t> pTrade)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnOrderInsert(self, CThostFtdcInputOrderField *pInputOrder,
+cdef extern int TraderSpi_OnErrRtnOrderInsert(self,
+                                              CThostFtdcInputOrderField *pInputOrder,
                                               CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnOrderInsert(
         None if pInputOrder is NULL else ApiStructure.InputOrderField.from_address(<size_t> pInputOrder),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnOrderAction(self, CThostFtdcOrderActionField *pOrderAction,
+cdef extern int TraderSpi_OnErrRtnOrderAction(self,
+                                              CThostFtdcOrderActionField *pOrderAction,
                                               CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnOrderAction(
         None if pOrderAction is NULL else ApiStructure.OrderActionField.from_address(<size_t> pOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnInstrumentStatus(self, CThostFtdcInstrumentStatusField *pInstrumentStatus) except -1:
     self.OnRtnInstrumentStatus(
-        None if pInstrumentStatus is NULL else ApiStructure.InstrumentStatusField.from_address(
-            <size_t> pInstrumentStatus))
+        None if pInstrumentStatus is NULL else ApiStructure.InstrumentStatusField.from_address(<size_t> pInstrumentStatus)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnTradingNotice(self, CThostFtdcTradingNoticeInfoField *pTradingNoticeInfo) except -1:
     self.OnRtnTradingNotice(
-        None if pTradingNoticeInfo is NULL else ApiStructure.TradingNoticeInfoField.from_address(
-            <size_t> pTradingNoticeInfo))
+        None if pTradingNoticeInfo is NULL else ApiStructure.TradingNoticeInfoField.from_address(<size_t> pTradingNoticeInfo)
+    )
     return 0
 
-cdef extern int TraderSpi_OnRtnErrorConditionalOrder(self,
-                                                     CThostFtdcErrorConditionalOrderField *pErrorConditionalOrder) except -1:
+cdef extern int TraderSpi_OnRtnErrorConditionalOrder(self, CThostFtdcErrorConditionalOrderField *pErrorConditionalOrder) except -1:
     self.OnRtnErrorConditionalOrder(
-        None if pErrorConditionalOrder is NULL else ApiStructure.ErrorConditionalOrderField.from_address(
-            <size_t> pErrorConditionalOrder))
+        None if pErrorConditionalOrder is NULL else ApiStructure.ErrorConditionalOrderField.from_address(<size_t> pErrorConditionalOrder)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnExecOrder(self, CThostFtdcExecOrderField *pExecOrder) except -1:
-    self.OnRtnExecOrder(None if pExecOrder is NULL else ApiStructure.ExecOrderField.from_address(<size_t> pExecOrder))
+    self.OnRtnExecOrder(
+        None if pExecOrder is NULL else ApiStructure.ExecOrderField.from_address(<size_t> pExecOrder)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnExecOrderInsert(self, CThostFtdcInputExecOrderField *pInputExecOrder,
+cdef extern int TraderSpi_OnErrRtnExecOrderInsert(self,
+                                                  CThostFtdcInputExecOrderField *pInputExecOrder,
                                                   CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnExecOrderInsert(
         None if pInputExecOrder is NULL else ApiStructure.InputExecOrderField.from_address(<size_t> pInputExecOrder),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnExecOrderAction(self, CThostFtdcExecOrderActionField *pExecOrderAction,
+cdef extern int TraderSpi_OnErrRtnExecOrderAction(self,
+                                                  CThostFtdcExecOrderActionField *pExecOrderAction,
                                                   CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnExecOrderAction(
         None if pExecOrderAction is NULL else ApiStructure.ExecOrderActionField.from_address(<size_t> pExecOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnForQuoteInsert(self, CThostFtdcInputForQuoteField *pInputForQuote,
+cdef extern int TraderSpi_OnErrRtnForQuoteInsert(self,
+                                                 CThostFtdcInputForQuoteField *pInputForQuote,
                                                  CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnForQuoteInsert(
         None if pInputForQuote is NULL else ApiStructure.InputForQuoteField.from_address(<size_t> pInputForQuote),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnQuote(self, CThostFtdcQuoteField *pQuote) except -1:
-    self.OnRtnQuote(None if pQuote is NULL else ApiStructure.QuoteField.from_address(<size_t> pQuote))
+    self.OnRtnQuote(
+        None if pQuote is NULL else ApiStructure.QuoteField.from_address(<size_t> pQuote)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnQuoteInsert(self, CThostFtdcInputQuoteField *pInputQuote,
+cdef extern int TraderSpi_OnErrRtnQuoteInsert(self,
+                                              CThostFtdcInputQuoteField *pInputQuote,
                                               CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnQuoteInsert(
         None if pInputQuote is NULL else ApiStructure.InputQuoteField.from_address(<size_t> pInputQuote),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnQuoteAction(self, CThostFtdcQuoteActionField *pQuoteAction,
+cdef extern int TraderSpi_OnErrRtnQuoteAction(self,
+                                              CThostFtdcQuoteActionField *pQuoteAction,
                                               CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnQuoteAction(
         None if pQuoteAction is NULL else ApiStructure.QuoteActionField.from_address(<size_t> pQuoteAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnForQuoteRsp(self, CThostFtdcForQuoteRspField *pForQuoteRsp) except -1:
     self.OnRtnForQuoteRsp(
-        None if pForQuoteRsp is NULL else ApiStructure.ForQuoteRspField.from_address(<size_t> pForQuoteRsp))
+        None if pForQuoteRsp is NULL else ApiStructure.ForQuoteRspField.from_address(<size_t> pForQuoteRsp)
+    )
     return 0
 
-cdef extern int TraderSpi_OnRtnCFMMCTradingAccountToken(self,
-                                                        CThostFtdcCFMMCTradingAccountTokenField *pCFMMCTradingAccountToken) except -1:
+cdef extern int TraderSpi_OnRtnCFMMCTradingAccountToken(self, CThostFtdcCFMMCTradingAccountTokenField *pCFMMCTradingAccountToken) except -1:
     self.OnRtnCFMMCTradingAccountToken(
-        None if pCFMMCTradingAccountToken is NULL else ApiStructure.CFMMCTradingAccountTokenField.from_address(
-            <size_t> pCFMMCTradingAccountToken))
+        None if pCFMMCTradingAccountToken is NULL else ApiStructure.CFMMCTradingAccountTokenField.from_address(<size_t> pCFMMCTradingAccountToken)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnCombAction(self, CThostFtdcCombActionField *pCombAction) except -1:
     self.OnRtnCombAction(
-        None if pCombAction is NULL else ApiStructure.CombActionField.from_address(<size_t> pCombAction))
+        None if pCombAction is NULL else ApiStructure.CombActionField.from_address(<size_t> pCombAction)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnCombActionInsert(self, CThostFtdcInputCombActionField *pInputCombAction,
+cdef extern int TraderSpi_OnErrRtnCombActionInsert(self,
+                                                   CThostFtdcInputCombActionField *pInputCombAction,
                                                    CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnCombActionInsert(
         None if pInputCombAction is NULL else ApiStructure.InputCombActionField.from_address(<size_t> pInputCombAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryContractBank(self, CThostFtdcContractBankField *pContractBank,
+cdef extern int TraderSpi_OnRspQryContractBank(self,
+                                               CThostFtdcContractBankField *pContractBank,
                                                CThostFtdcRspInfoField *pRspInfo,
-                                               int nRequestID, cbool bIsLast) except -1:
+                                               int nRequestID,
+                                               cbool bIsLast) except -1:
     self.OnRspQryContractBank(
         None if pContractBank is NULL else ApiStructure.ContractBankField.from_address(<size_t> pContractBank),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryParkedOrder(self, CThostFtdcParkedOrderField *pParkedOrder,
+cdef extern int TraderSpi_OnRspQryParkedOrder(self,
+                                              CThostFtdcParkedOrderField *pParkedOrder,
                                               CThostFtdcRspInfoField *pRspInfo,
-                                              int nRequestID, cbool bIsLast) except -1:
+                                              int nRequestID,
+                                              cbool bIsLast) except -1:
     self.OnRspQryParkedOrder(
         None if pParkedOrder is NULL else ApiStructure.ParkedOrderField.from_address(<size_t> pParkedOrder),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryParkedOrderAction(self, CThostFtdcParkedOrderActionField *pParkedOrderAction,
-                                                    CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryParkedOrderAction(self,
+                                                    CThostFtdcParkedOrderActionField *pParkedOrderAction,
+                                                    CThostFtdcRspInfoField *pRspInfo,
+                                                    int nRequestID,
                                                     cbool bIsLast) except -1:
     self.OnRspQryParkedOrderAction(
-        None if pParkedOrderAction is NULL else ApiStructure.ParkedOrderActionField.from_address(
-            <size_t> pParkedOrderAction),
+        None if pParkedOrderAction is NULL else ApiStructure.ParkedOrderActionField.from_address(<size_t> pParkedOrderAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryTradingNotice(self, CThostFtdcTradingNoticeField *pTradingNotice,
+cdef extern int TraderSpi_OnRspQryTradingNotice(self,
+                                                CThostFtdcTradingNoticeField *pTradingNotice,
                                                 CThostFtdcRspInfoField *pRspInfo,
-                                                int nRequestID, cbool bIsLast) except -1:
+                                                int nRequestID,
+                                                cbool bIsLast) except -1:
     self.OnRspQryTradingNotice(
         None if pTradingNotice is NULL else ApiStructure.TradingNoticeField.from_address(<size_t> pTradingNotice),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryBrokerTradingParams(self, CThostFtdcBrokerTradingParamsField *pBrokerTradingParams,
-                                                      CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryBrokerTradingParams(self,
+                                                      CThostFtdcBrokerTradingParamsField *pBrokerTradingParams,
+                                                      CThostFtdcRspInfoField *pRspInfo,
+                                                      int nRequestID,
                                                       cbool bIsLast) except -1:
     self.OnRspQryBrokerTradingParams(
-        None if pBrokerTradingParams is NULL else ApiStructure.BrokerTradingParamsField.from_address(
-            <size_t> pBrokerTradingParams),
+        None if pBrokerTradingParams is NULL else ApiStructure.BrokerTradingParamsField.from_address(<size_t> pBrokerTradingParams),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQryBrokerTradingAlgos(self, CThostFtdcBrokerTradingAlgosField *pBrokerTradingAlgos,
-                                                     CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryBrokerTradingAlgos(self,
+                                                     CThostFtdcBrokerTradingAlgosField *pBrokerTradingAlgos,
+                                                     CThostFtdcRspInfoField *pRspInfo,
+                                                     int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspQryBrokerTradingAlgos(
-        None if pBrokerTradingAlgos is NULL else ApiStructure.BrokerTradingAlgosField.from_address(
-            <size_t> pBrokerTradingAlgos),
+        None if pBrokerTradingAlgos is NULL else ApiStructure.BrokerTradingAlgosField.from_address(<size_t> pBrokerTradingAlgos),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRspQueryCFMMCTradingAccountToken(self,
                                                              CThostFtdcQueryCFMMCTradingAccountTokenField *pQueryCFMMCTradingAccountToken,
-                                                             CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                             CThostFtdcRspInfoField *pRspInfo,
+                                                             int nRequestID,
                                                              cbool bIsLast) except -1:
     self.OnRspQueryCFMMCTradingAccountToken(
-        None if pQueryCFMMCTradingAccountToken is NULL else ApiStructure.QueryCFMMCTradingAccountTokenField.from_address(
-            <size_t> pQueryCFMMCTradingAccountToken),
+        None if pQueryCFMMCTradingAccountToken is NULL else ApiStructure.QueryCFMMCTradingAccountTokenField.from_address(<size_t> pQueryCFMMCTradingAccountToken),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast)
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnFromBankToFutureByBank(self, CThostFtdcRspTransferField *pRspTransfer) except -1:
     self.OnRtnFromBankToFutureByBank(
-        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer))
+        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnFromFutureToBankByBank(self, CThostFtdcRspTransferField *pRspTransfer) except -1:
     self.OnRtnFromFutureToBankByBank(
-        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer))
+        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnRepealFromBankToFutureByBank(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromBankToFutureByBank(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal))
+        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnRepealFromFutureToBankByBank(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromFutureToBankByBank(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal))
+        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnFromBankToFutureByFuture(self, CThostFtdcRspTransferField *pRspTransfer) except -1:
     self.OnRtnFromBankToFutureByFuture(
-        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer))
+        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnFromFutureToBankByFuture(self, CThostFtdcRspTransferField *pRspTransfer) except -1:
     self.OnRtnFromFutureToBankByFuture(
-        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer))
+        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer)
+    )
     return 0
 
-cdef extern int TraderSpi_OnRtnRepealFromBankToFutureByFutureManual(self,
-                                                                    CThostFtdcRspRepealField *pRspRepeal) except -1:
+cdef extern int TraderSpi_OnRtnRepealFromBankToFutureByFutureManual(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromBankToFutureByFutureManual(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal))
+        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+    )
     return 0
 
-cdef extern int TraderSpi_OnRtnRepealFromFutureToBankByFutureManual(self,
-                                                                    CThostFtdcRspRepealField *pRspRepeal) except -1:
+cdef extern int TraderSpi_OnRtnRepealFromFutureToBankByFutureManual(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromFutureToBankByFutureManual(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal))
+        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+    )
     return 0
 
-cdef extern int TraderSpi_OnRtnQueryBankBalanceByFuture(self,
-                                                        CThostFtdcNotifyQueryAccountField *pNotifyQueryAccount) except -1:
+cdef extern int TraderSpi_OnRtnQueryBankBalanceByFuture(self, CThostFtdcNotifyQueryAccountField *pNotifyQueryAccount) except -1:
     self.OnRtnQueryBankBalanceByFuture(
-        None if pNotifyQueryAccount is NULL else ApiStructure.NotifyQueryAccountField.from_address(
-            <size_t> pNotifyQueryAccount))
+        None if pNotifyQueryAccount is NULL else ApiStructure.NotifyQueryAccountField.from_address(<size_t> pNotifyQueryAccount)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnBankToFutureByFuture(self, CThostFtdcReqTransferField *pReqTransfer,
+cdef extern int TraderSpi_OnErrRtnBankToFutureByFuture(self,
+                                                       CThostFtdcReqTransferField *pReqTransfer,
                                                        CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnBankToFutureByFuture(
         None if pReqTransfer is NULL else ApiStructure.ReqTransferField.from_address(<size_t> pReqTransfer),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnFutureToBankByFuture(self, CThostFtdcReqTransferField *pReqTransfer,
+cdef extern int TraderSpi_OnErrRtnFutureToBankByFuture(self,
+                                                       CThostFtdcReqTransferField *pReqTransfer,
                                                        CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnFutureToBankByFuture(
         None if pReqTransfer is NULL else ApiStructure.ReqTransferField.from_address(<size_t> pReqTransfer),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnRepealBankToFutureByFutureManual(self, CThostFtdcReqRepealField *pReqRepeal,
+cdef extern int TraderSpi_OnErrRtnRepealBankToFutureByFutureManual(self,
+                                                                   CThostFtdcReqRepealField *pReqRepeal,
                                                                    CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnRepealBankToFutureByFutureManual(
         None if pReqRepeal is NULL else ApiStructure.ReqRepealField.from_address(<size_t> pReqRepeal),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnRepealFutureToBankByFutureManual(self, CThostFtdcReqRepealField *pReqRepeal,
+cdef extern int TraderSpi_OnErrRtnRepealFutureToBankByFutureManual(self,
+                                                                   CThostFtdcReqRepealField *pReqRepeal,
                                                                    CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnRepealFutureToBankByFutureManual(
         None if pReqRepeal is NULL else ApiStructure.ReqRepealField.from_address(<size_t> pReqRepeal),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnQueryBankBalanceByFuture(self, CThostFtdcReqQueryAccountField *pReqQueryAccount,
+cdef extern int TraderSpi_OnErrRtnQueryBankBalanceByFuture(self,
+                                                           CThostFtdcReqQueryAccountField *pReqQueryAccount,
                                                            CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnQueryBankBalanceByFuture(
         None if pReqQueryAccount is NULL else ApiStructure.ReqQueryAccountField.from_address(<size_t> pReqQueryAccount),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnRepealFromBankToFutureByFuture(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromBankToFutureByFuture(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal))
+        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnRepealFromFutureToBankByFuture(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromFutureToBankByFuture(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal))
+        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspFromBankToFutureByFuture(self, CThostFtdcReqTransferField *pReqTransfer,
+cdef extern int TraderSpi_OnRspFromBankToFutureByFuture(self,
+                                                        CThostFtdcReqTransferField *pReqTransfer,
                                                         CThostFtdcRspInfoField *pRspInfo,
-                                                        int nRequestID, cbool bIsLast) except -1:
+                                                        int nRequestID,
+                                                        cbool bIsLast) except -1:
     self.OnRspFromBankToFutureByFuture(
         None if pReqTransfer is NULL else ApiStructure.ReqTransferField.from_address(<size_t> pReqTransfer),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast)
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspFromFutureToBankByFuture(self, CThostFtdcReqTransferField *pReqTransfer,
+cdef extern int TraderSpi_OnRspFromFutureToBankByFuture(self,
+                                                        CThostFtdcReqTransferField *pReqTransfer,
                                                         CThostFtdcRspInfoField *pRspInfo,
-                                                        int nRequestID, cbool bIsLast) except -1:
+                                                        int nRequestID,
+                                                        cbool bIsLast) except -1:
     self.OnRspFromFutureToBankByFuture(
         None if pReqTransfer is NULL else ApiStructure.ReqTransferField.from_address(<size_t> pReqTransfer),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast)
+        bIsLast
+    )
     return 0
 
-cdef extern int TraderSpi_OnRspQueryBankAccountMoneyByFuture(self, CThostFtdcReqQueryAccountField *pReqQueryAccount,
-                                                             CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQueryBankAccountMoneyByFuture(self,
+                                                             CThostFtdcReqQueryAccountField *pReqQueryAccount,
+                                                             CThostFtdcRspInfoField *pRspInfo,
+                                                             int nRequestID,
                                                              cbool bIsLast) except -1:
     self.OnRspQueryBankAccountMoneyByFuture(
         None if pReqQueryAccount is NULL else ApiStructure.ReqQueryAccountField.from_address(<size_t> pReqQueryAccount),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo), nRequestID, bIsLast)
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnOpenAccountByBank(self, CThostFtdcOpenAccountField *pOpenAccount) except -1:
     self.OnRtnOpenAccountByBank(
-        None if pOpenAccount is NULL else ApiStructure.OpenAccountField.from_address(<size_t> pOpenAccount))
+        None if pOpenAccount is NULL else ApiStructure.OpenAccountField.from_address(<size_t> pOpenAccount)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnCancelAccountByBank(self, CThostFtdcCancelAccountField *pCancelAccount) except -1:
     self.OnRtnCancelAccountByBank(
-        None if pCancelAccount is NULL else ApiStructure.CancelAccountField.from_address(<size_t> pCancelAccount))
+        None if pCancelAccount is NULL else ApiStructure.CancelAccountField.from_address(<size_t> pCancelAccount)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnChangeAccountByBank(self, CThostFtdcChangeAccountField *pChangeAccount) except -1:
     self.OnRtnChangeAccountByBank(
-        None if pChangeAccount is NULL else ApiStructure.ChangeAccountField.from_address(<size_t> pChangeAccount))
+        None if pChangeAccount is NULL else ApiStructure.ChangeAccountField.from_address(<size_t> pChangeAccount)
+    )
     return 0
 
-cdef extern int TraderSpi_OnErrRtnBatchOrderAction(self, CThostFtdcBatchOrderActionField *pBatchOrderAction,
+cdef extern int TraderSpi_OnErrRtnBatchOrderAction(self,
+                                                   CThostFtdcBatchOrderActionField *pBatchOrderAction,
                                                    CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnBatchOrderAction(
-        None if pBatchOrderAction is NULL else ApiStructure.BatchOrderActionField.from_address(
-            <size_t> pBatchOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo))
+        None if pBatchOrderAction is NULL else ApiStructure.BatchOrderActionField.from_address(<size_t> pBatchOrderAction),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+    )
     return 0
 
 cdef extern int TraderSpi_OnRtnBulletin(self, CThostFtdcBulletinField *pBulletin) except -1:
-    self.OnRtnBulletin(None if pBulletin is NULL else ApiStructure.BulletinField.from_address(<size_t> pBulletin))
+    self.OnRtnBulletin(
+        None if pBulletin is NULL else ApiStructure.BulletinField.from_address(<size_t> pBulletin)
+    )
     return 0
 cdef extern int TraderSpi_OnRspQryInstrumentOrderCommRate(self,
                                                           CThostFtdcInstrumentOrderCommRateField *pInstrumentOrderCommRate,
-                                                          CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                          CThostFtdcRspInfoField *pRspInfo,
+                                                          int nRequestID,
                                                           cbool bIsLast) except -1:
     self.OnRspQryInstrumentOrderCommRate(
-        None if pInstrumentOrderCommRate is NULL else ApiStructure.InstrumentOrderCommRateField.from_address(
-            <size_t> pInstrumentOrderCommRate),
+        None if pInstrumentOrderCommRate is NULL else ApiStructure.InstrumentOrderCommRateField.from_address(<size_t> pInstrumentOrderCommRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
@@ -1792,121 +2051,140 @@ cdef extern int TraderSpi_OnRspQryInstrumentOrderCommRate(self,
     return 0
 cdef extern int TraderSpi_OnRspQryMMOptionInstrCommRate(self,
                                                         CThostFtdcMMOptionInstrCommRateField *pMMOptionInstrCommRate,
-                                                        CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                        CThostFtdcRspInfoField *pRspInfo,
+                                                        int nRequestID,
                                                         cbool bIsLast) except -1:
     self.OnRspQryMMOptionInstrCommRate(
-        None if pMMOptionInstrCommRate is NULL else ApiStructure.MMOptionInstrCommRateField.from_address(
-            <size_t> pMMOptionInstrCommRate),
+        None if pMMOptionInstrCommRate is NULL else ApiStructure.MMOptionInstrCommRateField.from_address(<size_t> pMMOptionInstrCommRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
     return 0
 cdef extern int TraderSpi_OnRspBatchOrderAction(self, CThostFtdcInputBatchOrderActionField *pInputBatchOrderAction,
-                                                CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                CThostFtdcRspInfoField *pRspInfo,
+                                                int nRequestID,
                                                 cbool bIsLast) except -1:
     self.OnRspBatchOrderAction(
-        None if pInputBatchOrderAction is NULL else ApiStructure.InputBatchOrderActionField.from_address(
-            <size_t> pInputBatchOrderAction),
+        None if pInputBatchOrderAction is NULL else ApiStructure.InputBatchOrderActionField.from_address(<size_t> pInputBatchOrderAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast)
+        bIsLast
+    )
     return 0
 cdef extern int TraderSpi_OnRspQryMMInstrumentCommissionRate(self,
                                                              CThostFtdcMMInstrumentCommissionRateField *pMMInstrumentCommissionRate,
-                                                             CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                             CThostFtdcRspInfoField *pRspInfo,
+                                                             int nRequestID,
                                                              cbool bIsLast) except -1:
     self.OnRspQryMMInstrumentCommissionRate(
-        None if pRspInfo is NULL else ApiStructure.MMInstrumentCommissionRateField.from_address(
-            <size_t> pMMInstrumentCommissionRate),
+        None if pRspInfo is NULL else ApiStructure.MMInstrumentCommissionRateField.from_address(<size_t> pMMInstrumentCommissionRate),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast)
+        bIsLast
+    )
     return 0
-cdef extern int TraderSpi_OnRspQryProductGroup(self, CThostFtdcProductGroupField *pProductGroup,
-                                               CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspQryProductGroup(self,
+                                               CThostFtdcProductGroupField *pProductGroup,
+                                               CThostFtdcRspInfoField *pRspInfo,
+                                               int nRequestID,
                                                cbool bIsLast) except -1:
     self.OnRspQryProductGroup(
         None if pProductGroup is NULL else ApiStructure.ProductGroupField.from_address(<size_t> pProductGroup),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast)
+        bIsLast
+    )
     return 0
 
     #期权自对冲录入请求响应
-cdef extern int TraderSpi_OnRspOptionSelfCloseInsert(self, CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose,
-                                                     CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+cdef extern int TraderSpi_OnRspOptionSelfCloseInsert(self,
+                                                     CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose,
+                                                     CThostFtdcRspInfoField *pRspInfo,
+                                                     int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspOptionSelfCloseInsert(
-        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(
-            <size_t> pInputOptionSelfClose),
+        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(<size_t> pInputOptionSelfClose),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast)
+        bIsLast
+    )
     return 0
 
     #期权自对冲操作请求响应
 cdef extern int TraderSpi_OnRspOptionSelfCloseAction(self,
                                                      CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfCloseAction,
-                                                     CThostFtdcRspInfoField *pRspInfo, int nRequestID,
+                                                     CThostFtdcRspInfoField *pRspInfo,
+                                                     int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspOptionSelfCloseAction(
-        None if pInputOptionSelfCloseAction is NULL else ApiStructure.InputOptionSelfCloseActionField.from_address(
-            <size_t> pInputOptionSelfCloseAction),
+        None if pInputOptionSelfCloseAction is NULL else ApiStructure.InputOptionSelfCloseActionField.from_address(<size_t> pInputOptionSelfCloseAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast)
+        bIsLast
+    )
     return 0
 
 #请求查询资金账户响应
-cdef extern int TraderSpi_OnRspQrySecAgentTradingAccount(self, CThostFtdcTradingAccountField *pTradingAccount,
+cdef extern int TraderSpi_OnRspQrySecAgentTradingAccount(self,
+                                                         CThostFtdcTradingAccountField *pTradingAccount,
                                                          CThostFtdcRspInfoField *pRspInfo,
-                                                         int nRequestID, cbool bIsLast) except -1:
+                                                         int nRequestID,
+                                                         cbool bIsLast) except -1:
     self.OnRspQrySecAgentTradingAccount(
         None if pTradingAccount is NULL else ApiStructure.TradingAccountField.from_address(<size_t> pTradingAccount),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast)
+        bIsLast
+    )
     return 0
 
 #请求查询二级代理商资金校验模式响应
-cdef extern int TraderSpi_OnRspQrySecAgentCheckMode(self, CThostFtdcSecAgentCheckModeField *pSecAgentCheckMode,
+cdef extern int TraderSpi_OnRspQrySecAgentCheckMode(self,
+                                                    CThostFtdcSecAgentCheckModeField *pSecAgentCheckMode,
                                                     CThostFtdcRspInfoField *pRspInfo,
-                                                    int nRequestID, cbool bIsLast) except -1:
+                                                    int nRequestID,
+                                                    cbool bIsLast) except -1:
     self.OnRspQrySecAgentCheckMode(
-        None if pSecAgentCheckMode is NULL else ApiStructure.SecAgentCheckModeField.from_address(
-            <size_t> pSecAgentCheckMode),
+        None if pSecAgentCheckMode is NULL else ApiStructure.SecAgentCheckModeField.from_address(<size_t> pSecAgentCheckMode),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast)
+        bIsLast
+    )
     return 0
 
     #请求查询期权自对冲响应
-cdef extern int TraderSpi_OnRspQryOptionSelfClose(self, CThostFtdcOptionSelfCloseField *pOptionSelfClose,
+cdef extern int TraderSpi_OnRspQryOptionSelfClose(self,
+                                                  CThostFtdcOptionSelfCloseField *pOptionSelfClose,
                                                   CThostFtdcRspInfoField *pRspInfo,
-                                                  int nRequestID, cbool bIsLast) except -1:
+                                                  int nRequestID,
+                                                  cbool bIsLast) except -1:
     self.OnRspQryOptionSelfClose(
         None if pOptionSelfClose is NULL else ApiStructure.OptionSelfCloseField.from_address(<size_t> pOptionSelfClose),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast)
+        bIsLast
+    )
     return 0
 
     #请求查询投资单元响应
-cdef extern int TraderSpi_OnRspQryInvestUnit(self, CThostFtdcInvestUnitField *pInvestUnit,
+cdef extern int TraderSpi_OnRspQryInvestUnit(self,
+                                             CThostFtdcInvestUnitField *pInvestUnit,
                                              CThostFtdcRspInfoField *pRspInfo,
-                                             int nRequestID, cbool bIsLast) except -1:
+                                             int nRequestID,
+                                             cbool bIsLast) except -1:
     self.OnRspQryInvestUnit(
         None if pInvestUnit is NULL else ApiStructure.InvestUnitField.from_address(<size_t> pInvestUnit),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
-        bIsLast)
+        bIsLast
+    )
     return 0
 
     #期权自对冲通知
 cdef extern int TraderSpi_OnRtnOptionSelfClose(self, CThostFtdcOptionSelfCloseField *pOptionSelfClose) except -1:
     self.OnRtnOptionSelfClose(
-        None if pOptionSelfClose is NULL else ApiStructure.OptionSelfCloseField.from_address(<size_t> pOptionSelfClose),
+        None if pOptionSelfClose is NULL else ApiStructure.OptionSelfCloseField.from_address(<size_t> pOptionSelfClose)
     )
     return 0
     #期权自对冲录入错误回报
@@ -1914,8 +2192,7 @@ cdef extern int TraderSpi_OnErrRtnOptionSelfCloseInsert(self,
                                                         CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose,
                                                         CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnOptionSelfCloseInsert(
-        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(
-            <size_t> pInputOptionSelfClose),
+        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(<size_t> pInputOptionSelfClose),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
     )
     return 0
@@ -1924,48 +2201,61 @@ cdef extern int TraderSpi_OnErrRtnOptionSelfCloseAction(self,
                                                         CThostFtdcOptionSelfCloseActionField *pOptionSelfCloseAction,
                                                         CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnOptionSelfCloseAction(
-        None if pOptionSelfCloseAction is NULL else ApiStructure.OptionSelfCloseActionField.from_address(
-            <size_t> pOptionSelfCloseAction),
+        None if pOptionSelfCloseAction is NULL else ApiStructure.OptionSelfCloseActionField.from_address(<size_t> pOptionSelfCloseAction),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
     )
     return 0
 
 # 查询用户当前支持的认证模式的回复
-cdef extern int TraderSpi_OnRspUserAuthMethod(self, CThostFtdcRspUserAuthMethodField *pRspUserAuthMethod,
-                                              CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast):
-
+cdef extern int TraderSpi_OnRspUserAuthMethod(self,
+                                              CThostFtdcRspUserAuthMethodField *pRspUserAuthMethod,
+                                              CThostFtdcRspInfoField *pRspInfo,
+                                              int nRequestID,
+                                              cbool bIsLast) except -1:
     self.OnErrRtnOptionSelfCloseAction(
         None if pRspUserAuthMethod is NULL else ApiStructure.RspUserAuthMethodField.from_address(<size_t> pRspUserAuthMethod),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast
+        nRequestID,
+        bIsLast
     )
     return 0
 # 获取图形验证码请求的回复
-cdef extern int TraderSpi_OnRspGenUserCaptcha(self, CThostFtdcRspGenUserCaptchaField *pRspGenUserCaptcha,
-                                              CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast):
+cdef extern int TraderSpi_OnRspGenUserCaptcha(self,
+                                              CThostFtdcRspGenUserCaptchaField *pRspGenUserCaptcha,
+                                              CThostFtdcRspInfoField *pRspInfo,
+                                              int nRequestID,
+                                              cbool bIsLast) except -1:
     self.OnErrRtnOptionSelfCloseAction(
         None if pRspGenUserCaptcha is NULL else ApiStructure.RspGenUserCaptchaField.from_address(<size_t> pRspGenUserCaptcha),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast
+        nRequestID,
+        bIsLast
     )
     return 0
 # 获取短信验证码请求的回复
-cdef extern int TraderSpi_OnRspGenUserText(self, CThostFtdcRspGenUserTextField *pRspGenUserText,
-                                           CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast):
+cdef extern int TraderSpi_OnRspGenUserText(self,
+                                           CThostFtdcRspGenUserTextField *pRspGenUserText,
+                                           CThostFtdcRspInfoField *pRspInfo,
+                                           int nRequestID,
+                                           cbool bIsLast) except -1:
     self.OnErrRtnOptionSelfCloseAction(
         None if pRspGenUserText is NULL else ApiStructure.RspGenUserTextField.from_address(<size_t> pRspGenUserText),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast
+        nRequestID,
+        bIsLast
     )
     return 0
 
 #请求查询二级代理商信息响应
-cdef extern int TraderSpi_OnRspQrySecAgentTradeInfo(self,CThostFtdcSecAgentTradeInfoField *pSecAgentTradeInfo, CThostFtdcRspInfoField *pRspInfo,
-                                                    int nRequestID, cbool bIsLast):
-
+cdef extern int TraderSpi_OnRspQrySecAgentTradeInfo(self,
+                                                    CThostFtdcSecAgentTradeInfoField *pSecAgentTradeInfo,
+                                                    CThostFtdcRspInfoField *pRspInfo,
+                                                    int nRequestID,
+                                                    cbool bIsLast) except -1:
     self.OnErrRtnOptionSelfCloseAction(
         None if pSecAgentTradeInfo is NULL else ApiStructure.SecAgentTradeInfoField.from_address(<size_t> pSecAgentTradeInfo),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
-        nRequestID, bIsLast
+        nRequestID,
+        bIsLast
     )
     return 0
