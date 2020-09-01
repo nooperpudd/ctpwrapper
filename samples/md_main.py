@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-
+import json
 import socket
 import sys
 import urllib.parse
@@ -49,50 +49,42 @@ class Md(MdApiPy):
     """
     """
 
-    def __init__(self, broker_id, investor_id, password, request_id=1):
-
+    def __init__(self, broker_id, investor_id, password, request_id=100):
+        """
+        """
+        self.login = False
         self.broker_id = broker_id
         self.investor_id = investor_id
         self.password = password
-        self.request_id = request_id
-        self.is_login = False
+        self._request_id = request_id
+
+    @property
+    def request_id(self):
+        self._request_id += 1
+        return self._request_id
 
     def OnRspError(self, pRspInfo, nRequestID, bIsLast):
-
-        self.ErrorRspInfo(pRspInfo, nRequestID)
-
-    def ErrorRspInfo(self, info, request_id):
-        """
-        :param info:
-        :return:
-        """
-        if info.ErrorID != 0:
-            print('request_id=%s ErrorID=%d, ErrorMsg=%s',
-                  request_id, info.ErrorID, info.ErrorMsg.decode('gbk'))
-        return info.ErrorID != 0
+        print("OnRspError:")
+        print("requestID:", nRequestID)
+        print(pRspInfo)
+        print(bIsLast)
 
     def OnFrontConnected(self):
         """
         :return:
         """
-
-        user_login = ApiStructure.ReqUserLoginField(BrokerID=self.broker_id,
-                                                    UserID=self.investor_id,
-                                                    Password=self.password)
-        result = self.ReqUserLogin(user_login, self.request_id)
-        if result == 0:
-            self.is_login = True
+        user_login = ApiStructure.ReqUserLoginField(BrokerID=self.broker_id, UserID=self.investor_id, Password=self.password)
+        self.ReqUserLogin(user_login, self.request_id)
 
     def OnFrontDisconnected(self, nReason):
-
-        print("Md OnFrontDisconnected %s", nReason)
+        print("Md OnFrontDisconnected {0}".format(nReason))
         sys.exit()
 
     def OnHeartBeatWarning(self, nTimeLapse):
         """心跳超时警告。当长时间未收到报文时，该方法被调用。
         @param nTimeLapse 距离上次接收报文的时间
         """
-        print('Md OnHeartBeatWarning, time = %s', nTimeLapse)
+        print('Md OnHeartBeatWarning, time = {0}'.format(nTimeLapse))
 
     def OnRspUserLogin(self, pRspUserLogin, pRspInfo, nRequestID, bIsLast):
         """
@@ -103,14 +95,16 @@ class Md(MdApiPy):
         :param bIsLast:
         :return:
         """
+        print("OnRspUserLogin")
+        print("requestID:", nRequestID)
+        print("RspInfo:", pRspInfo)
+
         if pRspInfo.ErrorID != 0:
-            print("OnRspUserLogin failed error_id=%s msg:%s",
-                  pRspInfo.ErrorID, pRspInfo.ErrorMsg.decode('gbk'))
+            print("RspInfo:", pRspInfo)
         else:
             print("user login successfully")
-            print(pRspUserLogin)
-            print(pRspInfo)
-            result = self.SubscribeMarketData(["v2104"])
+            print("RspUserLogin:", pRspUserLogin)
+            self.login = True
 
     def OnRtnDepthMarketData(self, pDepthMarketData):
         """
@@ -119,8 +113,7 @@ class Md(MdApiPy):
         :return:
         """
         print("OnRtnDepthMarketData")
-        market_data = pDepthMarketData.to_dict()
-        print(market_data)
+        print("DepthMarketData:", pDepthMarketData)
 
     def OnRspSubMarketData(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast):
         """
@@ -132,8 +125,10 @@ class Md(MdApiPy):
         :return:
         """
         print("OnRspSubMarketData")
-        print(pSpecificInstrument)
-        print(pRspInfo)
+        print("RequestId:", nRequestID)
+        print("isLast:", bIsLast)
+        print("pRspInfo:", pRspInfo)
+        print("pSpecificInstrument:", pSpecificInstrument)
 
     def OnRspUnSubMarketData(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast):
         """
@@ -145,17 +140,21 @@ class Md(MdApiPy):
         :return:
         """
         print("OnRspUnSubMarketData")
-        print(pSpecificInstrument)
-        print(pRspInfo)
+        print("RequestId:", nRequestID)
+        print("isLast:", bIsLast)
+        print("pRspInfo:", pRspInfo)
+        print("pSpecificInstrument:", pSpecificInstrument)
 
 
 def main():
-    investor_id = "089303"
-    broker_id = "9999"
-    password = "198759"
-    server = "tcp://180.168.146.187:10131"
-    app_id = "simnow_client_test"
-    verify_code = "0000000000000000"
+    json_file = open("config.json")
+    config = json.load(json_file)
+    json_file.close()
+
+    investor_id = config["investor_id"]
+    broker_id = config["broker_id"]
+    password = config["password"]
+    server = config["md_server"]
 
     if check_address_port(server):
         print("connect to md sever successfully")
@@ -165,25 +164,19 @@ def main():
         # 4 init
         md = Md(broker_id, investor_id, password)
         md.Create()
-
         md.Init()
         md.RegisterFront(server)
-        # time.sleep(1)
+        time.sleep(6)
+
         day = md.GetTradingDay()
-        print(day)
-        # md.ReqUserLogin()
-        # md.ReqQryMulticastInstrument()
+        print("trading day:", day)
+        print("md login:", md.login)
 
-        # if result == 0:
-        #     print("SubscribeMarketData success")
-        # else:
-        #     print("SubscribeMarketData failed")
-        while True:
-            print("haha")
-            time.sleep(1)
-        # md.Join()
-        # print("join")
-
+        if md.login:
+            md.SubscribeMarketData(["ru2101"])
+        time.sleep(30)
+        md.UnSubscribeMarketData(["ru2101"])
+        md.Join()
     else:
         print("md server is down")
 

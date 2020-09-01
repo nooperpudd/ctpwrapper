@@ -21,6 +21,13 @@ import ctypes
 
 class Base(ctypes.Structure):
 
+    def __getattribute__(self, item):
+        value = super().__getattribute__(item)
+        if isinstance(value, bytes):
+            return value.decode("gbk")
+        else:
+            return value
+
     def _to_bytes(self, value):
         """
         :return:
@@ -44,18 +51,12 @@ class Base(ctypes.Structure):
         results = {}
         for key, _ in self._fields_:
             _value = getattr(self, key)
-            if isinstance(_value, bytes):
-                results[key] = _value.decode("gbk")
-            else:
-                results[key] = _value
+            results[key] = _value
         return results
 
     def __repr__(self):
         """
         :return:
         """
-        items = ["{0}({1})".format(item,
-                                   getattr(self, item).decode("gbk") if isinstance(getattr(self, item), bytes)
-                                   else getattr(self, item))
-                 for item, value in self._fields_]
+        items = ["{0}({1})".format(item, getattr(self, item)) for item, value in self._fields_]
         return "{0}<{1}>".format(self.__class__.__name__, ",".join(items))

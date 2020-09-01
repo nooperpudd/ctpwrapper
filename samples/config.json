@@ -1,0 +1,9 @@
+{
+  "investor_id": "",
+  "broker_id": "",
+  "password": "",
+  "md_server": "tcp://180.168.146.187:10110",
+  "trader_server": "tcp://180.168.146.187:10100",
+  "app_id": "simnow_client_test",
+  "auth_code": "0000000000000000"
+}
