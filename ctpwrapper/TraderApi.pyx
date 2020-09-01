@@ -21,13 +21,13 @@ from cpython cimport PyObject
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
 
-from .headers.ThostFtdcUserApiStruct cimport *
-from .headers.cTraderApi cimport CTraderSpi, CTraderApi, CreateFtdcTraderApi
+from ctpwrapper.headers.ThostFtdcUserApiStruct cimport *
+from ctpwrapper.headers.cTraderApi cimport CTraderSpi, CTraderApi, CreateFtdcTraderApi
 
 # from libcpp.memory cimport shared_ptr,make_shared
 import ctypes
 
-from . import ApiStructure
+from ctpwrapper import ApiStructure
 
 cdef class TraderApiWrapper:
     cdef CTraderApi *_api

@@ -24,7 +24,7 @@ from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
 
-from .headers.ThostFtdcUserApiStruct cimport (
+from ctpwrapper.headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
 CThostFtdcUserLogoutField,
@@ -36,7 +36,7 @@ CThostFtdcForQuoteRspField,
 CThostFtdcQryMulticastInstrumentField,
 CThostFtdcMulticastInstrumentField
 )
-from .headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
+from ctpwrapper.headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
 
 import ctypes
 

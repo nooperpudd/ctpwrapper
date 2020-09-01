@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from .ThostFtdcUserApiDataType cimport *
+from ctpwrapper.headers.ThostFtdcUserApiDataType cimport *
 
 cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcDisseminationField:
