@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.cpp
+*.con
+ctpwrapper/*.so
 
 
 # Distribution / packaging

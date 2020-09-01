@@ -17,24 +17,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 import time
-
 from ctpwrapper.MdApi import MdApiWrapper
-
-
-def decorator_sleep(secs=0.5):
-    """
-    :return:
-    """
-    def wrapper(func):
-        def inner(self, *args, **kwargs):
-            result = func(self, *args, **kwargs)
-            print("timesleep")
-            time.sleep(secs)
-            return result
-
-        return inner
-
-    return wrapper
 
 
 class MdApiPy(MdApiWrapper):
@@ -52,7 +35,7 @@ class MdApiPy(MdApiWrapper):
         初始化运行环境,只有调用后,接口才开始工作
         """
         super(MdApiPy, self).Init()
-        time.sleep(0.1)  # wait for c++ init
+        time.sleep(0.5)  # wait for c++ init
 
     def Join(self) -> int:
         """
@@ -161,8 +144,6 @@ class MdApiPy(MdApiWrapper):
         return super(MdApiPy, self).UnSubscribeForQuoteRsp(ids)
 
     # for receive message
-
-    @decorator_sleep
     def OnFrontConnected(self):
         """
         当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。

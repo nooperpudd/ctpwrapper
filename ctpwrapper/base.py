@@ -54,5 +54,8 @@ class Base(ctypes.Structure):
         """
         :return:
         """
-        items = ["%s:%s" % (item, getattr(self, item)) for item, value in self._fields_]
-        return "%s<%s>" % (self.__class__.__name__, ",".join(items))
+        items = ["{0}({1})".format(item,
+                                   getattr(self, item).decode("gbk") if isinstance(getattr(self, item), bytes)
+                                   else getattr(self, item))
+                 for item, value in self._fields_]
+        return "%s<%s>".format(self.__class__.__name__, ",".join(items))
