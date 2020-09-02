@@ -2850,11 +2850,11 @@ class QryTradingAccountField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
-        ('BizType', ctypes.c_char),  # 业务类型
+        ('BizType', ctypes.c_char),  # 业务类型 1 期货 2 证券
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', CurrencyID='', BizType='', AccountID=''):
+    def __init__(self, BrokerID='', InvestorID='', CurrencyID='', BizType='1', AccountID=''):
         super(QryTradingAccountField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)

@@ -131,6 +131,20 @@ class Trader(TraderApiPy):
         print("pRspInfo:", pRspInfo)
         print("pInvestor:", pInvestor)
 
+    def OnRspQryInvestorPosition(self, pInvestorPosition, pRspInfo, nRequestID, bIsLast):
+        print("OnRspQryInvestorPosition")
+        print("nRequestID:", nRequestID)
+        print("bIsLast:", bIsLast)
+        print("pRspInfo:", pRspInfo)
+        print("pInvestorPosition:", pInvestorPosition)
+
+    def OnRspQryTradingAccount(self, pTradingAccount, pRspInfo, nRequestID, bIsLast):
+        print("OnRspQryTradingAccount")
+        print("nRequestID:", nRequestID)
+        print("bIsLast:", bIsLast)
+        print("pRspInfo:", pRspInfo)
+        print("pTradingAccount:", pTradingAccount)
+
 
 def main():
     json_file = open("config.json")
@@ -161,17 +175,23 @@ def main():
         print("trader api started")
         print("trading day:", user_trader.GetTradingDay())
 
-        time.sleep(6)
-
         if user_trader.login:
             investor = ApiStructure.QryInvestorField(broker_id, investor_id)
 
             user_trader.ReqQryInvestor(investor, user_trader.request_id)
 
+            # position = ApiStructure.QryInvestorPositionField.from_dict({"BrokerID": broker_id,
+            #                                                             "InvestorID": investor_id})
+            # user_trader.ReqQryInvestorPosition(position, user_trader.request_id)
+
             settlement_info = ApiStructure.SettlementInfoConfirmField.from_dict({"BrokerID": broker_id,
                                                                                  "InvestorID": investor_id})
 
             user_trader.ReqSettlementInfoConfirm(settlement_info, user_trader.request_id)
+
+            trader_account = ApiStructure.QryTradingAccountField(BrokerID=broker_id, InvestorID=investor_id)
+            user_trader.ReqQryTradingAccount(trader_account, user_trader.request_id)
+
             user_trader.Join()
 
     else:

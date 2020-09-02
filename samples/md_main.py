@@ -170,12 +170,11 @@ def main():
         day = md.GetTradingDay()
         print("trading day:", day)
         print("md login:", md.login)
-
         if md.login:
             md.SubscribeMarketData(["ru2101"])
-        time.sleep(30)
-        md.UnSubscribeMarketData(["ru2101"])
-        md.Join()
+            time.sleep(30)
+            md.UnSubscribeMarketData(["ru2101"])
+            md.Join()
     else:
         print("md server is down")
 
