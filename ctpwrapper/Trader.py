@@ -31,7 +31,7 @@ class TraderApiPy(TraderApiWrapper):
 
     def Init(self):
         super(TraderApiPy, self).Init()
-        time.sleep(0.1)  # wait for c++ init
+        time.sleep(1)  # wait for c++ init
 
     def Join(self):
         return super(TraderApiPy, self).Join()

@@ -36,7 +36,7 @@ already install cython package.
 
 ## ⚠️⚠️ notice ⚠️⚠️
  sometimes quote the market futures data, but there is no trading data from the API stream,
- better just add `time.sleep(6)` func call after `Init()` method invoked, this could help to solve no data response issue.
+ better just add `time.sleep(2)` func call after `Init()` method invoked, this could help to solve no data response issue.
  
 ## Demo
 sample code  [samples](samples/)

@@ -164,9 +164,8 @@ def main():
         # 4 init
         md = Md(broker_id, investor_id, password)
         md.Create()
-        md.Init()
         md.RegisterFront(server)
-        time.sleep(6)
+        md.Init()
 
         day = md.GetTradingDay()
         print("trading day:", day)
