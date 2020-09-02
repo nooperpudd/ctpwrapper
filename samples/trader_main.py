@@ -18,11 +18,11 @@ You should have received a copy of the GNU General Public License
 along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-
+import json
 import socket
 import urllib.parse
 from contextlib import closing
-
+import time
 from ctpwrapper import ApiStructure
 from ctpwrapper import TraderApiPy
 
@@ -46,94 +46,153 @@ def check_address_port(tcp):
 
 class Trader(TraderApiPy):
 
-    def __init__(self, broker_id, investor_id, password, request_id=1):
-        self.request_id = request_id
-        self.broker_id = broker_id.encode()
-        self.investor_id = investor_id.encode()
-        self.password = password.encode()
+    def __init__(self, app_id, auth_code, broker_id, investor_id, password, request_id=100):
+        self.app_id = app_id
+        self.auth_code = auth_code
+        self.broker_id = broker_id
+        self.investor_id = investor_id
+        self.password = password
+        self._request_id = request_id
+        self.login = False
+
+    @property
+    def request_id(self):
+        self._request_id += 1
+        return self._request_id
 
     def OnRspError(self, pRspInfo, nRequestID, bIsLast):
-
-        self.ErrorRspInfo(pRspInfo, nRequestID)
-
-    def ErrorRspInfo(self, info, request_id):
-        """
-        :param info:
-        :return:
-        """
-        if info.ErrorID != 0:
-            print('request_id=%s ErrorID=%d, ErrorMsg=%s',
-                  request_id, info.ErrorID, info.ErrorMsg.decode('gbk'))
-        return info.ErrorID != 0
+        print("OnRspError:")
+        print("requestID:", nRequestID)
+        print(pRspInfo)
+        print(bIsLast)
 
     def OnHeartBeatWarning(self, nTimeLapse):
         """心跳超时警告。当长时间未收到报文时，该方法被调用。
         @param nTimeLapse 距离上次接收报文的时间
         """
-        print("on OnHeartBeatWarning time: ", nTimeLapse)
+        print("OnHeartBeatWarning time: ", nTimeLapse)
 
     def OnFrontDisconnected(self, nReason):
-        print("on FrontDisConnected disconnected", nReason)
+        print("OnFrontConnected:", nReason)
 
     def OnFrontConnected(self):
+        print("OnFrontConnected")
+        authenticate = ApiStructure.ReqAuthenticateField(BrokerID=self.broker_id,
+                                                         UserID=self.investor_id,
+                                                         AppID=self.app_id,
+                                                         AuthCode=self.auth_code)
 
-        req = ApiStructure.ReqUserLoginField(BrokerID=self.broker_id,
-                                             UserID=self.investor_id,
-                                             Password=self.password)
-        self.ReqUserLogin(req, self.request_id)
-        print("trader on front connection")
+        self.ReqAuthenticate(authenticate, self.request_id)
+
+    def OnRspAuthenticate(self, pRspAuthenticateField, pRspInfo, nRequestID, bIsLast):
+
+        print("OnRspAuthenticate")
+        print("pRspInfo:", pRspInfo)
+        print("nRequestID:", nRequestID)
+        print("bIsLast:", bIsLast)
+
+        if pRspInfo.ErrorID == 0:
+            req = ApiStructure.ReqUserLoginField(BrokerID=self.broker_id,
+                                                 UserID=self.investor_id,
+                                                 Password=self.password)
+            self.ReqUserLogin(req, self.request_id)
+        else:
+            print("auth failed")
 
     def OnRspUserLogin(self, pRspUserLogin, pRspInfo, nRequestID, bIsLast):
+        print("OnRspUserLogin")
+        print("nRequestID:", nRequestID)
+        print("bIsLast:", bIsLast)
+        print("pRspInfo:", pRspInfo)
 
         if pRspInfo.ErrorID != 0:
-            print("Md OnRspUserLogin failed error_id=%s msg:%s",
-                  pRspInfo.ErrorID, pRspInfo.ErrorMsg.decode('gbk'))
+            print("RspInfo:", pRspInfo)
         else:
-            print("Md user login successfully")
-
-            inv = ApiStructure.QryInvestorField(BrokerID=self.broker_id, InvestorID=self.investor_id)
-
-            self.ReqQryInvestor(inv, self.inc_request_id())
-            req = ApiStructure.SettlementInfoConfirmField.from_dict({"BrokerID": self.broker_id,
-                                                                     "InvestorID": self.investor_id})
-
-            self.ReqSettlementInfoConfirm(req, self.inc_request_id())
+            print("trader user login successfully")
+            self.login = True
+            print("pRspUserLogin:", pRspUserLogin)
 
     def OnRspSettlementInfoConfirm(self, pSettlementInfoConfirm, pRspInfo, nRequestID, bIsLast):
-        print(pSettlementInfoConfirm, pRspInfo)
-        print(pRspInfo.ErrorMsg.decode("GBK"))
+        """
+        """
+        print("OnRspSettlementInfoConfirm")
+        print("nRequestID:", nRequestID)
+        print("bIsLast:", bIsLast)
+        print("pRspInfo:", pRspInfo)
 
-    def inc_request_id(self):
-        self.request_id += 1
-        return self.request_id
+        print(pSettlementInfoConfirm)
 
     def OnRspQryInvestor(self, pInvestor, pRspInfo, nRequestID, bIsLast):
-        print(pInvestor, pRspInfo)
+        """
+        """
+        print("OnRspQryInvestor")
+        print("nRequestID:", nRequestID)
+        print("bIsLast:", bIsLast)
+        print("pRspInfo:", pRspInfo)
+        print("pInvestor:", pInvestor)
+
+    def OnRspQryInvestorPosition(self, pInvestorPosition, pRspInfo, nRequestID, bIsLast):
+        print("OnRspQryInvestorPosition")
+        print("nRequestID:", nRequestID)
+        print("bIsLast:", bIsLast)
+        print("pRspInfo:", pRspInfo)
+        print("pInvestorPosition:", pInvestorPosition)
+
+    def OnRspQryTradingAccount(self, pTradingAccount, pRspInfo, nRequestID, bIsLast):
+        print("OnRspQryTradingAccount")
+        print("nRequestID:", nRequestID)
+        print("bIsLast:", bIsLast)
+        print("pRspInfo:", pRspInfo)
+        print("pTradingAccount:", pTradingAccount)
 
 
 def main():
+    json_file = open("config.json")
+    config = json.load(json_file)
+    json_file.close()
 
-    investor_id = "089303"
-    broker_id = "9999"
-    password = "198759"
+    print(config)
 
-    server = "tcp://180.168.146.187:10001"
+    investor_id = config["investor_id"]
+    broker_id = config["broker_id"]
+    password = config["password"]
+    server = config["trader_server"]
+    app_id = config["app_id"]
+    auth_code = config["auth_code"]
 
     if check_address_port(server):
 
-        user_trader = Trader(broker_id=broker_id, investor_id=investor_id, password=password)
+        user_trader = Trader(broker_id=broker_id, app_id=app_id, auth_code=auth_code,
+                             investor_id=investor_id, password=password)
 
         user_trader.Create()
         user_trader.RegisterFront(server)
-        user_trader.SubscribePrivateTopic(2) # 只传送登录后的流内容
-        user_trader.SubscribePrivateTopic(2) # 只传送登录后的流内容
+        user_trader.SubscribePrivateTopic(2)  # 只传送登录后的流内容
+        user_trader.SubscribePrivateTopic(2)  # 只传送登录后的流内容
 
         user_trader.Init()
 
-        print("trader started")
-        print(user_trader.GetTradingDay())
+        print("trader api started")
+        print("trading day:", user_trader.GetTradingDay())
 
-        user_trader.Join()
+        if user_trader.login:
+            investor = ApiStructure.QryInvestorField(broker_id, investor_id)
+
+            user_trader.ReqQryInvestor(investor, user_trader.request_id)
+
+            # position = ApiStructure.QryInvestorPositionField.from_dict({"BrokerID": broker_id,
+            #                                                             "InvestorID": investor_id})
+            # user_trader.ReqQryInvestorPosition(position, user_trader.request_id)
+
+            settlement_info = ApiStructure.SettlementInfoConfirmField.from_dict({"BrokerID": broker_id,
+                                                                                 "InvestorID": investor_id})
+
+            user_trader.ReqSettlementInfoConfirm(settlement_info, user_trader.request_id)
+
+            trader_account = ApiStructure.QryTradingAccountField(BrokerID=broker_id, InvestorID=investor_id)
+            user_trader.ReqQryTradingAccount(trader_account, user_trader.request_id)
+
+            user_trader.Join()
 
     else:
         print("trader server down")

@@ -162,11 +162,11 @@ class AuthenticationInfoField(Base):
         ('IsResult', ctypes.c_int),  # 是否为认证结果
         ('AppID', ctypes.c_char * 33),  # App代码
         ('AppType', ctypes.c_char),  # App类型
-        ('ClientIPAddress', ctypes.c_char * 16)  # 终端IP地址
+        ('ClientIPAddress', ctypes.c_char * 16),  # 终端IP地址
     ]
 
-    def __init__(self, BrokerID='', UserID='', UserProductInfo='', AuthInfo='',
-                 IsResult=0, AppID='', AppType='', ClientIPAddress=''):
+    def __init__(self, BrokerID='', UserID='', UserProductInfo='', AuthInfo='', IsResult=0, AppID='', AppType='',
+                 ClientIPAddress=''):
         super(AuthenticationInfoField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -911,7 +911,7 @@ class InvestorPositionField(Base):
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
         ('PositionCostOffset', ctypes.c_double),  # 大商所持仓成本差值，只有大商所使用
         ('TasPosition', ctypes.c_int),  # tas持仓手数
-        ("TasPositionCost", ctypes.c_double)  # tas持仓成本
+        ('TasPositionCost', ctypes.c_double),  # tas持仓成本
     ]
 
     def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection='', HedgeFlag='', PositionDate='',
@@ -990,7 +990,6 @@ class InstrumentMarginRateField(Base):
         ('IsRelative', ctypes.c_int),  # 是否相对交易所收取
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
-
     ]
 
     def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='',
@@ -2629,8 +2628,7 @@ class SyncingInvestorPositionField(Base):
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
         ('PositionCostOffset', ctypes.c_double),  # 大商所持仓成本差值，只有大商所使用
         ('TasPosition', ctypes.c_int),  # tas持仓手数
-        ("TasPositionCost", ctypes.c_double)  # tas持仓成本
-
+        ('TasPositionCost', ctypes.c_double),  # tas持仓成本
     ]
 
     def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection='', HedgeFlag='', PositionDate='',
@@ -2852,11 +2850,11 @@ class QryTradingAccountField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
-        ('BizType', ctypes.c_char),  # 业务类型
+        ('BizType', ctypes.c_char),  # 业务类型 1 期货 2 证券
         ('AccountID', ctypes.c_char * 13),  # 投资者帐号
     ]
 
-    def __init__(self, BrokerID='', InvestorID='', CurrencyID='', BizType='', AccountID=''):
+    def __init__(self, BrokerID='', InvestorID='', CurrencyID='', BizType='1', AccountID=''):
         super(QryTradingAccountField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -6495,7 +6493,7 @@ class InvestorPositionDetailField(Base):
         ('CloseAmount', ctypes.c_double),  # 平仓金额
         ('TimeFirstVolume', ctypes.c_int),  # 先开先平剩余数量（DCE）
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
-        ('SpecPosiType', ctypes.c_char)  # 特殊持仓标志
+        ('SpecPosiType', ctypes.c_char),  # 特殊持仓标志
     ]
 
     def __init__(self, InstrumentID='', BrokerID='', InvestorID='', HedgeFlag='', Direction='', OpenDate='', TradeID='',
@@ -8293,19 +8291,17 @@ class QryBulletinField(Base):
 
 
 class MulticastInstrumentField(Base):
-    """
-    """
+    """MulticastInstrument"""
     _fields_ = [
-        ("TopicID", ctypes.c_int),  # 主题号
-        ("InstrumentID", ctypes.c_char * 31),  # 合约代码
-        ("InstrumentNo", ctypes.c_int),  # 合约编号
-        ("CodePrice", ctypes.c_double),  # 基准价
-        ("VolumeMultiple", ctypes.c_int),  # 合约数量乘数
-        ("PriceTick", ctypes.c_double),  # 最小变动价位
+        ('TopicID', ctypes.c_int),  # 主题号
+        ('InstrumentID', ctypes.c_char * 31),  # 合约代码
+        ('InstrumentNo', ctypes.c_int),  # 合约编号
+        ('CodePrice', ctypes.c_double),  # 基准价
+        ('VolumeMultiple', ctypes.c_int),  # 合约数量乘数
+        ('PriceTick', ctypes.c_double),  # 最小变动价位
     ]
 
-    def __init__(self, TopicID=0, InstrumentID='', InstrumentNo=0,
-                 CodePrice=0.0, VolumeMultiple=0, PriceTick=0.0):
+    def __init__(self, TopicID=0, InstrumentID='', InstrumentNo=0, CodePrice=0.0, VolumeMultiple=0, PriceTick=0.0):
         super(MulticastInstrumentField, self).__init__()
         self.TopicID = int(TopicID)
         self.InstrumentID = self._to_bytes(InstrumentID)
@@ -8316,11 +8312,10 @@ class MulticastInstrumentField(Base):
 
 
 class QryMulticastInstrumentField(Base):
-    """
-    """
+    """QryMulticastInstrument"""
     _fields_ = [
-        ("TopicID", ctypes.c_int),  # 主题号
-        ("InstrumentID", ctypes.c_char * 31),  # 合约代码
+        ('TopicID', ctypes.c_int),  # 主题号
+        ('InstrumentID', ctypes.c_char * 31),  # 合约代码
     ]
 
     def __init__(self, TopicID=0, InstrumentID=''):
@@ -8330,13 +8325,11 @@ class QryMulticastInstrumentField(Base):
 
 
 class AppIDAuthAssignField(Base):
-    """
-    App客户端权限分配
-    """
+    """App客户端权限分配"""
     _fields_ = [
-        ("BrokerID", ctypes.c_char * 11),  # 经纪公司代码
-        ("AppID", ctypes.c_char * 33),  # App代码
-        ("DRIdentityID", ctypes.c_int)  # 交易中心代码
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('AppID', ctypes.c_char * 33),  # App代码
+        ('DRIdentityID', ctypes.c_int),  # 交易中心代码
     ]
 
     def __init__(self, BrokerID='', AppID='', DRIdentityID=0):
@@ -11427,9 +11420,7 @@ class QueryFreqField(Base):
 
 
 class AuthForbiddenIPField(Base):
-    """
-    禁止认证IP
-    """
+    """禁止认证IP"""
     _fields_ = [
         ('IPAddress', ctypes.c_char * 16),  # IP地址
     ]
@@ -11440,9 +11431,7 @@ class AuthForbiddenIPField(Base):
 
 
 class QryAuthForbiddenIPField(Base):
-    """
-    查询禁止认证IP
-    """
+    """查询禁止认证IP"""
     _fields_ = [
         ('IPAddress', ctypes.c_char * 16),  # IP地址
     ]
@@ -11453,20 +11442,18 @@ class QryAuthForbiddenIPField(Base):
 
 
 class SyncDelaySwapFrozenField(Base):
-    """
-    换汇可提冻结
-    """
+    """换汇可提冻结"""
     _fields_ = [
-        ('DelaySwapSeqNo', ctypes.c_char * 11),  # 换汇流水号
-        ('BrokerID', ctypes.c_char * 16),  # 经纪公司代码
+        ('DelaySwapSeqNo', ctypes.c_char * 15),  # 换汇流水号
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('InvestorID', ctypes.c_char * 13),  # 投资者代码
-        ('FromCurrencyID', ctypes.c_char * 13),  # 源币种
+        ('FromCurrencyID', ctypes.c_char * 4),  # 源币种
         ('FromRemainSwap', ctypes.c_double),  # 源剩余换汇额度(可提冻结)
-        ('IsManualSwap', ctypes.c_int)  # 是否手工换汇
+        ('IsManualSwap', ctypes.c_int),  # 是否手工换汇
     ]
 
-    def __init__(self, DelaySwapSeqNo='', BrokerID='', InvestorID='',
-                 FromCurrencyID='', FromRemainSwap=0.0, IsManualSwap=0):
+    def __init__(self, DelaySwapSeqNo='', BrokerID='', InvestorID='', FromCurrencyID='', FromRemainSwap=0.0,
+                 IsManualSwap=0):
         super(SyncDelaySwapFrozenField, self).__init__()
         self.DelaySwapSeqNo = self._to_bytes(DelaySwapSeqNo)
         self.BrokerID = self._to_bytes(BrokerID)

@@ -19,13 +19,12 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 
-
 from cpython cimport PyObject
 from libc.stdlib cimport malloc, free
 from libc.string cimport const_char
 from libcpp cimport bool as cbool
 
-from .headers.ThostFtdcUserApiStruct cimport (
+from ctpwrapper.headers.ThostFtdcUserApiStruct cimport (
 CThostFtdcRspUserLoginField,
 CThostFtdcRspInfoField,
 CThostFtdcUserLogoutField,
@@ -37,11 +36,12 @@ CThostFtdcForQuoteRspField,
 CThostFtdcQryMulticastInstrumentField,
 CThostFtdcMulticastInstrumentField
 )
-from .headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
+from ctpwrapper.headers.cMdAPI cimport CMdSpi, CMdApi, CreateFtdcMdApi
 
 import ctypes
 
 from . import ApiStructure
+
 # from libcpp.memory cimport shared_ptr,make_shared
 
 
@@ -67,7 +67,8 @@ cdef class MdApiWrapper:
 
     def Create(self, const_char *pszFlowPath, cbool bIsUsingUdp, cbool bIsMulticast):
 
-        self._api = CreateFtdcMdApi(pszFlowPath, bIsUsingUdp, bIsMulticast)
+        with nogil:
+            self._api = CreateFtdcMdApi(pszFlowPath, bIsUsingUdp, bIsMulticast)
 
         if not self._api:
             raise MemoryError()
@@ -82,8 +83,9 @@ cdef class MdApiWrapper:
             self._spi = new CMdSpi(<PyObject *> self)
 
             if self._spi is not NULL:
-                self._api.RegisterSpi(self._spi)
-                self._api.Init()
+                with nogil:
+                    self._api.RegisterSpi(self._spi)
+                    self._api.Init()
             else:
                 raise MemoryError()
 
@@ -118,7 +120,6 @@ cdef class MdApiWrapper:
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pUserLogout)
-
             with nogil:
                 result = self._api.ReqUserLogout(<CThostFtdcUserLogoutField *> address, nRequestID)
 
@@ -162,8 +163,8 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-
-            self._api.RegisterFront(pszFrontAddress)
+            with nogil:
+                self._api.RegisterFront(pszFrontAddress)
 
     def RegisterNameServer(self, char *pszNsAddress):
         """
@@ -175,8 +176,8 @@ cdef class MdApiWrapper:
         :return:
         """
         if self._api is not NULL:
-
-            self._api.RegisterNameServer(pszNsAddress)
+            with nogil:
+                self._api.RegisterNameServer(pszNsAddress)
 
     def RegisterFensUserInfo(self, pFensUserInfo):
         """
@@ -187,16 +188,16 @@ cdef class MdApiWrapper:
         cdef size_t address
         if self._api is not NULL:
             address = ctypes.addressof(pFensUserInfo)
-
-            self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
+            with nogil:
+                self._api.RegisterFensUserInfo(<CThostFtdcFensUserInfoField *> address)
 
     def SubscribeMarketData(self, pInstrumentID):
         """
-         订阅行情。
+        订阅行情。
         @param ppInstrumentID 合约ID
         @param nCount 要订阅/退订行情的合约个数
 
-        #  https://www.quora.com/How-do-char-array-pointers-work-in-C++
+        # https://www.quora.com/How-do-char-array-pointers-work-in-C++
         # http://docs.cython.org/en/latest/src/userguide/language_basics.html#integer-for-loops
         # https://stackoverflow.com/questions/15686890/how-to-allocate-array-of-pointers-for-strings-by-malloc-in-c
 
@@ -204,7 +205,7 @@ cdef class MdApiWrapper:
         """
         cdef Py_ssize_t count, i
         cdef int result
-        cdef char **InstrumentIDs
+        cdef char ** InstrumentIDs
 
         if self._spi is not NULL:
 
@@ -215,7 +216,7 @@ cdef class MdApiWrapper:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
                 with nogil:
-                    result = self._api.SubscribeMarketData(InstrumentIDs, <int>count)
+                    result = self._api.SubscribeMarketData(InstrumentIDs, <int> count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -229,7 +230,7 @@ cdef class MdApiWrapper:
         """
         cdef Py_ssize_t count, i
         cdef int result
-        cdef char **InstrumentIDs
+        cdef char ** InstrumentIDs
 
         if self._spi is not NULL:
             count = len(pInstrumentID)
@@ -239,7 +240,7 @@ cdef class MdApiWrapper:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
                 with nogil:
-                    result = self._api.UnSubscribeMarketData(InstrumentIDs, <int>count)
+                    result = self._api.UnSubscribeMarketData(InstrumentIDs, <int> count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -252,7 +253,7 @@ cdef class MdApiWrapper:
         """
         cdef Py_ssize_t count, i
         cdef int result
-        cdef char **InstrumentIDs
+        cdef char ** InstrumentIDs
 
         if self._spi is not NULL:
 
@@ -263,7 +264,7 @@ cdef class MdApiWrapper:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
                 with nogil:
-                    result = self._api.SubscribeForQuoteRsp(InstrumentIDs, <int>count)
+                    result = self._api.SubscribeForQuoteRsp(InstrumentIDs, <int> count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -276,7 +277,7 @@ cdef class MdApiWrapper:
         """
         cdef Py_ssize_t count, i
         cdef int result
-        cdef char **InstrumentIDs
+        cdef char ** InstrumentIDs
 
         if self._spi is not NULL:
 
@@ -286,7 +287,7 @@ cdef class MdApiWrapper:
                 for i from 0 <= i < count:
                     InstrumentIDs[i] = pInstrumentID[i]
                 with nogil:
-                    result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs, <int>count)
+                    result = self._api.UnSubscribeForQuoteRsp(InstrumentIDs, <int> count)
             finally:
                 free(InstrumentIDs)
             return result
@@ -303,7 +304,8 @@ cdef extern int MdSpi_OnHeartBeatWarning(self, int nTimeLapse) except -1:
     self.OnHeartBeatWarning(nTimeLapse)
     return 0
 
-cdef extern int MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUserLogin,
+cdef extern int MdSpi_OnRspUserLogin(self,
+                                     CThostFtdcRspUserLoginField *pRspUserLogin,
                                      CThostFtdcRspInfoField *pRspInfo,
                                      int nRequestID,
                                      cbool bIsLast) except -1:
@@ -319,7 +321,8 @@ cdef extern int MdSpi_OnRspUserLogin(self, CThostFtdcRspUserLoginField *pRspUser
     self.OnRspUserLogin(user_login, rsp_info, nRequestID, bIsLast)
     return 0
 
-cdef extern int MdSpi_OnRspUserLogout(self, CThostFtdcUserLogoutField *pUserLogout,
+cdef extern int MdSpi_OnRspUserLogout(self,
+                                      CThostFtdcUserLogoutField *pUserLogout,
                                       CThostFtdcRspInfoField *pRspInfo,
                                       int nRequestID,
                                       cbool bIsLast) except -1:
@@ -335,7 +338,8 @@ cdef extern int MdSpi_OnRspUserLogout(self, CThostFtdcUserLogoutField *pUserLogo
     self.OnRspUserLogout(user_logout, rsp_info, nRequestID, bIsLast)
     return 0
 
-cdef extern int MdSpi_OnRspError(self, CThostFtdcRspInfoField *pRspInfo,
+cdef extern int MdSpi_OnRspError(self,
+                                 CThostFtdcRspInfoField *pRspInfo,
                                  int nRequestID,
                                  cbool bIsLast) except -1:
     if pRspInfo is NULL:
@@ -345,7 +349,8 @@ cdef extern int MdSpi_OnRspError(self, CThostFtdcRspInfoField *pRspInfo,
     self.OnRspError(rsp_info, nRequestID, bIsLast)
     return 0
 
-cdef extern int MdSpi_OnRspSubMarketData(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+cdef extern int MdSpi_OnRspSubMarketData(self,
+                                         CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                          CThostFtdcRspInfoField *pRspInfo,
                                          int nRequestID,
                                          cbool bIsLast) except -1:
@@ -361,7 +366,8 @@ cdef extern int MdSpi_OnRspSubMarketData(self, CThostFtdcSpecificInstrumentField
     self.OnRspSubMarketData(instrument, rsp_info, nRequestID, bIsLast)
     return 0
 
-cdef extern int MdSpi_OnRspUnSubMarketData(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+cdef extern int MdSpi_OnRspUnSubMarketData(self,
+                                           CThostFtdcSpecificInstrumentField *pSpecificInstrument,
                                            CThostFtdcRspInfoField *pRspInfo,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
@@ -395,7 +401,11 @@ cdef extern int MdSpi_OnRspSubForQuoteRsp(self,
     self.OnRspSubForQuoteRsp(instrument, rsp_info, nRequestID, bIsLast)
     return 0
 
-cdef extern int MdSpi_OnRspUnSubForQuoteRsp(self, CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+cdef extern int MdSpi_OnRspUnSubForQuoteRsp(self,
+                                            CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+                                            CThostFtdcRspInfoField *pRspInfo,
+                                            int nRequestID,
+                                            cbool bIsLast) except -1:
     if pSpecificInstrument is NULL:
         instrument = None
     else:
@@ -425,7 +435,11 @@ cdef extern int MdSpi_OnRtnForQuoteRsp(self, CThostFtdcForQuoteRspField *pForQuo
     self.OnRtnForQuoteRsp(quote)
     return 0
 
-cdef extern int MdSpi_OnRspQryMulticastInstrument(self, CThostFtdcMulticastInstrumentField *pMulticastInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, cbool bIsLast) except -1:
+cdef extern int MdSpi_OnRspQryMulticastInstrument(self,
+                                                  CThostFtdcMulticastInstrumentField *pMulticastInstrument,
+                                                  CThostFtdcRspInfoField *pRspInfo,
+                                                  int nRequestID,
+                                                  cbool bIsLast) except -1:
     if pMulticastInstrument is NULL:
         MulticastInstrument = None
     else:

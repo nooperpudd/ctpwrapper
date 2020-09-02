@@ -26,4 +26,10 @@ sdist: clean
 twine:
 	twine upload dist/*
 
+.PHONY: pypy
+pypy:
+	pypy3 setup.py clean --all
+	pypy3 setup.py build_ext --inplace
+
+
 

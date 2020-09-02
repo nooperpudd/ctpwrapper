@@ -20,7 +20,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 from cpython cimport PyObject
 from libc.string cimport const_char
 
-from .ThostFtdcUserApiStruct cimport *
+from ctpwrapper.headers.ThostFtdcUserApiStruct cimport *
 
 
 cdef extern from "ThostFtdcTraderApi.h":
@@ -28,19 +28,19 @@ cdef extern from "ThostFtdcTraderApi.h":
     cdef cppclass CTraderApi "CThostFtdcTraderApi":
 
         @staticmethod
-        const_char *GetApiVersion() nogil
+        const_char *GetApiVersion()
 
         # 删除接口对象本身
         #@remark 不再使用本接口对象时,调用该函数删除接口对象
-        void Release() nogil
+        void Release() nogil except +
 
         #初始化
         #@remark 初始化运行环境,只有调用后,接口才开始工作
-        void Init() nogil
+        void Init() nogil except +
 
         #等待接口线程结束运行
         #@return 线程退出代码
-        int Join() nogil
+        int Join() nogil except +
 
         #获取当前交易日
         #@retrun 获取到的交易日
@@ -105,8 +105,7 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqUserPasswordUpdate(CThostFtdcUserPasswordUpdateField *pUserPasswordUpdate, int nRequestID) nogil except +
 
         #资金账户口令更新请求
-        int ReqTradingAccountPasswordUpdate(CThostFtdcTradingAccountPasswordUpdateField *pTradingAccountPasswordUpdate,
-                                            int nRequestID) nogil except +
+        int ReqTradingAccountPasswordUpdate(CThostFtdcTradingAccountPasswordUpdateField *pTradingAccountPasswordUpdate, int nRequestID) nogil except +
 
         # 查询用户当前支持的认证模式
         int ReqUserAuthMethod(CThostFtdcReqUserAuthMethodField *pReqUserAuthMethod, int nRequestID) nogil except +
@@ -174,8 +173,7 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqOptionSelfCloseInsert(CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose, int nRequestID) nogil except +
 
         #期权自对冲操作请求
-        int ReqOptionSelfCloseAction(CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfCloseAction,
-                                         int nRequestID) nogil except +
+        int ReqOptionSelfCloseAction(CThostFtdcInputOptionSelfCloseActionField *pInputOptionSelfCloseAction, int nRequestID) nogil except +
 
         #申请组合录入请求
         int ReqCombActionInsert(CThostFtdcInputCombActionField *pInputCombAction, int nRequestID) nogil except +
@@ -347,4 +345,4 @@ cdef extern from "ThostFtdcTraderApi.h" namespace "CThostFtdcTraderApi":
 
 cdef extern from "CTraderAPI.h":
     cdef cppclass CTraderSpi:
-        CTraderSpi(PyObject *obj)
+        CTraderSpi(PyObject *obj) except +

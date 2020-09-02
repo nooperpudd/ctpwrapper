@@ -57,10 +57,10 @@ class TestStructure(unittest.TestCase):
         }
         field = ApiStructure.ExchangeRateField.from_dict(result)
 
-        self.assertEqual(field.BrokerID, b"45544")
-        self.assertEqual(field.FromCurrencyID, b"4343")
+        self.assertEqual(field.BrokerID, "45544")
+        self.assertEqual(field.FromCurrencyID, "4343")
         self.assertEqual(field.FromCurrencyUnit, 19.0)
-        self.assertEqual(field.ToCurrencyID, b"4334")
+        self.assertEqual(field.ToCurrencyID, "4334")
         self.assertEqual(field.ExchangeRate, 11.0)
 
     def test_struct_missing_parameter(self):
@@ -89,8 +89,8 @@ class TestStructure(unittest.TestCase):
         }
         field = ApiStructure.ExchangeRateField.from_dict(result)
 
-        self.assertEqual(field.BrokerID, b"45544")
-        self.assertEqual(field.FromCurrencyID, b"")
+        self.assertEqual(field.BrokerID, "45544")
+        self.assertEqual(field.FromCurrencyID, "")
         self.assertEqual(field.FromCurrencyUnit, 0.0)
-        self.assertEqual(field.ToCurrencyID, b"4334")
+        self.assertEqual(field.ToCurrencyID, "4334")
         self.assertEqual(field.ExchangeRate, 11.0)
