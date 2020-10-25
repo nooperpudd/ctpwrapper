@@ -5,8 +5,6 @@ matrix:
     # others still work and don't install python3.7
     - python: pypy3.6-7.3.1
       sudo: required
-    - python: 3.5
-      sudo: required
     - python: 3.6
       sudo: required
     - python: 3.7

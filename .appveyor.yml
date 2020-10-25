@@ -35,12 +35,6 @@ environment:
     # See: http://stackoverflow.com/a/13751649/163740
     CMD_IN_ENV: 'cmd /E:ON /V:ON /C .\extra\appveyor\compiler.cmd'
   matrix:
-
-    - PYTHON_DIR: "C:\\Python35-x64"
-      PYTHON: "C:\\Python35-X64\\python"
-      PYTHON_VERSION: "3.5"
-      PYTHON_ARCH: "64"
-
     - PYTHON_DIR: "C:\\Python36-x64"
       PYTHON: "C:\\Python36-X64\\python"
       PYTHON_VERSION: "3.6"
