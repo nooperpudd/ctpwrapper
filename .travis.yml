@@ -5,9 +5,9 @@ dist: focal
 matrix:
   include:
     # others still work and don't install python3.7
-    - python: 'pypy3.6-7.3.1'
+    - python: 'pypy3.6-7.3.2'
       sudo: required
-    - python: 'pypy3.7-7.3.1'
+    - python: 'pypy3.7-7.3.2'
       sudo: required
     - python: 3.6
       sudo: required
