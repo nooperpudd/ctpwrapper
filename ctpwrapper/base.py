@@ -17,6 +17,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 import ctypes
+import typing
 
 
 class Base(ctypes.Structure):
@@ -38,13 +39,13 @@ class Base(ctypes.Structure):
             return bytes(str(value), encoding="utf-8")
 
     @classmethod
-    def from_dict(cls, obj):
+    def from_dict(cls, obj: typing.Dict):
         """
         :return:
         """
         return cls(**obj)
 
-    def to_dict(self):
+    def to_dict(self) -> typing.Dict:
         """
         :return:
         """

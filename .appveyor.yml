@@ -25,7 +25,7 @@ cache:
   - '%LocalAppData%\pip\Cache'
 
 image:
-- Visual Studio 2017
+  - Visual Studio 2019
 
 environment:
 
@@ -35,33 +35,32 @@ environment:
     # See: http://stackoverflow.com/a/13751649/163740
     CMD_IN_ENV: 'cmd /E:ON /V:ON /C .\extra\appveyor\compiler.cmd'
   matrix:
-
-    - PYTHON_DIR: "C:\\Python35-x64"
-      PYTHON: "C:\\Python35-X64\\python"
-      PYTHON_VERSION: "3.5.5"
-      PYTHON_ARCH: "64"
-
     - PYTHON_DIR: "C:\\Python36-x64"
-      PYTHON: "C:\\Python36-X64\\python"
-      PYTHON_VERSION: "3.6.5"
+      PYTHON: "C:\\Python36-x64\\python"
+      PYTHON_VERSION: "3.6"
       PYTHON_ARCH: "64"
      
     - PYTHON_DIR: "C:\\Python37-x64"
-      PYTHON: "C:\\Python37-X64\\python"
+      PYTHON: "C:\\Python37-x64\\python"
       PYTHON_VERSION: "3.7"
       PYTHON_ARCH: "64"
 
     - PYTHON_DIR: "C:\\Python38-x64"
-      PYTHON: "C:\\Python38-X64\\python"
-      PYTHON_VERSION: "3.8.3"
+      PYTHON: "C:\\Python38-x64\\python"
+      PYTHON_VERSION: "3.8"
+      PYTHON_ARCH: "64"
+
+    - PYTHON_DIR: "C:\\Python39-x64"
+      PYTHON: "C:\\Python39-x64\\python"
+      PYTHON_VERSION: "3.9"
       PYTHON_ARCH: "64"
 
     - PYTHON_DIR: "C:\\pypy3"
       PYTHON: "C:\\pypy3\\pypy3"
       PYTHON_ARCH: "32"
       PYTHON_PYPY: "pypy3"
-      PYTHON_VERSION: "3.6"
-      PYTHON_PYPY_VERSION: "7.3.1"
+      PYTHON_VERSION: "3.7"
+      PYTHON_PYPY_VERSION: "7.3.2"
 
 
 matrix:
@@ -72,7 +71,7 @@ build: off
 
 install:
 
-  - ps: If(($env:PYTHON).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://downloads.python.org/pypy/pypy3.6-v7.3.1-win32.zip', "$env:appveyor_build_folder\pypy3.zip"); 7z x pypy3.zip | Out-Null; move pypy3.6-v7.3.1-win32 C:\pypy3; }
+  - ps: If(($env:PYTHON).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://downloads.python.org/pypy/pypy3.7-v7.3.2-win32.zip', "$env:appveyor_build_folder\pypy3.zip"); 7z x pypy3.zip | Out-Null; move pypy3.7-v7.3.2-win32 C:\pypy3; }
 
   - "SET PATH=%PYTHON_DIR%;%PYTHON_DIR%\\bin;%PYTHON_DIR%\\Scripts;%PATH%"
 

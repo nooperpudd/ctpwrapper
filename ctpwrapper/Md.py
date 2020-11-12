@@ -17,20 +17,28 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 import time
+import typing
+from typing import Optional
+
+from ctpwrapper.ApiStructure import (FensUserInfoField, UserLogoutField,
+                                     ReqUserLoginField, QryMulticastInstrumentField)
 from ctpwrapper.MdApi import MdApiWrapper
 
 
 class MdApiPy(MdApiWrapper):
 
-    def Create(self, pszFlowPath="", bIsUsingUdp=False, bIsMulticast=False):
-        """创建MdApi
-        @param pszFlowPath 存贮订阅信息文件的目录，默认为当前目录
-        @return 创建出的UserApi
-        modify for udp marketdata
+    def Create(self, pszFlowPath: Optional[str] = "",
+               bIsUsingUdp: Optional[bool] = False,
+               bIsMulticast: Optional[bool] = False) -> None:
+        """
+        创建MdApi
+        :param pszFlowPath: 存贮订阅信息文件的目录，默认为当前目录
+        :param bIsUsingUdp:
+        :param bIsMulticast:
         """
         super(MdApiPy, self).Create(pszFlowPath.encode(), bIsUsingUdp, bIsMulticast)
 
-    def Init(self):
+    def Init(self) -> None:
         """
         初始化运行环境,只有调用后,接口才开始工作
         """
@@ -41,30 +49,24 @@ class MdApiPy(MdApiWrapper):
         """
         等待接口线程结束运行
         @return 线程退出代码
-        :return:
         """
         return super(MdApiPy, self).Join()
 
-    def ReqUserLogin(self, pReqUserLoginField, nRequestID) -> int:
+    def ReqUserLogin(self, pReqUserLogin: "ReqUserLoginField", nRequestID: int) -> int:
         """
         用户登录请求
-        :return:
         """
-        return super(MdApiPy, self).ReqUserLogin(pReqUserLoginField, nRequestID)
+        return super(MdApiPy, self).ReqUserLogin(pReqUserLogin, nRequestID)
 
-    def ReqUserLogout(self, pUserLogout, nRequestID) -> int:
+    def ReqUserLogout(self, pUserLogout: "UserLogoutField", nRequestID: int) -> int:
         """
          登出请求
-        :return:
         """
         return super(MdApiPy, self).ReqUserLogout(pUserLogout, nRequestID)
 
-    def ReqQryMulticastInstrument(self, pQryMulticastInstrument, nRequestID) -> int:
+    def ReqQryMulticastInstrument(self, pQryMulticastInstrument: "QryMulticastInstrumentField", nRequestID: int) -> int:
         """
         请求查询组播合约
-        :param pQryMulticastInstrument:
-        :param nRequestID:
-        :return:
         """
         return super(MdApiPy, self).ReqQryMulticastInstrument(pQryMulticastInstrument, nRequestID)
 
@@ -78,7 +80,7 @@ class MdApiPy(MdApiWrapper):
         day = super(MdApiPy, self).GetTradingDay()
         return day.decode()
 
-    def RegisterFront(self, pszFrontAddress: str):
+    def RegisterFront(self, pszFrontAddress: str) -> None:
         """
         注册前置机网络地址
         @param pszFrontAddress：前置机网络地址。
@@ -87,7 +89,7 @@ class MdApiPy(MdApiWrapper):
         """
         super(MdApiPy, self).RegisterFront(pszFrontAddress.encode())
 
-    def RegisterNameServer(self, pszNsAddress: str):
+    def RegisterNameServer(self, pszNsAddress: str) -> None:
         """
         注册名字服务器网络地址
         @param pszNsAddress：名字服务器网络地址。
@@ -97,33 +99,33 @@ class MdApiPy(MdApiWrapper):
         """
         super(MdApiPy, self).RegisterNameServer(pszNsAddress.encode())
 
-    def RegisterFensUserInfo(self, pFensUserInfo):
+    def RegisterFensUserInfo(self, pFensUserInfo: "FensUserInfoField") -> None:
         """
         注册名字服务器用户信息
         @param pFensUserInfo：用户信息。
         """
         super(MdApiPy, self).RegisterFensUserInfo(pFensUserInfo)
 
-    def SubscribeMarketData(self, pInstrumentID: list) -> int:
+    def SubscribeMarketData(self, pInstrumentID: typing.List[str]) -> int:
         """
          订阅行情。
-        @param ppInstrumentID 合约ID
+        @param pInstrumentID 合约ID
         :return: int
         """
         ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
         return super(MdApiPy, self).SubscribeMarketData(ids)
 
-    def UnSubscribeMarketData(self, pInstrumentID: list) -> int:
+    def UnSubscribeMarketData(self, pInstrumentID: typing.List[str]) -> int:
         """
         退订行情。
-        @param ppInstrumentID 合约ID
+        @param pInstrumentID 合约ID
         :return: int
         """
         ids = [bytes(item, encoding="utf-8") for item in pInstrumentID]
 
         return super(MdApiPy, self).UnSubscribeMarketData(ids)
 
-    def SubscribeForQuoteRsp(self, pInstrumentID: list) -> int:
+    def SubscribeForQuoteRsp(self, pInstrumentID: typing.List[str]) -> int:
         """
         订阅询价。
         :param pInstrumentID: 合约ID list
@@ -133,7 +135,7 @@ class MdApiPy(MdApiWrapper):
 
         return super(MdApiPy, self).SubscribeForQuoteRsp(ids)
 
-    def UnSubscribeForQuoteRsp(self, pInstrumentID: list) -> int:
+    def UnSubscribeForQuoteRsp(self, pInstrumentID: typing.List[str]) -> int:
         """
         退订询价。
         :param pInstrumentID: 合约ID list
@@ -144,14 +146,14 @@ class MdApiPy(MdApiWrapper):
         return super(MdApiPy, self).UnSubscribeForQuoteRsp(ids)
 
     # for receive message
-    def OnFrontConnected(self):
+    def OnFrontConnected(self) -> None:
         """
         当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
         :return:
         """
         pass
 
-    def OnFrontDisconnected(self, nReason):
+    def OnFrontDisconnected(self, nReason) -> None:
         """
         当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
         @param nReason 错误原因
@@ -170,7 +172,7 @@ class MdApiPy(MdApiWrapper):
         """
         pass
 
-    def OnHeartBeatWarning(self, nTimeLapse):
+    def OnHeartBeatWarning(self, nTimeLapse) -> None:
         """
         心跳超时警告。当长时间未收到报文时，该方法被调用。
 
@@ -179,7 +181,7 @@ class MdApiPy(MdApiWrapper):
         """
         pass
 
-    def OnRspUserLogin(self, pRspUserLogin, pRspInfo, nRequestID, bIsLast):
+    def OnRspUserLogin(self, pRspUserLogin, pRspInfo, nRequestID, bIsLast) -> None:
         """
         登录请求响应
         :param pRspUserLogin:
@@ -190,7 +192,7 @@ class MdApiPy(MdApiWrapper):
         """
         pass
 
-    def OnRspUserLogout(self, pUserLogout, pRspInfo, nRequestID, bIsLast):
+    def OnRspUserLogout(self, pUserLogout, pRspInfo, nRequestID, bIsLast) -> None:
         """
         登出请求响应
         :param pUserLogout:
@@ -201,7 +203,7 @@ class MdApiPy(MdApiWrapper):
         """
         pass
 
-    def OnRspQryMulticastInstrument(self, pMulticastInstrument, pRspInfo, nRequestID, bIsLast):
+    def OnRspQryMulticastInstrument(self, pMulticastInstrument, pRspInfo, nRequestID, bIsLast) -> None:
         """
         请求查询组播合约响应
         :param pMulticastInstrument:
@@ -212,7 +214,7 @@ class MdApiPy(MdApiWrapper):
         """
         pass
 
-    def OnRspError(self, pRspInfo, nRequestID, bIsLast):
+    def OnRspError(self, pRspInfo, nRequestID, bIsLast) -> None:
         """
         错误应答
         :param pRspInfo:
@@ -222,7 +224,7 @@ class MdApiPy(MdApiWrapper):
         """
         pass
 
-    def OnRspSubMarketData(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast):
+    def OnRspSubMarketData(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast) -> None:
         """
         订阅行情应答
         :param pSpecificInstrument:
@@ -233,7 +235,7 @@ class MdApiPy(MdApiWrapper):
         """
         pass
 
-    def OnRspUnSubMarketData(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast):
+    def OnRspUnSubMarketData(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast) -> None:
         """
         取消订阅行情应答
         :param pSpecificInstrument:
@@ -244,7 +246,7 @@ class MdApiPy(MdApiWrapper):
         """
         pass
 
-    def OnRspSubForQuoteRsp(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast):
+    def OnRspSubForQuoteRsp(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast) -> None:
         """
         订阅询价应答
         :param pSpecificInstrument:
@@ -255,7 +257,7 @@ class MdApiPy(MdApiWrapper):
         """
         pass
 
-    def OnRspUnSubForQuoteRsp(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast):
+    def OnRspUnSubForQuoteRsp(self, pSpecificInstrument, pRspInfo, nRequestID, bIsLast) -> None:
         """
         取消订阅询价应答
         :param pSpecificInstrument:
@@ -266,7 +268,7 @@ class MdApiPy(MdApiWrapper):
         """
         pass
 
-    def OnRtnDepthMarketData(self, pDepthMarketData):
+    def OnRtnDepthMarketData(self, pDepthMarketData) -> None:
         """
         深度行情通知
         :param pDepthMarketData:
@@ -274,7 +276,7 @@ class MdApiPy(MdApiWrapper):
         """
         pass
 
-    def OnRtnForQuoteRsp(self, pForQuoteRsp):
+    def OnRtnForQuoteRsp(self, pForQuoteRsp) -> None:
         """
         询价通知
         :param pForQuoteRsp:
