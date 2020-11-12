@@ -24,6 +24,9 @@ cache:
   # usage on our rackspace account.
   - '%LocalAppData%\pip\Cache'
 
+image:
+  - Visual Studio 2019
+
 environment:
 
   global:
