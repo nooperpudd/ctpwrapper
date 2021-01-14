@@ -21,32 +21,48 @@ from typing import Optional
 
 from ctpwrapper.ApiStructure import (
     FensUserInfoField, UserSystemInfoField,
-    ReqAuthenticateField, ReqGenUserCaptchaField, ReqGenUserTextField,
-    ReqQueryAccountField, ReqTransferField, QueryCFMMCTradingAccountTokenField,
-    QryBrokerTradingAlgosField, QryBrokerTradingParamsField, QryTradingNoticeField,
-    UserLogoutField, QryParkedOrderActionField, QryParkedOrderField,
-    QryContractBankField, QryAccountregisterField, QryTransferSerialField, QryCombActionField,
-    QryCombInstrumentGuardField, QryInvestUnitField, QryOptionSelfCloseField, QryQuoteField,
-    QryForQuoteField, QryExecOrderField, QryOptionInstrCommRateField,
-    QryOptionInstrTradeCostField, QrySecAgentTradeInfoField, QrySecAgentCheckModeField,
-    QryInstrumentOrderCommRateField, QryMMOptionInstrCommRateField, QryMMInstrumentCommissionRateField,
-    QryProductGroupField, QryProductExchRateField, QrySecAgentACIDMapField,
+    ReqAuthenticateField, ReqGenUserCaptchaField,
+    ReqGenUserTextField, ReqQueryAccountField,
+    ReqTransferField, QueryCFMMCTradingAccountTokenField,
+    QryBrokerTradingAlgosField, QryBrokerTradingParamsField,
+    QryTradingNoticeField, UserLogoutField,
+    QryParkedOrderActionField, QryParkedOrderField,
+    QryContractBankField, QryAccountregisterField,
+    QryTransferSerialField, QryCombActionField,
+    QryCombInstrumentGuardField, QryInvestUnitField,
+    QryOptionSelfCloseField, QryQuoteField,
+    QryForQuoteField, QryExecOrderField,
+    QryOptionInstrCommRateField, QryOptionInstrTradeCostField,
+    QrySecAgentTradeInfoField, QrySecAgentCheckModeField,
+    QryInstrumentOrderCommRateField, QryMMOptionInstrCommRateField,
+    QryMMInstrumentCommissionRateField, QryProductGroupField,
+    QryProductExchRateField, QrySecAgentACIDMapField,
     QryExchangeMarginRateAdjustField, ReqUserLoginField,
-    InputOrderField, ParkedOrderField, ParkedOrderActionField,
-    InputOrderActionField, QueryMaxOrderVolumeField, SettlementInfoConfirmField, RemoveParkedOrderField,
-    RemoveParkedOrderActionField, InputExecOrderField, InputExecOrderActionField,
-    InputForQuoteField, InputQuoteField, InputQuoteActionField, InputBatchOrderActionField,
-    InputOptionSelfCloseField, InputOptionSelfCloseActionField, InputCombActionField,
-    ReqUserLoginWithCaptchaField, ReqUserLoginWithTextField,
-    ReqUserLoginWithOTPField, UserPasswordUpdateField, TradingAccountPasswordUpdateField,
-    QryOrderField, QryTradeField, QryInvestorPositionField, QryTradingAccountField,
+    InputOrderField, ParkedOrderField,
+    ParkedOrderActionField, InputOrderActionField,
+    QryMaxOrderVolumeField, SettlementInfoConfirmField,
+    RemoveParkedOrderField, RemoveParkedOrderActionField,
+    InputExecOrderField, InputExecOrderActionField,
+    InputForQuoteField, InputQuoteField,
+    InputQuoteActionField, InputBatchOrderActionField,
+    InputOptionSelfCloseField, InputOptionSelfCloseActionField,
+    InputCombActionField, ReqUserLoginWithCaptchaField,
+    ReqUserLoginWithTextField, ReqUserLoginWithOTPField,
+    UserPasswordUpdateField, TradingAccountPasswordUpdateField,
+    QryOrderField, QryTradeField,
+    QryInvestorPositionField, QryTradingAccountField,
     QryInvestorField, QryTradingCodeField,
-    QryInstrumentCommissionRateField, QryExchangeField, QryProductField,
-    QryInstrumentField, QryDepthMarketDataField, QrySettlementInfoField,
-    QryTransferBankField, QryInvestorPositionDetailField, QryNoticeField,
-    QrySettlementInfoConfirmField, QryInvestorPositionCombineDetailField, QryCFMMCTradingAccountKeyField,
-    QryEWarrantOffsetField, QryInvestorProductGroupMarginField, QryExchangeMarginRateField,
-    QryExchangeRateField, QryInstrumentMarginRateField
+    QryInstrumentCommissionRateField,
+    QryExchangeField, QryProductField,
+    QryInstrumentField, QryDepthMarketDataField,
+    QrySettlementInfoField, QryTransferBankField,
+    QryInvestorPositionDetailField, QryNoticeField,
+    QrySettlementInfoConfirmField, QryInvestorPositionCombineDetailField,
+    QryCFMMCTradingAccountKeyField, QryEWarrantOffsetField,
+    QryInvestorProductGroupMarginField, QryExchangeMarginRateField,
+    QryExchangeRateField, QryInstrumentMarginRateField,
+    QryClassifiedInstrumentField, QryCombPromotionParamField
+
 )
 from ctpwrapper.TraderApi import TraderApiWrapper
 
@@ -232,11 +248,11 @@ class TraderApiPy(TraderApiWrapper):
         """
         return super(TraderApiPy, self).ReqOrderAction(pInputOrderAction, nRequestID)
 
-    def ReqQueryMaxOrderVolume(self, pQueryMaxOrderVolume: "QueryMaxOrderVolumeField", nRequestID: int) -> int:
+    def ReqQryMaxOrderVolume(self, pQryMaxOrderVolume: "QryMaxOrderVolumeField", nRequestID: int) -> int:
         """
         查询最大报单数量请求
         """
-        return super(TraderApiPy, self).ReqQueryMaxOrderVolume(pQueryMaxOrderVolume, nRequestID)
+        return super(TraderApiPy, self).ReqQryMaxOrderVolume(pQryMaxOrderVolume, nRequestID)
 
     def ReqSettlementInfoConfirm(self, pSettlementInfoConfirm: "SettlementInfoConfirmField", nRequestID: int) -> int:
         """
@@ -634,6 +650,18 @@ class TraderApiPy(TraderApiWrapper):
         """
         return super(TraderApiPy, self).ReqQrySecAgentTradeInfo(pQrySecAgentTradeInfo, nRequestID)
 
+    def ReqQryClassifiedInstrument(self, pQryClassifiedInstrument: "QryClassifiedInstrumentField", nRequestID: int) -> int:
+        """
+        请求查询分类合约
+        """
+        return super(TraderApiPy, self).ReqQryClassifiedInstrument(pQryClassifiedInstrument, nRequestID)
+
+    def ReqQryCombPromotionParam(self, pQryCombPromotionParam: "QryCombPromotionParamField", nRequestID: int) -> int:
+        """
+        请求组合优惠比例
+        """
+        return super(TraderApiPy, self).ReqQryCombPromotionParam(pQryCombPromotionParam, nRequestID)
+
     def OnFrontConnected(self) -> None:
         pass
 
@@ -689,7 +717,7 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 查询最大报单数量响应
-    def OnRspQueryMaxOrderVolume(self, pQueryMaxOrderVolume, pRspInfo, nRequestID, bIsLast) -> None:
+    def OnRspQryMaxOrderVolume(self, pQryMaxOrderVolume, pRspInfo, nRequestID, bIsLast) -> None:
         pass
 
     # 投资者结算结果确认响应
@@ -1138,4 +1166,12 @@ class TraderApiPy(TraderApiWrapper):
 
     # 请求查询二级代理商信息响应
     def OnRspQrySecAgentTradeInfo(self, pSecAgentTradeInfo, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # 请求查询分类合约响应
+    def OnRspQryClassifiedInstrument(self, pInstrument, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # 请求组合优惠比例响应
+    def OnRspQryCombPromotionParam(self, pCombPromotionParam, pRspInfo, nRequestID, bIsLast) -> None:
         pass

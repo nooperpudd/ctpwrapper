@@ -276,6 +276,7 @@ static inline int TraderSpi_OnRspGenUserCaptcha(PyObject *, CThostFtdcRspGenUser
 ///获取短信验证码请求的回复
 static inline int TraderSpi_OnRspGenUserText(PyObject *, CThostFtdcRspGenUserTextField *, CThostFtdcRspInfoField *, int, bool);
 
+static inline int TraderSpi_OnRspQryMaxOrderVolume(PyObject *,CThostFtdcQryMaxOrderVolumeField *, CThostFtdcRspInfoField *, int, bool);
 
 #define Python_GIL(func) \
     do { \
@@ -361,8 +362,8 @@ public:
     };
 
     ///查询最大报单数量响应
-    virtual void OnRspQueryMaxOrderVolume(CThostFtdcQueryMaxOrderVolumeField *pQueryMaxOrderVolume, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-        Python_GIL(TraderSpi_OnRspQueryMaxOrderVolume(self, pQueryMaxOrderVolume, pRspInfo, nRequestID, bIsLast));
+    virtual void OnRspQryMaxOrderVolume(CThostFtdcQryMaxOrderVolumeField *pQryMaxOrderVolume, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQryMaxOrderVolume(self, pQryMaxOrderVolume, pRspInfo, nRequestID, bIsLast));
     };
 
     ///投资者结算结果确认响应
@@ -938,6 +939,18 @@ public:
     virtual void OnRspGenUserText(CThostFtdcRspGenUserTextField *pRspGenUserText, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
         Python_GIL(TraderSpi_OnRspGenUserText(self, pRspGenUserText, pRspInfo, nRequestID, bIsLast));
     };
+
+    ///请求查询分类合约响应
+    virtual void OnRspQryClassifiedInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQryClassifiedInstrument(self, pInstrument, pRspInfo, nRequestID, bIsLast));
+    };
+
+    ///请求组合优惠比例响应
+    virtual void OnRspQryCombPromotionParam(CThostFtdcCombPromotionParamField *pCombPromotionParam, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQryCombPromotionParam(self, pCombPromotionParam, pRspInfo, nRequestID, bIsLast));
+    };
+
+
 
 
 private:

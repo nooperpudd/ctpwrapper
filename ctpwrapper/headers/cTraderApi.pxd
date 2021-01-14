@@ -20,7 +20,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 from cpython cimport PyObject
 from libc.string cimport const_char
 
-from ctpwrapper.headers.ThostFtdcUserApiStruct cimport *
+from .ThostFtdcUserApiStruct cimport *
 
 
 cdef extern from "ThostFtdcTraderApi.h":
@@ -139,7 +139,8 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqOrderAction(CThostFtdcInputOrderActionField *pInputOrderAction, int nRequestID) nogil except +
 
         #查询最大报单数量请求
-        int ReqQueryMaxOrderVolume(CThostFtdcQueryMaxOrderVolumeField *pQueryMaxOrderVolume, int nRequestID) nogil except +
+
+        int ReqQryMaxOrderVolume(CThostFtdcQryMaxOrderVolumeField *pQryMaxOrderVolume, int nRequestID) nogil except +
 
         #投资者结算结果确认
         int ReqSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm, int nRequestID) nogil except +
@@ -339,6 +340,12 @@ cdef extern from "ThostFtdcTraderApi.h":
 
         #期货发起查询银行余额请求
         int ReqQueryBankAccountMoneyByFuture(CThostFtdcReqQueryAccountField *pReqQueryAccount, int nRequestID) nogil except +
+
+        # 请求查询分类合约
+        int ReqQryClassifiedInstrument(CThostFtdcQryClassifiedInstrumentField *pQryClassifiedInstrument, int nRequestID) nogil except +
+
+        # 请求组合优惠比例
+        int ReqQryCombPromotionParam(CThostFtdcQryCombPromotionParamField *pQryCombPromotionParam, int nRequestID) nogil except +
 
 cdef extern from "ThostFtdcTraderApi.h" namespace "CThostFtdcTraderApi":
     CTraderApi *CreateFtdcTraderApi(const_char *pszFlowPath) nogil except +
