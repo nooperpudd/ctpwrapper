@@ -47,7 +47,7 @@ static inline int TraderSpi_OnRspParkedOrderAction(PyObject *, CThostFtdcParkedO
 
 static inline int TraderSpi_OnRspOrderAction(PyObject *, CThostFtdcInputOrderActionField *, CThostFtdcRspInfoField *, int, bool);
 
-static inline int TraderSpi_OnRspQueryMaxOrderVolume(PyObject *, CThostFtdcQueryMaxOrderVolumeField *, CThostFtdcRspInfoField *, int, bool);
+static inline int TraderSpi_OnRspQryMaxOrderVolume(PyObject *, CThostFtdcQryMaxOrderVolumeField *, CThostFtdcRspInfoField *, int, bool);
 
 static inline int TraderSpi_OnRspSettlementInfoConfirm(PyObject *, CThostFtdcSettlementInfoConfirmField *, CThostFtdcRspInfoField *, int, bool);
 
@@ -276,7 +276,10 @@ static inline int TraderSpi_OnRspGenUserCaptcha(PyObject *, CThostFtdcRspGenUser
 ///获取短信验证码请求的回复
 static inline int TraderSpi_OnRspGenUserText(PyObject *, CThostFtdcRspGenUserTextField *, CThostFtdcRspInfoField *, int, bool);
 
-static inline int TraderSpi_OnRspQryMaxOrderVolume(PyObject *,CThostFtdcQryMaxOrderVolumeField *, CThostFtdcRspInfoField *, int, bool);
+static inline int TraderSpi_OnRspQryClassifiedInstrument(PyObject *, CThostFtdcInstrumentField *, CThostFtdcRspInfoField *, int, bool);
+
+///请求组合优惠比例响应
+static inline int TraderSpi_OnRspQryCombPromotionParam(PyObject *, CThostFtdcCombPromotionParamField *, CThostFtdcRspInfoField *, int, bool);
 
 #define Python_GIL(func) \
     do { \
