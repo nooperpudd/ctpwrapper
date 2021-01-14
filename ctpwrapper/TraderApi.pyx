@@ -290,14 +290,15 @@ cdef class TraderApiWrapper:
             with nogil:
                 result = self._api.ReqOrderAction(<CThostFtdcInputOrderActionField *> address, nRequestID)
             return result
+
     #查询最大报单数量请求
-    def ReqQryMaxOrderVolume(self, pQueryMaxOrderVolume, int nRequestID):
+    def ReqQryMaxOrderVolume(self, pQryMaxOrderVolume, int nRequestID):
         cdef int result
         cdef size_t address
         if self._spi is not NULL:
-            address = ctypes.addressof(pQueryMaxOrderVolume)
+            address = ctypes.addressof(pQryMaxOrderVolume)
             with nogil:
-                result = self._api.ReqQueryMaxOrderVolume(<CThostFtdcQryMaxOrderVolumeField *> address, nRequestID)
+                result = self._api.ReqQryMaxOrderVolume(<CThostFtdcQryMaxOrderVolumeField *> address, nRequestID)
             return result
 
     # 投资者结算结果确认
