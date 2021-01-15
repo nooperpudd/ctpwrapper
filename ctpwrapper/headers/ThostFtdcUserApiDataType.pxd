@@ -22,6 +22,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
         THOST_TERT_RESTART = 0
         THOST_TERT_RESUME
         THOST_TERT_QUICK
+        THOST_TERT_NONE
     ctypedef char TThostFtdcTraderIDType[21]
     ctypedef char TThostFtdcInvestorIDType[13]
     ctypedef char TThostFtdcBrokerIDType[11]
