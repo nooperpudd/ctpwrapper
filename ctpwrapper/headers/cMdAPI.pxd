@@ -23,7 +23,7 @@ from libcpp cimport bool as cbool
 
 # from libcpp.memory cimport shared_ptr,make_shared
 
-from ctpwrapper.headers.ThostFtdcUserApiStruct cimport (
+from .ThostFtdcUserApiStruct cimport (
 CThostFtdcReqUserLoginField,
 CThostFtdcUserLogoutField,
 CThostFtdcFensUserInfoField,

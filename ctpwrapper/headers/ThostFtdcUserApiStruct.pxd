@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from ctpwrapper.headers.ThostFtdcUserApiDataType cimport *
+from .ThostFtdcUserApiDataType cimport *
 
 cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcDisseminationField:
@@ -33,9 +33,10 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcProtocolInfoType ProtocolInfo
         TThostFtdcMacAddressType MacAddress
         TThostFtdcPasswordType OneTimePassword
-        TThostFtdcIPAddressType ClientIPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcLoginRemarkType LoginRemark
         TThostFtdcIPPortType ClientIPPort
+        TThostFtdcIPAddressType ClientIPAddress
     cdef struct CThostFtdcRspUserLoginField:
         TThostFtdcDateType TradingDay
         TThostFtdcTimeType LoginTime
@@ -76,6 +77,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcBoolType IsResult
         TThostFtdcAppIDType AppID
         TThostFtdcAppTypeType AppType
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcIPAddressType ClientIPAddress
     cdef struct CThostFtdcRspUserLogin2Field:
         TThostFtdcDateType TradingDay
@@ -172,7 +174,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeNameType ExchangeName
         TThostFtdcExchangePropertyType ExchangeProperty
     cdef struct CThostFtdcProductField:
-        TThostFtdcInstrumentIDType ProductID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcProductNameType ProductName
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcProductClassType ProductClass
@@ -187,14 +189,16 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcCloseDealTypeType CloseDealType
         TThostFtdcCurrencyIDType TradeCurrencyID
         TThostFtdcMortgageFundUseRangeType MortgageFundUseRange
-        TThostFtdcInstrumentIDType ExchangeProductID
+        TThostFtdcOldInstrumentIDType reserve2
         TThostFtdcUnderlyingMultipleType UnderlyingMultiple
+        TThostFtdcInstrumentIDType ProductID
+        TThostFtdcInstrumentIDType ExchangeProductID
     cdef struct CThostFtdcInstrumentField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInstrumentNameType InstrumentName
-        TThostFtdcExchangeInstIDType ExchangeInstID
-        TThostFtdcInstrumentIDType ProductID
+        TThostFtdcOldExchangeInstIDType reserve2
+        TThostFtdcOldInstrumentIDType reserve3
         TThostFtdcProductClassType ProductClass
         TThostFtdcYearType DeliveryYear
         TThostFtdcMonthType DeliveryMonth
@@ -216,11 +220,15 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcRatioType LongMarginRatio
         TThostFtdcRatioType ShortMarginRatio
         TThostFtdcMaxMarginSideAlgorithmType MaxMarginSideAlgorithm
-        TThostFtdcInstrumentIDType UnderlyingInstrID
+        TThostFtdcOldInstrumentIDType reserve4
         TThostFtdcPriceType StrikePrice
         TThostFtdcOptionsTypeType OptionsType
         TThostFtdcUnderlyingMultipleType UnderlyingMultiple
         TThostFtdcCombinationTypeType CombinationType
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcInstrumentIDType ProductID
+        TThostFtdcInstrumentIDType UnderlyingInstrID
     cdef struct CThostFtdcBrokerField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcBrokerAbbrType BrokerAbbr
@@ -325,7 +333,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcMoneyType FrozenSwap
         TThostFtdcMoneyType RemainSwap
     cdef struct CThostFtdcInvestorPositionField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcPosiDirectionType PosiDirection
@@ -374,8 +382,9 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcMoneyType PositionCostOffset
         TThostFtdcVolumeType TasPosition
         TThostFtdcMoneyType TasPositionCost
-    cdef struct CThostFtdcInstrumentMarginRateField:
         TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcInstrumentMarginRateField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -387,8 +396,9 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcBoolType IsRelative
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
-    cdef struct CThostFtdcInstrumentCommissionRateField:
         TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcInstrumentCommissionRateField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -401,11 +411,12 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcBizTypeType BizType
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcDepthMarketDataField:
         TThostFtdcDateType TradingDay
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcPriceType LastPrice
         TThostFtdcPriceType PreSettlementPrice
         TThostFtdcPriceType PreClosePrice
@@ -446,12 +457,15 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcVolumeType AskVolume5
         TThostFtdcPriceType AveragePrice
         TThostFtdcDateType ActionDay
-    cdef struct CThostFtdcInstrumentTradingRightField:
         TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeInstIDType ExchangeInstID
+    cdef struct CThostFtdcInstrumentTradingRightField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcTradingRightType TradingRight
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcBrokerUserField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcUserIDType UserID
@@ -502,7 +516,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcAccountIDType AccountID
         TThostFtdcCurrencyIDType CurrencyID
     cdef struct CThostFtdcInstrumentMarginRateAdjustField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -512,18 +526,20 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcRatioType ShortMarginRatioByMoney
         TThostFtdcMoneyType ShortMarginRatioByVolume
         TThostFtdcBoolType IsRelative
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcExchangeMarginRateField:
         TThostFtdcBrokerIDType BrokerID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcRatioType LongMarginRatioByMoney
         TThostFtdcMoneyType LongMarginRatioByVolume
         TThostFtdcRatioType ShortMarginRatioByMoney
         TThostFtdcMoneyType ShortMarginRatioByVolume
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcExchangeMarginRateAdjustField:
         TThostFtdcBrokerIDType BrokerID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcRatioType LongMarginRatioByMoney
         TThostFtdcMoneyType LongMarginRatioByVolume
@@ -537,6 +553,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcMoneyType NoLongMarginRatioByVolume
         TThostFtdcRatioType NoShortMarginRatioByMoney
         TThostFtdcMoneyType NoShortMarginRatioByVolume
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcExchangeRateField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcCurrencyIDType FromCurrencyID
@@ -562,7 +579,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcUserIDType UserID
         TThostFtdcDateType LoginDate
         TThostFtdcTimeType LoginTime
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcProductInfoType UserProductInfo
         TThostFtdcProductInfoType InterfaceProductInfo
         TThostFtdcProtocolInfoType ProtocolInfo
@@ -579,6 +596,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcBoolType IsQryControl
         TThostFtdcLoginRemarkType LoginRemark
         TThostFtdcPasswordType Password
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcLogoutAllField:
         TThostFtdcFrontIDType FrontID
         TThostFtdcSessionIDType SessionID
@@ -596,7 +614,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcInputOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType OrderRef
         TThostFtdcUserIDType UserID
         TThostFtdcOrderPriceTypeType OrderPriceType
@@ -622,12 +640,14 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcAccountIDType AccountID
         TThostFtdcCurrencyIDType CurrencyID
         TThostFtdcClientIDType ClientID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType OrderRef
         TThostFtdcUserIDType UserID
         TThostFtdcOrderPriceTypeType OrderPriceType
@@ -650,7 +670,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcOrderSubmitStatusType OrderSubmitStatus
@@ -686,8 +706,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcInvestUnitIDType InvestUnitID
         TThostFtdcAccountIDType AccountID
         TThostFtdcCurrencyIDType CurrencyID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve3
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcExchangeOrderField:
         TThostFtdcOrderPriceTypeType OrderPriceType
         TThostFtdcDirectionType Direction
@@ -709,7 +732,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcOrderSubmitStatusType OrderSubmitStatus
@@ -732,8 +755,10 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcParticipantIDType ClearingPartID
         TThostFtdcSequenceNoType SequenceNo
         TThostFtdcBranchIDType BranchID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcExchangeOrderInsertErrorField:
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
@@ -756,10 +781,12 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcPriceType LimitPrice
         TThostFtdcVolumeType VolumeChange
         TThostFtdcUserIDType UserID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcOrderActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -785,11 +812,13 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcOrderActionStatusType OrderActionStatus
         TThostFtdcUserIDType UserID
         TThostFtdcErrorMsgType StatusMsg
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcBranchIDType BranchID
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcExchangeOrderActionField:
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcOrderSysIDType OrderSysID
@@ -808,8 +837,9 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcOrderActionStatusType OrderActionStatus
         TThostFtdcUserIDType UserID
         TThostFtdcBranchIDType BranchID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcExchangeOrderActionErrorField:
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcOrderSysIDType OrderSysID
@@ -827,7 +857,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
         TThostFtdcTradingRoleType TradingRole
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcOffsetFlagType OffsetFlag
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcPriceType Price
@@ -842,10 +872,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcBusinessUnitType BusinessUnit
         TThostFtdcSequenceNoType SequenceNo
         TThostFtdcTradeSourceType TradeSource
+        TThostFtdcExchangeInstIDType ExchangeInstID
     cdef struct CThostFtdcTradeField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType OrderRef
         TThostFtdcUserIDType UserID
         TThostFtdcExchangeIDType ExchangeID
@@ -855,7 +886,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
         TThostFtdcTradingRoleType TradingRole
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcOffsetFlagType OffsetFlag
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcPriceType Price
@@ -874,6 +905,8 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcSequenceNoType BrokerOrderSeq
         TThostFtdcTradeSourceType TradeSource
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeInstIDType ExchangeInstID
     cdef struct CThostFtdcUserSessionField:
         TThostFtdcFrontIDType FrontID
         TThostFtdcSessionIDType SessionID
@@ -881,22 +914,24 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcUserIDType UserID
         TThostFtdcDateType LoginDate
         TThostFtdcTimeType LoginTime
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcProductInfoType UserProductInfo
         TThostFtdcProductInfoType InterfaceProductInfo
         TThostFtdcProtocolInfoType ProtocolInfo
         TThostFtdcMacAddressType MacAddress
         TThostFtdcLoginRemarkType LoginRemark
-    cdef struct CThostFtdcQueryMaxOrderVolumeField:
+        TThostFtdcIPAddressType IPAddress
+    cdef struct CThostFtdcQryMaxOrderVolumeField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcDirectionType Direction
         TThostFtdcOffsetFlagType OffsetFlag
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcVolumeType MaxVolume
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcSettlementInfoConfirmField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -996,7 +1031,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcMoneyType FrozenSwap
         TThostFtdcMoneyType RemainSwap
     cdef struct CThostFtdcSyncingInvestorPositionField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcPosiDirectionType PosiDirection
@@ -1045,8 +1080,9 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcMoneyType PositionCostOffset
         TThostFtdcVolumeType TasPosition
         TThostFtdcMoneyType TasPositionCost
-    cdef struct CThostFtdcSyncingInstrumentMarginRateField:
         TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcSyncingInstrumentMarginRateField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1056,8 +1092,9 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcRatioType ShortMarginRatioByMoney
         TThostFtdcMoneyType ShortMarginRatioByVolume
         TThostFtdcBoolType IsRelative
-    cdef struct CThostFtdcSyncingInstrumentCommissionRateField:
         TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcSyncingInstrumentCommissionRateField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1067,36 +1104,41 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcRatioType CloseRatioByVolume
         TThostFtdcRatioType CloseTodayRatioByMoney
         TThostFtdcRatioType CloseTodayRatioByVolume
-    cdef struct CThostFtdcSyncingInstrumentTradingRightField:
         TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcSyncingInstrumentTradingRightField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcTradingRightType TradingRight
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcOrderSysIDType OrderSysID
         TThostFtdcTimeType InsertTimeStart
         TThostFtdcTimeType InsertTimeEnd
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryTradeField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcTradeIDType TradeID
         TThostFtdcTimeType TradeTimeStart
         TThostFtdcTimeType TradeTimeEnd
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryInvestorPositionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryTradingAccountField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1118,19 +1160,22 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcQryInstrumentMarginRateField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryInstrumentCommissionRateField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryInstrumentTradingRightField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryBrokerField:
         TThostFtdcBrokerIDType BrokerID
@@ -1154,9 +1199,10 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcQryExchangeOrderField:
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcTraderIDType TraderID
+        TThostFtdcExchangeInstIDType ExchangeInstID
     cdef struct CThostFtdcQryOrderActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1171,17 +1217,22 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcQryExchangeField:
         TThostFtdcExchangeIDType ExchangeID
     cdef struct CThostFtdcQryProductField:
-        TThostFtdcInstrumentIDType ProductID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcProductClassType ProductClass
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcInstrumentIDType ProductID
     cdef struct CThostFtdcQryInstrumentField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcOldExchangeInstIDType reserve2
+        TThostFtdcOldInstrumentIDType reserve3
+        TThostFtdcInstrumentIDType InstrumentID
         TThostFtdcExchangeInstIDType ExchangeInstID
         TThostFtdcInstrumentIDType ProductID
     cdef struct CThostFtdcQryDepthMarketDataField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryBrokerUserField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcUserIDType UserID
@@ -1203,13 +1254,15 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcCurrencyIDType CurrencyID
     cdef struct CThostFtdcQryExchangeMarginRateField:
         TThostFtdcBrokerIDType BrokerID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryExchangeMarginRateAdjustField:
         TThostFtdcBrokerIDType BrokerID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcHedgeFlagType HedgeFlag
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryExchangeRateField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcCurrencyIDType FromCurrencyID
@@ -1220,23 +1273,25 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcQryHisOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcOrderSysIDType OrderSysID
         TThostFtdcTimeType InsertTimeStart
         TThostFtdcTimeType InsertTimeEnd
         TThostFtdcDateType TradingDay
         TThostFtdcSettlementIDType SettlementID
-    cdef struct CThostFtdcOptionInstrMiniMarginField:
         TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcOptionInstrMiniMarginField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcMoneyType MinMargin
         TThostFtdcValueMethodType ValueMethod
         TThostFtdcBoolType IsRelative
-    cdef struct CThostFtdcOptionInstrMarginAdjustField:
         TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcOptionInstrMarginAdjustField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1249,8 +1304,9 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcBoolType IsRelative
         TThostFtdcRatioType MShortMarginRatioByMoney
         TThostFtdcMoneyType MShortMarginRatioByVolume
-    cdef struct CThostFtdcOptionInstrCommRateField:
         TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcOptionInstrCommRateField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1264,10 +1320,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcRatioType StrikeRatioByVolume
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcOptionInstrTradeCostField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcMoneyType FixedMargin
         TThostFtdcMoneyType MiniMargin
@@ -1276,29 +1333,33 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcMoneyType ExchMiniMargin
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryOptionInstrTradeCostField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcPriceType InputPrice
         TThostFtdcPriceType UnderlyingPrice
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryOptionInstrCommRateField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcIndexPriceField:
         TThostFtdcBrokerIDType BrokerID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcPriceType ClosePrice
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcInputExecOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType ExecOrderRef
         TThostFtdcUserIDType UserID
         TThostFtdcVolumeType Volume
@@ -1315,8 +1376,10 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcAccountIDType AccountID
         TThostFtdcCurrencyIDType CurrencyID
         TThostFtdcClientIDType ClientID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcInputExecOrderActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1329,14 +1392,16 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExecOrderSysIDType ExecOrderSysID
         TThostFtdcActionFlagType ActionFlag
         TThostFtdcUserIDType UserID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcExecOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType ExecOrderRef
         TThostFtdcUserIDType UserID
         TThostFtdcVolumeType Volume
@@ -1352,7 +1417,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcOrderSubmitStatusType OrderSubmitStatus
@@ -1376,8 +1441,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcInvestUnitIDType InvestUnitID
         TThostFtdcAccountIDType AccountID
         TThostFtdcCurrencyIDType CurrencyID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve3
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcExecOrderActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1402,19 +1470,22 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcUserIDType UserID
         TThostFtdcActionTypeType ActionType
         TThostFtdcErrorMsgType StatusMsg
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcBranchIDType BranchID
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryExecOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcExecOrderSysIDType ExecOrderSysID
         TThostFtdcTimeType InsertTimeStart
         TThostFtdcTimeType InsertTimeEnd
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcExchangeExecOrderField:
         TThostFtdcVolumeType Volume
         TThostFtdcRequestIDType RequestID
@@ -1429,7 +1500,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcOrderSubmitStatusType OrderSubmitStatus
@@ -1444,14 +1515,17 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcParticipantIDType ClearingPartID
         TThostFtdcSequenceNoType SequenceNo
         TThostFtdcBranchIDType BranchID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryExchangeExecOrderField:
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcTraderIDType TraderID
+        TThostFtdcExchangeInstIDType ExchangeInstID
     cdef struct CThostFtdcQryExecOrderActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1473,10 +1547,12 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcUserIDType UserID
         TThostFtdcActionTypeType ActionType
         TThostFtdcBranchIDType BranchID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcMacAddressType MacAddress
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcVolumeType Volume
+        TThostFtdcIPAddressType IPAddress
+        TThostFtdcExchangeInstIDType ExchangeInstID
     cdef struct CThostFtdcQryExchangeExecOrderActionField:
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
@@ -1485,7 +1561,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcErrExecOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType ExecOrderRef
         TThostFtdcUserIDType UserID
         TThostFtdcVolumeType Volume
@@ -1502,10 +1578,12 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcAccountIDType AccountID
         TThostFtdcCurrencyIDType CurrencyID
         TThostFtdcClientIDType ClientID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
         TThostFtdcErrorIDType ErrorID
         TThostFtdcErrorMsgType ErrorMsg
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryErrExecOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1521,48 +1599,54 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExecOrderSysIDType ExecOrderSysID
         TThostFtdcActionFlagType ActionFlag
         TThostFtdcUserIDType UserID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
         TThostFtdcErrorIDType ErrorID
         TThostFtdcErrorMsgType ErrorMsg
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryErrExecOrderActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
     cdef struct CThostFtdcOptionInstrTradingRightField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcDirectionType Direction
         TThostFtdcTradingRightType TradingRight
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryOptionInstrTradingRightField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcDirectionType Direction
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcInputForQuoteField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType ForQuoteRef
         TThostFtdcUserIDType UserID
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcForQuoteField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType ForQuoteRef
         TThostFtdcUserIDType UserID
         TThostFtdcOrderLocalIDType ForQuoteLocalID
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcDateType InsertDate
@@ -1574,39 +1658,46 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcUserIDType ActiveUserID
         TThostFtdcSequenceNoType BrokerForQutoSeq
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve3
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryForQuoteField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcTimeType InsertTimeStart
         TThostFtdcTimeType InsertTimeEnd
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcExchangeForQuoteField:
         TThostFtdcOrderLocalIDType ForQuoteLocalID
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcDateType InsertDate
         TThostFtdcTimeType InsertTime
         TThostFtdcForQuoteStatusType ForQuoteStatus
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryExchangeForQuoteField:
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcTraderIDType TraderID
+        TThostFtdcExchangeInstIDType ExchangeInstID
     cdef struct CThostFtdcInputQuoteField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType QuoteRef
         TThostFtdcUserIDType UserID
         TThostFtdcPriceType AskPrice
@@ -1625,8 +1716,10 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
         TThostFtdcClientIDType ClientID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcInputQuoteActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1639,15 +1732,17 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcOrderSysIDType QuoteSysID
         TThostFtdcActionFlagType ActionFlag
         TThostFtdcUserIDType UserID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestUnitIDType InvestUnitID
         TThostFtdcClientIDType ClientID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQuoteField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType QuoteRef
         TThostFtdcUserIDType UserID
         TThostFtdcPriceType AskPrice
@@ -1664,7 +1759,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcSequenceNoType NotifySequence
@@ -1693,8 +1788,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcInvestUnitIDType InvestUnitID
         TThostFtdcAccountIDType AccountID
         TThostFtdcCurrencyIDType CurrencyID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve3
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQuoteActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1718,20 +1816,23 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcOrderActionStatusType OrderActionStatus
         TThostFtdcUserIDType UserID
         TThostFtdcErrorMsgType StatusMsg
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcBranchIDType BranchID
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryQuoteField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcOrderSysIDType QuoteSysID
         TThostFtdcTimeType InsertTimeStart
         TThostFtdcTimeType InsertTimeEnd
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcExchangeQuoteField:
         TThostFtdcPriceType AskPrice
         TThostFtdcPriceType BidPrice
@@ -1747,7 +1848,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcSequenceNoType NotifySequence
@@ -1765,14 +1866,17 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcOrderSysIDType BidOrderSysID
         TThostFtdcOrderSysIDType ForQuoteSysID
         TThostFtdcBranchIDType BranchID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryExchangeQuoteField:
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcTraderIDType TraderID
+        TThostFtdcExchangeInstIDType ExchangeInstID
     cdef struct CThostFtdcQryQuoteActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1792,36 +1896,41 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcBusinessUnitType BusinessUnit
         TThostFtdcOrderActionStatusType OrderActionStatus
         TThostFtdcUserIDType UserID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryExchangeQuoteActionField:
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcTraderIDType TraderID
     cdef struct CThostFtdcOptionInstrDeltaField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcRatioType Delta
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcForQuoteRspField:
         TThostFtdcDateType TradingDay
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderSysIDType ForQuoteSysID
         TThostFtdcTimeType ForQuoteTime
         TThostFtdcDateType ActionDay
         TThostFtdcExchangeIDType ExchangeID
-    cdef struct CThostFtdcStrikeOffsetField:
         TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcStrikeOffsetField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcMoneyType Offset
         TThostFtdcStrikeOffsetTypeType OffsetType
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryStrikeOffsetField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcInputBatchOrderActionField:
         TThostFtdcBrokerIDType BrokerID
@@ -1833,8 +1942,9 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcUserIDType UserID
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcBatchOrderActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1855,8 +1965,9 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcUserIDType UserID
         TThostFtdcErrorMsgType StatusMsg
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcExchangeBatchOrderActionField:
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcDateType ActionDate
@@ -1869,25 +1980,28 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcBusinessUnitType BusinessUnit
         TThostFtdcOrderActionStatusType OrderActionStatus
         TThostFtdcUserIDType UserID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryBatchOrderActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcExchangeIDType ExchangeID
     cdef struct CThostFtdcCombInstrumentGuardField:
         TThostFtdcBrokerIDType BrokerID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcRatioType GuarantRatio
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryCombInstrumentGuardField:
         TThostFtdcBrokerIDType BrokerID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcInputCombActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType CombActionRef
         TThostFtdcUserIDType UserID
         TThostFtdcDirectionType Direction
@@ -1895,15 +2009,17 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcCombDirectionType CombDirection
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcExchangeIDType ExchangeID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
         TThostFtdcInvestUnitIDType InvestUnitID
         TThostFtdcFrontIDType FrontID
         TThostFtdcSessionIDType SessionID
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcCombActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType CombActionRef
         TThostFtdcUserIDType UserID
         TThostFtdcDirectionType Direction
@@ -1914,7 +2030,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcOrderActionStatusType ActionStatus
@@ -1926,17 +2042,21 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcSessionIDType SessionID
         TThostFtdcProductInfoType UserProductInfo
         TThostFtdcErrorMsgType StatusMsg
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve3
         TThostFtdcMacAddressType MacAddress
         TThostFtdcTradeIDType ComTradeID
         TThostFtdcBranchIDType BranchID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryCombActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcExchangeCombActionField:
         TThostFtdcDirectionType Direction
         TThostFtdcVolumeType Volume
@@ -1946,7 +2066,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcOrderActionStatusType ActionStatus
@@ -1954,36 +2074,43 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcDateType TradingDay
         TThostFtdcSettlementIDType SettlementID
         TThostFtdcSequenceNoType SequenceNo
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
         TThostFtdcTradeIDType ComTradeID
         TThostFtdcBranchIDType BranchID
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryExchangeCombActionField:
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcTraderIDType TraderID
+        TThostFtdcExchangeInstIDType ExchangeInstID
     cdef struct CThostFtdcProductExchRateField:
-        TThostFtdcInstrumentIDType ProductID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcCurrencyIDType QuoteCurrencyID
         TThostFtdcExchangeRateType ExchangeRate
         TThostFtdcExchangeIDType ExchangeID
-    cdef struct CThostFtdcQryProductExchRateField:
         TThostFtdcInstrumentIDType ProductID
+    cdef struct CThostFtdcQryProductExchRateField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcInstrumentIDType ProductID
     cdef struct CThostFtdcQryForQuoteParamField:
         TThostFtdcBrokerIDType BrokerID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcForQuoteParamField:
         TThostFtdcBrokerIDType BrokerID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcPriceType LastPrice
         TThostFtdcPriceType PriceInterval
-    cdef struct CThostFtdcMMOptionInstrCommRateField:
         TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcMMOptionInstrCommRateField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -1995,12 +2122,14 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcRatioType CloseTodayRatioByVolume
         TThostFtdcRatioType StrikeRatioByMoney
         TThostFtdcRatioType StrikeRatioByVolume
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryMMOptionInstrCommRateField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcMMInstrumentCommissionRateField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2010,12 +2139,14 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcRatioType CloseRatioByVolume
         TThostFtdcRatioType CloseTodayRatioByMoney
         TThostFtdcRatioType CloseTodayRatioByVolume
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryMMInstrumentCommissionRateField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcInstrumentOrderCommRateField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2024,9 +2155,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcRatioType OrderActionCommByVolume
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryInstrumentOrderCommRateField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcTradeParamField:
         TThostFtdcBrokerIDType BrokerID
@@ -2034,7 +2167,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcSettlementParamValueType TradeParamValue
         TThostFtdcMemoType Memo
     cdef struct CThostFtdcInstrumentMarginRateULField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2043,23 +2176,27 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcMoneyType LongMarginRatioByVolume
         TThostFtdcRatioType ShortMarginRatioByMoney
         TThostFtdcMoneyType ShortMarginRatioByVolume
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcFutureLimitPosiParamField:
         TThostFtdcInvestorRangeType InvestorRange
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType ProductID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcVolumeType SpecOpenVolume
         TThostFtdcVolumeType ArbiOpenVolume
         TThostFtdcVolumeType OpenVolume
+        TThostFtdcInstrumentIDType ProductID
     cdef struct CThostFtdcLoginForbiddenIPField:
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcIPListField:
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcBoolType IsWhite
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcInputOptionSelfCloseField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType OptionSelfCloseRef
         TThostFtdcUserIDType UserID
         TThostFtdcVolumeType Volume
@@ -2072,8 +2209,10 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcAccountIDType AccountID
         TThostFtdcCurrencyIDType CurrencyID
         TThostFtdcClientIDType ClientID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcInputOptionSelfCloseActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2086,14 +2225,16 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcOrderSysIDType OptionSelfCloseSysID
         TThostFtdcActionFlagType ActionFlag
         TThostFtdcUserIDType UserID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcOptionSelfCloseField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType OptionSelfCloseRef
         TThostFtdcUserIDType UserID
         TThostFtdcVolumeType Volume
@@ -2105,7 +2246,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcOrderSubmitStatusType OrderSubmitStatus
@@ -2129,8 +2270,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcInvestUnitIDType InvestUnitID
         TThostFtdcAccountIDType AccountID
         TThostFtdcCurrencyIDType CurrencyID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve3
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcOptionSelfCloseActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2154,19 +2298,22 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcOrderActionStatusType OrderActionStatus
         TThostFtdcUserIDType UserID
         TThostFtdcErrorMsgType StatusMsg
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcBranchIDType BranchID
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryOptionSelfCloseField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcOrderSysIDType OptionSelfCloseSysID
         TThostFtdcTimeType InsertTimeStart
         TThostFtdcTimeType InsertTimeEnd
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcExchangeOptionSelfCloseField:
         TThostFtdcVolumeType Volume
         TThostFtdcRequestIDType RequestID
@@ -2177,7 +2324,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcOrderSubmitStatusType OrderSubmitStatus
@@ -2192,8 +2339,10 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcParticipantIDType ClearingPartID
         TThostFtdcSequenceNoType SequenceNo
         TThostFtdcBranchIDType BranchID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryOptionSelfCloseActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2214,10 +2363,12 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcOrderActionStatusType OrderActionStatus
         TThostFtdcUserIDType UserID
         TThostFtdcBranchIDType BranchID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcMacAddressType MacAddress
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcOptSelfCloseFlagType OptSelfCloseFlag
+        TThostFtdcIPAddressType IPAddress
+        TThostFtdcExchangeInstIDType ExchangeInstID
     cdef struct CThostFtdcSyncDelaySwapField:
         TThostFtdcDepositSeqNoType DelaySwapSeqNo
         TThostFtdcBrokerIDType BrokerID
@@ -2260,9 +2411,9 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcLongIndividualNameType LongCustomerName
     cdef struct CThostFtdcMarketDataField:
         TThostFtdcDateType TradingDay
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcPriceType LastPrice
         TThostFtdcPriceType PreSettlementPrice
         TThostFtdcPriceType PreClosePrice
@@ -2282,6 +2433,8 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcTimeType UpdateTime
         TThostFtdcMillisecType UpdateMillisec
         TThostFtdcDateType ActionDay
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeInstIDType ExchangeInstID
     cdef struct CThostFtdcMarketDataBaseField:
         TThostFtdcDateType TradingDay
         TThostFtdcPriceType PreSettlementPrice
@@ -2328,25 +2481,30 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcPriceType AskPrice5
         TThostFtdcVolumeType AskVolume5
     cdef struct CThostFtdcMarketDataUpdateTimeField:
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcTimeType UpdateTime
         TThostFtdcMillisecType UpdateMillisec
         TThostFtdcDateType ActionDay
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcMarketDataExchangeField:
         TThostFtdcExchangeIDType ExchangeID
     cdef struct CThostFtdcSpecificInstrumentField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcInstrumentStatusField:
         TThostFtdcExchangeIDType ExchangeID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcSettlementGroupIDType SettlementGroupID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve2
         TThostFtdcInstrumentStatusType InstrumentStatus
         TThostFtdcTradingSegmentSNType TradingSegmentSN
         TThostFtdcTimeType EnterTime
         TThostFtdcInstStatusEnterReasonType EnterReason
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryInstrumentStatusField:
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcOldExchangeInstIDType reserve1
         TThostFtdcExchangeInstIDType ExchangeInstID
     cdef struct CThostFtdcInvestorAccountField:
         TThostFtdcBrokerIDType BrokerID
@@ -2375,11 +2533,12 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcQryInvestorPositionDetailField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
-    cdef struct CThostFtdcInvestorPositionDetailField:
         TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcInvestorPositionDetailField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcHedgeFlagType HedgeFlag
@@ -2391,7 +2550,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcDateType TradingDay
         TThostFtdcSettlementIDType SettlementID
         TThostFtdcTradeTypeType TradeType
-        TThostFtdcInstrumentIDType CombInstrumentID
+        TThostFtdcOldInstrumentIDType reserve2
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcMoneyType CloseProfitByDate
         TThostFtdcMoneyType CloseProfitByTrade
@@ -2408,6 +2567,8 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcVolumeType TimeFirstVolume
         TThostFtdcInvestUnitIDType InvestUnitID
         TThostFtdcSpecPosiTypeType SpecPosiType
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcInstrumentIDType CombInstrumentID
     cdef struct CThostFtdcTradingAccountPasswordField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcAccountIDType AccountID
@@ -2478,18 +2639,22 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcPasswordType NewPassword
         TThostFtdcCurrencyIDType CurrencyID
     cdef struct CThostFtdcQryCombinationLegField:
-        TThostFtdcInstrumentIDType CombInstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcLegIDType LegID
+        TThostFtdcOldInstrumentIDType reserve2
+        TThostFtdcInstrumentIDType CombInstrumentID
         TThostFtdcInstrumentIDType LegInstrumentID
     cdef struct CThostFtdcQrySyncStatusField:
         TThostFtdcDateType TradingDay
     cdef struct CThostFtdcCombinationLegField:
-        TThostFtdcInstrumentIDType CombInstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcLegIDType LegID
-        TThostFtdcInstrumentIDType LegInstrumentID
+        TThostFtdcOldInstrumentIDType reserve2
         TThostFtdcDirectionType Direction
         TThostFtdcLegMultipleType LegMultiple
         TThostFtdcImplyLevelType ImplyLevel
+        TThostFtdcInstrumentIDType CombInstrumentID
+        TThostFtdcInstrumentIDType LegInstrumentID
     cdef struct CThostFtdcSyncStatusField:
         TThostFtdcDateType TradingDay
         TThostFtdcDataSyncStatusType DataSyncStatus
@@ -2522,6 +2687,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcTimeType EventTime
         TThostFtdcUserEventInfoType UserEventInfo
         TThostFtdcInvestorIDType InvestorID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryContractBankField:
         TThostFtdcBrokerIDType BrokerID
@@ -2541,7 +2707,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcTradeIDType ComTradeID
         TThostFtdcTradeIDType TradeID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcDirectionType Direction
         TThostFtdcVolumeType TotalAmt
@@ -2551,13 +2717,15 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcRatioType MarginRateByVolume
         TThostFtdcLegIDType LegID
         TThostFtdcLegMultipleType LegMultiple
-        TThostFtdcInstrumentIDType CombInstrumentID
+        TThostFtdcOldInstrumentIDType reserve2
         TThostFtdcTradeGroupIDType TradeGroupID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcInstrumentIDType CombInstrumentID
     cdef struct CThostFtdcParkedOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType OrderRef
         TThostFtdcUserIDType UserID
         TThostFtdcOrderPriceTypeType OrderPriceType
@@ -2588,8 +2756,10 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcCurrencyIDType CurrencyID
         TThostFtdcClientIDType ClientID
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcParkedOrderActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2604,27 +2774,31 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcPriceType LimitPrice
         TThostFtdcVolumeType VolumeChange
         TThostFtdcUserIDType UserID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcParkedOrderActionIDType ParkedOrderActionID
         TThostFtdcUserTypeType UserType
         TThostFtdcParkedOrderStatusType Status
         TThostFtdcErrorIDType ErrorID
         TThostFtdcErrorMsgType ErrorMsg
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryParkedOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryParkedOrderActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcRemoveParkedOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2645,9 +2819,10 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcQryInvestorPositionCombineDetailField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType CombInstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType CombInstrumentID
     cdef struct CThostFtdcMarketDataAveragePriceField:
         TThostFtdcPriceType AveragePrice
     cdef struct CThostFtdcVerifyInvestorPasswordField:
@@ -2657,9 +2832,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcUserIPField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcUserIDType UserID
+        TThostFtdcOldIPAddressType reserve1
+        TThostFtdcOldIPAddressType reserve2
+        TThostFtdcMacAddressType MacAddress
         TThostFtdcIPAddressType IPAddress
         TThostFtdcIPAddressType IPMask
-        TThostFtdcMacAddressType MacAddress
     cdef struct CThostFtdcTradingNoticeInfoField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2688,7 +2865,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcErrOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType OrderRef
         TThostFtdcUserIDType UserID
         TThostFtdcOrderPriceTypeType OrderPriceType
@@ -2716,12 +2893,14 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcAccountIDType AccountID
         TThostFtdcCurrencyIDType CurrencyID
         TThostFtdcClientIDType ClientID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcErrorConditionalOrderField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcOrderRefType OrderRef
         TThostFtdcUserIDType UserID
         TThostFtdcOrderPriceTypeType OrderPriceType
@@ -2744,7 +2923,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
         TThostFtdcClientIDType ClientID
-        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcOldExchangeInstIDType reserve2
         TThostFtdcTraderIDType TraderID
         TThostFtdcInstallIDType InstallID
         TThostFtdcOrderSubmitStatusType OrderSubmitStatus
@@ -2782,8 +2961,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcInvestUnitIDType InvestUnitID
         TThostFtdcAccountIDType AccountID
         TThostFtdcCurrencyIDType CurrencyID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve3
         TThostFtdcMacAddressType MacAddress
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryErrOrderActionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2812,23 +2994,25 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcOrderActionStatusType OrderActionStatus
         TThostFtdcUserIDType UserID
         TThostFtdcErrorMsgType StatusMsg
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcBranchIDType BranchID
         TThostFtdcInvestUnitIDType InvestUnitID
-        TThostFtdcIPAddressType IPAddress
+        TThostFtdcOldIPAddressType reserve2
         TThostFtdcMacAddressType MacAddress
         TThostFtdcErrorIDType ErrorID
         TThostFtdcErrorMsgType ErrorMsg
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryExchangeSequenceField:
         TThostFtdcExchangeIDType ExchangeID
     cdef struct CThostFtdcExchangeSequenceField:
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcSequenceNoType SequenceNo
         TThostFtdcInstrumentStatusType MarketStatus
-    cdef struct CThostFtdcQueryMaxOrderVolumeWithPriceField:
+    cdef struct CThostFtdcQryMaxOrderVolumeWithPriceField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcDirectionType Direction
         TThostFtdcOffsetFlagType OffsetFlag
         TThostFtdcHedgeFlagType HedgeFlag
@@ -2836,6 +3020,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcPriceType Price
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryBrokerTradingParamsField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2853,14 +3038,16 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcQryBrokerTradingAlgosField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcBrokerTradingAlgosField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcExchangeIDType ExchangeID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcHandlePositionAlgoIDType HandlePositionAlgoID
         TThostFtdcFindMarginRateAlgoIDType FindMarginRateAlgoID
         TThostFtdcHandleTradingAccountAlgoIDType HandleTradingAccountAlgoID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQueryBrokerDepositField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcExchangeIDType ExchangeID
@@ -2931,26 +3118,29 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcExchangeIDType ExchangeID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcDirectionType Direction
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcVolumeType Volume
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryEWarrantOffsetField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcExchangeIDType ExchangeID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryInvestorProductGroupMarginField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
-        TThostFtdcInstrumentIDType ProductGroupID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
-    cdef struct CThostFtdcInvestorProductGroupMarginField:
         TThostFtdcInstrumentIDType ProductGroupID
+    cdef struct CThostFtdcInvestorProductGroupMarginField:
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcDateType TradingDay
@@ -2979,6 +3169,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcHedgeFlagType HedgeFlag
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcInvestUnitIDType InvestUnitID
+        TThostFtdcInstrumentIDType ProductGroupID
     cdef struct CThostFtdcQueryCFMMCTradingAccountTokenField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
@@ -2990,11 +3181,14 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcSequenceNoType KeyID
         TThostFtdcCFMMCTokenType Token
     cdef struct CThostFtdcQryProductGroupField:
-        TThostFtdcInstrumentIDType ProductID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcInstrumentIDType ProductID
     cdef struct CThostFtdcProductGroupField:
-        TThostFtdcInstrumentIDType ProductID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcOldInstrumentIDType reserve2
+        TThostFtdcInstrumentIDType ProductID
         TThostFtdcInstrumentIDType ProductGroupID
     cdef struct CThostFtdcBulletinField:
         TThostFtdcExchangeIDType ExchangeID
@@ -3017,13 +3211,15 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcNewsUrgencyType NewsUrgency
     cdef struct CThostFtdcMulticastInstrumentField:
         TThostFtdcInstallIDType TopicID
-        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInstallIDType InstrumentNo
         TThostFtdcPriceType CodePrice
         TThostFtdcVolumeMultipleType VolumeMultiple
         TThostFtdcPriceType PriceTick
+        TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcQryMulticastInstrumentField:
         TThostFtdcInstallIDType TopicID
+        TThostFtdcOldInstrumentIDType reserve1
         TThostFtdcInstrumentIDType InstrumentID
     cdef struct CThostFtdcAppIDAuthAssignField:
         TThostFtdcBrokerIDType BrokerID
@@ -4040,22 +4236,21 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcLoginForbiddenUserField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcUserIDType UserID
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryLoginForbiddenUserField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcUserIDType UserID
-    cdef struct CThostFtdcMulticastGroupInfoField:
-        TThostFtdcIPAddressType GroupIP
-        TThostFtdcIPPortType GroupPort
-        TThostFtdcIPAddressType SourceIP
     cdef struct CThostFtdcTradingAccountReserveField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcAccountIDType AccountID
         TThostFtdcMoneyType Reserve
         TThostFtdcCurrencyIDType CurrencyID
     cdef struct CThostFtdcQryLoginForbiddenIPField:
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryIPListField:
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryUserRightsAssignField:
         TThostFtdcBrokerIDType BrokerID
@@ -4165,15 +4360,6 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcQrySecAgentTradeInfoField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcAccountIDType BrokerSecAgentID
-    cdef struct CThostFtdcUserSystemInfoField:
-        TThostFtdcBrokerIDType BrokerID
-        TThostFtdcUserIDType UserID
-        TThostFtdcSystemInfoLenType ClientSystemInfoLen
-        TThostFtdcClientSystemInfoType ClientSystemInfo
-        TThostFtdcIPAddressType ClientPublicIP
-        TThostFtdcIPPortType ClientIPPort
-        TThostFtdcTimeType ClientLoginTime
-        TThostFtdcAppIDType ClientAppID
     cdef struct CThostFtdcReqUserAuthMethodField:
         TThostFtdcDateType TradingDay
         TThostFtdcBrokerIDType BrokerID
@@ -4204,10 +4390,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcProductInfoType InterfaceProductInfo
         TThostFtdcProtocolInfoType ProtocolInfo
         TThostFtdcMacAddressType MacAddress
-        TThostFtdcIPAddressType ClientIPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcLoginRemarkType LoginRemark
         TThostFtdcPasswordType Captcha
         TThostFtdcIPPortType ClientIPPort
+        TThostFtdcIPAddressType ClientIPAddress
     cdef struct CThostFtdcReqUserLoginWithTextField:
         TThostFtdcDateType TradingDay
         TThostFtdcBrokerIDType BrokerID
@@ -4217,10 +4404,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcProductInfoType InterfaceProductInfo
         TThostFtdcProtocolInfoType ProtocolInfo
         TThostFtdcMacAddressType MacAddress
-        TThostFtdcIPAddressType ClientIPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcLoginRemarkType LoginRemark
         TThostFtdcPasswordType Text
         TThostFtdcIPPortType ClientIPPort
+        TThostFtdcIPAddressType ClientIPAddress
     cdef struct CThostFtdcReqUserLoginWithOTPField:
         TThostFtdcDateType TradingDay
         TThostFtdcBrokerIDType BrokerID
@@ -4230,10 +4418,11 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcProductInfoType InterfaceProductInfo
         TThostFtdcProtocolInfoType ProtocolInfo
         TThostFtdcMacAddressType MacAddress
-        TThostFtdcIPAddressType ClientIPAddress
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcLoginRemarkType LoginRemark
         TThostFtdcPasswordType OTPPassword
         TThostFtdcIPPortType ClientIPPort
+        TThostFtdcIPAddressType ClientIPAddress
     cdef struct CThostFtdcReqApiHandshakeField:
         TThostFtdcCryptoKeyVersionType CryptoKeyVersion
     cdef struct CThostFtdcRspApiHandshakeField:
@@ -4251,8 +4440,10 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
     cdef struct CThostFtdcQueryFreqField:
         TThostFtdcQueryFreqType QueryFreq
     cdef struct CThostFtdcAuthForbiddenIPField:
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcQryAuthForbiddenIPField:
+        TThostFtdcOldIPAddressType reserve1
         TThostFtdcIPAddressType IPAddress
     cdef struct CThostFtdcSyncDelaySwapFrozenField:
         TThostFtdcDepositSeqNoType DelaySwapSeqNo
@@ -4261,3 +4452,37 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcCurrencyIDType FromCurrencyID
         TThostFtdcMoneyType FromRemainSwap
         TThostFtdcBoolType IsManualSwap
+    cdef struct CThostFtdcUserSystemInfoField:
+        TThostFtdcBrokerIDType BrokerID
+        TThostFtdcUserIDType UserID
+        TThostFtdcSystemInfoLenType ClientSystemInfoLen
+        TThostFtdcClientSystemInfoType ClientSystemInfo
+        TThostFtdcOldIPAddressType reserve1
+        TThostFtdcIPPortType ClientIPPort
+        TThostFtdcTimeType ClientLoginTime
+        TThostFtdcAppIDType ClientAppID
+        TThostFtdcIPAddressType ClientPublicIP
+    cdef struct CThostFtdcAuthUserIDField:
+        TThostFtdcBrokerIDType BrokerID
+        TThostFtdcAppIDType AppID
+        TThostFtdcUserIDType UserID
+        TThostFtdcAuthTypeType AuthType
+    cdef struct CThostFtdcAuthIPField:
+        TThostFtdcBrokerIDType BrokerID
+        TThostFtdcAppIDType AppID
+        TThostFtdcIPAddressType IPAddress
+    cdef struct CThostFtdcQryClassifiedInstrumentField:
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcExchangeInstIDType ExchangeInstID
+        TThostFtdcInstrumentIDType ProductID
+        TThostFtdcTradingTypeType TradingType
+        TThostFtdcClassTypeType ClassType
+    cdef struct CThostFtdcQryCombPromotionParamField:
+        TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcInstrumentIDType InstrumentID
+    cdef struct CThostFtdcCombPromotionParamField:
+        TThostFtdcExchangeIDType ExchangeID
+        TThostFtdcInstrumentIDType InstrumentID
+        TThostFtdcCombHedgeFlagType CombHedgeFlag
+        TThostFtdcDiscountRatioType Xparameter

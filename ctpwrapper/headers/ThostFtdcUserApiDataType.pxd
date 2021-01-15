@@ -27,13 +27,15 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcBrokerIDType[11]
     ctypedef char TThostFtdcBrokerAbbrType[9]
     ctypedef char TThostFtdcBrokerNameType[81]
-    ctypedef char TThostFtdcExchangeInstIDType[31]
+    ctypedef char TThostFtdcOldExchangeInstIDType[31]
+    ctypedef char TThostFtdcExchangeInstIDType[81]
     ctypedef char TThostFtdcOrderRefType[13]
     ctypedef char TThostFtdcParticipantIDType[11]
     ctypedef char TThostFtdcUserIDType[16]
     ctypedef char TThostFtdcPasswordType[41]
     ctypedef char TThostFtdcClientIDType[11]
-    ctypedef char TThostFtdcInstrumentIDType[31]
+    ctypedef char TThostFtdcInstrumentIDType[81]
+    ctypedef char TThostFtdcOldInstrumentIDType[31]
     ctypedef char TThostFtdcInstrumentCodeType[31]
     ctypedef char TThostFtdcMarketIDType[31]
     ctypedef char TThostFtdcProductNameType[21]
@@ -52,7 +54,8 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcOrderSysIDType[21]
     ctypedef char TThostFtdcTradeIDType[21]
     ctypedef char TThostFtdcCommandTypeType[65]
-    ctypedef char TThostFtdcIPAddressType[16]
+    ctypedef char TThostFtdcOldIPAddressType[16]
+    ctypedef char TThostFtdcIPAddressType[33]
     ctypedef int TThostFtdcIPPortType
     ctypedef char TThostFtdcProductInfoType[11]
     ctypedef char TThostFtdcProtocolInfoType[11]
@@ -119,6 +122,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef int TThostFtdcSequenceNoType
     ctypedef int TThostFtdcCommandNoType
     ctypedef int TThostFtdcMillisecType
+    ctypedef int TThostFtdcSecType
     ctypedef int TThostFtdcVolumeMultipleType
     ctypedef int TThostFtdcTradingSegmentSNType
     ctypedef int TThostFtdcRequestIDType
@@ -803,3 +807,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcOTCTraderIDType[31]
     ctypedef double TThostFtdcRiskValueType
     ctypedef char TThostFtdcIDBNameType[100]
+    ctypedef double TThostFtdcDiscountRatioType
+    ctypedef char TThostFtdcAuthTypeType
+    ctypedef char TThostFtdcClassTypeType
+    ctypedef char TThostFtdcTradingTypeType
