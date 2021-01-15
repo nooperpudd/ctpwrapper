@@ -1,8 +1,7 @@
 include LICENSE
 include README.md
 recursive-include ctp *
-
 recursive-include ctpwrapper *.h *.pyx *.pxd
-recursive-exclude ctpwrapper *.cpp *.xml *.dtd
+recursive-exclude ctpwrapper *.cpp *.xml *.dtd *.so
 
 global-exclude __pycache__ *.pyc *.pyo
