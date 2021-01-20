@@ -168,7 +168,6 @@ def main():
         user_trader.Create()
         user_trader.RegisterFront(server)
         user_trader.SubscribePrivateTopic(2)  # 只传送登录后的流内容
-        user_trader.SubscribePrivateTopic(2)  # 只传送登录后的流内容
 
         user_trader.Init()
 
@@ -189,7 +188,7 @@ def main():
 
             user_trader.ReqSettlementInfoConfirm(settlement_info, user_trader.request_id)
 
-            trader_account = ApiStructure.QryTradingAccountField(BrokerID=broker_id, InvestorID=investor_id)
+            trader_account = ApiStructure.QryTradingAccountField(BrokerID=broker_id, InvestorID=investor_id, BizType="1")
             user_trader.ReqQryTradingAccount(trader_account, user_trader.request_id)
 
             user_trader.Join()
