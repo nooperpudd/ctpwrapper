@@ -1095,13 +1095,15 @@ class DepthMarketDataField(Base):
         ('ActionDay', ctypes.c_char * 9),  # 业务日期
         ('InstrumentID', ctypes.c_char * 81),  # 合约代码
         ('ExchangeInstID', ctypes.c_char * 81),  # 合约在交易所的代码
+        ('BandingUpperPrice', ctypes.c_double),  # 上带价
+        ('BandingLowerPrice', ctypes.c_double),  # 下带价
     ]
 
     def __init__(self, TradingDay='', reserve1='', ExchangeID='', reserve2='', LastPrice=0.0, PreSettlementPrice=0.0, PreClosePrice=0.0, PreOpenInterest=0.0, OpenPrice=0.0, HighestPrice=0.0,
                  LowestPrice=0.0, Volume=0, Turnover=0.0, OpenInterest=0.0, ClosePrice=0.0, SettlementPrice=0.0, UpperLimitPrice=0.0, LowerLimitPrice=0.0, PreDelta=0.0, CurrDelta=0.0, UpdateTime='',
                  UpdateMillisec=0, BidPrice1=0.0, BidVolume1=0, AskPrice1=0.0, AskVolume1=0, BidPrice2=0.0, BidVolume2=0, AskPrice2=0.0, AskVolume2=0, BidPrice3=0.0, BidVolume3=0, AskPrice3=0.0,
                  AskVolume3=0, BidPrice4=0.0, BidVolume4=0, AskPrice4=0.0, AskVolume4=0, BidPrice5=0.0, BidVolume5=0, AskPrice5=0.0, AskVolume5=0, AveragePrice=0.0, ActionDay='', InstrumentID='',
-                 ExchangeInstID=''):
+                 ExchangeInstID='', BandingUpperPrice=0.0, BandingLowerPrice=0.0):
         super(DepthMarketDataField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.reserve1 = self._to_bytes(reserve1)
@@ -1149,6 +1151,8 @@ class DepthMarketDataField(Base):
         self.ActionDay = self._to_bytes(ActionDay)
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.ExchangeInstID = self._to_bytes(ExchangeInstID)
+        self.BandingUpperPrice = float(BandingUpperPrice)
+        self.BandingLowerPrice = float(BandingLowerPrice)
 
 
 class InstrumentTradingRightField(Base):
@@ -2359,9 +2363,11 @@ class SyncDepositField(Base):
         ('Deposit', ctypes.c_double),  # 入金金额
         ('IsForce', ctypes.c_int),  # 是否强制进行
         ('CurrencyID', ctypes.c_char * 4),  # 币种代码
+        ('IsFromSopt', ctypes.c_int),  # 是否是个股期权内转
+        ('TradingPassword', ctypes.c_char * 41),  # 资金密码
     ]
 
-    def __init__(self, DepositSeqNo='', BrokerID='', InvestorID='', Deposit=0.0, IsForce=0, CurrencyID=''):
+    def __init__(self, DepositSeqNo='', BrokerID='', InvestorID='', Deposit=0.0, IsForce=0, CurrencyID='', IsFromSopt=0, TradingPassword=''):
         super(SyncDepositField, self).__init__()
         self.DepositSeqNo = self._to_bytes(DepositSeqNo)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -2369,6 +2375,8 @@ class SyncDepositField(Base):
         self.Deposit = float(Deposit)
         self.IsForce = int(IsForce)
         self.CurrencyID = self._to_bytes(CurrencyID)
+        self.IsFromSopt = int(IsFromSopt)
+        self.TradingPassword = self._to_bytes(TradingPassword)
 
 
 class SyncFundMortgageField(Base):
@@ -4431,11 +4439,12 @@ class InputQuoteField(Base):
         ('MacAddress', ctypes.c_char * 21),  # Mac地址
         ('InstrumentID', ctypes.c_char * 81),  # 合约代码
         ('IPAddress', ctypes.c_char * 33),  # IP地址
+        ('ReplaceSysID', ctypes.c_char * 21),  # 被顶单编号
     ]
 
     def __init__(self, BrokerID='', InvestorID='', reserve1='', QuoteRef='', UserID='', AskPrice=0.0, BidPrice=0.0, AskVolume=0, BidVolume=0, RequestID=0, BusinessUnit='', AskOffsetFlag='',
                  BidOffsetFlag='', AskHedgeFlag='', BidHedgeFlag='', AskOrderRef='', BidOrderRef='', ForQuoteSysID='', ExchangeID='', InvestUnitID='', ClientID='', reserve2='', MacAddress='',
-                 InstrumentID='', IPAddress=''):
+                 InstrumentID='', IPAddress='', ReplaceSysID=''):
         super(InputQuoteField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -4462,6 +4471,7 @@ class InputQuoteField(Base):
         self.MacAddress = self._to_bytes(MacAddress)
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.IPAddress = self._to_bytes(IPAddress)
+        self.ReplaceSysID = self._to_bytes(ReplaceSysID)
 
 
 class InputQuoteActionField(Base):
@@ -4566,13 +4576,14 @@ class QuoteField(Base):
         ('InstrumentID', ctypes.c_char * 81),  # 合约代码
         ('ExchangeInstID', ctypes.c_char * 81),  # 合约在交易所的代码
         ('IPAddress', ctypes.c_char * 33),  # IP地址
+        ('ReplaceSysID', ctypes.c_char * 21),  # 被顶单编号
     ]
 
     def __init__(self, BrokerID='', InvestorID='', reserve1='', QuoteRef='', UserID='', AskPrice=0.0, BidPrice=0.0, AskVolume=0, BidVolume=0, RequestID=0, BusinessUnit='', AskOffsetFlag='',
                  BidOffsetFlag='', AskHedgeFlag='', BidHedgeFlag='', QuoteLocalID='', ExchangeID='', ParticipantID='', ClientID='', reserve2='', TraderID='', InstallID=0, NotifySequence=0,
                  OrderSubmitStatus='', TradingDay='', SettlementID=0, QuoteSysID='', InsertDate='', InsertTime='', CancelTime='', QuoteStatus='', ClearingPartID='', SequenceNo=0, AskOrderSysID='',
                  BidOrderSysID='', FrontID=0, SessionID=0, UserProductInfo='', StatusMsg='', ActiveUserID='', BrokerQuoteSeq=0, AskOrderRef='', BidOrderRef='', ForQuoteSysID='', BranchID='',
-                 InvestUnitID='', AccountID='', CurrencyID='', reserve3='', MacAddress='', InstrumentID='', ExchangeInstID='', IPAddress=''):
+                 InvestUnitID='', AccountID='', CurrencyID='', reserve3='', MacAddress='', InstrumentID='', ExchangeInstID='', IPAddress='', ReplaceSysID=''):
         super(QuoteField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.InvestorID = self._to_bytes(InvestorID)
@@ -4627,6 +4638,7 @@ class QuoteField(Base):
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.ExchangeInstID = self._to_bytes(ExchangeInstID)
         self.IPAddress = self._to_bytes(IPAddress)
+        self.ReplaceSysID = self._to_bytes(ReplaceSysID)
 
 
 class QuoteActionField(Base):
@@ -5570,9 +5582,12 @@ class InstrumentOrderCommRateField(Base):
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
         ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('OrderCommByTrade', ctypes.c_double),  # 报单手续费
+        ('OrderActionCommByTrade', ctypes.c_double),  # 撤单手续费
     ]
 
-    def __init__(self, reserve1='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='', OrderCommByVolume=0.0, OrderActionCommByVolume=0.0, ExchangeID='', InvestUnitID='', InstrumentID=''):
+    def __init__(self, reserve1='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='', OrderCommByVolume=0.0, OrderActionCommByVolume=0.0, ExchangeID='', InvestUnitID='', InstrumentID='',
+                 OrderCommByTrade=0.0, OrderActionCommByTrade=0.0):
         super(InstrumentOrderCommRateField, self).__init__()
         self.reserve1 = self._to_bytes(reserve1)
         self.InvestorRange = self._to_bytes(InvestorRange)
@@ -5584,6 +5599,8 @@ class InstrumentOrderCommRateField(Base):
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.InvestUnitID = self._to_bytes(InvestUnitID)
         self.InstrumentID = self._to_bytes(InstrumentID)
+        self.OrderCommByTrade = float(OrderCommByTrade)
+        self.OrderActionCommByTrade = float(OrderActionCommByTrade)
 
 
 class QryInstrumentOrderCommRateField(Base):
@@ -6468,6 +6485,19 @@ class MarketDataUpdateTimeField(Base):
         self.UpdateMillisec = int(UpdateMillisec)
         self.ActionDay = self._to_bytes(ActionDay)
         self.InstrumentID = self._to_bytes(InstrumentID)
+
+
+class MarketDataBandingPriceField(Base):
+    """行情上下带价"""
+    _fields_ = [
+        ('BandingUpperPrice', ctypes.c_double),  # 上带价
+        ('BandingLowerPrice', ctypes.c_double),  # 下带价
+    ]
+
+    def __init__(self, BandingUpperPrice=0.0, BandingLowerPrice=0.0):
+        super(MarketDataBandingPriceField, self).__init__()
+        self.BandingUpperPrice = float(BandingUpperPrice)
+        self.BandingLowerPrice = float(BandingLowerPrice)
 
 
 class MarketDataExchangeField(Base):
@@ -11538,26 +11568,22 @@ class QueryFreqField(Base):
 class AuthForbiddenIPField(Base):
     """禁止认证IP"""
     _fields_ = [
-        ('reserve1', ctypes.c_char * 16),  # 保留的无效字段
         ('IPAddress', ctypes.c_char * 33),  # IP地址
     ]
 
-    def __init__(self, reserve1='', IPAddress=''):
+    def __init__(self, IPAddress=''):
         super(AuthForbiddenIPField, self).__init__()
-        self.reserve1 = self._to_bytes(reserve1)
         self.IPAddress = self._to_bytes(IPAddress)
 
 
 class QryAuthForbiddenIPField(Base):
     """查询禁止认证IP"""
     _fields_ = [
-        ('reserve1', ctypes.c_char * 16),  # 保留的无效字段
         ('IPAddress', ctypes.c_char * 33),  # IP地址
     ]
 
-    def __init__(self, reserve1='', IPAddress=''):
+    def __init__(self, IPAddress=''):
         super(QryAuthForbiddenIPField, self).__init__()
-        self.reserve1 = self._to_bytes(reserve1)
         self.IPAddress = self._to_bytes(IPAddress)
 
 
@@ -11594,9 +11620,10 @@ class UserSystemInfoField(Base):
         ('ClientLoginTime', ctypes.c_char * 9),  # 登录成功时间
         ('ClientAppID', ctypes.c_char * 33),  # App代码
         ('ClientPublicIP', ctypes.c_char * 33),  # 用户公网IP
+        ('ClientLoginRemark', ctypes.c_char * 151),  # 客户登录备注2
     ]
 
-    def __init__(self, BrokerID='', UserID='', ClientSystemInfoLen=0, ClientSystemInfo='', reserve1='', ClientIPPort=0, ClientLoginTime='', ClientAppID='', ClientPublicIP=''):
+    def __init__(self, BrokerID='', UserID='', ClientSystemInfoLen=0, ClientSystemInfo='', reserve1='', ClientIPPort=0, ClientLoginTime='', ClientAppID='', ClientPublicIP='', ClientLoginRemark=''):
         super(UserSystemInfoField, self).__init__()
         self.BrokerID = self._to_bytes(BrokerID)
         self.UserID = self._to_bytes(UserID)
@@ -11607,6 +11634,7 @@ class UserSystemInfoField(Base):
         self.ClientLoginTime = self._to_bytes(ClientLoginTime)
         self.ClientAppID = self._to_bytes(ClientAppID)
         self.ClientPublicIP = self._to_bytes(ClientPublicIP)
+        self.ClientLoginRemark = self._to_bytes(ClientLoginRemark)
 
 
 class AuthUserIDField(Base):
@@ -11690,3 +11718,915 @@ class CombPromotionParamField(Base):
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.CombHedgeFlag = self._to_bytes(CombHedgeFlag)
         self.Xparameter = float(Xparameter)
+
+
+class QryRiskSettleInvstPositionField(Base):
+    """投资者风险结算持仓查询"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+    ]
+
+    def __init__(self, BrokerID='', InvestorID='', InstrumentID=''):
+        super(QryRiskSettleInvstPositionField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+
+
+class QryRiskSettleProductStatusField(Base):
+    """风险结算产品查询"""
+    _fields_ = [
+        ('ProductID', ctypes.c_char * 81),  # 产品代码
+    ]
+
+    def __init__(self, ProductID=''):
+        super(QryRiskSettleProductStatusField, self).__init__()
+        self.ProductID = self._to_bytes(ProductID)
+
+
+class RiskSettleInvstPositionField(Base):
+    """投资者风险结算持仓"""
+    _fields_ = [
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('PosiDirection', ctypes.c_char),  # 持仓多空方向
+        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('PositionDate', ctypes.c_char),  # 持仓日期
+        ('YdPosition', ctypes.c_int),  # 上日持仓
+        ('Position', ctypes.c_int),  # 今日持仓
+        ('LongFrozen', ctypes.c_int),  # 多头冻结
+        ('ShortFrozen', ctypes.c_int),  # 空头冻结
+        ('LongFrozenAmount', ctypes.c_double),  # 开仓冻结金额
+        ('ShortFrozenAmount', ctypes.c_double),  # 开仓冻结金额
+        ('OpenVolume', ctypes.c_int),  # 开仓量
+        ('CloseVolume', ctypes.c_int),  # 平仓量
+        ('OpenAmount', ctypes.c_double),  # 开仓金额
+        ('CloseAmount', ctypes.c_double),  # 平仓金额
+        ('PositionCost', ctypes.c_double),  # 持仓成本
+        ('PreMargin', ctypes.c_double),  # 上次占用的保证金
+        ('UseMargin', ctypes.c_double),  # 占用的保证金
+        ('FrozenMargin', ctypes.c_double),  # 冻结的保证金
+        ('FrozenCash', ctypes.c_double),  # 冻结的资金
+        ('FrozenCommission', ctypes.c_double),  # 冻结的手续费
+        ('CashIn', ctypes.c_double),  # 资金差额
+        ('Commission', ctypes.c_double),  # 手续费
+        ('CloseProfit', ctypes.c_double),  # 平仓盈亏
+        ('PositionProfit', ctypes.c_double),  # 持仓盈亏
+        ('PreSettlementPrice', ctypes.c_double),  # 上次结算价
+        ('SettlementPrice', ctypes.c_double),  # 本次结算价
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('SettlementID', ctypes.c_int),  # 结算编号
+        ('OpenCost', ctypes.c_double),  # 开仓成本
+        ('ExchangeMargin', ctypes.c_double),  # 交易所保证金
+        ('CombPosition', ctypes.c_int),  # 组合成交形成的持仓
+        ('CombLongFrozen', ctypes.c_int),  # 组合多头冻结
+        ('CombShortFrozen', ctypes.c_int),  # 组合空头冻结
+        ('CloseProfitByDate', ctypes.c_double),  # 逐日盯市平仓盈亏
+        ('CloseProfitByTrade', ctypes.c_double),  # 逐笔对冲平仓盈亏
+        ('TodayPosition', ctypes.c_int),  # 今日持仓
+        ('MarginRateByMoney', ctypes.c_double),  # 保证金率
+        ('MarginRateByVolume', ctypes.c_double),  # 保证金率(按手数)
+        ('StrikeFrozen', ctypes.c_int),  # 执行冻结
+        ('StrikeFrozenAmount', ctypes.c_double),  # 执行冻结金额
+        ('AbandonFrozen', ctypes.c_int),  # 放弃执行冻结
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('YdStrikeFrozen', ctypes.c_int),  # 执行冻结的昨仓
+        ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
+        ('PositionCostOffset', ctypes.c_double),  # 大商所持仓成本差值，只有大商所使用
+        ('TasPosition', ctypes.c_int),  # tas持仓手数
+        ('TasPositionCost', ctypes.c_double),  # tas持仓成本
+    ]
+
+    def __init__(self, InstrumentID='', BrokerID='', InvestorID='', PosiDirection='', HedgeFlag='', PositionDate='', YdPosition=0, Position=0, LongFrozen=0, ShortFrozen=0, LongFrozenAmount=0.0,
+                 ShortFrozenAmount=0.0, OpenVolume=0, CloseVolume=0, OpenAmount=0.0, CloseAmount=0.0, PositionCost=0.0, PreMargin=0.0, UseMargin=0.0, FrozenMargin=0.0, FrozenCash=0.0,
+                 FrozenCommission=0.0, CashIn=0.0, Commission=0.0, CloseProfit=0.0, PositionProfit=0.0, PreSettlementPrice=0.0, SettlementPrice=0.0, TradingDay='', SettlementID=0, OpenCost=0.0,
+                 ExchangeMargin=0.0, CombPosition=0, CombLongFrozen=0, CombShortFrozen=0, CloseProfitByDate=0.0, CloseProfitByTrade=0.0, TodayPosition=0, MarginRateByMoney=0.0, MarginRateByVolume=0.0,
+                 StrikeFrozen=0, StrikeFrozenAmount=0.0, AbandonFrozen=0, ExchangeID='', YdStrikeFrozen=0, InvestUnitID='', PositionCostOffset=0.0, TasPosition=0, TasPositionCost=0.0):
+        super(RiskSettleInvstPositionField, self).__init__()
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.PosiDirection = self._to_bytes(PosiDirection)
+        self.HedgeFlag = self._to_bytes(HedgeFlag)
+        self.PositionDate = self._to_bytes(PositionDate)
+        self.YdPosition = int(YdPosition)
+        self.Position = int(Position)
+        self.LongFrozen = int(LongFrozen)
+        self.ShortFrozen = int(ShortFrozen)
+        self.LongFrozenAmount = float(LongFrozenAmount)
+        self.ShortFrozenAmount = float(ShortFrozenAmount)
+        self.OpenVolume = int(OpenVolume)
+        self.CloseVolume = int(CloseVolume)
+        self.OpenAmount = float(OpenAmount)
+        self.CloseAmount = float(CloseAmount)
+        self.PositionCost = float(PositionCost)
+        self.PreMargin = float(PreMargin)
+        self.UseMargin = float(UseMargin)
+        self.FrozenMargin = float(FrozenMargin)
+        self.FrozenCash = float(FrozenCash)
+        self.FrozenCommission = float(FrozenCommission)
+        self.CashIn = float(CashIn)
+        self.Commission = float(Commission)
+        self.CloseProfit = float(CloseProfit)
+        self.PositionProfit = float(PositionProfit)
+        self.PreSettlementPrice = float(PreSettlementPrice)
+        self.SettlementPrice = float(SettlementPrice)
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.SettlementID = int(SettlementID)
+        self.OpenCost = float(OpenCost)
+        self.ExchangeMargin = float(ExchangeMargin)
+        self.CombPosition = int(CombPosition)
+        self.CombLongFrozen = int(CombLongFrozen)
+        self.CombShortFrozen = int(CombShortFrozen)
+        self.CloseProfitByDate = float(CloseProfitByDate)
+        self.CloseProfitByTrade = float(CloseProfitByTrade)
+        self.TodayPosition = int(TodayPosition)
+        self.MarginRateByMoney = float(MarginRateByMoney)
+        self.MarginRateByVolume = float(MarginRateByVolume)
+        self.StrikeFrozen = int(StrikeFrozen)
+        self.StrikeFrozenAmount = float(StrikeFrozenAmount)
+        self.AbandonFrozen = int(AbandonFrozen)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.YdStrikeFrozen = int(YdStrikeFrozen)
+        self.InvestUnitID = self._to_bytes(InvestUnitID)
+        self.PositionCostOffset = float(PositionCostOffset)
+        self.TasPosition = int(TasPosition)
+        self.TasPositionCost = float(TasPositionCost)
+
+
+class RiskSettleProductStatusField(Base):
+    """风险品种"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('ProductID', ctypes.c_char * 81),  # 产品编号
+        ('ProductStatus', ctypes.c_char),  # 产品结算状态
+    ]
+
+    def __init__(self, ExchangeID='', ProductID='', ProductStatus=''):
+        super(RiskSettleProductStatusField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.ProductID = self._to_bytes(ProductID)
+        self.ProductStatus = self._to_bytes(ProductStatus)
+
+
+class SyncDeltaInfoField(Base):
+    """风险结算追平信息"""
+    _fields_ = [
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+        ('SyncDeltaStatus', ctypes.c_char),  # 追平状态
+        ('SyncDescription', ctypes.c_char * 257),  # 追平描述
+        ('IsOnlyTrdDelta', ctypes.c_int),  # 是否只有资金追平
+    ]
+
+    def __init__(self, SyncDeltaSequenceNo=0, SyncDeltaStatus='', SyncDescription='', IsOnlyTrdDelta=0):
+        super(SyncDeltaInfoField, self).__init__()
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+        self.SyncDeltaStatus = self._to_bytes(SyncDeltaStatus)
+        self.SyncDescription = self._to_bytes(SyncDescription)
+        self.IsOnlyTrdDelta = int(IsOnlyTrdDelta)
+
+
+class SyncDeltaProductStatusField(Base):
+    """风险结算追平产品信息"""
+    _fields_ = [
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('ProductID', ctypes.c_char * 81),  # 产品代码
+        ('ProductStatus', ctypes.c_char),  # 是否允许交易
+    ]
+
+    def __init__(self, SyncDeltaSequenceNo=0, ExchangeID='', ProductID='', ProductStatus=''):
+        super(SyncDeltaProductStatusField, self).__init__()
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.ProductID = self._to_bytes(ProductID)
+        self.ProductStatus = self._to_bytes(ProductStatus)
+
+
+class SyncDeltaInvstPosDtlField(Base):
+    """风险结算追平持仓明细"""
+    _fields_ = [
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('Direction', ctypes.c_char),  # 买卖
+        ('OpenDate', ctypes.c_char * 9),  # 开仓日期
+        ('TradeID', ctypes.c_char * 21),  # 成交编号
+        ('Volume', ctypes.c_int),  # 数量
+        ('OpenPrice', ctypes.c_double),  # 开仓价
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('SettlementID', ctypes.c_int),  # 结算编号
+        ('TradeType', ctypes.c_char),  # 成交类型
+        ('CombInstrumentID', ctypes.c_char * 81),  # 组合合约代码
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('CloseProfitByDate', ctypes.c_double),  # 逐日盯市平仓盈亏
+        ('CloseProfitByTrade', ctypes.c_double),  # 逐笔对冲平仓盈亏
+        ('PositionProfitByDate', ctypes.c_double),  # 逐日盯市持仓盈亏
+        ('PositionProfitByTrade', ctypes.c_double),  # 逐笔对冲持仓盈亏
+        ('Margin', ctypes.c_double),  # 投资者保证金
+        ('ExchMargin', ctypes.c_double),  # 交易所保证金
+        ('MarginRateByMoney', ctypes.c_double),  # 保证金率
+        ('MarginRateByVolume', ctypes.c_double),  # 保证金率(按手数)
+        ('LastSettlementPrice', ctypes.c_double),  # 昨结算价
+        ('SettlementPrice', ctypes.c_double),  # 结算价
+        ('CloseVolume', ctypes.c_int),  # 平仓量
+        ('CloseAmount', ctypes.c_double),  # 平仓金额
+        ('TimeFirstVolume', ctypes.c_int),  # 先开先平剩余数量（DCE）
+        ('SpecPosiType', ctypes.c_char),  # 特殊持仓标志
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, InstrumentID='', BrokerID='', InvestorID='', HedgeFlag='', Direction='', OpenDate='', TradeID='', Volume=0, OpenPrice=0.0, TradingDay='', SettlementID=0, TradeType='',
+                 CombInstrumentID='', ExchangeID='', CloseProfitByDate=0.0, CloseProfitByTrade=0.0, PositionProfitByDate=0.0, PositionProfitByTrade=0.0, Margin=0.0, ExchMargin=0.0,
+                 MarginRateByMoney=0.0, MarginRateByVolume=0.0, LastSettlementPrice=0.0, SettlementPrice=0.0, CloseVolume=0, CloseAmount=0.0, TimeFirstVolume=0, SpecPosiType='', ActionDirection='',
+                 SyncDeltaSequenceNo=0):
+        super(SyncDeltaInvstPosDtlField, self).__init__()
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.HedgeFlag = self._to_bytes(HedgeFlag)
+        self.Direction = self._to_bytes(Direction)
+        self.OpenDate = self._to_bytes(OpenDate)
+        self.TradeID = self._to_bytes(TradeID)
+        self.Volume = int(Volume)
+        self.OpenPrice = float(OpenPrice)
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.SettlementID = int(SettlementID)
+        self.TradeType = self._to_bytes(TradeType)
+        self.CombInstrumentID = self._to_bytes(CombInstrumentID)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.CloseProfitByDate = float(CloseProfitByDate)
+        self.CloseProfitByTrade = float(CloseProfitByTrade)
+        self.PositionProfitByDate = float(PositionProfitByDate)
+        self.PositionProfitByTrade = float(PositionProfitByTrade)
+        self.Margin = float(Margin)
+        self.ExchMargin = float(ExchMargin)
+        self.MarginRateByMoney = float(MarginRateByMoney)
+        self.MarginRateByVolume = float(MarginRateByVolume)
+        self.LastSettlementPrice = float(LastSettlementPrice)
+        self.SettlementPrice = float(SettlementPrice)
+        self.CloseVolume = int(CloseVolume)
+        self.CloseAmount = float(CloseAmount)
+        self.TimeFirstVolume = int(TimeFirstVolume)
+        self.SpecPosiType = self._to_bytes(SpecPosiType)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaInvstPosCombDtlField(Base):
+    """风险结算追平组合持仓明细"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('OpenDate', ctypes.c_char * 9),  # 开仓日期
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('SettlementID', ctypes.c_int),  # 结算编号
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('ComTradeID', ctypes.c_char * 21),  # 组合编号
+        ('TradeID', ctypes.c_char * 21),  # 撮合编号
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('Direction', ctypes.c_char),  # 买卖
+        ('TotalAmt', ctypes.c_int),  # 持仓量
+        ('Margin', ctypes.c_double),  # 投资者保证金
+        ('ExchMargin', ctypes.c_double),  # 交易所保证金
+        ('MarginRateByMoney', ctypes.c_double),  # 保证金率
+        ('MarginRateByVolume', ctypes.c_double),  # 保证金率(按手数)
+        ('LegID', ctypes.c_int),  # 单腿编号
+        ('LegMultiple', ctypes.c_int),  # 单腿乘数
+        ('TradeGroupID', ctypes.c_int),  # 成交组号
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, TradingDay='', OpenDate='', ExchangeID='', SettlementID=0, BrokerID='', InvestorID='', ComTradeID='', TradeID='', InstrumentID='', HedgeFlag='', Direction='', TotalAmt=0,
+                 Margin=0.0, ExchMargin=0.0, MarginRateByMoney=0.0, MarginRateByVolume=0.0, LegID=0, LegMultiple=0, TradeGroupID=0, ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaInvstPosCombDtlField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.OpenDate = self._to_bytes(OpenDate)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.SettlementID = int(SettlementID)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.ComTradeID = self._to_bytes(ComTradeID)
+        self.TradeID = self._to_bytes(TradeID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.HedgeFlag = self._to_bytes(HedgeFlag)
+        self.Direction = self._to_bytes(Direction)
+        self.TotalAmt = int(TotalAmt)
+        self.Margin = float(Margin)
+        self.ExchMargin = float(ExchMargin)
+        self.MarginRateByMoney = float(MarginRateByMoney)
+        self.MarginRateByVolume = float(MarginRateByVolume)
+        self.LegID = int(LegID)
+        self.LegMultiple = int(LegMultiple)
+        self.TradeGroupID = int(TradeGroupID)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaTradingAccountField(Base):
+    """风险结算追平资金"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('AccountID', ctypes.c_char * 13),  # 投资者帐号
+        ('PreMortgage', ctypes.c_double),  # 上次质押金额
+        ('PreCredit', ctypes.c_double),  # 上次信用额度
+        ('PreDeposit', ctypes.c_double),  # 上次存款额
+        ('PreBalance', ctypes.c_double),  # 上次结算准备金
+        ('PreMargin', ctypes.c_double),  # 上次占用的保证金
+        ('InterestBase', ctypes.c_double),  # 利息基数
+        ('Interest', ctypes.c_double),  # 利息收入
+        ('Deposit', ctypes.c_double),  # 入金金额
+        ('Withdraw', ctypes.c_double),  # 出金金额
+        ('FrozenMargin', ctypes.c_double),  # 冻结的保证金
+        ('FrozenCash', ctypes.c_double),  # 冻结的资金
+        ('FrozenCommission', ctypes.c_double),  # 冻结的手续费
+        ('CurrMargin', ctypes.c_double),  # 当前保证金总额
+        ('CashIn', ctypes.c_double),  # 资金差额
+        ('Commission', ctypes.c_double),  # 手续费
+        ('CloseProfit', ctypes.c_double),  # 平仓盈亏
+        ('PositionProfit', ctypes.c_double),  # 持仓盈亏
+        ('Balance', ctypes.c_double),  # 期货结算准备金
+        ('Available', ctypes.c_double),  # 可用资金
+        ('WithdrawQuota', ctypes.c_double),  # 可取资金
+        ('Reserve', ctypes.c_double),  # 基本准备金
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('SettlementID', ctypes.c_int),  # 结算编号
+        ('Credit', ctypes.c_double),  # 信用额度
+        ('Mortgage', ctypes.c_double),  # 质押金额
+        ('ExchangeMargin', ctypes.c_double),  # 交易所保证金
+        ('DeliveryMargin', ctypes.c_double),  # 投资者交割保证金
+        ('ExchangeDeliveryMargin', ctypes.c_double),  # 交易所交割保证金
+        ('ReserveBalance', ctypes.c_double),  # 保底期货结算准备金
+        ('CurrencyID', ctypes.c_char * 4),  # 币种代码
+        ('PreFundMortgageIn', ctypes.c_double),  # 上次货币质入金额
+        ('PreFundMortgageOut', ctypes.c_double),  # 上次货币质出金额
+        ('FundMortgageIn', ctypes.c_double),  # 货币质入金额
+        ('FundMortgageOut', ctypes.c_double),  # 货币质出金额
+        ('FundMortgageAvailable', ctypes.c_double),  # 货币质押余额
+        ('MortgageableFund', ctypes.c_double),  # 可质押货币金额
+        ('SpecProductMargin', ctypes.c_double),  # 特殊产品占用保证金
+        ('SpecProductFrozenMargin', ctypes.c_double),  # 特殊产品冻结保证金
+        ('SpecProductCommission', ctypes.c_double),  # 特殊产品手续费
+        ('SpecProductFrozenCommission', ctypes.c_double),  # 特殊产品冻结手续费
+        ('SpecProductPositionProfit', ctypes.c_double),  # 特殊产品持仓盈亏
+        ('SpecProductCloseProfit', ctypes.c_double),  # 特殊产品平仓盈亏
+        ('SpecProductPositionProfitByAlg', ctypes.c_double),  # 根据持仓盈亏算法计算的特殊产品持仓盈亏
+        ('SpecProductExchangeMargin', ctypes.c_double),  # 特殊产品交易所保证金
+        ('FrozenSwap', ctypes.c_double),  # 延时换汇冻结金额
+        ('RemainSwap', ctypes.c_double),  # 剩余换汇额度
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, BrokerID='', AccountID='', PreMortgage=0.0, PreCredit=0.0, PreDeposit=0.0, PreBalance=0.0, PreMargin=0.0, InterestBase=0.0, Interest=0.0, Deposit=0.0, Withdraw=0.0,
+                 FrozenMargin=0.0, FrozenCash=0.0, FrozenCommission=0.0, CurrMargin=0.0, CashIn=0.0, Commission=0.0, CloseProfit=0.0, PositionProfit=0.0, Balance=0.0, Available=0.0, WithdrawQuota=0.0,
+                 Reserve=0.0, TradingDay='', SettlementID=0, Credit=0.0, Mortgage=0.0, ExchangeMargin=0.0, DeliveryMargin=0.0, ExchangeDeliveryMargin=0.0, ReserveBalance=0.0, CurrencyID='',
+                 PreFundMortgageIn=0.0, PreFundMortgageOut=0.0, FundMortgageIn=0.0, FundMortgageOut=0.0, FundMortgageAvailable=0.0, MortgageableFund=0.0, SpecProductMargin=0.0,
+                 SpecProductFrozenMargin=0.0, SpecProductCommission=0.0, SpecProductFrozenCommission=0.0, SpecProductPositionProfit=0.0, SpecProductCloseProfit=0.0, SpecProductPositionProfitByAlg=0.0,
+                 SpecProductExchangeMargin=0.0, FrozenSwap=0.0, RemainSwap=0.0, SyncDeltaSequenceNo=0):
+        super(SyncDeltaTradingAccountField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.AccountID = self._to_bytes(AccountID)
+        self.PreMortgage = float(PreMortgage)
+        self.PreCredit = float(PreCredit)
+        self.PreDeposit = float(PreDeposit)
+        self.PreBalance = float(PreBalance)
+        self.PreMargin = float(PreMargin)
+        self.InterestBase = float(InterestBase)
+        self.Interest = float(Interest)
+        self.Deposit = float(Deposit)
+        self.Withdraw = float(Withdraw)
+        self.FrozenMargin = float(FrozenMargin)
+        self.FrozenCash = float(FrozenCash)
+        self.FrozenCommission = float(FrozenCommission)
+        self.CurrMargin = float(CurrMargin)
+        self.CashIn = float(CashIn)
+        self.Commission = float(Commission)
+        self.CloseProfit = float(CloseProfit)
+        self.PositionProfit = float(PositionProfit)
+        self.Balance = float(Balance)
+        self.Available = float(Available)
+        self.WithdrawQuota = float(WithdrawQuota)
+        self.Reserve = float(Reserve)
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.SettlementID = int(SettlementID)
+        self.Credit = float(Credit)
+        self.Mortgage = float(Mortgage)
+        self.ExchangeMargin = float(ExchangeMargin)
+        self.DeliveryMargin = float(DeliveryMargin)
+        self.ExchangeDeliveryMargin = float(ExchangeDeliveryMargin)
+        self.ReserveBalance = float(ReserveBalance)
+        self.CurrencyID = self._to_bytes(CurrencyID)
+        self.PreFundMortgageIn = float(PreFundMortgageIn)
+        self.PreFundMortgageOut = float(PreFundMortgageOut)
+        self.FundMortgageIn = float(FundMortgageIn)
+        self.FundMortgageOut = float(FundMortgageOut)
+        self.FundMortgageAvailable = float(FundMortgageAvailable)
+        self.MortgageableFund = float(MortgageableFund)
+        self.SpecProductMargin = float(SpecProductMargin)
+        self.SpecProductFrozenMargin = float(SpecProductFrozenMargin)
+        self.SpecProductCommission = float(SpecProductCommission)
+        self.SpecProductFrozenCommission = float(SpecProductFrozenCommission)
+        self.SpecProductPositionProfit = float(SpecProductPositionProfit)
+        self.SpecProductCloseProfit = float(SpecProductCloseProfit)
+        self.SpecProductPositionProfitByAlg = float(SpecProductPositionProfitByAlg)
+        self.SpecProductExchangeMargin = float(SpecProductExchangeMargin)
+        self.FrozenSwap = float(FrozenSwap)
+        self.RemainSwap = float(RemainSwap)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaInitInvstMarginField(Base):
+    """投资者风险结算总保证金"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('LastRiskTotalInvstMargin', ctypes.c_double),  # 追平前总风险保证金
+        ('LastRiskTotalExchMargin', ctypes.c_double),  # 追平前交易所总风险保证金
+        ('ThisSyncInvstMargin', ctypes.c_double),  # 本次追平品种总保证金
+        ('ThisSyncExchMargin', ctypes.c_double),  # 本次追平品种交易所总保证金
+        ('RemainRiskInvstMargin', ctypes.c_double),  # 本次未追平品种总保证金
+        ('RemainRiskExchMargin', ctypes.c_double),  # 本次未追平品种交易所总保证金
+        ('LastRiskSpecTotalInvstMargin', ctypes.c_double),  # 追平前总特殊产品风险保证金
+        ('LastRiskSpecTotalExchMargin', ctypes.c_double),  # 追平前总特殊产品交易所风险保证金
+        ('ThisSyncSpecInvstMargin', ctypes.c_double),  # 本次追平品种特殊产品总保证金
+        ('ThisSyncSpecExchMargin', ctypes.c_double),  # 本次追平品种特殊产品交易所总保证金
+        ('RemainRiskSpecInvstMargin', ctypes.c_double),  # 本次未追平品种特殊产品总保证金
+        ('RemainRiskSpecExchMargin', ctypes.c_double),  # 本次未追平品种特殊产品交易所总保证金
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, BrokerID='', InvestorID='', LastRiskTotalInvstMargin=0.0, LastRiskTotalExchMargin=0.0, ThisSyncInvstMargin=0.0, ThisSyncExchMargin=0.0, RemainRiskInvstMargin=0.0,
+                 RemainRiskExchMargin=0.0, LastRiskSpecTotalInvstMargin=0.0, LastRiskSpecTotalExchMargin=0.0, ThisSyncSpecInvstMargin=0.0, ThisSyncSpecExchMargin=0.0, RemainRiskSpecInvstMargin=0.0,
+                 RemainRiskSpecExchMargin=0.0, SyncDeltaSequenceNo=0):
+        super(SyncDeltaInitInvstMarginField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.LastRiskTotalInvstMargin = float(LastRiskTotalInvstMargin)
+        self.LastRiskTotalExchMargin = float(LastRiskTotalExchMargin)
+        self.ThisSyncInvstMargin = float(ThisSyncInvstMargin)
+        self.ThisSyncExchMargin = float(ThisSyncExchMargin)
+        self.RemainRiskInvstMargin = float(RemainRiskInvstMargin)
+        self.RemainRiskExchMargin = float(RemainRiskExchMargin)
+        self.LastRiskSpecTotalInvstMargin = float(LastRiskSpecTotalInvstMargin)
+        self.LastRiskSpecTotalExchMargin = float(LastRiskSpecTotalExchMargin)
+        self.ThisSyncSpecInvstMargin = float(ThisSyncSpecInvstMargin)
+        self.ThisSyncSpecExchMargin = float(ThisSyncSpecExchMargin)
+        self.RemainRiskSpecInvstMargin = float(RemainRiskSpecInvstMargin)
+        self.RemainRiskSpecExchMargin = float(RemainRiskSpecExchMargin)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaDceCombInstrumentField(Base):
+    """风险结算追平组合优先级"""
+    _fields_ = [
+        ('CombInstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('ExchangeInstID', ctypes.c_char * 81),  # 合约在交易所的代码
+        ('TradeGroupID', ctypes.c_int),  # 成交组号
+        ('CombHedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('CombinationType', ctypes.c_char),  # 组合类型
+        ('Direction', ctypes.c_char),  # 买卖
+        ('ProductID', ctypes.c_char * 81),  # 产品代码
+        ('Xparameter', ctypes.c_double),  # 期权组合保证金比例
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, CombInstrumentID='', ExchangeID='', ExchangeInstID='', TradeGroupID=0, CombHedgeFlag='', CombinationType='', Direction='', ProductID='', Xparameter=0.0, ActionDirection='',
+                 SyncDeltaSequenceNo=0):
+        super(SyncDeltaDceCombInstrumentField, self).__init__()
+        self.CombInstrumentID = self._to_bytes(CombInstrumentID)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.ExchangeInstID = self._to_bytes(ExchangeInstID)
+        self.TradeGroupID = int(TradeGroupID)
+        self.CombHedgeFlag = self._to_bytes(CombHedgeFlag)
+        self.CombinationType = self._to_bytes(CombinationType)
+        self.Direction = self._to_bytes(Direction)
+        self.ProductID = self._to_bytes(ProductID)
+        self.Xparameter = float(Xparameter)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaInvstMarginRateField(Base):
+    """风险结算追平投资者期货保证金率"""
+    _fields_ = [
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('LongMarginRatioByMoney', ctypes.c_double),  # 多头保证金率
+        ('LongMarginRatioByVolume', ctypes.c_double),  # 多头保证金费
+        ('ShortMarginRatioByMoney', ctypes.c_double),  # 空头保证金率
+        ('ShortMarginRatioByVolume', ctypes.c_double),  # 空头保证金费
+        ('IsRelative', ctypes.c_int),  # 是否相对交易所收取
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='', LongMarginRatioByMoney=0.0, LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0,
+                 ShortMarginRatioByVolume=0.0, IsRelative=0, ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaInvstMarginRateField, self).__init__()
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.InvestorRange = self._to_bytes(InvestorRange)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.HedgeFlag = self._to_bytes(HedgeFlag)
+        self.LongMarginRatioByMoney = float(LongMarginRatioByMoney)
+        self.LongMarginRatioByVolume = float(LongMarginRatioByVolume)
+        self.ShortMarginRatioByMoney = float(ShortMarginRatioByMoney)
+        self.ShortMarginRatioByVolume = float(ShortMarginRatioByVolume)
+        self.IsRelative = int(IsRelative)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaExchMarginRateField(Base):
+    """风险结算追平交易所期货保证金率"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('LongMarginRatioByMoney', ctypes.c_double),  # 多头保证金率
+        ('LongMarginRatioByVolume', ctypes.c_double),  # 多头保证金费
+        ('ShortMarginRatioByMoney', ctypes.c_double),  # 空头保证金率
+        ('ShortMarginRatioByVolume', ctypes.c_double),  # 空头保证金费
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, BrokerID='', InstrumentID='', HedgeFlag='', LongMarginRatioByMoney=0.0, LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0, ShortMarginRatioByVolume=0.0,
+                 ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaExchMarginRateField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.HedgeFlag = self._to_bytes(HedgeFlag)
+        self.LongMarginRatioByMoney = float(LongMarginRatioByMoney)
+        self.LongMarginRatioByVolume = float(LongMarginRatioByVolume)
+        self.ShortMarginRatioByMoney = float(ShortMarginRatioByMoney)
+        self.ShortMarginRatioByVolume = float(ShortMarginRatioByVolume)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaOptExchMarginField(Base):
+    """风险结算追平中金现货期权交易所保证金率"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('SShortMarginRatioByMoney', ctypes.c_double),  # 投机空头保证金调整系数
+        ('SShortMarginRatioByVolume', ctypes.c_double),  # 投机空头保证金调整系数
+        ('HShortMarginRatioByMoney', ctypes.c_double),  # 保值空头保证金调整系数
+        ('HShortMarginRatioByVolume', ctypes.c_double),  # 保值空头保证金调整系数
+        ('AShortMarginRatioByMoney', ctypes.c_double),  # 套利空头保证金调整系数
+        ('AShortMarginRatioByVolume', ctypes.c_double),  # 套利空头保证金调整系数
+        ('MShortMarginRatioByMoney', ctypes.c_double),  # 做市商空头保证金调整系数
+        ('MShortMarginRatioByVolume', ctypes.c_double),  # 做市商空头保证金调整系数
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, BrokerID='', InstrumentID='', SShortMarginRatioByMoney=0.0, SShortMarginRatioByVolume=0.0, HShortMarginRatioByMoney=0.0, HShortMarginRatioByVolume=0.0,
+                 AShortMarginRatioByMoney=0.0, AShortMarginRatioByVolume=0.0, MShortMarginRatioByMoney=0.0, MShortMarginRatioByVolume=0.0, ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaOptExchMarginField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.SShortMarginRatioByMoney = float(SShortMarginRatioByMoney)
+        self.SShortMarginRatioByVolume = float(SShortMarginRatioByVolume)
+        self.HShortMarginRatioByMoney = float(HShortMarginRatioByMoney)
+        self.HShortMarginRatioByVolume = float(HShortMarginRatioByVolume)
+        self.AShortMarginRatioByMoney = float(AShortMarginRatioByMoney)
+        self.AShortMarginRatioByVolume = float(AShortMarginRatioByVolume)
+        self.MShortMarginRatioByMoney = float(MShortMarginRatioByMoney)
+        self.MShortMarginRatioByVolume = float(MShortMarginRatioByVolume)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaOptInvstMarginField(Base):
+    """风险结算追平中金现货期权投资者保证金率"""
+    _fields_ = [
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('SShortMarginRatioByMoney', ctypes.c_double),  # 投机空头保证金调整系数
+        ('SShortMarginRatioByVolume', ctypes.c_double),  # 投机空头保证金调整系数
+        ('HShortMarginRatioByMoney', ctypes.c_double),  # 保值空头保证金调整系数
+        ('HShortMarginRatioByVolume', ctypes.c_double),  # 保值空头保证金调整系数
+        ('AShortMarginRatioByMoney', ctypes.c_double),  # 套利空头保证金调整系数
+        ('AShortMarginRatioByVolume', ctypes.c_double),  # 套利空头保证金调整系数
+        ('IsRelative', ctypes.c_int),  # 是否跟随交易所收取
+        ('MShortMarginRatioByMoney', ctypes.c_double),  # 做市商空头保证金调整系数
+        ('MShortMarginRatioByVolume', ctypes.c_double),  # 做市商空头保证金调整系数
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', SShortMarginRatioByMoney=0.0, SShortMarginRatioByVolume=0.0, HShortMarginRatioByMoney=0.0,
+                 HShortMarginRatioByVolume=0.0, AShortMarginRatioByMoney=0.0, AShortMarginRatioByVolume=0.0, IsRelative=0, MShortMarginRatioByMoney=0.0, MShortMarginRatioByVolume=0.0,
+                 ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaOptInvstMarginField, self).__init__()
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.InvestorRange = self._to_bytes(InvestorRange)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.SShortMarginRatioByMoney = float(SShortMarginRatioByMoney)
+        self.SShortMarginRatioByVolume = float(SShortMarginRatioByVolume)
+        self.HShortMarginRatioByMoney = float(HShortMarginRatioByMoney)
+        self.HShortMarginRatioByVolume = float(HShortMarginRatioByVolume)
+        self.AShortMarginRatioByMoney = float(AShortMarginRatioByMoney)
+        self.AShortMarginRatioByVolume = float(AShortMarginRatioByVolume)
+        self.IsRelative = int(IsRelative)
+        self.MShortMarginRatioByMoney = float(MShortMarginRatioByMoney)
+        self.MShortMarginRatioByVolume = float(MShortMarginRatioByVolume)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaInvstMarginRateULField(Base):
+    """风险结算追平期权标的调整保证金率"""
+    _fields_ = [
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('LongMarginRatioByMoney', ctypes.c_double),  # 多头保证金率
+        ('LongMarginRatioByVolume', ctypes.c_double),  # 多头保证金费
+        ('ShortMarginRatioByMoney', ctypes.c_double),  # 空头保证金率
+        ('ShortMarginRatioByVolume', ctypes.c_double),  # 空头保证金费
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', HedgeFlag='', LongMarginRatioByMoney=0.0, LongMarginRatioByVolume=0.0, ShortMarginRatioByMoney=0.0,
+                 ShortMarginRatioByVolume=0.0, ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaInvstMarginRateULField, self).__init__()
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.InvestorRange = self._to_bytes(InvestorRange)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.HedgeFlag = self._to_bytes(HedgeFlag)
+        self.LongMarginRatioByMoney = float(LongMarginRatioByMoney)
+        self.LongMarginRatioByVolume = float(LongMarginRatioByVolume)
+        self.ShortMarginRatioByMoney = float(ShortMarginRatioByMoney)
+        self.ShortMarginRatioByVolume = float(ShortMarginRatioByVolume)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaOptInvstCommRateField(Base):
+    """风险结算追平期权手续费率"""
+    _fields_ = [
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('OpenRatioByMoney', ctypes.c_double),  # 开仓手续费率
+        ('OpenRatioByVolume', ctypes.c_double),  # 开仓手续费
+        ('CloseRatioByMoney', ctypes.c_double),  # 平仓手续费率
+        ('CloseRatioByVolume', ctypes.c_double),  # 平仓手续费
+        ('CloseTodayRatioByMoney', ctypes.c_double),  # 平今手续费率
+        ('CloseTodayRatioByVolume', ctypes.c_double),  # 平今手续费
+        ('StrikeRatioByMoney', ctypes.c_double),  # 执行手续费率
+        ('StrikeRatioByVolume', ctypes.c_double),  # 执行手续费
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0, OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0,
+                 CloseTodayRatioByMoney=0.0, CloseTodayRatioByVolume=0.0, StrikeRatioByMoney=0.0, StrikeRatioByVolume=0.0, ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaOptInvstCommRateField, self).__init__()
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.InvestorRange = self._to_bytes(InvestorRange)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.OpenRatioByMoney = float(OpenRatioByMoney)
+        self.OpenRatioByVolume = float(OpenRatioByVolume)
+        self.CloseRatioByMoney = float(CloseRatioByMoney)
+        self.CloseRatioByVolume = float(CloseRatioByVolume)
+        self.CloseTodayRatioByMoney = float(CloseTodayRatioByMoney)
+        self.CloseTodayRatioByVolume = float(CloseTodayRatioByVolume)
+        self.StrikeRatioByMoney = float(StrikeRatioByMoney)
+        self.StrikeRatioByVolume = float(StrikeRatioByVolume)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaInvstCommRateField(Base):
+    """风险结算追平期货手续费率"""
+    _fields_ = [
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('OpenRatioByMoney', ctypes.c_double),  # 开仓手续费率
+        ('OpenRatioByVolume', ctypes.c_double),  # 开仓手续费
+        ('CloseRatioByMoney', ctypes.c_double),  # 平仓手续费率
+        ('CloseRatioByVolume', ctypes.c_double),  # 平仓手续费
+        ('CloseTodayRatioByMoney', ctypes.c_double),  # 平今手续费率
+        ('CloseTodayRatioByVolume', ctypes.c_double),  # 平今手续费
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, InstrumentID='', InvestorRange='', BrokerID='', InvestorID='', OpenRatioByMoney=0.0, OpenRatioByVolume=0.0, CloseRatioByMoney=0.0, CloseRatioByVolume=0.0,
+                 CloseTodayRatioByMoney=0.0, CloseTodayRatioByVolume=0.0, ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaInvstCommRateField, self).__init__()
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.InvestorRange = self._to_bytes(InvestorRange)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.OpenRatioByMoney = float(OpenRatioByMoney)
+        self.OpenRatioByVolume = float(OpenRatioByVolume)
+        self.CloseRatioByMoney = float(CloseRatioByMoney)
+        self.CloseRatioByVolume = float(CloseRatioByVolume)
+        self.CloseTodayRatioByMoney = float(CloseTodayRatioByMoney)
+        self.CloseTodayRatioByVolume = float(CloseTodayRatioByVolume)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaProductExchRateField(Base):
+    """风险结算追平交叉汇率"""
+    _fields_ = [
+        ('ProductID', ctypes.c_char * 81),  # 产品代码
+        ('QuoteCurrencyID', ctypes.c_char * 4),  # 报价币种类型
+        ('ExchangeRate', ctypes.c_double),  # 汇率
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, ProductID='', QuoteCurrencyID='', ExchangeRate=0.0, ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaProductExchRateField, self).__init__()
+        self.ProductID = self._to_bytes(ProductID)
+        self.QuoteCurrencyID = self._to_bytes(QuoteCurrencyID)
+        self.ExchangeRate = float(ExchangeRate)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaDepthMarketDataField(Base):
+    """风险结算追平行情"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('ExchangeInstID', ctypes.c_char * 81),  # 合约在交易所的代码
+        ('LastPrice', ctypes.c_double),  # 最新价
+        ('PreSettlementPrice', ctypes.c_double),  # 上次结算价
+        ('PreClosePrice', ctypes.c_double),  # 昨收盘
+        ('PreOpenInterest', ctypes.c_double),  # 昨持仓量
+        ('OpenPrice', ctypes.c_double),  # 今开盘
+        ('HighestPrice', ctypes.c_double),  # 最高价
+        ('LowestPrice', ctypes.c_double),  # 最低价
+        ('Volume', ctypes.c_int),  # 数量
+        ('Turnover', ctypes.c_double),  # 成交金额
+        ('OpenInterest', ctypes.c_double),  # 持仓量
+        ('ClosePrice', ctypes.c_double),  # 今收盘
+        ('SettlementPrice', ctypes.c_double),  # 本次结算价
+        ('UpperLimitPrice', ctypes.c_double),  # 涨停板价
+        ('LowerLimitPrice', ctypes.c_double),  # 跌停板价
+        ('PreDelta', ctypes.c_double),  # 昨虚实度
+        ('CurrDelta', ctypes.c_double),  # 今虚实度
+        ('UpdateTime', ctypes.c_char * 9),  # 最后修改时间
+        ('UpdateMillisec', ctypes.c_int),  # 最后修改毫秒
+        ('BidPrice1', ctypes.c_double),  # 申买价一
+        ('BidVolume1', ctypes.c_int),  # 申买量一
+        ('AskPrice1', ctypes.c_double),  # 申卖价一
+        ('AskVolume1', ctypes.c_int),  # 申卖量一
+        ('BidPrice2', ctypes.c_double),  # 申买价二
+        ('BidVolume2', ctypes.c_int),  # 申买量二
+        ('AskPrice2', ctypes.c_double),  # 申卖价二
+        ('AskVolume2', ctypes.c_int),  # 申卖量二
+        ('BidPrice3', ctypes.c_double),  # 申买价三
+        ('BidVolume3', ctypes.c_int),  # 申买量三
+        ('AskPrice3', ctypes.c_double),  # 申卖价三
+        ('AskVolume3', ctypes.c_int),  # 申卖量三
+        ('BidPrice4', ctypes.c_double),  # 申买价四
+        ('BidVolume4', ctypes.c_int),  # 申买量四
+        ('AskPrice4', ctypes.c_double),  # 申卖价四
+        ('AskVolume4', ctypes.c_int),  # 申卖量四
+        ('BidPrice5', ctypes.c_double),  # 申买价五
+        ('BidVolume5', ctypes.c_int),  # 申买量五
+        ('AskPrice5', ctypes.c_double),  # 申卖价五
+        ('AskVolume5', ctypes.c_int),  # 申卖量五
+        ('AveragePrice', ctypes.c_double),  # 当日均价
+        ('ActionDay', ctypes.c_char * 9),  # 业务日期
+        ('BandingUpperPrice', ctypes.c_double),  # 上带价
+        ('BandingLowerPrice', ctypes.c_double),  # 下带价
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, TradingDay='', InstrumentID='', ExchangeID='', ExchangeInstID='', LastPrice=0.0, PreSettlementPrice=0.0, PreClosePrice=0.0, PreOpenInterest=0.0, OpenPrice=0.0, HighestPrice=0.0,
+                 LowestPrice=0.0, Volume=0, Turnover=0.0, OpenInterest=0.0, ClosePrice=0.0, SettlementPrice=0.0, UpperLimitPrice=0.0, LowerLimitPrice=0.0, PreDelta=0.0, CurrDelta=0.0, UpdateTime='',
+                 UpdateMillisec=0, BidPrice1=0.0, BidVolume1=0, AskPrice1=0.0, AskVolume1=0, BidPrice2=0.0, BidVolume2=0, AskPrice2=0.0, AskVolume2=0, BidPrice3=0.0, BidVolume3=0, AskPrice3=0.0,
+                 AskVolume3=0, BidPrice4=0.0, BidVolume4=0, AskPrice4=0.0, AskVolume4=0, BidPrice5=0.0, BidVolume5=0, AskPrice5=0.0, AskVolume5=0, AveragePrice=0.0, ActionDay='',
+                 BandingUpperPrice=0.0, BandingLowerPrice=0.0, ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaDepthMarketDataField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.ExchangeInstID = self._to_bytes(ExchangeInstID)
+        self.LastPrice = float(LastPrice)
+        self.PreSettlementPrice = float(PreSettlementPrice)
+        self.PreClosePrice = float(PreClosePrice)
+        self.PreOpenInterest = float(PreOpenInterest)
+        self.OpenPrice = float(OpenPrice)
+        self.HighestPrice = float(HighestPrice)
+        self.LowestPrice = float(LowestPrice)
+        self.Volume = int(Volume)
+        self.Turnover = float(Turnover)
+        self.OpenInterest = float(OpenInterest)
+        self.ClosePrice = float(ClosePrice)
+        self.SettlementPrice = float(SettlementPrice)
+        self.UpperLimitPrice = float(UpperLimitPrice)
+        self.LowerLimitPrice = float(LowerLimitPrice)
+        self.PreDelta = float(PreDelta)
+        self.CurrDelta = float(CurrDelta)
+        self.UpdateTime = self._to_bytes(UpdateTime)
+        self.UpdateMillisec = int(UpdateMillisec)
+        self.BidPrice1 = float(BidPrice1)
+        self.BidVolume1 = int(BidVolume1)
+        self.AskPrice1 = float(AskPrice1)
+        self.AskVolume1 = int(AskVolume1)
+        self.BidPrice2 = float(BidPrice2)
+        self.BidVolume2 = int(BidVolume2)
+        self.AskPrice2 = float(AskPrice2)
+        self.AskVolume2 = int(AskVolume2)
+        self.BidPrice3 = float(BidPrice3)
+        self.BidVolume3 = int(BidVolume3)
+        self.AskPrice3 = float(AskPrice3)
+        self.AskVolume3 = int(AskVolume3)
+        self.BidPrice4 = float(BidPrice4)
+        self.BidVolume4 = int(BidVolume4)
+        self.AskPrice4 = float(AskPrice4)
+        self.AskVolume4 = int(AskVolume4)
+        self.BidPrice5 = float(BidPrice5)
+        self.BidVolume5 = int(BidVolume5)
+        self.AskPrice5 = float(AskPrice5)
+        self.AskVolume5 = int(AskVolume5)
+        self.AveragePrice = float(AveragePrice)
+        self.ActionDay = self._to_bytes(ActionDay)
+        self.BandingUpperPrice = float(BandingUpperPrice)
+        self.BandingLowerPrice = float(BandingLowerPrice)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaIndexPriceField(Base):
+    """风险结算追平现货指数"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('ClosePrice', ctypes.c_double),  # 指数现货收盘价
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, BrokerID='', InstrumentID='', ClosePrice=0.0, ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaIndexPriceField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.ClosePrice = float(ClosePrice)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SyncDeltaEWarrantOffsetField(Base):
+    """风险结算追平仓单折抵"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日期
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('Direction', ctypes.c_char),  # 买卖方向
+        ('HedgeFlag', ctypes.c_char),  # 投机套保标志
+        ('Volume', ctypes.c_int),  # 数量
+        ('ActionDirection', ctypes.c_char),  # 操作标志
+        ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
+    ]
+
+    def __init__(self, TradingDay='', BrokerID='', InvestorID='', ExchangeID='', InstrumentID='', Direction='', HedgeFlag='', Volume=0, ActionDirection='', SyncDeltaSequenceNo=0):
+        super(SyncDeltaEWarrantOffsetField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.Direction = self._to_bytes(Direction)
+        self.HedgeFlag = self._to_bytes(HedgeFlag)
+        self.Volume = int(Volume)
+        self.ActionDirection = self._to_bytes(ActionDirection)
+        self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)

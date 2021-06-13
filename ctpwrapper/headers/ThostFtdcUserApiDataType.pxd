@@ -46,6 +46,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcExchangeFlagType[2]
     ctypedef char TThostFtdcMacAddressType[21]
     ctypedef char TThostFtdcSystemIDType[21]
+    ctypedef char TThostFtdcClientLoginRemarkType[151]
     ctypedef char TThostFtdcExchangePropertyType
     ctypedef char TThostFtdcDateType[9]
     ctypedef char TThostFtdcTimeType[9]
@@ -812,3 +813,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcAuthTypeType
     ctypedef char TThostFtdcClassTypeType
     ctypedef char TThostFtdcTradingTypeType
+    ctypedef char TThostFtdcProductStatusType
+    ctypedef char TThostFtdcSyncDeltaStatusType
+    ctypedef char TThostFtdcActionDirectionType
+    ctypedef char TThostFtdcSyncDescriptionType[257]
