@@ -12,7 +12,6 @@ from Cython.Build import cythonize, build_ext
 from Cython.Distutils import Extension as Cython_Extension
 
 
-
 # issue put in the cython library bellow will cause
 # error: each element of 'ext_modules' option must be an Extension instance or 2-tuple
 
