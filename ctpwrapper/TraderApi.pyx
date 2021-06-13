@@ -2374,7 +2374,7 @@ cdef extern int TraderSpi_OnRspQryRiskSettleInvstPosition(self,
                                                           CThostFtdcRiskSettleInvstPositionField *pRiskSettleInvstPosition,
                                                           CThostFtdcRspInfoField *pRspInfo,
                                                           int nRequestID,
-                                                          bool bIsLast) except -1:
+                                                          cbool bIsLast) except -1:
     self.OnRspQryRiskSettleInvstPosition(
         None if pRiskSettleInvstPosition is NULL else ApiStructure.RiskSettleInvstPositionField.from_address(<size_t> pRiskSettleInvstPosition),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
@@ -2388,7 +2388,7 @@ cdef extern int TraderSpi_OnRspQryRiskSettleProductStatus(self,
                                                           CThostFtdcRiskSettleProductStatusField *pRiskSettleProductStatus,
                                                           CThostFtdcRspInfoField *pRspInfo,
                                                           int nRequestID,
-                                                          bool bIsLast) except -1:
+                                                          cbool bIsLast) except -1:
     self.OnRspQryRiskSettleProductStatus(
         None if pRiskSettleProductStatus is NULL else ApiStructure.RiskSettleProductStatusField.from_address(<size_t> pRiskSettleProductStatus),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
