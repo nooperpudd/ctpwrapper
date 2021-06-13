@@ -347,6 +347,13 @@ cdef extern from "ThostFtdcTraderApi.h":
         # 请求组合优惠比例
         int ReqQryCombPromotionParam(CThostFtdcQryCombPromotionParamField *pQryCombPromotionParam, int nRequestID) nogil except +
 
+        # 投资者风险结算持仓查询
+        int ReqQryRiskSettleInvstPosition(CThostFtdcQryRiskSettleInvstPositionField *pQryRiskSettleInvstPosition, int nRequestID) nogil except +
+
+        # 风险结算产品查询
+        int ReqQryRiskSettleProductStatus(CThostFtdcQryRiskSettleProductStatusField *pQryRiskSettleProductStatus, int nRequestID) nogil except +
+
+
 cdef extern from "ThostFtdcTraderApi.h" namespace "CThostFtdcTraderApi":
     CTraderApi *CreateFtdcTraderApi(const_char *pszFlowPath) nogil except +
 
