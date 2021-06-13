@@ -960,6 +960,24 @@ cdef class TraderApiWrapper:
                 result = self._api.ReqQryCombPromotionParam(<CThostFtdcQryCombPromotionParamField *> address, nRequestID)
             return result
 
+    # 投资者风险结算持仓查询
+    def ReqQryRiskSettleInvstPosition(self, pQryRiskSettleInvstPosition, int nRequestID):
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQryRiskSettleInvstPosition)
+            with nogil:
+                result = self._api.ReqQryRiskSettleInvstPosition(<CThostFtdcQryRiskSettleInvstPositionField *> address, nRequestID)
+            return result
+
+    # 风险结算产品查询
+    def ReqQryRiskSettleProductStatus(self, pQryRiskSettleProductStatus, int nRequestID):
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQryRiskSettleProductStatus)
+            with nogil:
+                result = self._api.ReqQryRiskSettleProductStatus(<CThostFtdcQryRiskSettleProductStatusField *> address, nRequestID)
+            return result
+
 cdef extern int TraderSpi_OnFrontConnected(self) except -1:
     self.OnFrontConnected()
     return 0
@@ -2345,6 +2363,34 @@ cdef extern int TraderSpi_OnRspQryCombPromotionParam(self,
                                                      cbool bIsLast) except -1:
     self.OnRspQryClassifiedInstrument(
         None if pCombPromotionParam is NULL else ApiStructure.CombPromotionParamField.from_address(<size_t> pCombPromotionParam),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
+    return 0
+
+# 投资者风险结算持仓查询响应
+cdef extern int TraderSpi_OnRspQryRiskSettleInvstPosition(self,
+                                                          CThostFtdcRiskSettleInvstPositionField *pRiskSettleInvstPosition,
+                                                          CThostFtdcRspInfoField *pRspInfo,
+                                                          int nRequestID,
+                                                          cbool bIsLast) except -1:
+    self.OnRspQryRiskSettleInvstPosition(
+        None if pRiskSettleInvstPosition is NULL else ApiStructure.RiskSettleInvstPositionField.from_address(<size_t> pRiskSettleInvstPosition),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
+    return 0
+
+# 风险结算产品查询
+cdef extern int TraderSpi_OnRspQryRiskSettleProductStatus(self,
+                                                          CThostFtdcRiskSettleProductStatusField *pRiskSettleProductStatus,
+                                                          CThostFtdcRspInfoField *pRspInfo,
+                                                          int nRequestID,
+                                                          cbool bIsLast) except -1:
+    self.OnRspQryRiskSettleProductStatus(
+        None if pRiskSettleProductStatus is NULL else ApiStructure.RiskSettleProductStatusField.from_address(<size_t> pRiskSettleProductStatus),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast

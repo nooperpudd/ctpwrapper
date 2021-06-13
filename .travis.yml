@@ -5,8 +5,8 @@ dist: focal
 jobs:
   include:
     # others still work and don't install python3.7
-    - python: 'pypy3.6-7.3.2'
-    - python: 'pypy3.7-7.3.2'
+    - python: 'pypy3.6'
+    - python: 'pypy3.7'
     - python: 3.6
     - python: 3.7
     - python: 3.8

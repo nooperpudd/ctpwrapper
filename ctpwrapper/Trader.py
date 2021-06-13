@@ -662,6 +662,18 @@ class TraderApiPy(TraderApiWrapper):
         """
         return super(TraderApiPy, self).ReqQryCombPromotionParam(pQryCombPromotionParam, nRequestID)
 
+    def ReqQryRiskSettleInvstPosition(self, pQryRiskSettleInvstPosition: "QryRiskSettleInvstPositionField", nRequestID: int) -> int:
+        """
+        投资者风险结算持仓查询
+        """
+        return super(TraderApiPy, self).ReqQryRiskSettleInvstPosition(pQryRiskSettleInvstPosition, nRequestID)
+
+    def ReqQryRiskSettleProductStatus(self, pQryRiskSettleProductStatus: "QryRiskSettleProductStatusField", nRequestID: int) -> int:
+        """
+        风险结算产品查询
+        """
+        return super(TraderApiPy, self).ReqQryRiskSettleProductStatus(pQryRiskSettleProductStatus, nRequestID)
+
     def OnFrontConnected(self) -> None:
         pass
 
@@ -1174,4 +1186,12 @@ class TraderApiPy(TraderApiWrapper):
 
     # 请求组合优惠比例响应
     def OnRspQryCombPromotionParam(self, pCombPromotionParam, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # 投资者风险结算持仓查询响应
+    def OnRspQryRiskSettleInvstPosition(self, pRiskSettleInvstPosition, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # 风险结算产品查询响应
+    def OnRspQryRiskSettleProductStatus(self, pRiskSettleProductStatus, pRspInfo, nRequestID, bIsLast) -> None:
         pass

@@ -281,6 +281,10 @@ static inline int TraderSpi_OnRspQryClassifiedInstrument(PyObject *, CThostFtdcI
 ///请求组合优惠比例响应
 static inline int TraderSpi_OnRspQryCombPromotionParam(PyObject *, CThostFtdcCombPromotionParamField *, CThostFtdcRspInfoField *, int, bool);
 
+static inline int TraderSpi_OnRspQryRiskSettleInvstPosition(PyObject *, CThostFtdcRiskSettleInvstPositionField *, CThostFtdcRspInfoField *, int, bool);
+
+static inline int TraderSpi_OnRspQryRiskSettleProductStatus(PyObject *, CThostFtdcRiskSettleProductStatusField *, CThostFtdcRspInfoField *, int, bool);
+
 #define Python_GIL(func) \
     do { \
         PyGILState_STATE gil_state = PyGILState_Ensure(); \
@@ -952,6 +956,18 @@ public:
     virtual void OnRspQryCombPromotionParam(CThostFtdcCombPromotionParamField *pCombPromotionParam, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
         Python_GIL(TraderSpi_OnRspQryCombPromotionParam(self, pCombPromotionParam, pRspInfo, nRequestID, bIsLast));
     };
+
+      ///投资者风险结算持仓查询
+    virtual void OnRspQryRiskSettleInvstPosition(CThostFtdcRiskSettleInvstPositionField *pRiskSettleInvstPosition, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQryRiskSettleInvstPosition(self, pRiskSettleInvstPosition, pRspInfo, nRequestID, bIsLast));
+    };
+
+
+    ///风险结算产品查询
+    virtual void OnRspQryRiskSettleProductStatus(CThostFtdcRiskSettleProductStatusField *pRiskSettleProductStatus, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQryRiskSettleProductStatus(self, pRiskSettleProductStatus, pRspInfo, nRequestID, bIsLast));
+    }
+
 
 
 

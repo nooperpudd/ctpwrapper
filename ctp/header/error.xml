@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- edited with XMLSPY v2004 rel. 4 U (http://www.xmlspy.com) by wangzhaodong (ORiON) -->
 <!DOCTYPE errors SYSTEM "error.dtd">
 <errors>
@@ -112,7 +112,7 @@
     <error id="PWD_OUT_OF_DATE" value="141" prompt="CTP:您当前密码已过期，请修改后登录"/>
     <error id="PWD_MUST_DIFF" value="142" prompt="CTP:修改密码失败。新密码不允许与旧密码相同"/>
     <error id="IP_FORBIDDEN" value="143" prompt="CTP:您登录失败次数过多，IP被禁止登入CTP"/>
-    <error id="IP_BLACK" value="144" prompt="CTP:您当前IP在黑名单中，被禁止登入CTP"/>
+    <error id="IP_BLACK" value="144" prompt="CTP:您当前IP在黑名单中，被禁止登录和认证"/>
     <error id="NO_AUTH_RIGHT_IN_SEPC_DR" value="145" prompt="CTP:终端在本系统没有认证权限"/>
     <error id="INVESTOR_ID_IS_MISSING" value="146" prompt="CTP:缺少InvestorID字段，请填入InvestorID"/>
     <error id="EXCHANGE_ID_IS_MISSING" value="147" prompt="CTP:缺少ExchangeID字段，请填入ExchangeID"/>
@@ -207,6 +207,7 @@
     <error id="FC_FLOW_CONTROL" value="2067" prompt="建行银期：流量控制(技术错误)"/>
     <error id="TL_TECHNICAL_LOGIC" value="2069" prompt="建行银期：技术逻辑(技术错误)"/>
     <error id="AT_ABSOLUTE_TECHNIQUE" value="2070" prompt="建行银期：纯技术性错误(技术错误)"/>
+
     <!--end 建行新一代银期-->
     <!--换汇系统错误代码 bgn-->
     <error id="FBE_NO_GET_PLATFORM_SN" value="3001" prompt="CTP:银期换汇：取平台流水号错误"/>
@@ -247,5 +248,12 @@
     <error id="DUPLICATE_SUBMIT" value="4041" prompt="CTP:DUPLICATE_SUBMIT"/>
     <error id="AUTHIP_CHECK_ERR" value="4042" prompt="CTP:IP授权验证失败"/>
     <error id="AUTHUSER_CHECK_ERR" value="4043" prompt="CTP:用户与客户端授权验证失败"/>
+    <error id="QUOTE_WRONG_REPALACE_SYSID" value="4050" prompt="CTP:报价指定的顶单编号不合法（中金所）"/>
+    <error id="AUTH_IP_FORBIDDEN" value="4060" prompt="CTP:您认证失败次数过多，IP进入认证禁止列表"/>
+    <error id="SCAPI_SSL_CONNECT_ERR" value="4100" prompt="CTP:SSL Connect Error."/>
+    <error id="SCAPI_WRONG_USERIDORNAME" value="4101" prompt="CTP:Wrong User ID or Name."/>
+    <error id="SCAPI_CERT_VERIFY_FAILED" value="4102" prompt="CTP:Cert Verify Failed."/>
+    <error id="SCAPI_CERT_PROCESS_TIMEOUT" value="4103" prompt="CTP:Cert Process Timeout."/>
+    <error id="SCAPI_LOGIN_ERROR" value="4104" prompt="CTP:Login Error."/>
 
 </errors>
