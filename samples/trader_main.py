@@ -23,7 +23,7 @@ import socket
 import urllib.parse
 from contextlib import closing
 import time
-from ctpwrapper import ApiStructure
+from ctpwrapper import ApiStruct
 from ctpwrapper import TraderApiPy
 
 
@@ -77,7 +77,7 @@ class Trader(TraderApiPy):
 
     def OnFrontConnected(self):
         print("OnFrontConnected")
-        authenticate = ApiStructure.ReqAuthenticateField(BrokerID=self.broker_id,
+        authenticate = ApiStruct.ReqAuthenticateField(BrokerID=self.broker_id,
                                                          UserID=self.investor_id,
                                                          AppID=self.app_id,
                                                          AuthCode=self.auth_code)
@@ -92,7 +92,7 @@ class Trader(TraderApiPy):
         print("bIsLast:", bIsLast)
 
         if pRspInfo.ErrorID == 0:
-            req = ApiStructure.ReqUserLoginField(BrokerID=self.broker_id,
+            req = ApiStruct.ReqUserLoginField(BrokerID=self.broker_id,
                                                  UserID=self.investor_id,
                                                  Password=self.password)
             self.ReqUserLogin(req, self.request_id)
@@ -175,20 +175,20 @@ def main():
         print("trading day:", user_trader.GetTradingDay())
 
         if user_trader.login:
-            investor = ApiStructure.QryInvestorField(broker_id, investor_id)
+            investor = ApiStruct.QryInvestorField(broker_id, investor_id)
 
             user_trader.ReqQryInvestor(investor, user_trader.request_id)
 
-            # position = ApiStructure.QryInvestorPositionField.from_dict({"BrokerID": broker_id,
+            # position = ApiStruct.QryInvestorPositionField.from_dict({"BrokerID": broker_id,
             #                                                             "InvestorID": investor_id})
             # user_trader.ReqQryInvestorPosition(position, user_trader.request_id)
 
-            settlement_info = ApiStructure.SettlementInfoConfirmField.from_dict({"BrokerID": broker_id,
+            settlement_info = ApiStruct.SettlementInfoConfirmField.from_dict({"BrokerID": broker_id,
                                                                                  "InvestorID": investor_id})
 
             user_trader.ReqSettlementInfoConfirm(settlement_info, user_trader.request_id)
 
-            trader_account = ApiStructure.QryTradingAccountField(BrokerID=broker_id, InvestorID=investor_id, BizType="1")
+            trader_account = ApiStruct.QryTradingAccountField(BrokerID=broker_id, InvestorID=investor_id, BizType="1")
             user_trader.ReqQryTradingAccount(trader_account, user_trader.request_id)
 
             user_trader.Join()

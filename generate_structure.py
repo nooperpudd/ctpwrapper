@@ -9,7 +9,7 @@ CTP_PATH = os.path.join(os.path.dirname(__file__), "ctp")
 HEADER_PATH = os.path.join(CTP_PATH, "header")
 USERAPI_DATA_FILE = os.path.join(HEADER_PATH, "ThostFtdcUserApiDataType.h")
 USERAPI_STRUCT_FILE = os.path.join(HEADER_PATH, "ThostFtdcUserApiStruct.h")
-GENERATE_FILE = os.path.join(os.path.dirname(__file__), "ctpwrapper/ApiStructure.py")
+GENERATE_FILE = os.path.join(os.path.dirname(__file__), "ctpwrapper/ApiStruct.py")
 
 
 class Parse(object):

@@ -20,7 +20,7 @@ import time
 import typing
 from typing import Optional
 
-from ctpwrapper.ApiStructure import (FensUserInfoField, UserLogoutField,
+from ctpwrapper.ApiStruct import (FensUserInfoField, UserLogoutField,
                                      ReqUserLoginField, QryMulticastInstrumentField)
 from ctpwrapper.MdApi import MdApiWrapper
 

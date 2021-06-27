@@ -19,7 +19,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from ctpwrapper import ApiStructure
+from ctpwrapper import ApiStruct
 
 
 class TestStructure(unittest.TestCase):
@@ -37,7 +37,7 @@ class TestStructure(unittest.TestCase):
             "ToCurrencyID": "4334",
             "ExchangeRate": 11.0
         }
-        field = ApiStructure.ExchangeRateField(
+        field = ApiStruct.ExchangeRateField(
             BrokerID="45544",
             FromCurrencyID="4343",
             FromCurrencyUnit=19.0,
@@ -55,7 +55,7 @@ class TestStructure(unittest.TestCase):
             "ToCurrencyID": "4334",
             "ExchangeRate": 11.0
         }
-        field = ApiStructure.ExchangeRateField.from_dict(result)
+        field = ApiStruct.ExchangeRateField.from_dict(result)
 
         self.assertEqual(field.BrokerID, "45544")
         self.assertEqual(field.FromCurrencyID, "4343")
@@ -72,7 +72,7 @@ class TestStructure(unittest.TestCase):
             "ExchangeRate": 11.0
         }
 
-        field = ApiStructure.ExchangeRateField(
+        field = ApiStruct.ExchangeRateField(
             BrokerID="45544",
             ToCurrencyID="4334",
             ExchangeRate=11.0
@@ -87,7 +87,7 @@ class TestStructure(unittest.TestCase):
             "ToCurrencyID": "4334",
             "ExchangeRate": 11.0
         }
-        field = ApiStructure.ExchangeRateField.from_dict(result)
+        field = ApiStruct.ExchangeRateField.from_dict(result)
 
         self.assertEqual(field.BrokerID, "45544")
         self.assertEqual(field.FromCurrencyID, "")

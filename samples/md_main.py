@@ -24,7 +24,7 @@ import sys
 import urllib.parse
 from contextlib import closing
 import time
-from ctpwrapper import ApiStructure
+from ctpwrapper import ApiStruct
 from ctpwrapper import MdApiPy
 
 
@@ -73,7 +73,7 @@ class Md(MdApiPy):
         """
         :return:
         """
-        user_login = ApiStructure.ReqUserLoginField(BrokerID=self.broker_id, UserID=self.investor_id, Password=self.password)
+        user_login = ApiStruct.ReqUserLoginField(BrokerID=self.broker_id, UserID=self.investor_id, Password=self.password)
         self.ReqUserLogin(user_login, self.request_id)
 
     def OnFrontDisconnected(self, nReason):

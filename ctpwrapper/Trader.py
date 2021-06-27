@@ -19,7 +19,7 @@ along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 import time
 from typing import Optional
 
-from ctpwrapper.ApiStructure import (
+from ctpwrapper.ApiStruct import (
     FensUserInfoField, UserSystemInfoField,
     ReqAuthenticateField, ReqGenUserCaptchaField,
     ReqGenUserTextField, ReqQueryAccountField,

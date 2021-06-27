@@ -27,7 +27,7 @@ from ctpwrapper.headers.cTraderApi cimport CTraderSpi, CTraderApi, CreateFtdcTra
 # from libcpp.memory cimport shared_ptr,make_shared
 import ctypes
 
-from ctpwrapper import ApiStructure
+from ctpwrapper import ApiStruct
 
 cdef class TraderApiWrapper:
     cdef CTraderApi *_api
@@ -996,8 +996,8 @@ cdef extern int TraderSpi_OnRspAuthenticate(self,
                                             int nRequestID,
                                             cbool bIsLast) except -1:
     self.OnRspAuthenticate(
-        None if pRspAuthenticate is NULL else ApiStructure.RspAuthenticateField.from_address(<size_t> pRspAuthenticate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pRspAuthenticate is NULL else ApiStruct.RspAuthenticateField.from_address(<size_t> pRspAuthenticate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1009,8 +1009,8 @@ cdef extern int TraderSpi_OnRspUserLogin(self,
                                          int nRequestID,
                                          cbool bIsLast) except -1:
     self.OnRspUserLogin(
-        None if pRspUserLogin is NULL else ApiStructure.RspUserLoginField.from_address(<size_t> pRspUserLogin),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pRspUserLogin is NULL else ApiStruct.RspUserLoginField.from_address(<size_t> pRspUserLogin),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1022,8 +1022,8 @@ cdef extern int TraderSpi_OnRspUserLogout(self,
                                           int nRequestID,
                                           cbool bIsLast) except -1:
     self.OnRspUserLogout(
-        None if pUserLogout is NULL else ApiStructure.UserLogoutField.from_address(<size_t> pUserLogout),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pUserLogout is NULL else ApiStruct.UserLogoutField.from_address(<size_t> pUserLogout),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1035,8 +1035,8 @@ cdef extern int TraderSpi_OnRspUserPasswordUpdate(self,
                                                   int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspUserPasswordUpdate(
-        None if pUserPasswordUpdate is NULL else ApiStructure.UserPasswordUpdateField.from_address(<size_t> pUserPasswordUpdate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pUserPasswordUpdate is NULL else ApiStruct.UserPasswordUpdateField.from_address(<size_t> pUserPasswordUpdate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1048,8 +1048,8 @@ cdef extern int TraderSpi_OnRspTradingAccountPasswordUpdate(self,
                                                             int nRequestID,
                                                             cbool bIsLast) except -1:
     self.OnRspTradingAccountPasswordUpdate(
-        None if pTradingAccountPasswordUpdate is NULL else ApiStructure.TradingAccountPasswordUpdateField.from_address(<size_t> pTradingAccountPasswordUpdate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pTradingAccountPasswordUpdate is NULL else ApiStruct.TradingAccountPasswordUpdateField.from_address(<size_t> pTradingAccountPasswordUpdate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1061,8 +1061,8 @@ cdef extern int TraderSpi_OnRspOrderInsert(self,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
     self.OnRspOrderInsert(
-        None if pInputOrder is NULL else ApiStructure.InputOrderField.from_address(<size_t> pInputOrder),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputOrder is NULL else ApiStruct.InputOrderField.from_address(<size_t> pInputOrder),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1074,8 +1074,8 @@ cdef extern int TraderSpi_OnRspParkedOrderInsert(self,
                                                  int nRequestID,
                                                  cbool bIsLast) except -1:
     self.OnRspParkedOrderInsert(
-        None if pParkedOrder is NULL else ApiStructure.ParkedOrderField.from_address(<size_t> pParkedOrder),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pParkedOrder is NULL else ApiStruct.ParkedOrderField.from_address(<size_t> pParkedOrder),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1087,8 +1087,8 @@ cdef extern int TraderSpi_OnRspParkedOrderAction(self,
                                                  int nRequestID,
                                                  cbool bIsLast) except -1:
     self.OnRspParkedOrderAction(
-        None if pParkedOrderAction is NULL else ApiStructure.ParkedOrderActionField.from_address(<size_t> pParkedOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pParkedOrderAction is NULL else ApiStruct.ParkedOrderActionField.from_address(<size_t> pParkedOrderAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1100,8 +1100,8 @@ cdef extern int TraderSpi_OnRspOrderAction(self,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
     self.OnRspOrderAction(
-        None if pInputOrderAction is NULL else ApiStructure.InputOrderActionField.from_address(<size_t> pInputOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputOrderAction is NULL else ApiStruct.InputOrderActionField.from_address(<size_t> pInputOrderAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1113,8 +1113,8 @@ cdef extern int TraderSpi_OnRspQryMaxOrderVolume(self,
                                                  int nRequestID,
                                                  cbool bIsLast) except -1:
     self.OnRspQryMaxOrderVolume(
-        None if pQueryMaxOrderVolume is NULL else ApiStructure.QryMaxOrderVolumeField.from_address(<size_t> pQueryMaxOrderVolume),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pQueryMaxOrderVolume is NULL else ApiStruct.QryMaxOrderVolumeField.from_address(<size_t> pQueryMaxOrderVolume),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1126,8 +1126,8 @@ cdef extern int TraderSpi_OnRspSettlementInfoConfirm(self,
                                                      int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspSettlementInfoConfirm(
-        None if pSettlementInfoConfirm is NULL else ApiStructure.SettlementInfoConfirmField.from_address(<size_t> pSettlementInfoConfirm),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pSettlementInfoConfirm is NULL else ApiStruct.SettlementInfoConfirmField.from_address(<size_t> pSettlementInfoConfirm),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1139,8 +1139,8 @@ cdef extern int TraderSpi_OnRspRemoveParkedOrder(self,
                                                  int nRequestID,
                                                  cbool bIsLast) except -1:
     self.OnRspRemoveParkedOrder(
-        None if pRemoveParkedOrder is NULL else ApiStructure.RemoveParkedOrderField.from_address(<size_t> pRemoveParkedOrder),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pRemoveParkedOrder is NULL else ApiStruct.RemoveParkedOrderField.from_address(<size_t> pRemoveParkedOrder),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1152,8 +1152,8 @@ cdef extern int TraderSpi_OnRspRemoveParkedOrderAction(self,
                                                        int nRequestID,
                                                        cbool bIsLast) except -1:
     self.OnRspRemoveParkedOrderAction(
-        None if pRemoveParkedOrderAction is NULL else ApiStructure.RemoveParkedOrderActionField(<size_t> pRemoveParkedOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pRemoveParkedOrderAction is NULL else ApiStruct.RemoveParkedOrderActionField(<size_t> pRemoveParkedOrderAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1165,8 +1165,8 @@ cdef extern int TraderSpi_OnRspExecOrderInsert(self,
                                                int nRequestID,
                                                cbool bIsLast) except -1:
     self.OnRspExecOrderInsert(
-        None if pInputExecOrder is NULL else ApiStructure.InputExecOrderField.from_address(<size_t> pInputExecOrder),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputExecOrder is NULL else ApiStruct.InputExecOrderField.from_address(<size_t> pInputExecOrder),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1178,8 +1178,8 @@ cdef extern int TraderSpi_OnRspExecOrderAction(self,
                                                int nRequestID,
                                                cbool bIsLast) except -1:
     self.OnRspExecOrderAction(
-        None if pInputExecOrderAction is NULL else ApiStructure.InputExecOrderActionField.from_address(<size_t> pInputExecOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputExecOrderAction is NULL else ApiStruct.InputExecOrderActionField.from_address(<size_t> pInputExecOrderAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1191,8 +1191,8 @@ cdef extern int TraderSpi_OnRspForQuoteInsert(self,
                                               int nRequestID,
                                               cbool bIsLast) except -1:
     self.OnRspForQuoteInsert(
-        None if pInputForQuote is NULL else ApiStructure.InputForQuoteField.from_address(<size_t> pInputForQuote),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputForQuote is NULL else ApiStruct.InputForQuoteField.from_address(<size_t> pInputForQuote),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1204,8 +1204,8 @@ cdef extern int TraderSpi_OnRspQuoteInsert(self,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
     self.OnRspQuoteInsert(
-        None if pInputQuote is NULL else ApiStructure.InputQuoteField.from_address(<size_t> pInputQuote),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputQuote is NULL else ApiStruct.InputQuoteField.from_address(<size_t> pInputQuote),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1217,8 +1217,8 @@ cdef extern int TraderSpi_OnRspQuoteAction(self,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
     self.OnRspQuoteAction(
-        None if pInputQuoteAction is NULL else ApiStructure.InputQuoteActionField.from_address(<size_t> pInputQuoteAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputQuoteAction is NULL else ApiStruct.InputQuoteActionField.from_address(<size_t> pInputQuoteAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1230,8 +1230,8 @@ cdef extern int TraderSpi_OnRspCombActionInsert(self,
                                                 int nRequestID,
                                                 cbool bIsLast) except -1:
     self.OnRspCombActionInsert(
-        None if pInputCombAction is NULL else ApiStructure.InputCombActionField.from_address(<size_t> pInputCombAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputCombAction is NULL else ApiStruct.InputCombActionField.from_address(<size_t> pInputCombAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1243,8 +1243,8 @@ cdef extern int TraderSpi_OnRspQryOrder(self,
                                         int nRequestID,
                                         cbool bIsLast) except -1:
     self.OnRspQryOrder(
-        None if pOrder is NULL else ApiStructure.OrderField.from_address(<size_t> pOrder),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pOrder is NULL else ApiStruct.OrderField.from_address(<size_t> pOrder),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1256,8 +1256,8 @@ cdef extern int TraderSpi_OnRspQryTrade(self,
                                         int nRequestID,
                                         cbool bIsLast) except -1:
     self.OnRspQryTrade(
-        None if pTrade is NULL else ApiStructure.TradeField.from_address(<size_t> pTrade),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pTrade is NULL else ApiStruct.TradeField.from_address(<size_t> pTrade),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1269,8 +1269,8 @@ cdef extern int TraderSpi_OnRspQryInvestorPosition(self,
                                                    int nRequestID,
                                                    cbool bIsLast) except -1:
     self.OnRspQryInvestorPosition(
-        None if pInvestorPosition is NULL else ApiStructure.InvestorPositionField.from_address(<size_t> pInvestorPosition),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInvestorPosition is NULL else ApiStruct.InvestorPositionField.from_address(<size_t> pInvestorPosition),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1282,8 +1282,8 @@ cdef extern int TraderSpi_OnRspQryTradingAccount(self,
                                                  int nRequestID,
                                                  cbool bIsLast) except -1:
     self.OnRspQryTradingAccount(
-        None if pTradingAccount is NULL else ApiStructure.TradingAccountField.from_address(<size_t> pTradingAccount),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pTradingAccount is NULL else ApiStruct.TradingAccountField.from_address(<size_t> pTradingAccount),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1295,8 +1295,8 @@ cdef extern int TraderSpi_OnRspQryInvestor(self,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
     self.OnRspQryInvestor(
-        None if pInvestor is NULL else ApiStructure.InvestorField.from_address(<size_t> pInvestor),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInvestor is NULL else ApiStruct.InvestorField.from_address(<size_t> pInvestor),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1308,8 +1308,8 @@ cdef extern int TraderSpi_OnRspQryTradingCode(self,
                                               int nRequestID,
                                               cbool bIsLast) except -1:
     self.OnRspQryTradingCode(
-        None if pTradingCode is NULL else ApiStructure.TradingCodeField.from_address(<size_t> pTradingCode),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pTradingCode is NULL else ApiStruct.TradingCodeField.from_address(<size_t> pTradingCode),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1321,8 +1321,8 @@ cdef extern int TraderSpi_OnRspQryInstrumentMarginRate(self,
                                                        int nRequestID,
                                                        cbool bIsLast) except -1:
     self.OnRspQryInstrumentMarginRate(
-        None if pInstrumentMarginRate is NULL else ApiStructure.InstrumentMarginRateField.from_address(<size_t> pInstrumentMarginRate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInstrumentMarginRate is NULL else ApiStruct.InstrumentMarginRateField.from_address(<size_t> pInstrumentMarginRate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1334,8 +1334,8 @@ cdef extern int TraderSpi_OnRspQryInstrumentCommissionRate(self,
                                                            int nRequestID,
                                                            cbool bIsLast) except -1:
     self.OnRspQryInstrumentCommissionRate(
-        None if pInstrumentCommissionRate is NULL else ApiStructure.InstrumentCommissionRateField.from_address(<size_t> pInstrumentCommissionRate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInstrumentCommissionRate is NULL else ApiStruct.InstrumentCommissionRateField.from_address(<size_t> pInstrumentCommissionRate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1347,8 +1347,8 @@ cdef extern int TraderSpi_OnRspQryExchange(self,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
     self.OnRspQryExchange(
-        None if pExchange is NULL else ApiStructure.ExchangeField.from_address(<size_t> pExchange),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pExchange is NULL else ApiStruct.ExchangeField.from_address(<size_t> pExchange),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1360,8 +1360,8 @@ cdef extern int TraderSpi_OnRspQryProduct(self,
                                           int nRequestID,
                                           cbool bIsLast) except -1:
     self.OnRspQryProduct(
-        None if pProduct is NULL else ApiStructure.ProductField.from_address(<size_t> pProduct),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pProduct is NULL else ApiStruct.ProductField.from_address(<size_t> pProduct),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1374,8 +1374,8 @@ cdef extern int TraderSpi_OnRspQryInstrument(self,
                                              int nRequestID,
                                              cbool bIsLast) except -1:
     self.OnRspQryInstrument(
-        None if pInstrument is NULL else ApiStructure.InstrumentField.from_address(<size_t> pInstrument),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInstrument is NULL else ApiStruct.InstrumentField.from_address(<size_t> pInstrument),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1387,8 +1387,8 @@ cdef extern int TraderSpi_OnRspQryDepthMarketData(self,
                                                   int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspQryDepthMarketData(
-        None if pDepthMarketData is NULL else ApiStructure.DepthMarketDataField.from_address(<size_t> pDepthMarketData),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pDepthMarketData is NULL else ApiStruct.DepthMarketDataField.from_address(<size_t> pDepthMarketData),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1400,8 +1400,8 @@ cdef extern int TraderSpi_OnRspQrySettlementInfo(self,
                                                  int nRequestID,
                                                  cbool bIsLast) except -1:
     self.OnRspQrySettlementInfo(
-        None if pSettlementInfo is NULL else ApiStructure.SettlementInfoField.from_address(<size_t> pSettlementInfo),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pSettlementInfo is NULL else ApiStruct.SettlementInfoField.from_address(<size_t> pSettlementInfo),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1413,8 +1413,8 @@ cdef extern int TraderSpi_OnRspQryTransferBank(self,
                                                int nRequestID,
                                                cbool bIsLast) except -1:
     self.OnRspQryTransferBank(
-        None if pTransferBank is NULL else ApiStructure.TransferBankField.from_address(<size_t> pTransferBank),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pTransferBank is NULL else ApiStruct.TransferBankField.from_address(<size_t> pTransferBank),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1426,8 +1426,8 @@ cdef extern int TraderSpi_OnRspQryInvestorPositionDetail(self,
                                                          int nRequestID,
                                                          cbool bIsLast) except -1:
     self.OnRspQryInvestorPositionDetail(
-        None if pInvestorPositionDetail is NULL else ApiStructure.InvestorPositionDetailField.from_address(<size_t> pInvestorPositionDetail),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInvestorPositionDetail is NULL else ApiStruct.InvestorPositionDetailField.from_address(<size_t> pInvestorPositionDetail),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1439,8 +1439,8 @@ cdef extern int TraderSpi_OnRspQryNotice(self,
                                          int nRequestID,
                                          cbool bIsLast) except -1:
     self.OnRspQryNotice(
-        None if pNotice is NULL else ApiStructure.NoticeField.from_address(<size_t> pNotice),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pNotice is NULL else ApiStruct.NoticeField.from_address(<size_t> pNotice),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1452,8 +1452,8 @@ cdef extern int TraderSpi_OnRspQrySettlementInfoConfirm(self,
                                                         int nRequestID,
                                                         cbool bIsLast) except -1:
     self.OnRspQrySettlementInfoConfirm(
-        None if pSettlementInfoConfirm is NULL else ApiStructure.SettlementInfoConfirmField.from_address(<size_t> pSettlementInfoConfirm),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pSettlementInfoConfirm is NULL else ApiStruct.SettlementInfoConfirmField.from_address(<size_t> pSettlementInfoConfirm),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1465,8 +1465,8 @@ cdef extern int TraderSpi_OnRspQryInvestorPositionCombineDetail(self,
                                                                 int nRequestID,
                                                                 cbool bIsLast) except -1:
     self.OnRspQryInvestorPositionCombineDetail(
-        None if pInvestorPositionCombineDetail is NULL else ApiStructure.InvestorPositionCombineDetailField.from_address(<size_t> pInvestorPositionCombineDetail),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInvestorPositionCombineDetail is NULL else ApiStruct.InvestorPositionCombineDetailField.from_address(<size_t> pInvestorPositionCombineDetail),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1478,8 +1478,8 @@ cdef extern int TraderSpi_OnRspQryCFMMCTradingAccountKey(self,
                                                          int nRequestID,
                                                          cbool bIsLast) except -1:
     self.OnRspQryCFMMCTradingAccountKey(
-        None if pCFMMCTradingAccountKey is NULL else ApiStructure.CFMMCTradingAccountKeyField.from_address(<size_t> pCFMMCTradingAccountKey),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pCFMMCTradingAccountKey is NULL else ApiStruct.CFMMCTradingAccountKeyField.from_address(<size_t> pCFMMCTradingAccountKey),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1491,8 +1491,8 @@ cdef extern int TraderSpi_OnRspQryEWarrantOffset(self,
                                                  int nRequestID,
                                                  cbool bIsLast) except -1:
     self.OnRspQryEWarrantOffset(
-        None if pEWarrantOffset is NULL else ApiStructure.EWarrantOffsetField.from_address(<size_t> pEWarrantOffset),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pEWarrantOffset is NULL else ApiStruct.EWarrantOffsetField.from_address(<size_t> pEWarrantOffset),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1504,8 +1504,8 @@ cdef extern int TraderSpi_OnRspQryInvestorProductGroupMargin(self,
                                                              int nRequestID,
                                                              cbool bIsLast) except -1:
     self.OnRspQryInvestorProductGroupMargin(
-        None if pInvestorProductGroupMargin is NULL else ApiStructure.InvestorProductGroupMarginField.from_address(<size_t> pInvestorProductGroupMargin),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInvestorProductGroupMargin is NULL else ApiStruct.InvestorProductGroupMarginField.from_address(<size_t> pInvestorProductGroupMargin),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1517,8 +1517,8 @@ cdef extern int TraderSpi_OnRspQryExchangeMarginRate(self,
                                                      int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspQryExchangeMarginRate(
-        None if pExchangeMarginRate is NULL else ApiStructure.ExchangeMarginRateField.from_address(<size_t> pExchangeMarginRate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pExchangeMarginRate is NULL else ApiStruct.ExchangeMarginRateField.from_address(<size_t> pExchangeMarginRate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1530,8 +1530,8 @@ cdef extern int TraderSpi_OnRspQryExchangeMarginRateAdjust(self,
                                                            int nRequestID,
                                                            cbool bIsLast) except -1:
     self.OnRspQryExchangeMarginRateAdjust(
-        None if pExchangeMarginRateAdjust is NULL else ApiStructure.ExchangeMarginRateAdjustField.from_address(<size_t> pExchangeMarginRateAdjust),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pExchangeMarginRateAdjust is NULL else ApiStruct.ExchangeMarginRateAdjustField.from_address(<size_t> pExchangeMarginRateAdjust),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1543,8 +1543,8 @@ cdef extern int TraderSpi_OnRspQryExchangeRate(self,
                                                int nRequestID,
                                                cbool bIsLast) except -1:
     self.OnRspQryExchangeRate(
-        None if pExchangeRate is NULL else ApiStructure.ExchangeRateField.from_address(<size_t> pExchangeRate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pExchangeRate is NULL else ApiStruct.ExchangeRateField.from_address(<size_t> pExchangeRate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1556,8 +1556,8 @@ cdef extern int TraderSpi_OnRspQrySecAgentACIDMap(self,
                                                   int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspQrySecAgentACIDMap(
-        None if pSecAgentACIDMap is NULL else ApiStructure.SecAgentACIDMapField.from_address(<size_t> pSecAgentACIDMap),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pSecAgentACIDMap is NULL else ApiStruct.SecAgentACIDMapField.from_address(<size_t> pSecAgentACIDMap),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1569,8 +1569,8 @@ cdef extern int TraderSpi_OnRspQryProductExchRate(self,
                                                   int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspQryProductExchRate(
-        None if pProductExchRate is NULL else ApiStructure.ProductExchRateField.from_address(<size_t> pProductExchRate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pProductExchRate is NULL else ApiStruct.ProductExchRateField.from_address(<size_t> pProductExchRate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1582,8 +1582,8 @@ cdef extern int TraderSpi_OnRspQryOptionInstrTradeCost(self,
                                                        int nRequestID,
                                                        cbool bIsLast) except -1:
     self.OnRspQryOptionInstrTradeCost(
-        None if pOptionInstrTradeCost is NULL else ApiStructure.OptionInstrTradeCostField.from_address(<size_t> pOptionInstrTradeCost),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pOptionInstrTradeCost is NULL else ApiStruct.OptionInstrTradeCostField.from_address(<size_t> pOptionInstrTradeCost),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1595,8 +1595,8 @@ cdef extern int TraderSpi_OnRspQryOptionInstrCommRate(self,
                                                       int nRequestID,
                                                       cbool bIsLast) except -1:
     self.OnRspQryOptionInstrCommRate(
-        None if pOptionInstrCommRate is NULL else ApiStructure.OptionInstrCommRateField.from_address(<size_t> pOptionInstrCommRate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pOptionInstrCommRate is NULL else ApiStruct.OptionInstrCommRateField.from_address(<size_t> pOptionInstrCommRate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1608,8 +1608,8 @@ cdef extern int TraderSpi_OnRspQryExecOrder(self,
                                             int nRequestID,
                                             cbool bIsLast) except -1:
     self.OnRspQryExecOrder(
-        None if pExecOrder is NULL else ApiStructure.ExecOrderField.from_address(<size_t> pExecOrder),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pExecOrder is NULL else ApiStruct.ExecOrderField.from_address(<size_t> pExecOrder),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1621,8 +1621,8 @@ cdef extern int TraderSpi_OnRspQryForQuote(self,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
     self.OnRspQryForQuote(
-        None if pForQuote is NULL else ApiStructure.ForQuoteField.from_address(<size_t> pForQuote),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pForQuote is NULL else ApiStruct.ForQuoteField.from_address(<size_t> pForQuote),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1634,8 +1634,8 @@ cdef extern int TraderSpi_OnRspQryQuote(self,
                                         int nRequestID,
                                         cbool bIsLast) except -1:
     self.OnRspQryQuote(
-        None if pQuote is NULL else ApiStructure.QuoteField.from_address(<size_t> pQuote),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pQuote is NULL else ApiStruct.QuoteField.from_address(<size_t> pQuote),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1647,8 +1647,8 @@ cdef extern int TraderSpi_OnRspQryCombInstrumentGuard(self,
                                                       int nRequestID,
                                                       cbool bIsLast) except -1:
     self.OnRspQryCombInstrumentGuard(
-        None if pCombInstrumentGuard is NULL else ApiStructure.CombInstrumentGuardField.from_address(<size_t> pCombInstrumentGuard),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pCombInstrumentGuard is NULL else ApiStruct.CombInstrumentGuardField.from_address(<size_t> pCombInstrumentGuard),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1660,8 +1660,8 @@ cdef extern int TraderSpi_OnRspQryCombAction(self,
                                              int nRequestID,
                                              cbool bIsLast) except -1:
     self.OnRspQryCombAction(
-        None if pCombAction is NULL else ApiStructure.CombActionField.from_address(<size_t> pCombAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pCombAction is NULL else ApiStruct.CombActionField.from_address(<size_t> pCombAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1673,8 +1673,8 @@ cdef extern int TraderSpi_OnRspQryTransferSerial(self,
                                                  int nRequestID,
                                                  cbool bIsLast) except -1:
     self.OnRspQryTransferSerial(
-        None if pTransferSerial is NULL else ApiStructure.TransferSerialField.from_address(<size_t> pTransferSerial),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pTransferSerial is NULL else ApiStruct.TransferSerialField.from_address(<size_t> pTransferSerial),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1686,8 +1686,8 @@ cdef extern int TraderSpi_OnRspQryAccountregister(self,
                                                   int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspQryAccountregister(
-        None if pAccountregister is NULL else ApiStructure.AccountregisterField.from_address(<size_t> pAccountregister),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pAccountregister is NULL else ApiStruct.AccountregisterField.from_address(<size_t> pAccountregister),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1699,7 +1699,7 @@ cdef extern int TraderSpi_OnRspError(self,
                                      int nRequestID,
                                      cbool bIsLast) except -1:
     self.OnRspError(
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1707,13 +1707,13 @@ cdef extern int TraderSpi_OnRspError(self,
 
 cdef extern int TraderSpi_OnRtnOrder(self, CThostFtdcOrderField *pOrder) except -1:
     self.OnRtnOrder(
-        None if pOrder is NULL else ApiStructure.OrderField.from_address(<size_t> pOrder)
+        None if pOrder is NULL else ApiStruct.OrderField.from_address(<size_t> pOrder)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnTrade(self, CThostFtdcTradeField *pTrade) except -1:
     self.OnRtnTrade(
-        None if pTrade is NULL else ApiStructure.TradeField.from_address(<size_t> pTrade)
+        None if pTrade is NULL else ApiStruct.TradeField.from_address(<size_t> pTrade)
     )
     return 0
 
@@ -1721,8 +1721,8 @@ cdef extern int TraderSpi_OnErrRtnOrderInsert(self,
                                               CThostFtdcInputOrderField *pInputOrder,
                                               CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnOrderInsert(
-        None if pInputOrder is NULL else ApiStructure.InputOrderField.from_address(<size_t> pInputOrder),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pInputOrder is NULL else ApiStruct.InputOrderField.from_address(<size_t> pInputOrder),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
@@ -1730,32 +1730,32 @@ cdef extern int TraderSpi_OnErrRtnOrderAction(self,
                                               CThostFtdcOrderActionField *pOrderAction,
                                               CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnOrderAction(
-        None if pOrderAction is NULL else ApiStructure.OrderActionField.from_address(<size_t> pOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pOrderAction is NULL else ApiStruct.OrderActionField.from_address(<size_t> pOrderAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnInstrumentStatus(self, CThostFtdcInstrumentStatusField *pInstrumentStatus) except -1:
     self.OnRtnInstrumentStatus(
-        None if pInstrumentStatus is NULL else ApiStructure.InstrumentStatusField.from_address(<size_t> pInstrumentStatus)
+        None if pInstrumentStatus is NULL else ApiStruct.InstrumentStatusField.from_address(<size_t> pInstrumentStatus)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnTradingNotice(self, CThostFtdcTradingNoticeInfoField *pTradingNoticeInfo) except -1:
     self.OnRtnTradingNotice(
-        None if pTradingNoticeInfo is NULL else ApiStructure.TradingNoticeInfoField.from_address(<size_t> pTradingNoticeInfo)
+        None if pTradingNoticeInfo is NULL else ApiStruct.TradingNoticeInfoField.from_address(<size_t> pTradingNoticeInfo)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnErrorConditionalOrder(self, CThostFtdcErrorConditionalOrderField *pErrorConditionalOrder) except -1:
     self.OnRtnErrorConditionalOrder(
-        None if pErrorConditionalOrder is NULL else ApiStructure.ErrorConditionalOrderField.from_address(<size_t> pErrorConditionalOrder)
+        None if pErrorConditionalOrder is NULL else ApiStruct.ErrorConditionalOrderField.from_address(<size_t> pErrorConditionalOrder)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnExecOrder(self, CThostFtdcExecOrderField *pExecOrder) except -1:
     self.OnRtnExecOrder(
-        None if pExecOrder is NULL else ApiStructure.ExecOrderField.from_address(<size_t> pExecOrder)
+        None if pExecOrder is NULL else ApiStruct.ExecOrderField.from_address(<size_t> pExecOrder)
     )
     return 0
 
@@ -1763,8 +1763,8 @@ cdef extern int TraderSpi_OnErrRtnExecOrderInsert(self,
                                                   CThostFtdcInputExecOrderField *pInputExecOrder,
                                                   CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnExecOrderInsert(
-        None if pInputExecOrder is NULL else ApiStructure.InputExecOrderField.from_address(<size_t> pInputExecOrder),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pInputExecOrder is NULL else ApiStruct.InputExecOrderField.from_address(<size_t> pInputExecOrder),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
@@ -1772,8 +1772,8 @@ cdef extern int TraderSpi_OnErrRtnExecOrderAction(self,
                                                   CThostFtdcExecOrderActionField *pExecOrderAction,
                                                   CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnExecOrderAction(
-        None if pExecOrderAction is NULL else ApiStructure.ExecOrderActionField.from_address(<size_t> pExecOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pExecOrderAction is NULL else ApiStruct.ExecOrderActionField.from_address(<size_t> pExecOrderAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
@@ -1781,14 +1781,14 @@ cdef extern int TraderSpi_OnErrRtnForQuoteInsert(self,
                                                  CThostFtdcInputForQuoteField *pInputForQuote,
                                                  CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnForQuoteInsert(
-        None if pInputForQuote is NULL else ApiStructure.InputForQuoteField.from_address(<size_t> pInputForQuote),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pInputForQuote is NULL else ApiStruct.InputForQuoteField.from_address(<size_t> pInputForQuote),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnQuote(self, CThostFtdcQuoteField *pQuote) except -1:
     self.OnRtnQuote(
-        None if pQuote is NULL else ApiStructure.QuoteField.from_address(<size_t> pQuote)
+        None if pQuote is NULL else ApiStruct.QuoteField.from_address(<size_t> pQuote)
     )
     return 0
 
@@ -1796,8 +1796,8 @@ cdef extern int TraderSpi_OnErrRtnQuoteInsert(self,
                                               CThostFtdcInputQuoteField *pInputQuote,
                                               CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnQuoteInsert(
-        None if pInputQuote is NULL else ApiStructure.InputQuoteField.from_address(<size_t> pInputQuote),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pInputQuote is NULL else ApiStruct.InputQuoteField.from_address(<size_t> pInputQuote),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
@@ -1805,26 +1805,26 @@ cdef extern int TraderSpi_OnErrRtnQuoteAction(self,
                                               CThostFtdcQuoteActionField *pQuoteAction,
                                               CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnQuoteAction(
-        None if pQuoteAction is NULL else ApiStructure.QuoteActionField.from_address(<size_t> pQuoteAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pQuoteAction is NULL else ApiStruct.QuoteActionField.from_address(<size_t> pQuoteAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnForQuoteRsp(self, CThostFtdcForQuoteRspField *pForQuoteRsp) except -1:
     self.OnRtnForQuoteRsp(
-        None if pForQuoteRsp is NULL else ApiStructure.ForQuoteRspField.from_address(<size_t> pForQuoteRsp)
+        None if pForQuoteRsp is NULL else ApiStruct.ForQuoteRspField.from_address(<size_t> pForQuoteRsp)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnCFMMCTradingAccountToken(self, CThostFtdcCFMMCTradingAccountTokenField *pCFMMCTradingAccountToken) except -1:
     self.OnRtnCFMMCTradingAccountToken(
-        None if pCFMMCTradingAccountToken is NULL else ApiStructure.CFMMCTradingAccountTokenField.from_address(<size_t> pCFMMCTradingAccountToken)
+        None if pCFMMCTradingAccountToken is NULL else ApiStruct.CFMMCTradingAccountTokenField.from_address(<size_t> pCFMMCTradingAccountToken)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnCombAction(self, CThostFtdcCombActionField *pCombAction) except -1:
     self.OnRtnCombAction(
-        None if pCombAction is NULL else ApiStructure.CombActionField.from_address(<size_t> pCombAction)
+        None if pCombAction is NULL else ApiStruct.CombActionField.from_address(<size_t> pCombAction)
     )
     return 0
 
@@ -1832,8 +1832,8 @@ cdef extern int TraderSpi_OnErrRtnCombActionInsert(self,
                                                    CThostFtdcInputCombActionField *pInputCombAction,
                                                    CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnCombActionInsert(
-        None if pInputCombAction is NULL else ApiStructure.InputCombActionField.from_address(<size_t> pInputCombAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pInputCombAction is NULL else ApiStruct.InputCombActionField.from_address(<size_t> pInputCombAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
@@ -1843,8 +1843,8 @@ cdef extern int TraderSpi_OnRspQryContractBank(self,
                                                int nRequestID,
                                                cbool bIsLast) except -1:
     self.OnRspQryContractBank(
-        None if pContractBank is NULL else ApiStructure.ContractBankField.from_address(<size_t> pContractBank),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pContractBank is NULL else ApiStruct.ContractBankField.from_address(<size_t> pContractBank),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1856,8 +1856,8 @@ cdef extern int TraderSpi_OnRspQryParkedOrder(self,
                                               int nRequestID,
                                               cbool bIsLast) except -1:
     self.OnRspQryParkedOrder(
-        None if pParkedOrder is NULL else ApiStructure.ParkedOrderField.from_address(<size_t> pParkedOrder),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pParkedOrder is NULL else ApiStruct.ParkedOrderField.from_address(<size_t> pParkedOrder),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1869,8 +1869,8 @@ cdef extern int TraderSpi_OnRspQryParkedOrderAction(self,
                                                     int nRequestID,
                                                     cbool bIsLast) except -1:
     self.OnRspQryParkedOrderAction(
-        None if pParkedOrderAction is NULL else ApiStructure.ParkedOrderActionField.from_address(<size_t> pParkedOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pParkedOrderAction is NULL else ApiStruct.ParkedOrderActionField.from_address(<size_t> pParkedOrderAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1882,8 +1882,8 @@ cdef extern int TraderSpi_OnRspQryTradingNotice(self,
                                                 int nRequestID,
                                                 cbool bIsLast) except -1:
     self.OnRspQryTradingNotice(
-        None if pTradingNotice is NULL else ApiStructure.TradingNoticeField.from_address(<size_t> pTradingNotice),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pTradingNotice is NULL else ApiStruct.TradingNoticeField.from_address(<size_t> pTradingNotice),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1895,8 +1895,8 @@ cdef extern int TraderSpi_OnRspQryBrokerTradingParams(self,
                                                       int nRequestID,
                                                       cbool bIsLast) except -1:
     self.OnRspQryBrokerTradingParams(
-        None if pBrokerTradingParams is NULL else ApiStructure.BrokerTradingParamsField.from_address(<size_t> pBrokerTradingParams),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pBrokerTradingParams is NULL else ApiStruct.BrokerTradingParamsField.from_address(<size_t> pBrokerTradingParams),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1908,8 +1908,8 @@ cdef extern int TraderSpi_OnRspQryBrokerTradingAlgos(self,
                                                      int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspQryBrokerTradingAlgos(
-        None if pBrokerTradingAlgos is NULL else ApiStructure.BrokerTradingAlgosField.from_address(<size_t> pBrokerTradingAlgos),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pBrokerTradingAlgos is NULL else ApiStruct.BrokerTradingAlgosField.from_address(<size_t> pBrokerTradingAlgos),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1921,8 +1921,8 @@ cdef extern int TraderSpi_OnRspQueryCFMMCTradingAccountToken(self,
                                                              int nRequestID,
                                                              cbool bIsLast) except -1:
     self.OnRspQueryCFMMCTradingAccountToken(
-        None if pQueryCFMMCTradingAccountToken is NULL else ApiStructure.QueryCFMMCTradingAccountTokenField.from_address(<size_t> pQueryCFMMCTradingAccountToken),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pQueryCFMMCTradingAccountToken is NULL else ApiStruct.QueryCFMMCTradingAccountTokenField.from_address(<size_t> pQueryCFMMCTradingAccountToken),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -1930,55 +1930,55 @@ cdef extern int TraderSpi_OnRspQueryCFMMCTradingAccountToken(self,
 
 cdef extern int TraderSpi_OnRtnFromBankToFutureByBank(self, CThostFtdcRspTransferField *pRspTransfer) except -1:
     self.OnRtnFromBankToFutureByBank(
-        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer)
+        None if pRspTransfer is NULL else ApiStruct.RspTransferField.from_address(<size_t> pRspTransfer)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnFromFutureToBankByBank(self, CThostFtdcRspTransferField *pRspTransfer) except -1:
     self.OnRtnFromFutureToBankByBank(
-        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer)
+        None if pRspTransfer is NULL else ApiStruct.RspTransferField.from_address(<size_t> pRspTransfer)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnRepealFromBankToFutureByBank(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromBankToFutureByBank(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+        None if pRspRepeal is NULL else ApiStruct.RspRepealField.from_address(<size_t> pRspRepeal)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnRepealFromFutureToBankByBank(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromFutureToBankByBank(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+        None if pRspRepeal is NULL else ApiStruct.RspRepealField.from_address(<size_t> pRspRepeal)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnFromBankToFutureByFuture(self, CThostFtdcRspTransferField *pRspTransfer) except -1:
     self.OnRtnFromBankToFutureByFuture(
-        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer)
+        None if pRspTransfer is NULL else ApiStruct.RspTransferField.from_address(<size_t> pRspTransfer)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnFromFutureToBankByFuture(self, CThostFtdcRspTransferField *pRspTransfer) except -1:
     self.OnRtnFromFutureToBankByFuture(
-        None if pRspTransfer is NULL else ApiStructure.RspTransferField.from_address(<size_t> pRspTransfer)
+        None if pRspTransfer is NULL else ApiStruct.RspTransferField.from_address(<size_t> pRspTransfer)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnRepealFromBankToFutureByFutureManual(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromBankToFutureByFutureManual(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+        None if pRspRepeal is NULL else ApiStruct.RspRepealField.from_address(<size_t> pRspRepeal)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnRepealFromFutureToBankByFutureManual(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromFutureToBankByFutureManual(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+        None if pRspRepeal is NULL else ApiStruct.RspRepealField.from_address(<size_t> pRspRepeal)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnQueryBankBalanceByFuture(self, CThostFtdcNotifyQueryAccountField *pNotifyQueryAccount) except -1:
     self.OnRtnQueryBankBalanceByFuture(
-        None if pNotifyQueryAccount is NULL else ApiStructure.NotifyQueryAccountField.from_address(<size_t> pNotifyQueryAccount)
+        None if pNotifyQueryAccount is NULL else ApiStruct.NotifyQueryAccountField.from_address(<size_t> pNotifyQueryAccount)
     )
     return 0
 
@@ -1986,8 +1986,8 @@ cdef extern int TraderSpi_OnErrRtnBankToFutureByFuture(self,
                                                        CThostFtdcReqTransferField *pReqTransfer,
                                                        CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnBankToFutureByFuture(
-        None if pReqTransfer is NULL else ApiStructure.ReqTransferField.from_address(<size_t> pReqTransfer),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pReqTransfer is NULL else ApiStruct.ReqTransferField.from_address(<size_t> pReqTransfer),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
@@ -1995,8 +1995,8 @@ cdef extern int TraderSpi_OnErrRtnFutureToBankByFuture(self,
                                                        CThostFtdcReqTransferField *pReqTransfer,
                                                        CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnFutureToBankByFuture(
-        None if pReqTransfer is NULL else ApiStructure.ReqTransferField.from_address(<size_t> pReqTransfer),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pReqTransfer is NULL else ApiStruct.ReqTransferField.from_address(<size_t> pReqTransfer),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
@@ -2004,8 +2004,8 @@ cdef extern int TraderSpi_OnErrRtnRepealBankToFutureByFutureManual(self,
                                                                    CThostFtdcReqRepealField *pReqRepeal,
                                                                    CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnRepealBankToFutureByFutureManual(
-        None if pReqRepeal is NULL else ApiStructure.ReqRepealField.from_address(<size_t> pReqRepeal),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pReqRepeal is NULL else ApiStruct.ReqRepealField.from_address(<size_t> pReqRepeal),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
@@ -2013,8 +2013,8 @@ cdef extern int TraderSpi_OnErrRtnRepealFutureToBankByFutureManual(self,
                                                                    CThostFtdcReqRepealField *pReqRepeal,
                                                                    CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnRepealFutureToBankByFutureManual(
-        None if pReqRepeal is NULL else ApiStructure.ReqRepealField.from_address(<size_t> pReqRepeal),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pReqRepeal is NULL else ApiStruct.ReqRepealField.from_address(<size_t> pReqRepeal),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
@@ -2022,20 +2022,20 @@ cdef extern int TraderSpi_OnErrRtnQueryBankBalanceByFuture(self,
                                                            CThostFtdcReqQueryAccountField *pReqQueryAccount,
                                                            CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnQueryBankBalanceByFuture(
-        None if pReqQueryAccount is NULL else ApiStructure.ReqQueryAccountField.from_address(<size_t> pReqQueryAccount),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pReqQueryAccount is NULL else ApiStruct.ReqQueryAccountField.from_address(<size_t> pReqQueryAccount),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnRepealFromBankToFutureByFuture(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromBankToFutureByFuture(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+        None if pRspRepeal is NULL else ApiStruct.RspRepealField.from_address(<size_t> pRspRepeal)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnRepealFromFutureToBankByFuture(self, CThostFtdcRspRepealField *pRspRepeal) except -1:
     self.OnRtnRepealFromFutureToBankByFuture(
-        None if pRspRepeal is NULL else ApiStructure.RspRepealField.from_address(<size_t> pRspRepeal)
+        None if pRspRepeal is NULL else ApiStruct.RspRepealField.from_address(<size_t> pRspRepeal)
     )
     return 0
 
@@ -2045,8 +2045,8 @@ cdef extern int TraderSpi_OnRspFromBankToFutureByFuture(self,
                                                         int nRequestID,
                                                         cbool bIsLast) except -1:
     self.OnRspFromBankToFutureByFuture(
-        None if pReqTransfer is NULL else ApiStructure.ReqTransferField.from_address(<size_t> pReqTransfer),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pReqTransfer is NULL else ApiStruct.ReqTransferField.from_address(<size_t> pReqTransfer),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2058,8 +2058,8 @@ cdef extern int TraderSpi_OnRspFromFutureToBankByFuture(self,
                                                         int nRequestID,
                                                         cbool bIsLast) except -1:
     self.OnRspFromFutureToBankByFuture(
-        None if pReqTransfer is NULL else ApiStructure.ReqTransferField.from_address(<size_t> pReqTransfer),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pReqTransfer is NULL else ApiStruct.ReqTransferField.from_address(<size_t> pReqTransfer),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2071,8 +2071,8 @@ cdef extern int TraderSpi_OnRspQueryBankAccountMoneyByFuture(self,
                                                              int nRequestID,
                                                              cbool bIsLast) except -1:
     self.OnRspQueryBankAccountMoneyByFuture(
-        None if pReqQueryAccount is NULL else ApiStructure.ReqQueryAccountField.from_address(<size_t> pReqQueryAccount),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pReqQueryAccount is NULL else ApiStruct.ReqQueryAccountField.from_address(<size_t> pReqQueryAccount),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2080,19 +2080,19 @@ cdef extern int TraderSpi_OnRspQueryBankAccountMoneyByFuture(self,
 
 cdef extern int TraderSpi_OnRtnOpenAccountByBank(self, CThostFtdcOpenAccountField *pOpenAccount) except -1:
     self.OnRtnOpenAccountByBank(
-        None if pOpenAccount is NULL else ApiStructure.OpenAccountField.from_address(<size_t> pOpenAccount)
+        None if pOpenAccount is NULL else ApiStruct.OpenAccountField.from_address(<size_t> pOpenAccount)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnCancelAccountByBank(self, CThostFtdcCancelAccountField *pCancelAccount) except -1:
     self.OnRtnCancelAccountByBank(
-        None if pCancelAccount is NULL else ApiStructure.CancelAccountField.from_address(<size_t> pCancelAccount)
+        None if pCancelAccount is NULL else ApiStruct.CancelAccountField.from_address(<size_t> pCancelAccount)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnChangeAccountByBank(self, CThostFtdcChangeAccountField *pChangeAccount) except -1:
     self.OnRtnChangeAccountByBank(
-        None if pChangeAccount is NULL else ApiStructure.ChangeAccountField.from_address(<size_t> pChangeAccount)
+        None if pChangeAccount is NULL else ApiStruct.ChangeAccountField.from_address(<size_t> pChangeAccount)
     )
     return 0
 
@@ -2100,14 +2100,14 @@ cdef extern int TraderSpi_OnErrRtnBatchOrderAction(self,
                                                    CThostFtdcBatchOrderActionField *pBatchOrderAction,
                                                    CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnBatchOrderAction(
-        None if pBatchOrderAction is NULL else ApiStructure.BatchOrderActionField.from_address(<size_t> pBatchOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo)
+        None if pBatchOrderAction is NULL else ApiStruct.BatchOrderActionField.from_address(<size_t> pBatchOrderAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo)
     )
     return 0
 
 cdef extern int TraderSpi_OnRtnBulletin(self, CThostFtdcBulletinField *pBulletin) except -1:
     self.OnRtnBulletin(
-        None if pBulletin is NULL else ApiStructure.BulletinField.from_address(<size_t> pBulletin)
+        None if pBulletin is NULL else ApiStruct.BulletinField.from_address(<size_t> pBulletin)
     )
     return 0
 
@@ -2117,8 +2117,8 @@ cdef extern int TraderSpi_OnRspQryInstrumentOrderCommRate(self,
                                                           int nRequestID,
                                                           cbool bIsLast) except -1:
     self.OnRspQryInstrumentOrderCommRate(
-        None if pInstrumentOrderCommRate is NULL else ApiStructure.InstrumentOrderCommRateField.from_address(<size_t> pInstrumentOrderCommRate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInstrumentOrderCommRate is NULL else ApiStruct.InstrumentOrderCommRateField.from_address(<size_t> pInstrumentOrderCommRate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2130,8 +2130,8 @@ cdef extern int TraderSpi_OnRspQryMMOptionInstrCommRate(self,
                                                         int nRequestID,
                                                         cbool bIsLast) except -1:
     self.OnRspQryMMOptionInstrCommRate(
-        None if pMMOptionInstrCommRate is NULL else ApiStructure.MMOptionInstrCommRateField.from_address(<size_t> pMMOptionInstrCommRate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pMMOptionInstrCommRate is NULL else ApiStruct.MMOptionInstrCommRateField.from_address(<size_t> pMMOptionInstrCommRate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2142,8 +2142,8 @@ cdef extern int TraderSpi_OnRspBatchOrderAction(self, CThostFtdcInputBatchOrderA
                                                 int nRequestID,
                                                 cbool bIsLast) except -1:
     self.OnRspBatchOrderAction(
-        None if pInputBatchOrderAction is NULL else ApiStructure.InputBatchOrderActionField.from_address(<size_t> pInputBatchOrderAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputBatchOrderAction is NULL else ApiStruct.InputBatchOrderActionField.from_address(<size_t> pInputBatchOrderAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2155,8 +2155,8 @@ cdef extern int TraderSpi_OnRspQryMMInstrumentCommissionRate(self,
                                                              int nRequestID,
                                                              cbool bIsLast) except -1:
     self.OnRspQryMMInstrumentCommissionRate(
-        None if pRspInfo is NULL else ApiStructure.MMInstrumentCommissionRateField.from_address(<size_t> pMMInstrumentCommissionRate),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pRspInfo is NULL else ApiStruct.MMInstrumentCommissionRateField.from_address(<size_t> pMMInstrumentCommissionRate),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2167,8 +2167,8 @@ cdef extern int TraderSpi_OnRspQryProductGroup(self,
                                                int nRequestID,
                                                cbool bIsLast) except -1:
     self.OnRspQryProductGroup(
-        None if pProductGroup is NULL else ApiStructure.ProductGroupField.from_address(<size_t> pProductGroup),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pProductGroup is NULL else ApiStruct.ProductGroupField.from_address(<size_t> pProductGroup),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2181,8 +2181,8 @@ cdef extern int TraderSpi_OnRspOptionSelfCloseInsert(self,
                                                      int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspOptionSelfCloseInsert(
-        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(<size_t> pInputOptionSelfClose),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputOptionSelfClose is NULL else ApiStruct.InputOptionSelfCloseField.from_address(<size_t> pInputOptionSelfClose),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2195,8 +2195,8 @@ cdef extern int TraderSpi_OnRspOptionSelfCloseAction(self,
                                                      int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspOptionSelfCloseAction(
-        None if pInputOptionSelfCloseAction is NULL else ApiStructure.InputOptionSelfCloseActionField.from_address(<size_t> pInputOptionSelfCloseAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputOptionSelfCloseAction is NULL else ApiStruct.InputOptionSelfCloseActionField.from_address(<size_t> pInputOptionSelfCloseAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2209,8 +2209,8 @@ cdef extern int TraderSpi_OnRspQrySecAgentTradingAccount(self,
                                                          int nRequestID,
                                                          cbool bIsLast) except -1:
     self.OnRspQrySecAgentTradingAccount(
-        None if pTradingAccount is NULL else ApiStructure.TradingAccountField.from_address(<size_t> pTradingAccount),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pTradingAccount is NULL else ApiStruct.TradingAccountField.from_address(<size_t> pTradingAccount),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2223,8 +2223,8 @@ cdef extern int TraderSpi_OnRspQrySecAgentCheckMode(self,
                                                     int nRequestID,
                                                     cbool bIsLast) except -1:
     self.OnRspQrySecAgentCheckMode(
-        None if pSecAgentCheckMode is NULL else ApiStructure.SecAgentCheckModeField.from_address(<size_t> pSecAgentCheckMode),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pSecAgentCheckMode is NULL else ApiStruct.SecAgentCheckModeField.from_address(<size_t> pSecAgentCheckMode),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2237,8 +2237,8 @@ cdef extern int TraderSpi_OnRspQryOptionSelfClose(self,
                                                   int nRequestID,
                                                   cbool bIsLast) except -1:
     self.OnRspQryOptionSelfClose(
-        None if pOptionSelfClose is NULL else ApiStructure.OptionSelfCloseField.from_address(<size_t> pOptionSelfClose),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pOptionSelfClose is NULL else ApiStruct.OptionSelfCloseField.from_address(<size_t> pOptionSelfClose),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2251,8 +2251,8 @@ cdef extern int TraderSpi_OnRspQryInvestUnit(self,
                                              int nRequestID,
                                              cbool bIsLast) except -1:
     self.OnRspQryInvestUnit(
-        None if pInvestUnit is NULL else ApiStructure.InvestUnitField.from_address(<size_t> pInvestUnit),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInvestUnit is NULL else ApiStruct.InvestUnitField.from_address(<size_t> pInvestUnit),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2261,7 +2261,7 @@ cdef extern int TraderSpi_OnRspQryInvestUnit(self,
 # 期权自对冲通知
 cdef extern int TraderSpi_OnRtnOptionSelfClose(self, CThostFtdcOptionSelfCloseField *pOptionSelfClose) except -1:
     self.OnRtnOptionSelfClose(
-        None if pOptionSelfClose is NULL else ApiStructure.OptionSelfCloseField.from_address(<size_t> pOptionSelfClose)
+        None if pOptionSelfClose is NULL else ApiStruct.OptionSelfCloseField.from_address(<size_t> pOptionSelfClose)
     )
     return 0
 
@@ -2270,8 +2270,8 @@ cdef extern int TraderSpi_OnErrRtnOptionSelfCloseInsert(self,
                                                         CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose,
                                                         CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnOptionSelfCloseInsert(
-        None if pInputOptionSelfClose is NULL else ApiStructure.InputOptionSelfCloseField.from_address(<size_t> pInputOptionSelfClose),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInputOptionSelfClose is NULL else ApiStruct.InputOptionSelfCloseField.from_address(<size_t> pInputOptionSelfClose),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
     )
     return 0
     
@@ -2280,8 +2280,8 @@ cdef extern int TraderSpi_OnErrRtnOptionSelfCloseAction(self,
                                                         CThostFtdcOptionSelfCloseActionField *pOptionSelfCloseAction,
                                                         CThostFtdcRspInfoField *pRspInfo) except -1:
     self.OnErrRtnOptionSelfCloseAction(
-        None if pOptionSelfCloseAction is NULL else ApiStructure.OptionSelfCloseActionField.from_address(<size_t> pOptionSelfCloseAction),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pOptionSelfCloseAction is NULL else ApiStruct.OptionSelfCloseActionField.from_address(<size_t> pOptionSelfCloseAction),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
     )
     return 0
 
@@ -2292,8 +2292,8 @@ cdef extern int TraderSpi_OnRspUserAuthMethod(self,
                                               int nRequestID,
                                               cbool bIsLast) except -1:
     self.OnErrRtnOptionSelfCloseAction(
-        None if pRspUserAuthMethod is NULL else ApiStructure.RspUserAuthMethodField.from_address(<size_t> pRspUserAuthMethod),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pRspUserAuthMethod is NULL else ApiStruct.RspUserAuthMethodField.from_address(<size_t> pRspUserAuthMethod),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2306,8 +2306,8 @@ cdef extern int TraderSpi_OnRspGenUserCaptcha(self,
                                               int nRequestID,
                                               cbool bIsLast) except -1:
     self.OnErrRtnOptionSelfCloseAction(
-        None if pRspGenUserCaptcha is NULL else ApiStructure.RspGenUserCaptchaField.from_address(<size_t> pRspGenUserCaptcha),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pRspGenUserCaptcha is NULL else ApiStruct.RspGenUserCaptchaField.from_address(<size_t> pRspGenUserCaptcha),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2320,8 +2320,8 @@ cdef extern int TraderSpi_OnRspGenUserText(self,
                                            int nRequestID,
                                            cbool bIsLast) except -1:
     self.OnErrRtnOptionSelfCloseAction(
-        None if pRspGenUserText is NULL else ApiStructure.RspGenUserTextField.from_address(<size_t> pRspGenUserText),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pRspGenUserText is NULL else ApiStruct.RspGenUserTextField.from_address(<size_t> pRspGenUserText),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2334,8 +2334,8 @@ cdef extern int TraderSpi_OnRspQrySecAgentTradeInfo(self,
                                                     int nRequestID,
                                                     cbool bIsLast) except -1:
     self.OnErrRtnOptionSelfCloseAction(
-        None if pSecAgentTradeInfo is NULL else ApiStructure.SecAgentTradeInfoField.from_address(<size_t> pSecAgentTradeInfo),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pSecAgentTradeInfo is NULL else ApiStruct.SecAgentTradeInfoField.from_address(<size_t> pSecAgentTradeInfo),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2348,8 +2348,8 @@ cdef extern int TraderSpi_OnRspQryClassifiedInstrument(self,
                                                        int nRequestID,
                                                        cbool bIsLast) except -1:
     self.OnRspQryClassifiedInstrument(
-        None if pInstrument is NULL else ApiStructure.InstrumentField.from_address(<size_t> pInstrument),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pInstrument is NULL else ApiStruct.InstrumentField.from_address(<size_t> pInstrument),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2362,8 +2362,8 @@ cdef extern int TraderSpi_OnRspQryCombPromotionParam(self,
                                                      int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspQryClassifiedInstrument(
-        None if pCombPromotionParam is NULL else ApiStructure.CombPromotionParamField.from_address(<size_t> pCombPromotionParam),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pCombPromotionParam is NULL else ApiStruct.CombPromotionParamField.from_address(<size_t> pCombPromotionParam),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2376,8 +2376,8 @@ cdef extern int TraderSpi_OnRspQryRiskSettleInvstPosition(self,
                                                           int nRequestID,
                                                           cbool bIsLast) except -1:
     self.OnRspQryRiskSettleInvstPosition(
-        None if pRiskSettleInvstPosition is NULL else ApiStructure.RiskSettleInvstPositionField.from_address(<size_t> pRiskSettleInvstPosition),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pRiskSettleInvstPosition is NULL else ApiStruct.RiskSettleInvstPositionField.from_address(<size_t> pRiskSettleInvstPosition),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
@@ -2390,8 +2390,8 @@ cdef extern int TraderSpi_OnRspQryRiskSettleProductStatus(self,
                                                           int nRequestID,
                                                           cbool bIsLast) except -1:
     self.OnRspQryRiskSettleProductStatus(
-        None if pRiskSettleProductStatus is NULL else ApiStructure.RiskSettleProductStatusField.from_address(<size_t> pRiskSettleProductStatus),
-        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        None if pRiskSettleProductStatus is NULL else ApiStruct.RiskSettleProductStatusField.from_address(<size_t> pRiskSettleProductStatus),
+        None if pRspInfo is NULL else ApiStruct.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast
     )
