@@ -25,7 +25,7 @@ class Base(ctypes.Structure):
     def __getattribute__(self, item):
         value = super().__getattribute__(item)
         if isinstance(value, bytes):
-            return value.decode("gbk")
+            return value.decode(encoding="gbk", errors="ignore")
         else:
             return value
 
