@@ -61,3 +61,9 @@ class Base(ctypes.Structure):
         """
         items = ["{0}({1})".format(item, getattr(self, item)) for item, value in self._fields_]
         return "{0}<{1}>".format(self.__class__.__name__, ",".join(items))
+    
+    def get_raw(self, key):
+        """
+        :return: key的原始数据
+        """
+        return super().__getattribute__(key)
