@@ -25,7 +25,14 @@ class Base(ctypes.Structure):
     def __getattribute__(self, item):
         value = super().__getattribute__(item)
         if isinstance(value, bytes):
-            return value.decode("gbk")
+            try:
+                return value.decode("gbk")
+            except UnicodeDecodeError:
+                # UnicodeDecodeError: 'gbk' codec
+                # can't decode byte 0xd2 in position 499:
+                # incomplete multibyte sequence
+                # return bytes values
+                return value
         else:
             return value
 
