@@ -41,6 +41,37 @@ already install cython package.
 ## Demo
 sample code  [samples](samples/)
 
+## issues
+ https://github.com/nooperpudd/ctpwrapper/issues/62
+ this is a temporary solution for the UnicodeDecodeError issue.
+ ```
+  Traceback (most recent call last):
+    File "ctpwrapper/TraderApi.pyx", line 1402, in ctpwrapper.TraderApi.TraderSpi_OnRspQrySettlementInfo
+    File "/root/python/futures/trader_main.py", line 149, in OnRspQrySettlementInfo
+      print(pSettlementInfo.Content)
+    File "/root/python/futures/.venv/lib/python3.9/site-packages/ctpwrapper/base.py", line 28, in __getattribute__
+      return value.decode("gbk")
+  UnicodeDecodeError: 'gbk' codec can't decode byte 0xd2 in position 499: incomplete multibyte sequence
+ ```
+ ```python
+
+error_message = ""
+
+def OnRspQryTradingAccount(self, pTradingAccount, pRspInfo, nRequestID, bIsLast):
+     print("OnRspQryTradingAccount")
+     print("nRequestID:", nRequestID)
+     print("bIsLast:", bIsLast)
+     print("pRspInfo:", pRspInfo)
+     print("pTradingAccount:", pTradingAccount)
+     # need to check is last message from the server.
+     global error_message
+     if not bIsLast:
+        error_message+=pRspInfo.ErrorMsg
+     else:
+        error_message+=pRspInfo.ErrorMsg
+        if isinstance(error_message,bytes):
+            error_message.decode("gbk")
+ ```
 
 # Documentation
   CTP documentation can be found in the [docs](doc/ctp/)
