@@ -68,3 +68,18 @@ class Base(ctypes.Structure):
         """
         items = ["{0}({1})".format(item, getattr(self, item)) for item, value in self._fields_]
         return "{0}<{1}>".format(self.__class__.__name__, ",".join(items))
+
+
+class MixinWrapper(object):
+    """
+    """
+    def __init__(self, request_id=1):
+        self._request_id = request_id
+        self.data = {}
+
+    @property
+    def request_id(self):
+        self._request_id += 1
+        return self._request_id
+
+    
