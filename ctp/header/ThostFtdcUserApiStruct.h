@@ -83,6 +83,8 @@ struct CThostFtdcRspUserLoginField {
     TThostFtdcTimeType FFEXTime;
     ///能源中心时间
     TThostFtdcTimeType INETime;
+    ///后台版本信息
+    TThostFtdcSysVersionType SysVersion;
 };
 
 ///用户登出请求
@@ -505,6 +507,8 @@ struct CThostFtdcTraderField {
     TThostFtdcInstallCountType InstallCount;
     ///经纪公司代码
     TThostFtdcBrokerIDType BrokerID;
+    ///撤单时选择席位算法
+    TThostFtdcOrderCancelAlgType OrderCancelAlg;
 };
 
 ///投资者
@@ -1071,6 +1075,8 @@ struct CThostFtdcTraderOfferField {
     TThostFtdcTradeIDType MaxTradeID;
     ///本席位最大报单备拷
     TThostFtdcReturnCodeType MaxOrderMessageReference;
+    ///撤单时选择席位算法
+    TThostFtdcOrderCancelAlgType OrderCancelAlg;
 };
 
 ///投资者结算结果
@@ -5617,6 +5623,8 @@ struct CThostFtdcMDTraderOfferField {
     TThostFtdcTradeIDType MaxTradeID;
     ///本席位最大报单备拷
     TThostFtdcReturnCodeType MaxOrderMessageReference;
+    ///撤单时选择席位算法
+    TThostFtdcOrderCancelAlgType OrderCancelAlg;
 };
 
 ///查询行情报盘机
@@ -9695,6 +9703,38 @@ struct CThostFtdcCombPromotionParamField {
     TThostFtdcCombHedgeFlagType CombHedgeFlag;
     ///期权组合保证金比例
     TThostFtdcDiscountRatioType Xparameter;
+};
+
+///国密用户登录请求
+struct CThostFtdcReqUserLoginSCField {
+    ///交易日
+    TThostFtdcDateType TradingDay;
+    ///经纪公司代码
+    TThostFtdcBrokerIDType BrokerID;
+    ///用户代码
+    TThostFtdcUserIDType UserID;
+    ///密码
+    TThostFtdcPasswordType Password;
+    ///用户端产品信息
+    TThostFtdcProductInfoType UserProductInfo;
+    ///接口端产品信息
+    TThostFtdcProductInfoType InterfaceProductInfo;
+    ///协议信息
+    TThostFtdcProtocolInfoType ProtocolInfo;
+    ///Mac地址
+    TThostFtdcMacAddressType MacAddress;
+    ///动态密码
+    TThostFtdcPasswordType OneTimePassword;
+    ///终端IP地址
+    TThostFtdcIPAddressType ClientIPAddress;
+    ///登录备注
+    TThostFtdcLoginRemarkType LoginRemark;
+    ///终端IP端口
+    TThostFtdcIPPortType ClientIPPort;
+    ///认证码
+    TThostFtdcAuthCodeType AuthCode;
+    ///App代码
+    TThostFtdcAppIDType AppID;
 };
 
 ///投资者风险结算持仓查询

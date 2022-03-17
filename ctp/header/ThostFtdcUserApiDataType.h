@@ -272,6 +272,8 @@ typedef char TThostFtdcIdentifiedCardNoType[51];
 #define THOST_FTDC_ICT_FrgPrmtRdCard 'K'
 ///资管产品备案函
 #define THOST_FTDC_ICT_CptMngPrdLetter 'L'
+///港澳台居民身份证
+#define THOST_FTDC_ICT_HKMCTwResidencePermit 'M'
 ///统一社会信用代码
 #define THOST_FTDC_ICT_UniformSocialCreditCode 'N'
 ///机构成立证明文件
@@ -870,6 +872,8 @@ typedef char TThostFtdcOffsetFlagType;
 #define THOST_FTDC_FCC_Other '6'
 ///自然人临近交割
 #define THOST_FTDC_FCC_PersonDeliv '7'
+///风控强平不验证资金
+#define THOST_FTDC_FCC_Notverifycapital '8'
 
 typedef char TThostFtdcForceCloseReasonType;
 
@@ -6812,8 +6816,28 @@ typedef char TThostFtdcSyncDeltaStatusType;
 typedef char TThostFtdcActionDirectionType;
 
 /////////////////////////////////////////////////////////////////////////
+///TFtdcOrderCancelAlgType是一个撤单时选择席位算法类型
+/////////////////////////////////////////////////////////////////////////
+///轮询席位撤单
+#define THOST_FTDC_OAC_Balance '1'
+///优先原报单席位撤单
+#define THOST_FTDC_OAC_OrigFirst '2'
+
+typedef char TThostFtdcOrderCancelAlgType;
+
+/////////////////////////////////////////////////////////////////////////
 ///TFtdcSyncDescriptionType是一个追平描述类型
 /////////////////////////////////////////////////////////////////////////
 typedef char TThostFtdcSyncDescriptionType[257];
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcCommonIntType是一个通用int类型类型
+/////////////////////////////////////////////////////////////////////////
+typedef int TThostFtdcCommonIntType;
+
+/////////////////////////////////////////////////////////////////////////
+///TFtdcSysVersionType是一个系统版本类型
+/////////////////////////////////////////////////////////////////////////
+typedef char TThostFtdcSysVersionType[41];
 
 #endif

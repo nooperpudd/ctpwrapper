@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- edited with XMLSPY v2004 rel. 4 U (http://www.xmlspy.com) by wangzhaodong (ORiON) -->
 <!DOCTYPE errors SYSTEM "error.dtd">
 <errors>
@@ -123,6 +123,9 @@
     <error id="DEL_COMB_ACTION_TOO_FAST" value="152" prompt="CTP:删除拆分组合指令：原指令需要等待30s 才能删除"/>
     <error id="COMB_ACTION_SHORT_MONEY" value="153" prompt="CTP:拆分组合钱不足"/>
     <error id="QK_BUSY" value="154" prompt="CTP:查询核心忙 请稍后重试"/>
+    <error id="CFMMC_NO_CONNECTION" value="155" prompt="CTP:未连接监控中心"/>
+    <error id="CLOSE_OPTION_NO_MONEY" value="156" prompt="CTP:平期权多头后资金为负（收益小于平仓手续费），只可由风控人员强平"/>
+    <error id="CANCEL_UNKNOWN_ORDER_UNSUPPORTED" value="157" prompt="CTP:该交易所不支持撤销未知单"/>
     <!--转帐系统错误代码 -->
     <error id="SEND_INSTITUTION_CODE_ERROR" value="1000" prompt="CTP:银期转账：发送机构代码错误"/>
     <error id="NO_GET_PLATFORM_SN" value="1001" prompt="CTP:银期转账：取平台流水号错误"/>
@@ -207,7 +210,7 @@
     <error id="FC_FLOW_CONTROL" value="2067" prompt="建行银期：流量控制(技术错误)"/>
     <error id="TL_TECHNICAL_LOGIC" value="2069" prompt="建行银期：技术逻辑(技术错误)"/>
     <error id="AT_ABSOLUTE_TECHNIQUE" value="2070" prompt="建行银期：纯技术性错误(技术错误)"/>
-
+    ~
     <!--end 建行新一代银期-->
     <!--换汇系统错误代码 bgn-->
     <error id="FBE_NO_GET_PLATFORM_SN" value="3001" prompt="CTP:银期换汇：取平台流水号错误"/>
@@ -250,6 +253,7 @@
     <error id="AUTHUSER_CHECK_ERR" value="4043" prompt="CTP:用户与客户端授权验证失败"/>
     <error id="QUOTE_WRONG_REPALACE_SYSID" value="4050" prompt="CTP:报价指定的顶单编号不合法（中金所）"/>
     <error id="AUTH_IP_FORBIDDEN" value="4060" prompt="CTP:您认证失败次数过多，IP进入认证禁止列表"/>
+
     <error id="SCAPI_SSL_CONNECT_ERR" value="4100" prompt="CTP:SSL Connect Error."/>
     <error id="SCAPI_WRONG_USERIDORNAME" value="4101" prompt="CTP:Wrong User ID or Name."/>
     <error id="SCAPI_CERT_VERIFY_FAILED" value="4102" prompt="CTP:Cert Verify Failed."/>
