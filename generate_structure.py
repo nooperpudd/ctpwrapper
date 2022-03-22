@@ -125,11 +125,11 @@ def generate_struct(struct, struct_doc, py_file):
 
             field_data = struct_dict[field]
             if field_data["type"] == "double":
-                struct_fields.append("%s=0.0" % field)
+                struct_fields.append("%s:float=0.0" % field)
             elif field_data["type"] in ["int", "short"]:
-                struct_fields.append("%s=0" % field)
+                struct_fields.append("%s:int=0" % field)
             else:
-                struct_fields.append("%s=''" % field)
+                struct_fields.append("%s:str=''" % field)
         py_file.write("    def __init__(self,%s):\n" % ",".join(struct_fields))
         py_file.write("        super({class_name},self).__init__()\n".format(class_name=item.replace("CThostFtdc", "")))
 
