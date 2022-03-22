@@ -24,9 +24,7 @@ from .ThostFtdcUserApiStruct cimport *
 
 
 cdef extern from "ThostFtdcTraderApi.h":
-
     cdef cppclass CTraderApi "CThostFtdcTraderApi":
-
         @staticmethod
         const_char *GetApiVersion()
 
@@ -88,11 +86,11 @@ cdef extern from "ThostFtdcTraderApi.h":
         int ReqAuthenticate(CThostFtdcReqAuthenticateField *pReqAuthenticateField, int nRequestID) nogil except +
 
         #注册用户终端信息，用于中继服务器多连接模式
-	    #需要在终端认证成功后，用户登录前调用该接口
+        #需要在终端认证成功后，用户登录前调用该接口
         int RegisterUserSystemInfo(CThostFtdcUserSystemInfoField *pUserSystemInfo) nogil except +
 
-	    #上报用户终端信息，用于中继服务器操作员登录模式
-	    # 操作员登录后，可以多次调用该接口上报客户信息
+        #上报用户终端信息，用于中继服务器操作员登录模式
+        # 操作员登录后，可以多次调用该接口上报客户信息
         int SubmitUserSystemInfo(CThostFtdcUserSystemInfoField *pUserSystemInfo) nogil except +
 
         #用户登录请求
@@ -110,21 +108,20 @@ cdef extern from "ThostFtdcTraderApi.h":
         # 查询用户当前支持的认证模式
         int ReqUserAuthMethod(CThostFtdcReqUserAuthMethodField *pReqUserAuthMethod, int nRequestID) nogil except +
 
-	    # 用户发出获取图形验证码请求
+        # 用户发出获取图形验证码请求
         int ReqGenUserCaptcha(CThostFtdcReqGenUserCaptchaField *pReqGenUserCaptcha, int nRequestID) nogil except +
 
-	    # 用户发出获取短信验证码请求
+        # 用户发出获取短信验证码请求
         int ReqGenUserText(CThostFtdcReqGenUserTextField *pReqGenUserText, int nRequestID) nogil except +
 
         # 用户发出带有图片验证码的登陆请求
         int ReqUserLoginWithCaptcha(CThostFtdcReqUserLoginWithCaptchaField *pReqUserLoginWithCaptcha, int nRequestID) nogil except +
 
-	    # 用户发出带有短信验证码的登陆请求
+        # 用户发出带有短信验证码的登陆请求
         int ReqUserLoginWithText(CThostFtdcReqUserLoginWithTextField *pReqUserLoginWithText, int nRequestID) nogil except +
 
-	    # 用户发出带有动态口令的登陆请求
+        # 用户发出带有动态口令的登陆请求
         int ReqUserLoginWithOTP(CThostFtdcReqUserLoginWithOTPField *pReqUserLoginWithOTP, int nRequestID) nogil except +
-
 
         #报单录入请求
         int ReqOrderInsert(CThostFtdcInputOrderField *pInputOrder, int nRequestID) nogil except +
@@ -168,7 +165,6 @@ cdef extern from "ThostFtdcTraderApi.h":
 
         #批量报单操作请求
         int ReqBatchOrderAction(CThostFtdcInputBatchOrderActionField *pInputBatchOrderAction, int nRequestID) nogil except +
-
 
         #期权自对冲录入请求
         int ReqOptionSelfCloseInsert(CThostFtdcInputOptionSelfCloseField *pInputOptionSelfClose, int nRequestID) nogil except +
@@ -214,6 +210,9 @@ cdef extern from "ThostFtdcTraderApi.h":
 
         #请求查询行情
         int ReqQryDepthMarketData(CThostFtdcQryDepthMarketDataField *pQryDepthMarketData, int nRequestID) nogil except +
+
+        # 请求查询交易员报盘机
+        int ReqQryTraderOffer(CThostFtdcQryTraderOfferField *pQryTraderOffer, int nRequestID) nogil except +
 
         #请求查询投资者结算结果
         int ReqQrySettlementInfo(CThostFtdcQrySettlementInfoField *pQrySettlementInfo, int nRequestID) nogil except +
