@@ -285,6 +285,8 @@ static inline int TraderSpi_OnRspQryRiskSettleInvstPosition(PyObject *, CThostFt
 
 static inline int TraderSpi_OnRspQryRiskSettleProductStatus(PyObject *, CThostFtdcRiskSettleProductStatusField *, CThostFtdcRspInfoField *, int, bool);
 
+static inline int TraderSpi_OnRspQryTraderOffer(PyObject *, CThostFtdcTraderOfferField *, CThostFtdcRspInfoField *, int, bool);
+
 #define Python_GIL(func) \
     do { \
         PyGILState_STATE gil_state = PyGILState_Ensure(); \
@@ -492,6 +494,12 @@ public:
     virtual void OnRspQryDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
         Python_GIL(TraderSpi_OnRspQryDepthMarketData(self, pDepthMarketData, pRspInfo, nRequestID, bIsLast));
     };
+
+    /// 请求查询交易员报盘机响应
+    virtual void OnRspQryTraderOffer(CThostFtdcTraderOfferField *pTraderOffer, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQryTraderOffer(self, pTraderOffer, pRspInfo, nRequestID, bIsLast));
+    };
+
 
     ///请求查询投资者结算结果响应
     virtual void OnRspQrySettlementInfo(CThostFtdcSettlementInfoField *pSettlementInfo, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {

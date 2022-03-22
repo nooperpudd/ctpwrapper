@@ -816,4 +816,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcProductStatusType
     ctypedef char TThostFtdcSyncDeltaStatusType
     ctypedef char TThostFtdcActionDirectionType
+    ctypedef char TThostFtdcOrderCancelAlgType
     ctypedef char TThostFtdcSyncDescriptionType[257]
+    ctypedef int TThostFtdcCommonIntType
+    ctypedef char TThostFtdcSysVersionType[41]

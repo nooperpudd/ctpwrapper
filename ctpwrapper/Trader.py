@@ -61,8 +61,9 @@ from ctpwrapper.ApiStructure import (
     QryCFMMCTradingAccountKeyField, QryEWarrantOffsetField,
     QryInvestorProductGroupMarginField, QryExchangeMarginRateField,
     QryExchangeRateField, QryInstrumentMarginRateField,
-    QryClassifiedInstrumentField, QryCombPromotionParamField
-
+    QryClassifiedInstrumentField, QryCombPromotionParamField,
+    QryTraderOfferField, QryRiskSettleInvstPositionField,
+    QryRiskSettleProductStatusField
 )
 from ctpwrapper.TraderApi import TraderApiWrapper
 
@@ -400,6 +401,9 @@ class TraderApiPy(TraderApiWrapper):
         请求查询行情
         """
         return super(TraderApiPy, self).ReqQryDepthMarketData(pQryDepthMarketData, nRequestID)
+
+    def ReqQryTraderOffer(self, pQryTraderOffer: "QryTraderOfferField", nRequestID) -> int:
+        return super(TraderApiPy, self).ReqQryTraderOffer(pQryTraderOffer, nRequestID)
 
     def ReqQrySettlementInfo(self, pQrySettlementInfo: "QrySettlementInfoField", nRequestID: int) -> int:
         """
@@ -1194,4 +1198,8 @@ class TraderApiPy(TraderApiWrapper):
 
     # 风险结算产品查询响应
     def OnRspQryRiskSettleProductStatus(self, pRiskSettleProductStatus, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # 请求查询交易员报盘机响应
+    def OnRspQryTraderOffer(self, pTraderOffer, pRspInfo, nRequestID, bIsLast) -> None:
         pass

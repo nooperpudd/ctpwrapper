@@ -97,7 +97,7 @@ ext_modules = [
 setup(
     name="ctpwrapper",
     version=find_version("ctpwrapper", "__init__.py"),
-    description="CTP client v6.3.19",
+    description="CTP client v6.6.5",
     long_description=codecs.open("README.md", encoding="utf-8").read(),
     long_description_content_type='text/markdown',
     license="LGPLv3",
@@ -109,7 +109,7 @@ setup(
     platforms=["win32", "linux"],
     packages=["ctpwrapper"],
     package_data={"": package_data},
-    python_requires=">=3.6",
+    python_requires=">=3.7",
     # cython: binding=True
     # binding = true for inspect get callargs
     ext_modules=cythonize(ext_modules,
@@ -128,10 +128,10 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: Implementation",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
