@@ -51,6 +51,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcTimeType CZCETime
         TThostFtdcTimeType FFEXTime
         TThostFtdcTimeType INETime
+        TThostFtdcSysVersionType SysVersion
     cdef struct CThostFtdcUserLogoutField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcUserIDType UserID
@@ -241,6 +242,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcPasswordType Password
         TThostFtdcInstallCountType InstallCount
         TThostFtdcBrokerIDType BrokerID
+        TThostFtdcOrderCancelAlgType OrderCancelAlg
     cdef struct CThostFtdcInvestorField:
         TThostFtdcInvestorIDType InvestorID
         TThostFtdcBrokerIDType BrokerID
@@ -508,6 +510,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcTradeIDType MaxTradeID
         TThostFtdcReturnCodeType MaxOrderMessageReference
+        TThostFtdcOrderCancelAlgType OrderCancelAlg
     cdef struct CThostFtdcSettlementInfoField:
         TThostFtdcDateType TradingDay
         TThostFtdcSettlementIDType SettlementID
@@ -2605,6 +2608,7 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcTradeIDType MaxTradeID
         TThostFtdcReturnCodeType MaxOrderMessageReference
+        TThostFtdcOrderCancelAlgType OrderCancelAlg
     cdef struct CThostFtdcQryMDTraderOfferField:
         TThostFtdcExchangeIDType ExchangeID
         TThostFtdcParticipantIDType ParticipantID
@@ -4496,6 +4500,21 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcInstrumentIDType InstrumentID
         TThostFtdcCombHedgeFlagType CombHedgeFlag
         TThostFtdcDiscountRatioType Xparameter
+    cdef struct CThostFtdcReqUserLoginSCField:
+        TThostFtdcDateType TradingDay
+        TThostFtdcBrokerIDType BrokerID
+        TThostFtdcUserIDType UserID
+        TThostFtdcPasswordType Password
+        TThostFtdcProductInfoType UserProductInfo
+        TThostFtdcProductInfoType InterfaceProductInfo
+        TThostFtdcProtocolInfoType ProtocolInfo
+        TThostFtdcMacAddressType MacAddress
+        TThostFtdcPasswordType OneTimePassword
+        TThostFtdcIPAddressType ClientIPAddress
+        TThostFtdcLoginRemarkType LoginRemark
+        TThostFtdcIPPortType ClientIPPort
+        TThostFtdcAuthCodeType AuthCode
+        TThostFtdcAppIDType AppID
     cdef struct CThostFtdcQryRiskSettleInvstPositionField:
         TThostFtdcBrokerIDType BrokerID
         TThostFtdcInvestorIDType InvestorID
