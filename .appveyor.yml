@@ -76,7 +76,7 @@ install:
 
   - "SET PATH=%PYTHON_DIR%;%PYTHON_DIR%\\bin;%PYTHON_DIR%\\Scripts;%PATH%"
 
-  - ps: If(($env:PYTHON).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://bootstrap.pypa.io/get-pip.py', "$env:appveyor_build_folder\get-pip.py"); pypy3.exe get-pip.py }
+  - ps: If(($env:PYTHON).Contains("pypy3")) { (New-Object Net.WebClient).DownloadFile('https://bootstrap.pypa.io/get-pip.py', "$env:appveyor_build_folder\get-pip.py"); pypy.exe get-pip.py }
 
   # Check that we have the expected version and architecture for Python
   - cmd: "%PYTHON% --version"
