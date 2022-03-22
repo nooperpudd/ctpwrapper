@@ -68,9 +68,11 @@ class RspUserLoginField(Base):
         ('CZCETime', ctypes.c_char * 9),  # 郑商所时间
         ('FFEXTime', ctypes.c_char * 9),  # 中金所时间
         ('INETime', ctypes.c_char * 9),  # 能源中心时间
+        ('SysVersion', ctypes.c_char * 41),  # 后台版本信息
     ]
 
-    def __init__(self, TradingDay='', LoginTime='', BrokerID='', UserID='', SystemName='', FrontID=0, SessionID=0, MaxOrderRef='', SHFETime='', DCETime='', CZCETime='', FFEXTime='', INETime=''):
+    def __init__(self, TradingDay='', LoginTime='', BrokerID='', UserID='', SystemName='', FrontID=0, SessionID=0, MaxOrderRef='', SHFETime='', DCETime='', CZCETime='', FFEXTime='', INETime='',
+                 SysVersion=''):
         super(RspUserLoginField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.LoginTime = self._to_bytes(LoginTime)
@@ -85,6 +87,7 @@ class RspUserLoginField(Base):
         self.CZCETime = self._to_bytes(CZCETime)
         self.FFEXTime = self._to_bytes(FFEXTime)
         self.INETime = self._to_bytes(INETime)
+        self.SysVersion = self._to_bytes(SysVersion)
 
 
 class UserLogoutField(Base):
@@ -609,9 +612,10 @@ class TraderField(Base):
         ('Password', ctypes.c_char * 41),  # 密码
         ('InstallCount', ctypes.c_int),  # 安装数量
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('OrderCancelAlg', ctypes.c_char),  # 撤单时选择席位算法
     ]
 
-    def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallCount=0, BrokerID=''):
+    def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallCount=0, BrokerID='', OrderCancelAlg=''):
         super(TraderField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.TraderID = self._to_bytes(TraderID)
@@ -619,6 +623,7 @@ class TraderField(Base):
         self.Password = self._to_bytes(Password)
         self.InstallCount = int(InstallCount)
         self.BrokerID = self._to_bytes(BrokerID)
+        self.OrderCancelAlg = self._to_bytes(OrderCancelAlg)
 
 
 class InvestorField(Base):
@@ -1259,10 +1264,11 @@ class TraderOfferField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('MaxTradeID', ctypes.c_char * 21),  # 本席位最大成交编号
         ('MaxOrderMessageReference', ctypes.c_char * 7),  # 本席位最大报单备拷
+        ('OrderCancelAlg', ctypes.c_char),  # 撤单时选择席位算法
     ]
 
     def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallID=0, OrderLocalID='', TraderConnectStatus='', ConnectRequestDate='', ConnectRequestTime='', LastReportDate='',
-                 LastReportTime='', ConnectDate='', ConnectTime='', StartDate='', StartTime='', TradingDay='', BrokerID='', MaxTradeID='', MaxOrderMessageReference=''):
+                 LastReportTime='', ConnectDate='', ConnectTime='', StartDate='', StartTime='', TradingDay='', BrokerID='', MaxTradeID='', MaxOrderMessageReference='', OrderCancelAlg=''):
         super(TraderOfferField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.TraderID = self._to_bytes(TraderID)
@@ -1283,6 +1289,7 @@ class TraderOfferField(Base):
         self.BrokerID = self._to_bytes(BrokerID)
         self.MaxTradeID = self._to_bytes(MaxTradeID)
         self.MaxOrderMessageReference = self._to_bytes(MaxOrderMessageReference)
+        self.OrderCancelAlg = self._to_bytes(OrderCancelAlg)
 
 
 class SettlementInfoField(Base):
@@ -6785,10 +6792,11 @@ class MDTraderOfferField(Base):
         ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
         ('MaxTradeID', ctypes.c_char * 21),  # 本席位最大成交编号
         ('MaxOrderMessageReference', ctypes.c_char * 7),  # 本席位最大报单备拷
+        ('OrderCancelAlg', ctypes.c_char),  # 撤单时选择席位算法
     ]
 
     def __init__(self, ExchangeID='', TraderID='', ParticipantID='', Password='', InstallID=0, OrderLocalID='', TraderConnectStatus='', ConnectRequestDate='', ConnectRequestTime='', LastReportDate='',
-                 LastReportTime='', ConnectDate='', ConnectTime='', StartDate='', StartTime='', TradingDay='', BrokerID='', MaxTradeID='', MaxOrderMessageReference=''):
+                 LastReportTime='', ConnectDate='', ConnectTime='', StartDate='', StartTime='', TradingDay='', BrokerID='', MaxTradeID='', MaxOrderMessageReference='', OrderCancelAlg=''):
         super(MDTraderOfferField, self).__init__()
         self.ExchangeID = self._to_bytes(ExchangeID)
         self.TraderID = self._to_bytes(TraderID)
@@ -6809,6 +6817,7 @@ class MDTraderOfferField(Base):
         self.BrokerID = self._to_bytes(BrokerID)
         self.MaxTradeID = self._to_bytes(MaxTradeID)
         self.MaxOrderMessageReference = self._to_bytes(MaxOrderMessageReference)
+        self.OrderCancelAlg = self._to_bytes(OrderCancelAlg)
 
 
 class QryMDTraderOfferField(Base):
@@ -11718,6 +11727,44 @@ class CombPromotionParamField(Base):
         self.InstrumentID = self._to_bytes(InstrumentID)
         self.CombHedgeFlag = self._to_bytes(CombHedgeFlag)
         self.Xparameter = float(Xparameter)
+
+
+class ReqUserLoginSCField(Base):
+    """国密用户登录请求"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+        ('Password', ctypes.c_char * 41),  # 密码
+        ('UserProductInfo', ctypes.c_char * 11),  # 用户端产品信息
+        ('InterfaceProductInfo', ctypes.c_char * 11),  # 接口端产品信息
+        ('ProtocolInfo', ctypes.c_char * 11),  # 协议信息
+        ('MacAddress', ctypes.c_char * 21),  # Mac地址
+        ('OneTimePassword', ctypes.c_char * 41),  # 动态密码
+        ('ClientIPAddress', ctypes.c_char * 33),  # 终端IP地址
+        ('LoginRemark', ctypes.c_char * 36),  # 登录备注
+        ('ClientIPPort', ctypes.c_int),  # 终端IP端口
+        ('AuthCode', ctypes.c_char * 17),  # 认证码
+        ('AppID', ctypes.c_char * 33),  # App代码
+    ]
+
+    def __init__(self, TradingDay='', BrokerID='', UserID='', Password='', UserProductInfo='', InterfaceProductInfo='', ProtocolInfo='', MacAddress='', OneTimePassword='', ClientIPAddress='',
+                 LoginRemark='', ClientIPPort=0, AuthCode='', AppID=''):
+        super(ReqUserLoginSCField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)
+        self.Password = self._to_bytes(Password)
+        self.UserProductInfo = self._to_bytes(UserProductInfo)
+        self.InterfaceProductInfo = self._to_bytes(InterfaceProductInfo)
+        self.ProtocolInfo = self._to_bytes(ProtocolInfo)
+        self.MacAddress = self._to_bytes(MacAddress)
+        self.OneTimePassword = self._to_bytes(OneTimePassword)
+        self.ClientIPAddress = self._to_bytes(ClientIPAddress)
+        self.LoginRemark = self._to_bytes(LoginRemark)
+        self.ClientIPPort = int(ClientIPPort)
+        self.AuthCode = self._to_bytes(AuthCode)
+        self.AppID = self._to_bytes(AppID)
 
 
 class QryRiskSettleInvstPositionField(Base):
