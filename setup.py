@@ -97,7 +97,7 @@ ext_modules = [
 setup(
     name="ctpwrapper",
     version=find_version("ctpwrapper", "__init__.py"),
-    description="CTP client v6.3.19",
+    description="CTP client v6.6.5",
     long_description=codecs.open("README.md", encoding="utf-8").read(),
     long_description_content_type='text/markdown',
     license="LGPLv3",
@@ -131,7 +131,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10"
+        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: Implementation",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",

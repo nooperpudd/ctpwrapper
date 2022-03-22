@@ -57,7 +57,7 @@ environment:
       PYTHON_ARCH: "64"
 
     - PYTHON_DIR: "C:\\pypy3"
-      PYTHON: "C:\\pypy3\\pypy3"
+      PYTHON: "C:\\pypy3\\pypy"
       PYTHON_ARCH: "64"
       PYTHON_PYPY: "pypy3"
       PYTHON_VERSION: "3.9"
