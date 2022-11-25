@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with ctpwrapper.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-__version__ = "6.6.5.1"
+__version__ = "6.6.9"
 __date__ = "2021-09-24"
 
 from ctpwrapper.Md import MdApiPy

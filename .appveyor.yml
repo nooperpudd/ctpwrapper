@@ -56,6 +56,11 @@ environment:
       PYTHON_VERSION: "3.10"
       PYTHON_ARCH: "64"
 
+    - PYTHON_DIR: "C:\\Python311-x64"
+      PYTHON: "C:\\Python311-x64\\python"
+      PYTHON_VERSION: "3.11"
+      PYTHON_ARCH: "64"
+
     - PYTHON_DIR: "C:\\pypy3"
       PYTHON: "C:\\pypy3\\pypy"
       PYTHON_ARCH: "64"
