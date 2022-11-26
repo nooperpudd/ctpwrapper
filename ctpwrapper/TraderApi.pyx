@@ -987,6 +987,78 @@ cdef class TraderApiWrapper:
                 result = self._api.ReqQryRiskSettleProductStatus(<CThostFtdcQryRiskSettleProductStatusField *> address, nRequestID)
             return result
 
+    # SPBM期货合约参数查询
+    def ReqQrySPBMFutureParameter(self, pQrySPBMFutureParameter, int nRequestID):
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQrySPBMFutureParameter)
+            with nogil:
+                result = self._api.ReqQrySPBMFutureParameter(<CThostFtdcQrySPBMFutureParameterField *> address, nRequestID)
+            return result
+
+    # SPBM期权合约参数查询
+    def ReqQrySPBMOptionParameter(self, pQrySPBMOptionParameter, int nRequestID):
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQrySPBMOptionParameter)
+            with nogil:
+                result = self._api.ReqQrySPBMOptionParameter(<CThostFtdcQrySPBMOptionParameterField *> address, nRequestID)
+            return result
+
+    # SPBM品种内对锁仓折扣参数查询
+    def ReqQrySPBMIntraParameter(self, pQrySPBMIntraParameter, int nRequestID):
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQrySPBMIntraParameter)
+            with nogil:
+                result = self._api.ReqQrySPBMIntraParameter(<CThostFtdcQrySPBMIntraParameterField *> address, nRequestID)
+            return result
+
+    # SPBM跨品种抵扣参数查询
+    def ReqQrySPBMInterParameter(self, pQrySPBMInterParameter, int nRequestID):
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQrySPBMInterParameter)
+            with nogil:
+                result = self._api.ReqQrySPBMInterParameter(<CThostFtdcQrySPBMInterParameterField *> address, nRequestID)
+            return result
+
+    # SPBM组合保证金套餐查询
+    def ReqQrySPBMPortfDefinition(self, pQrySPBMPortfDefinition, int nRequestID):
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQrySPBMPortfDefinition)
+            with nogil:
+                result = self._api.ReqQrySPBMPortfDefinition(<CThostFtdcQrySPBMPortfDefinitionField *> address, nRequestID)
+            return result
+
+    # 投资者SPBM套餐选择查询
+    def ReqQrySPBMInvestorPortfDef(self, pQrySPBMInvestorPortfDef, int nRequestID):
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQrySPBMInvestorPortfDef)
+            with nogil:
+                result = self._api.ReqQrySPBMInvestorPortfDef(<CThostFtdcQrySPBMInvestorPortfDefField *> address, nRequestID)
+            return result
+
+    # 投资者新型组合保证金系数查询
+    def ReqQryInvestorPortfMarginRatio(self, pQryInvestorPortfMarginRatio, int nRequestID):
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQryInvestorPortfMarginRatio)
+            with nogil:
+                result = self._api.ReqQryInvestorPortfMarginRatio(<CThostFtdcQryInvestorPortfMarginRatioField *> address, nRequestID)
+            return result
+
+    # 投资者产品SPBM明细查询
+    def ReqQryInvestorProdSPBMDetail(self, pQryInvestorProdSPBMDetail, int nRequestID):
+        cdef size_t address
+        if self._spi is not NULL:
+            address = ctypes.addressof(pQryInvestorProdSPBMDetail)
+            with nogil:
+                result = self._api.ReqQryInvestorProdSPBMDetail(<CThostFtdcQryInvestorProdSPBMDetailField *> address, nRequestID)
+            return result
+
 cdef extern int TraderSpi_OnFrontConnected(self) except -1:
     self.OnFrontConnected()
     return 0
@@ -2414,6 +2486,118 @@ cdef extern int TraderSpi_OnRspQryTraderOffer(self,
                                               cbool bIsLast) except -1:
     self.OnRspQryTraderOffer(
         None if pTraderOffer is NULL else ApiStructure.TraderOfferField.from_address(<size_t> pTraderOffer),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
+    return 0
+
+# SPBM期货合约参数查询响应
+cdef extern int TraderSpi_OnRspQrySPBMFutureParameter(self,
+                                                      CThostFtdcSPBMFutureParameterField *pSPBMFutureParameter,
+                                                      CThostFtdcRspInfoField *pRspInfo,
+                                                      int nRequestID,
+                                                      cbool bIsLast) except -1:
+    self.OnRspQrySPBMFutureParameter(
+        None if pSPBMFutureParameter is NULL else ApiStructure.SPBMFutureParameterField.from_address(<size_t> pSPBMFutureParameter),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
+    return 0
+
+# SPBM期权合约参数查询响应
+cdef extern int TraderSpi_OnRspQrySPBMOptionParameter(self,
+                                                      CThostFtdcSPBMOptionParameterField *pSPBMOptionParameter,
+                                                      CThostFtdcRspInfoField *pRspInfo,
+                                                      int nRequestID,
+                                                      cbool bIsLast) except -1:
+    self.OnRspQrySPBMOptionParameter(
+        None if pSPBMOptionParameter is NULL else ApiStructure.SPBMOptionParameterField.from_address(<size_t> pSPBMOptionParameter),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
+    return 0
+
+# SPBM品种内对锁仓折扣参数查询响应
+cdef extern int TraderSpi_OnRspQrySPBMIntraParameter(self,
+                                                     CThostFtdcSPBMIntraParameterField *pSPBMIntraParameter,
+                                                     CThostFtdcRspInfoField *pRspInfo,
+                                                     int nRequestID,
+                                                     cbool bIsLast) except -1:
+    self.OnRspQrySPBMIntraParameter(
+        None if pSPBMIntraParameter is NULL else ApiStructure.SPBMIntraParameterField.from_address(<size_t> pSPBMIntraParameter),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
+    return 0
+
+# SPBM跨品种抵扣参数查询响应
+cdef extern int TraderSpi_OnRspQrySPBMInterParameter(self,
+                                                     CThostFtdcSPBMInterParameterField *pSPBMInterParameter,
+                                                     CThostFtdcRspInfoField *pRspInfo,
+                                                     int nRequestID,
+                                                     cbool bIsLast) except -1:
+    self.OnRspQrySPBMInterParameter(
+        None if pSPBMInterParameter is NULL else ApiStructure.SPBMInterParameterField.from_address(<size_t> pSPBMInterParameter),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
+    return 0
+
+# SPBM组合保证金套餐查询响应
+cdef extern int TraderSpi_OnRspQrySPBMPortfDefinition(self,
+                                                      CThostFtdcSPBMPortfDefinitionField *pSPBMPortfDefinition,
+                                                      CThostFtdcRspInfoField *pRspInfo,
+                                                      int nRequestID,
+                                                      cbool bIsLast) except -1:
+    self.OnRspQrySPBMPortfDefinition(
+        None if pSPBMPortfDefinition is NULL else ApiStructure.SPBMPortfDefinitionField.from_address(<size_t> pSPBMPortfDefinition),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
+    return 0
+
+# 投资者SPBM套餐选择查询响应
+cdef extern int TraderSpi_OnRspQrySPBMInvestorPortfDef(self,
+                                                       CThostFtdcSPBMInvestorPortfDefField *pSPBMInvestorPortfDef,
+                                                       CThostFtdcRspInfoField *pRspInfo,
+                                                       int nRequestID,
+                                                       cbool bIsLast) except -1:
+    self.OnRspQrySPBMInvestorPortfDef(
+        None if pSPBMInvestorPortfDef is NULL else ApiStructure.SPBMInvestorPortfDefField.from_address(<size_t> pSPBMInvestorPortfDef),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
+    return 0
+
+# 投资者新型组合保证金系数查询响应
+cdef extern int TraderSpi_OnRspQryInvestorPortfMarginRatio(self,
+                                                           CThostFtdcInvestorPortfMarginRatioField *pInvestorPortfMarginRatio,
+                                                           CThostFtdcRspInfoField *pRspInfo,
+                                                           int nRequestID,
+                                                           cbool bIsLast) except -1:
+    self.OnRspQryInvestorPortfMarginRatio(
+        None if pInvestorPortfMarginRatio is NULL else ApiStructure.InvestorPortfMarginRatioField.from_address(<size_t> pInvestorPortfMarginRatio),
+        None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
+        nRequestID,
+        bIsLast
+    )
+    return 0
+
+# 投资者产品SPBM明细查询响应
+cdef extern int TraderSpi_OnRspQryInvestorProdSPBMDetail(self,
+                                                         CThostFtdcInvestorProdSPBMDetailField *pInvestorProdSPBMDetail,
+                                                         CThostFtdcRspInfoField *pRspInfo,
+                                                         int nRequestID,
+                                                         cbool bIsLast) except -1:
+    self.OnRspQryInvestorProdSPBMDetail(
+        None if pInvestorProdSPBMDetail is NULL else ApiStructure.InvestorProdSPBMDetailField.from_address(<size_t> pInvestorProdSPBMDetail),
         None if pRspInfo is NULL else ApiStructure.RspInfoField.from_address(<size_t> pRspInfo),
         nRequestID,
         bIsLast

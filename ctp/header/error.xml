@@ -98,6 +98,10 @@
     <error id="INSTRUMENTMAP_NOT_FOUND" value="93" prompt="CTP:找不到组合合约映射"/>
     <error id="CANCELLATION_OF_OTC_DERIVED_ORDER_NOT_ALLOWED" value="94" prompt="CTP:不允许撤销OTC衍生报单"/>
     <error id="BAD_PRICE_VALUE" value="95" prompt="CTP：不支持的价格"/>
+    <!--SPBM-->
+    <error id="SPBMFUTPARAM_NOT_FOUND" value="96" prompt="找不到SPBM期货合约参数"/>
+    <error id="SPBMOPTPARAM_NOT_FOUND" value="97" prompt="找不到SPBM期权合约参数"/>
+    <error id="SPBMINTRAPARAM_NOT_FOUND" value="98" prompt="找不到SPBM品种内对锁仓折扣参数"/>
     <!--灾备系统错误代码 -->
     <error id="NO_TRADING_RIGHT_IN_SEPC_DR" value="101" prompt="CTP:用户在本系统没有报单权限"/>
     <error id="NO_DR_NO" value="102" prompt="CTP:系统缺少灾备标示号"/>
@@ -171,6 +175,8 @@
     <error id="INVALID_RESERVE_OPEN_ACCOUNT" value="1041" prompt="CTP:银期转账：资金账户存在，预约开户失败"/>
     <error id="OPEN_ACCOUNT_NOT_DEFAULT_ACCOUNT" value="1042" prompt="CTP:银期转账：开户请求的银行卡号和预留的账号不同"/>
     <error id="BANK_SYSTEM_INTERNAL_ERROR" value="1043" prompt="银行系统内部错误"/>
+    <error id="OFFER_LOCALTIME_OFFSET_IS_TOO_LARGE" value="1044" prompt="银期转账：银期报盘机器时间偏移太大"/>
+    <error id="FUTURESERIAL_HAS_BEEN_PROCESSED" value="1045" prompt="银期转账：该期货流水号已经处理过"/>
     <!-- add for transfer begin -->
     <error id="NO_VALID_BANKOFFER_AVAILABLE" value="2000" prompt="CTP:该报盘未连接到银行"/>
     <error id="PASSWORD_MISMATCH" value="2001" prompt="CTP:资金密码错误"/>
@@ -259,5 +265,6 @@
     <error id="SCAPI_CERT_VERIFY_FAILED" value="4102" prompt="CTP:Cert Verify Failed."/>
     <error id="SCAPI_CERT_PROCESS_TIMEOUT" value="4103" prompt="CTP:Cert Process Timeout."/>
     <error id="SCAPI_LOGIN_ERROR" value="4104" prompt="CTP:Login Error."/>
+
 
 </errors>

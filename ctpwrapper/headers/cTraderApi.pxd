@@ -352,6 +352,31 @@ cdef extern from "ThostFtdcTraderApi.h":
         # 风险结算产品查询
         int ReqQryRiskSettleProductStatus(CThostFtdcQryRiskSettleProductStatusField *pQryRiskSettleProductStatus, int nRequestID) nogil except +
 
+        # SPBM期货合约参数查询
+        int ReqQrySPBMFutureParameter(CThostFtdcQrySPBMFutureParameterField *pQrySPBMFutureParameter, int nRequestID) nogil except +
+
+        # SPBM期权合约参数查询
+        int ReqQrySPBMOptionParameter(CThostFtdcQrySPBMOptionParameterField *pQrySPBMOptionParameter, int nRequestID) nogil except +
+
+        # SPBM品种内对锁仓折扣参数查询
+        int ReqQrySPBMIntraParameter(CThostFtdcQrySPBMIntraParameterField *pQrySPBMIntraParameter, int nRequestID) nogil except +
+
+        # SPBM跨品种抵扣参数查询
+        int ReqQrySPBMInterParameter(CThostFtdcQrySPBMInterParameterField *pQrySPBMInterParameter, int nRequestID) nogil except +
+
+        # SPBM组合保证金套餐查询
+        int ReqQrySPBMPortfDefinition(CThostFtdcQrySPBMPortfDefinitionField *pQrySPBMPortfDefinition, int nRequestID) nogil except +
+
+        # 投资者SPBM套餐选择查询
+        int ReqQrySPBMInvestorPortfDef(CThostFtdcQrySPBMInvestorPortfDefField *pQrySPBMInvestorPortfDef, int nRequestID) nogil except +
+
+        # 投资者新型组合保证金系数查询
+        int ReqQryInvestorPortfMarginRatio(CThostFtdcQryInvestorPortfMarginRatioField *pQryInvestorPortfMarginRatio, int nRequestID) nogil except +
+
+        # 投资者产品SPBM明细查询
+        int ReqQryInvestorProdSPBMDetail(CThostFtdcQryInvestorProdSPBMDetailField *pQryInvestorProdSPBMDetail, int nRequestID) nogil except +
+
+
 
 cdef extern from "ThostFtdcTraderApi.h" namespace "CThostFtdcTraderApi":
     CTraderApi *CreateFtdcTraderApi(const_char *pszFlowPath) nogil except +
