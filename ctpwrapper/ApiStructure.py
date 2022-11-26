@@ -69,10 +69,11 @@ class RspUserLoginField(Base):
         ('FFEXTime', ctypes.c_char * 9),  # 中金所时间
         ('INETime', ctypes.c_char * 9),  # 能源中心时间
         ('SysVersion', ctypes.c_char * 41),  # 后台版本信息
+        ('GFEXTime', ctypes.c_char * 9),  # 广期所时间
     ]
 
     def __init__(self, TradingDay: str = '', LoginTime: str = '', BrokerID: str = '', UserID: str = '', SystemName: str = '', FrontID: int = 0, SessionID: int = 0, MaxOrderRef: str = '',
-                 SHFETime: str = '', DCETime: str = '', CZCETime: str = '', FFEXTime: str = '', INETime: str = '', SysVersion: str = ''):
+                 SHFETime: str = '', DCETime: str = '', CZCETime: str = '', FFEXTime: str = '', INETime: str = '', SysVersion: str = '', GFEXTime: str = ''):
         super(RspUserLoginField, self).__init__()
         self.TradingDay = self._to_bytes(TradingDay)
         self.LoginTime = self._to_bytes(LoginTime)
@@ -88,6 +89,7 @@ class RspUserLoginField(Base):
         self.FFEXTime = self._to_bytes(FFEXTime)
         self.INETime = self._to_bytes(INETime)
         self.SysVersion = self._to_bytes(SysVersion)
+        self.GFEXTime = self._to_bytes(GFEXTime)
 
 
 class UserLogoutField(Base):
@@ -479,11 +481,14 @@ class ProductField(Base):
         ('UnderlyingMultiple', ctypes.c_double),  # 合约基础商品乘数
         ('ProductID', ctypes.c_char * 81),  # 产品代码
         ('ExchangeProductID', ctypes.c_char * 81),  # 交易所产品代码
+        ('OpenLimitControlLevel', ctypes.c_char),  # 开仓量限制粒度
+        ('OrderFreqControlLevel', ctypes.c_char),  # 报单频率控制粒度
     ]
 
     def __init__(self, reserve1: str = '', ProductName: str = '', ExchangeID: str = '', ProductClass: str = '', VolumeMultiple: int = 0, PriceTick: float = 0.0, MaxMarketOrderVolume: int = 0,
                  MinMarketOrderVolume: int = 0, MaxLimitOrderVolume: int = 0, MinLimitOrderVolume: int = 0, PositionType: str = '', PositionDateType: str = '', CloseDealType: str = '',
-                 TradeCurrencyID: str = '', MortgageFundUseRange: str = '', reserve2: str = '', UnderlyingMultiple: float = 0.0, ProductID: str = '', ExchangeProductID: str = ''):
+                 TradeCurrencyID: str = '', MortgageFundUseRange: str = '', reserve2: str = '', UnderlyingMultiple: float = 0.0, ProductID: str = '', ExchangeProductID: str = '',
+                 OpenLimitControlLevel: str = '', OrderFreqControlLevel: str = ''):
         super(ProductField, self).__init__()
         self.reserve1 = self._to_bytes(reserve1)
         self.ProductName = self._to_bytes(ProductName)
@@ -504,6 +509,8 @@ class ProductField(Base):
         self.UnderlyingMultiple = float(UnderlyingMultiple)
         self.ProductID = self._to_bytes(ProductID)
         self.ExchangeProductID = self._to_bytes(ExchangeProductID)
+        self.OpenLimitControlLevel = self._to_bytes(OpenLimitControlLevel)
+        self.OrderFreqControlLevel = self._to_bytes(OrderFreqControlLevel)
 
 
 class InstrumentField(Base):
@@ -646,10 +653,12 @@ class InvestorField(Base):
         ('Mobile', ctypes.c_char * 41),  # 手机
         ('CommModelID', ctypes.c_char * 13),  # 手续费率模板代码
         ('MarginModelID', ctypes.c_char * 13),  # 保证金率模板代码
+        ('IsOrderFreq', ctypes.c_char),  # 是否频率控制
+        ('IsOpenVolLimit', ctypes.c_char),  # 是否开仓限制
     ]
 
     def __init__(self, InvestorID: str = '', BrokerID: str = '', InvestorGroupID: str = '', InvestorName: str = '', IdentifiedCardType: str = '', IdentifiedCardNo: str = '', IsActive: int = 0,
-                 Telephone: str = '', Address: str = '', OpenDate: str = '', Mobile: str = '', CommModelID: str = '', MarginModelID: str = ''):
+                 Telephone: str = '', Address: str = '', OpenDate: str = '', Mobile: str = '', CommModelID: str = '', MarginModelID: str = '', IsOrderFreq: str = '', IsOpenVolLimit: str = ''):
         super(InvestorField, self).__init__()
         self.InvestorID = self._to_bytes(InvestorID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -664,6 +673,8 @@ class InvestorField(Base):
         self.Mobile = self._to_bytes(Mobile)
         self.CommModelID = self._to_bytes(CommModelID)
         self.MarginModelID = self._to_bytes(MarginModelID)
+        self.IsOrderFreq = self._to_bytes(IsOrderFreq)
+        self.IsOpenVolLimit = self._to_bytes(IsOpenVolLimit)
 
 
 class TradingCodeField(Base):
@@ -920,7 +931,7 @@ class InvestorPositionField(Base):
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('YdStrikeFrozen', ctypes.c_int),  # 执行冻结的昨仓
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
-        ('PositionCostOffset', ctypes.c_double),  # 大商所持仓成本差值，只有大商所使用
+        ('PositionCostOffset', ctypes.c_double),  # 持仓成本差值
         ('TasPosition', ctypes.c_int),  # tas持仓手数
         ('TasPositionCost', ctypes.c_double),  # tas持仓成本
         ('InstrumentID', ctypes.c_char * 81),  # 合约代码
@@ -1471,10 +1482,10 @@ class SettlementRefField(Base):
 class CurrentTimeField(Base):
     """当前时间"""
     _fields_ = [
-        ('CurrDate', ctypes.c_char * 9),  # 当前日期
+        ('CurrDate', ctypes.c_char * 9),  # 当前交易日
         ('CurrTime', ctypes.c_char * 9),  # 当前时间
         ('CurrMillisec', ctypes.c_int),  # 当前时间（毫秒）
-        ('ActionDay', ctypes.c_char * 9),  # 业务日期
+        ('ActionDay', ctypes.c_char * 9),  # 自然日期
     ]
 
     def __init__(self, CurrDate: str = '', CurrTime: str = '', CurrMillisec: int = 0, ActionDay: str = ''):
@@ -2464,10 +2475,12 @@ class SyncingInvestorField(Base):
         ('Mobile', ctypes.c_char * 41),  # 手机
         ('CommModelID', ctypes.c_char * 13),  # 手续费率模板代码
         ('MarginModelID', ctypes.c_char * 13),  # 保证金率模板代码
+        ('IsOrderFreq', ctypes.c_char),  # 是否频率控制
+        ('IsOpenVolLimit', ctypes.c_char),  # 是否开仓限制
     ]
 
     def __init__(self, InvestorID: str = '', BrokerID: str = '', InvestorGroupID: str = '', InvestorName: str = '', IdentifiedCardType: str = '', IdentifiedCardNo: str = '', IsActive: int = 0,
-                 Telephone: str = '', Address: str = '', OpenDate: str = '', Mobile: str = '', CommModelID: str = '', MarginModelID: str = ''):
+                 Telephone: str = '', Address: str = '', OpenDate: str = '', Mobile: str = '', CommModelID: str = '', MarginModelID: str = '', IsOrderFreq: str = '', IsOpenVolLimit: str = ''):
         super(SyncingInvestorField, self).__init__()
         self.InvestorID = self._to_bytes(InvestorID)
         self.BrokerID = self._to_bytes(BrokerID)
@@ -2482,6 +2495,8 @@ class SyncingInvestorField(Base):
         self.Mobile = self._to_bytes(Mobile)
         self.CommModelID = self._to_bytes(CommModelID)
         self.MarginModelID = self._to_bytes(MarginModelID)
+        self.IsOrderFreq = self._to_bytes(IsOrderFreq)
+        self.IsOpenVolLimit = self._to_bytes(IsOpenVolLimit)
 
 
 class SyncingTradingCodeField(Base):
@@ -2681,7 +2696,7 @@ class SyncingInvestorPositionField(Base):
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('YdStrikeFrozen', ctypes.c_int),  # 执行冻结的昨仓
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
-        ('PositionCostOffset', ctypes.c_double),  # 大商所持仓成本差值，只有大商所使用
+        ('PositionCostOffset', ctypes.c_double),  # 持仓成本差值
         ('TasPosition', ctypes.c_int),  # tas持仓手数
         ('TasPositionCost', ctypes.c_double),  # tas持仓成本
         ('InstrumentID', ctypes.c_char * 81),  # 合约代码
@@ -6791,7 +6806,7 @@ class InvestorPositionDetailField(Base):
         ('SettlementPrice', ctypes.c_double),  # 结算价
         ('CloseVolume', ctypes.c_int),  # 平仓量
         ('CloseAmount', ctypes.c_double),  # 平仓金额
-        ('TimeFirstVolume', ctypes.c_int),  # 先开先平剩余数量（DCE）
+        ('TimeFirstVolume', ctypes.c_int),  # 先开先平剩余数量
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
         ('SpecPosiType', ctypes.c_char),  # 特殊持仓标志
         ('InstrumentID', ctypes.c_char * 81),  # 合约代码
@@ -11219,7 +11234,7 @@ class ReserveOpenAccountConfirmField(Base):
         ('MobilePhone', ctypes.c_char * 21),  # 手机
         ('Fax', ctypes.c_char * 41),  # 传真
         ('EMail', ctypes.c_char * 41),  # 电子邮件
-        ('MoneyAccountStatus', ctypes.c_char),  # 资金账户状态
+        ('MoneyAccountStatus', ctypes.c_char),  # 资金账户状态 
         ('BankAccount', ctypes.c_char * 41),  # 银行帐号
         ('BankPassWord', ctypes.c_char * 41),  # 银行密码
         ('InstallID', ctypes.c_int),  # 安装编号
@@ -11989,7 +12004,7 @@ class RiskSettleInvstPositionField(Base):
         ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
         ('YdStrikeFrozen', ctypes.c_int),  # 执行冻结的昨仓
         ('InvestUnitID', ctypes.c_char * 17),  # 投资单元代码
-        ('PositionCostOffset', ctypes.c_double),  # 大商所持仓成本差值，只有大商所使用
+        ('PositionCostOffset', ctypes.c_double),  # 持仓成本差值
         ('TasPosition', ctypes.c_int),  # tas持仓手数
         ('TasPositionCost', ctypes.c_double),  # tas持仓成本
     ]
@@ -12132,7 +12147,7 @@ class SyncDeltaInvstPosDtlField(Base):
         ('SettlementPrice', ctypes.c_double),  # 结算价
         ('CloseVolume', ctypes.c_int),  # 平仓量
         ('CloseAmount', ctypes.c_double),  # 平仓金额
-        ('TimeFirstVolume', ctypes.c_int),  # 先开先平剩余数量（DCE）
+        ('TimeFirstVolume', ctypes.c_int),  # 先开先平剩余数量
         ('SpecPosiType', ctypes.c_char),  # 特殊持仓标志
         ('ActionDirection', ctypes.c_char),  # 操作标志
         ('SyncDeltaSequenceNo', ctypes.c_int),  # 追平序号
@@ -12840,3 +12855,358 @@ class SyncDeltaEWarrantOffsetField(Base):
         self.Volume = int(Volume)
         self.ActionDirection = self._to_bytes(ActionDirection)
         self.SyncDeltaSequenceNo = int(SyncDeltaSequenceNo)
+
+
+class SPBMFutureParameterField(Base):
+    """SPBM期货合约保证金参数"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('ProdFamilyCode', ctypes.c_char * 81),  # 品种代码
+        ('Cvf', ctypes.c_int),  # 期货合约因子
+        ('TimeRange', ctypes.c_char),  # 阶段标识
+        ('MarginRate', ctypes.c_double),  # 品种保证金标准
+        ('LockRateX', ctypes.c_double),  # 期货合约内部对锁仓费率折扣比例
+        ('AddOnRate', ctypes.c_double),  # 提高保证金标准
+        ('PreSettlementPrice', ctypes.c_double),  # 昨结算价
+    ]
+
+    def __init__(self, TradingDay: str = '', ExchangeID: str = '', InstrumentID: str = '', ProdFamilyCode: str = '', Cvf: int = 0, TimeRange: str = '', MarginRate: float = 0.0, LockRateX: float = 0.0,
+                 AddOnRate: float = 0.0, PreSettlementPrice: float = 0.0):
+        super(SPBMFutureParameterField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.ProdFamilyCode = self._to_bytes(ProdFamilyCode)
+        self.Cvf = int(Cvf)
+        self.TimeRange = self._to_bytes(TimeRange)
+        self.MarginRate = float(MarginRate)
+        self.LockRateX = float(LockRateX)
+        self.AddOnRate = float(AddOnRate)
+        self.PreSettlementPrice = float(PreSettlementPrice)
+
+
+class SPBMOptionParameterField(Base):
+    """SPBM期权合约保证金参数"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('ProdFamilyCode', ctypes.c_char * 81),  # 品种代码
+        ('Cvf', ctypes.c_int),  # 期权合约因子
+        ('DownPrice', ctypes.c_double),  # 期权冲抵价格
+        ('Delta', ctypes.c_double),  # Delta值
+        ('SlimiDelta', ctypes.c_double),  # 卖方期权风险转换最低值
+        ('PreSettlementPrice', ctypes.c_double),  # 昨结算价
+    ]
+
+    def __init__(self, TradingDay: str = '', ExchangeID: str = '', InstrumentID: str = '', ProdFamilyCode: str = '', Cvf: int = 0, DownPrice: float = 0.0, Delta: float = 0.0, SlimiDelta: float = 0.0,
+                 PreSettlementPrice: float = 0.0):
+        super(SPBMOptionParameterField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.ProdFamilyCode = self._to_bytes(ProdFamilyCode)
+        self.Cvf = int(Cvf)
+        self.DownPrice = float(DownPrice)
+        self.Delta = float(Delta)
+        self.SlimiDelta = float(SlimiDelta)
+        self.PreSettlementPrice = float(PreSettlementPrice)
+
+
+class SPBMIntraParameterField(Base):
+    """SPBM品种内对锁仓折扣参数"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('ProdFamilyCode', ctypes.c_char * 81),  # 品种代码
+        ('IntraRateY', ctypes.c_double),  # 品种内合约间对锁仓费率折扣比例
+    ]
+
+    def __init__(self, TradingDay: str = '', ExchangeID: str = '', ProdFamilyCode: str = '', IntraRateY: float = 0.0):
+        super(SPBMIntraParameterField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.ProdFamilyCode = self._to_bytes(ProdFamilyCode)
+        self.IntraRateY = float(IntraRateY)
+
+
+class SPBMInterParameterField(Base):
+    """SPBM跨品种抵扣参数"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('SpreadId', ctypes.c_int),  # 优先级
+        ('InterRateZ', ctypes.c_double),  # 品种间对锁仓费率折扣比例
+        ('Leg1ProdFamilyCode', ctypes.c_char * 81),  # 第一腿构成品种
+        ('Leg2ProdFamilyCode', ctypes.c_char * 81),  # 第二腿构成品种
+    ]
+
+    def __init__(self, TradingDay: str = '', ExchangeID: str = '', SpreadId: int = 0, InterRateZ: float = 0.0, Leg1ProdFamilyCode: str = '', Leg2ProdFamilyCode: str = ''):
+        super(SPBMInterParameterField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.SpreadId = int(SpreadId)
+        self.InterRateZ = float(InterRateZ)
+        self.Leg1ProdFamilyCode = self._to_bytes(Leg1ProdFamilyCode)
+        self.Leg2ProdFamilyCode = self._to_bytes(Leg2ProdFamilyCode)
+
+
+class SyncSPBMParameterEndField(Base):
+    """同步SPBM参数结束"""
+    _fields_ = [
+        ('TradingDay', ctypes.c_char * 9),  # 交易日
+    ]
+
+    def __init__(self, TradingDay: str = ''):
+        super(SyncSPBMParameterEndField, self).__init__()
+        self.TradingDay = self._to_bytes(TradingDay)
+
+
+class QrySPBMFutureParameterField(Base):
+    """SPBM期货合约保证金参数查询"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('ProdFamilyCode', ctypes.c_char * 81),  # 品种代码
+    ]
+
+    def __init__(self, ExchangeID: str = '', InstrumentID: str = '', ProdFamilyCode: str = ''):
+        super(QrySPBMFutureParameterField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.ProdFamilyCode = self._to_bytes(ProdFamilyCode)
+
+
+class QrySPBMOptionParameterField(Base):
+    """SPBM期权合约保证金参数查询"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('InstrumentID', ctypes.c_char * 81),  # 合约代码
+        ('ProdFamilyCode', ctypes.c_char * 81),  # 品种代码
+    ]
+
+    def __init__(self, ExchangeID: str = '', InstrumentID: str = '', ProdFamilyCode: str = ''):
+        super(QrySPBMOptionParameterField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.InstrumentID = self._to_bytes(InstrumentID)
+        self.ProdFamilyCode = self._to_bytes(ProdFamilyCode)
+
+
+class QrySPBMIntraParameterField(Base):
+    """SPBM品种内对锁仓折扣参数查询"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('ProdFamilyCode', ctypes.c_char * 81),  # 品种代码
+    ]
+
+    def __init__(self, ExchangeID: str = '', ProdFamilyCode: str = ''):
+        super(QrySPBMIntraParameterField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.ProdFamilyCode = self._to_bytes(ProdFamilyCode)
+
+
+class QrySPBMInterParameterField(Base):
+    """SPBM跨品种抵扣参数查询"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('Leg1ProdFamilyCode', ctypes.c_char * 81),  # 第一腿构成品种
+        ('Leg2ProdFamilyCode', ctypes.c_char * 81),  # 第二腿构成品种
+    ]
+
+    def __init__(self, ExchangeID: str = '', Leg1ProdFamilyCode: str = '', Leg2ProdFamilyCode: str = ''):
+        super(QrySPBMInterParameterField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.Leg1ProdFamilyCode = self._to_bytes(Leg1ProdFamilyCode)
+        self.Leg2ProdFamilyCode = self._to_bytes(Leg2ProdFamilyCode)
+
+
+class SPBMPortfDefinitionField(Base):
+    """组合保证金套餐"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('PortfolioDefID', ctypes.c_int),  # 组合保证金套餐代码
+        ('ProdFamilyCode', ctypes.c_char * 81),  # 品种代码
+        ('IsSPBM', ctypes.c_int),  # 是否启用SPBM
+    ]
+
+    def __init__(self, ExchangeID: str = '', PortfolioDefID: int = 0, ProdFamilyCode: str = '', IsSPBM: int = 0):
+        super(SPBMPortfDefinitionField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.PortfolioDefID = int(PortfolioDefID)
+        self.ProdFamilyCode = self._to_bytes(ProdFamilyCode)
+        self.IsSPBM = int(IsSPBM)
+
+
+class SPBMInvestorPortfDefField(Base):
+    """投资者套餐选择"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('PortfolioDefID', ctypes.c_int),  # 组合保证金套餐代码
+    ]
+
+    def __init__(self, ExchangeID: str = '', BrokerID: str = '', InvestorID: str = '', PortfolioDefID: int = 0):
+        super(SPBMInvestorPortfDefField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.PortfolioDefID = int(PortfolioDefID)
+
+
+class InvestorPortfMarginRatioField(Base):
+    """投资者新型组合保证金系数"""
+    _fields_ = [
+        ('InvestorRange', ctypes.c_char),  # 投资者范围
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('MarginRatio', ctypes.c_double),  # 会员对投资者收取的保证金和交易所对投资者收取的保证金的比例
+    ]
+
+    def __init__(self, InvestorRange: str = '', BrokerID: str = '', InvestorID: str = '', ExchangeID: str = '', MarginRatio: float = 0.0):
+        super(InvestorPortfMarginRatioField, self).__init__()
+        self.InvestorRange = self._to_bytes(InvestorRange)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.MarginRatio = float(MarginRatio)
+
+
+class QrySPBMPortfDefinitionField(Base):
+    """组合保证金套餐查询"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('PortfolioDefID', ctypes.c_int),  # 组合保证金套餐代码
+        ('ProdFamilyCode', ctypes.c_char * 81),  # 品种代码
+    ]
+
+    def __init__(self, ExchangeID: str = '', PortfolioDefID: int = 0, ProdFamilyCode: str = ''):
+        super(QrySPBMPortfDefinitionField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.PortfolioDefID = int(PortfolioDefID)
+        self.ProdFamilyCode = self._to_bytes(ProdFamilyCode)
+
+
+class QrySPBMInvestorPortfDefField(Base):
+    """投资者套餐选择查询"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+    ]
+
+    def __init__(self, ExchangeID: str = '', BrokerID: str = '', InvestorID: str = ''):
+        super(QrySPBMInvestorPortfDefField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+
+
+class QryInvestorPortfMarginRatioField(Base):
+    """投资者新型组合保证金系数查询"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+    ]
+
+    def __init__(self, BrokerID: str = '', InvestorID: str = '', ExchangeID: str = ''):
+        super(QryInvestorPortfMarginRatioField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.ExchangeID = self._to_bytes(ExchangeID)
+
+
+class InvestorProdSPBMDetailField(Base):
+    """投资者产品SPBM明细"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('ProdFamilyCode', ctypes.c_char * 81),  # 品种代码
+        ('IntraInstrMargin', ctypes.c_double),  # 合约内对锁保证金
+        ('BCollectingMargin', ctypes.c_double),  # 买归集保证金
+        ('SCollectingMargin', ctypes.c_double),  # 卖归集保证金
+        ('IntraProdMargin', ctypes.c_double),  # 品种内合约间对锁保证金
+        ('NetMargin', ctypes.c_double),  # 净保证金
+        ('InterProdMargin', ctypes.c_double),  # 产品间对锁保证金
+        ('SingleMargin', ctypes.c_double),  # 裸保证金
+        ('AddOnMargin', ctypes.c_double),  # 附加保证金
+        ('DeliveryMargin', ctypes.c_double),  # 交割月保证金
+        ('CallOptionMinRisk', ctypes.c_double),  # 看涨期权最低风险
+        ('PutOptionMinRisk', ctypes.c_double),  # 看跌期权最低风险
+        ('OptionMinRisk', ctypes.c_double),  # 卖方期权最低风险
+        ('OptionValueOffset', ctypes.c_double),  # 买方期权冲抵价值
+        ('OptionRoyalty', ctypes.c_double),  # 卖方期权权利金
+        ('RealOptionValueOffset', ctypes.c_double),  # 价值冲抵
+        ('Margin', ctypes.c_double),  # 保证金
+        ('ExchMargin', ctypes.c_double),  # 交易所保证金
+    ]
+
+    def __init__(self, ExchangeID: str = '', BrokerID: str = '', InvestorID: str = '', ProdFamilyCode: str = '', IntraInstrMargin: float = 0.0, BCollectingMargin: float = 0.0,
+                 SCollectingMargin: float = 0.0, IntraProdMargin: float = 0.0, NetMargin: float = 0.0, InterProdMargin: float = 0.0, SingleMargin: float = 0.0, AddOnMargin: float = 0.0,
+                 DeliveryMargin: float = 0.0, CallOptionMinRisk: float = 0.0, PutOptionMinRisk: float = 0.0, OptionMinRisk: float = 0.0, OptionValueOffset: float = 0.0, OptionRoyalty: float = 0.0,
+                 RealOptionValueOffset: float = 0.0, Margin: float = 0.0, ExchMargin: float = 0.0):
+        super(InvestorProdSPBMDetailField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.ProdFamilyCode = self._to_bytes(ProdFamilyCode)
+        self.IntraInstrMargin = float(IntraInstrMargin)
+        self.BCollectingMargin = float(BCollectingMargin)
+        self.SCollectingMargin = float(SCollectingMargin)
+        self.IntraProdMargin = float(IntraProdMargin)
+        self.NetMargin = float(NetMargin)
+        self.InterProdMargin = float(InterProdMargin)
+        self.SingleMargin = float(SingleMargin)
+        self.AddOnMargin = float(AddOnMargin)
+        self.DeliveryMargin = float(DeliveryMargin)
+        self.CallOptionMinRisk = float(CallOptionMinRisk)
+        self.PutOptionMinRisk = float(PutOptionMinRisk)
+        self.OptionMinRisk = float(OptionMinRisk)
+        self.OptionValueOffset = float(OptionValueOffset)
+        self.OptionRoyalty = float(OptionRoyalty)
+        self.RealOptionValueOffset = float(RealOptionValueOffset)
+        self.Margin = float(Margin)
+        self.ExchMargin = float(ExchMargin)
+
+
+class QryInvestorProdSPBMDetailField(Base):
+    """投资者产品SPBM明细查询"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('ProdFamilyCode', ctypes.c_char * 81),  # 品种代码
+    ]
+
+    def __init__(self, ExchangeID: str = '', BrokerID: str = '', InvestorID: str = '', ProdFamilyCode: str = ''):
+        super(QryInvestorProdSPBMDetailField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.ProdFamilyCode = self._to_bytes(ProdFamilyCode)
+
+
+class PortfTradeParamSettingField(Base):
+    """组保交易参数设置"""
+    _fields_ = [
+        ('ExchangeID', ctypes.c_char * 9),  # 交易所代码
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('Portfolio', ctypes.c_char),  # 新型组保算法
+        ('IsActionVerify', ctypes.c_int),  # 撤单是否验资
+        ('IsCloseVerify', ctypes.c_int),  # 平仓是否验资
+    ]
+
+    def __init__(self, ExchangeID: str = '', BrokerID: str = '', InvestorID: str = '', Portfolio: str = '', IsActionVerify: int = 0, IsCloseVerify: int = 0):
+        super(PortfTradeParamSettingField, self).__init__()
+        self.ExchangeID = self._to_bytes(ExchangeID)
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.Portfolio = self._to_bytes(Portfolio)
+        self.IsActionVerify = int(IsActionVerify)
+        self.IsCloseVerify = int(IsCloseVerify)

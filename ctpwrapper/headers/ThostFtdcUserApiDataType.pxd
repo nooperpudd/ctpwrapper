@@ -820,3 +820,11 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef char TThostFtdcSyncDescriptionType[257]
     ctypedef int TThostFtdcCommonIntType
     ctypedef char TThostFtdcSysVersionType[41]
+    ctypedef char TThostFtdcOpenLimitControlLevelType
+    ctypedef char TThostFtdcOrderFreqControlLevelType
+    ctypedef char TThostFtdcEnumBoolType
+    ctypedef char TThostFtdcTimeRangeType
+    ctypedef double TThostFtdcDeltaType
+    ctypedef int TThostFtdcSpreadIdType
+    ctypedef char TThostFtdcPortfolioType
+    ctypedef int TThostFtdcPortfolioDefIDType

@@ -287,6 +287,32 @@ static inline int TraderSpi_OnRspQryRiskSettleProductStatus(PyObject *, CThostFt
 
 static inline int TraderSpi_OnRspQryTraderOffer(PyObject *, CThostFtdcTraderOfferField *, CThostFtdcRspInfoField *, int, bool);
 
+
+///SPBM期货合约参数查询响应
+static inline int TraderSpi_OnRspQrySPBMFutureParameter(PyObject *,CThostFtdcSPBMFutureParameterField *, CThostFtdcRspInfoField *, int , bool ) {};
+
+///SPBM期权合约参数查询响应
+static inline int TraderSpi_OnRspQrySPBMOptionParameter(PyObject *,CThostFtdcSPBMOptionParameterField *, CThostFtdcRspInfoField *, int , bool ) {};
+
+///SPBM品种内对锁仓折扣参数查询响应
+static inline int TraderSpi_OnRspQrySPBMIntraParameter(PyObject *,CThostFtdcSPBMIntraParameterField *, CThostFtdcRspInfoField *, int , bool ) {};
+
+///SPBM跨品种抵扣参数查询响应
+static inline int TraderSpi_OnRspQrySPBMInterParameter(PyObject *,CThostFtdcSPBMInterParameterField *, CThostFtdcRspInfoField *, int , bool ) {};
+
+///SPBM组合保证金套餐查询响应
+static inline int TraderSpi_OnRspQrySPBMPortfDefinition(PyObject *,CThostFtdcSPBMPortfDefinitionField *, CThostFtdcRspInfoField *, int , bool ) {};
+
+///投资者SPBM套餐选择查询响应
+static inline int TraderSpi_OnRspQrySPBMInvestorPortfDef(PyObject *,CThostFtdcSPBMInvestorPortfDefField *, CThostFtdcRspInfoField *, int , bool ) {};
+
+///投资者新型组合保证金系数查询响应
+static inline int TraderSpi_OnRspQryInvestorPortfMarginRatio(PyObject *,CThostFtdcInvestorPortfMarginRatioField *, CThostFtdcRspInfoField *, int , bool ) {};
+
+///投资者产品SPBM明细查询响应
+static inline int TraderSpi_OnRspQryInvestorProdSPBMDetail(PyObject *,CThostFtdcInvestorProdSPBMDetailField *, CThostFtdcRspInfoField *, int , bool ) {};
+
+
 #define Python_GIL(func) \
     do { \
         PyGILState_STATE gil_state = PyGILState_Ensure(); \
@@ -965,19 +991,55 @@ public:
         Python_GIL(TraderSpi_OnRspQryCombPromotionParam(self, pCombPromotionParam, pRspInfo, nRequestID, bIsLast));
     };
 
-      ///投资者风险结算持仓查询
+    ///投资者风险结算持仓查询
     virtual void OnRspQryRiskSettleInvstPosition(CThostFtdcRiskSettleInvstPositionField *pRiskSettleInvstPosition, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
         Python_GIL(TraderSpi_OnRspQryRiskSettleInvstPosition(self, pRiskSettleInvstPosition, pRspInfo, nRequestID, bIsLast));
     };
-
 
     ///风险结算产品查询
     virtual void OnRspQryRiskSettleProductStatus(CThostFtdcRiskSettleProductStatusField *pRiskSettleProductStatus, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
         Python_GIL(TraderSpi_OnRspQryRiskSettleProductStatus(self, pRiskSettleProductStatus, pRspInfo, nRequestID, bIsLast));
     }
 
+    ///SPBM期货合约参数查询响应
+    virtual void OnRspQrySPBMFutureParameter(CThostFtdcSPBMFutureParameterField *pSPBMFutureParameter, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQrySPBMFutureParameter(self, pSPBMFutureParameter, pRspInfo, nRequestID, bIsLast));
+    };
 
+    ///SPBM期权合约参数查询响应
+    virtual void OnRspQrySPBMOptionParameter(CThostFtdcSPBMOptionParameterField *pSPBMOptionParameter, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQrySPBMOptionParameter(self, pSPBMOptionParameter, pRspInfo, nRequestID, bIsLast));
+    };
 
+    ///SPBM品种内对锁仓折扣参数查询响应
+    virtual void OnRspQrySPBMIntraParameter(CThostFtdcSPBMIntraParameterField *pSPBMIntraParameter, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQrySPBMIntraParameter(self, pSPBMIntraParameter, pRspInfo, nRequestID, bIsLast));
+    };
+
+    ///SPBM跨品种抵扣参数查询响应
+    virtual void OnRspQrySPBMInterParameter(CThostFtdcSPBMInterParameterField *pSPBMInterParameter, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQrySPBMInterParameter(self, pSPBMInterParameter, pRspInfo, nRequestID, bIsLast));
+    };
+
+    ///SPBM组合保证金套餐查询响应
+    virtual void OnRspQrySPBMPortfDefinition(CThostFtdcSPBMPortfDefinitionField *pSPBMPortfDefinition, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQrySPBMPortfDefinition(self, pSPBMPortfDefinition, pRspInfo, nRequestID, bIsLast));
+    };
+
+    ///投资者SPBM套餐选择查询响应
+    virtual void OnRspQrySPBMInvestorPortfDef(CThostFtdcSPBMInvestorPortfDefField *pSPBMInvestorPortfDef, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQrySPBMInvestorPortfDef(self, pSPBMInvestorPortfDef, pRspInfo, nRequestID, bIsLast));
+    };
+
+    ///投资者新型组合保证金系数查询响应
+    virtual void OnRspQryInvestorPortfMarginRatio(CThostFtdcInvestorPortfMarginRatioField *pInvestorPortfMarginRatio, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQryInvestorPortfMarginRatio(self, pInvestorPortfMarginRatio, pRspInfo, nRequestID, bIsLast));
+    };
+
+    ///投资者产品SPBM明细查询响应
+    virtual void OnRspQryInvestorProdSPBMDetail(CThostFtdcInvestorProdSPBMDetailField *pInvestorProdSPBMDetail, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+        Python_GIL(TraderSpi_OnRspQryInvestorProdSPBMDetail(self, pInvestorProdSPBMDetail, pRspInfo, nRequestID, bIsLast));
+    };
 
 
 private:

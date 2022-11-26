@@ -63,7 +63,11 @@ from ctpwrapper.ApiStructure import (
     QryExchangeRateField, QryInstrumentMarginRateField,
     QryClassifiedInstrumentField, QryCombPromotionParamField,
     QryTraderOfferField, QryRiskSettleInvstPositionField,
-    QryRiskSettleProductStatusField
+    QryRiskSettleProductStatusField, QrySPBMFutureParameterField,
+    QrySPBMInterParameterField, QrySPBMPortfDefinitionField,
+    QrySPBMOptionParameterField, QrySPBMIntraParameterField,
+    QrySPBMInvestorPortfDefField, QryInvestorPortfMarginRatioField,
+    QryInvestorProdSPBMDetailField
 )
 from ctpwrapper.TraderApi import TraderApiWrapper
 
@@ -678,6 +682,38 @@ class TraderApiPy(TraderApiWrapper):
         """
         return super(TraderApiPy, self).ReqQryRiskSettleProductStatus(pQryRiskSettleProductStatus, nRequestID)
 
+    # SPBM期货合约参数查询
+    def ReqQrySPBMFutureParameter(self, pQrySPBMFutureParameter: "QrySPBMFutureParameterField", nRequestID: int) -> int:
+        return super(TraderApiPy, self).ReqQrySPBMFutureParameter(pQrySPBMFutureParameter, nRequestID)
+
+    # SPBM期权合约参数查询
+    def ReqQrySPBMOptionParameter(self, pQrySPBMOptionParameter: "QrySPBMOptionParameterField", nRequestID: int) -> int:
+        return super(TraderApiPy, self).ReqQrySPBMOptionParameter(pQrySPBMOptionParameter, nRequestID)
+
+    # SPBM品种内对锁仓折扣参数查询
+    def ReqQrySPBMIntraParameter(self, pQrySPBMIntraParameter: "QrySPBMIntraParameterField", nRequestID: int) -> int:
+        return super(TraderApiPy, self).ReqQrySPBMIntraParameter(pQrySPBMIntraParameter, nRequestID)
+
+    # SPBM跨品种抵扣参数查询
+    def ReqQrySPBMInterParameter(self, pQrySPBMInterParameter: "QrySPBMInterParameterField", nRequestID: int) -> int:
+        return super(TraderApiPy, self).ReqQrySPBMInterParameter(pQrySPBMInterParameter, nRequestID)
+
+    # SPBM组合保证金套餐查询
+    def ReqQrySPBMPortfDefinition(self, pQrySPBMPortfDefinition: "QrySPBMPortfDefinitionField", nRequestID: int) -> int:
+        return super(TraderApiPy, self).ReqQrySPBMPortfDefinition(pQrySPBMPortfDefinition, nRequestID)
+
+    # 投资者SPBM套餐选择查询
+    def ReqQrySPBMInvestorPortfDef(self, pQrySPBMInvestorPortfDef: "QrySPBMInvestorPortfDefField", nRequestID: int) -> int:
+        return super(TraderApiPy, self).ReqQrySPBMInvestorPortfDef(pQrySPBMInvestorPortfDef, nRequestID)
+
+    # 投资者新型组合保证金系数查询
+    def ReqQryInvestorPortfMarginRatio(self, pQryInvestorPortfMarginRatio: "QryInvestorPortfMarginRatioField", nRequestID: int) -> int:
+        return super(TraderApiPy, self).ReqQryInvestorPortfMarginRatio(pQryInvestorPortfMarginRatio, nRequestID)
+
+    # 投资者产品SPBM明细查询
+    def ReqQryInvestorProdSPBMDetail(self, pQryInvestorProdSPBMDetail: "QryInvestorProdSPBMDetailField", nRequestID: int) -> int:
+        return super(TraderApiPy, self).ReqQryInvestorProdSPBMDetail(pQryInvestorProdSPBMDetail, nRequestID)
+
     def OnFrontConnected(self) -> None:
         pass
 
@@ -1149,7 +1185,7 @@ class TraderApiPy(TraderApiWrapper):
         pass
 
     # 请求查询期权自对冲响应
-    def OnRspQryOptionSelfClose(self, *pOptionSelfClose, pRspInfo, nRequestID, bIsLast) -> None:
+    def OnRspQryOptionSelfClose(self, pOptionSelfClose, pRspInfo, nRequestID, bIsLast) -> None:
         pass
 
     # 请求查询投资单元响应
@@ -1202,4 +1238,32 @@ class TraderApiPy(TraderApiWrapper):
 
     # 请求查询交易员报盘机响应
     def OnRspQryTraderOffer(self, pTraderOffer, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # SPBM期权合约参数查询响应
+    def OnRspQrySPBMOptionParameter(self, pSPBMOptionParameter, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # SPBM品种内对锁仓折扣参数查询响应
+    def OnRspQrySPBMIntraParameter(self, pSPBMIntraParameter, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # SPBM跨品种抵扣参数查询响应
+    def OnRspQrySPBMInterParameter(self, pSPBMInterParameter, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # SPBM组合保证金套餐查询响应
+    def OnRspQrySPBMPortfDefinition(self, pSPBMPortfDefinition, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # 投资者SPBM套餐选择查询响应
+    def OnRspQrySPBMInvestorPortfDef(self, pSPBMInvestorPortfDef, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # 投资者新型组合保证金系数查询响应
+    def OnRspQryInvestorPortfMarginRatio(self, pInvestorPortfMarginRatio, pRspInfo, nRequestID, bIsLast) -> None:
+        pass
+
+    # 投资者产品SPBM明细查询响应
+    def OnRspQryInvestorProdSPBMDetail(self, pInvestorProdSPBMDetail, pRspInfo, nRequestID, bIsLast) -> None:
         pass
