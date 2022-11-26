@@ -2493,9 +2493,9 @@ cdef extern int TraderSpi_OnRspQryTraderOffer(self,
     return 0
 
 # SPBM期货合约参数查询响应
-cdef extern int TraderSpi_OnRspQrySPBMFutureParameter(self, 
+cdef extern int TraderSpi_OnRspQrySPBMFutureParameter(self,
                                                       CThostFtdcSPBMFutureParameterField *pSPBMFutureParameter,
-                                                      CThostFtdcRspInfoField pRspInfo,
+                                                      CThostFtdcRspInfoField *pRspInfo,
                                                       int nRequestID,
                                                       cbool bIsLast) except -1:
     self.OnRspQrySPBMFutureParameter(
@@ -2509,7 +2509,7 @@ cdef extern int TraderSpi_OnRspQrySPBMFutureParameter(self,
 # SPBM期权合约参数查询响应
 cdef extern int TraderSpi_OnRspQrySPBMOptionParameter(self,
                                                       CThostFtdcSPBMOptionParameterField *pSPBMOptionParameter,
-                                                      CThostFtdcRspInfoField pRspInfo,
+                                                      CThostFtdcRspInfoField *pRspInfo,
                                                       int nRequestID,
                                                       cbool bIsLast) except -1:
     self.OnRspQrySPBMOptionParameter(
@@ -2521,8 +2521,9 @@ cdef extern int TraderSpi_OnRspQrySPBMOptionParameter(self,
     return 0
 
 # SPBM品种内对锁仓折扣参数查询响应
-cdef extern int TraderSpi_OnRspQrySPBMIntraParameter(self, CThostFtdcSPBMIntraParameterField *pSPBMIntraParameter, 
-                                                     CThostFtdcRspInfoField pRspInfo,
+cdef extern int TraderSpi_OnRspQrySPBMIntraParameter(self,
+                                                     CThostFtdcSPBMIntraParameterField *pSPBMIntraParameter,
+                                                     CThostFtdcRspInfoField *pRspInfo,
                                                      int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspQrySPBMIntraParameter(
@@ -2534,9 +2535,9 @@ cdef extern int TraderSpi_OnRspQrySPBMIntraParameter(self, CThostFtdcSPBMIntraPa
     return 0
 
 # SPBM跨品种抵扣参数查询响应
-cdef extern int TraderSpi_OnRspQrySPBMInterParameter(self, 
-                                                     CThostFtdcSPBMInterParameterField *pSPBMInterParameter, 
-                                                     CThostFtdcRspInfoField pRspInfo,
+cdef extern int TraderSpi_OnRspQrySPBMInterParameter(self,
+                                                     CThostFtdcSPBMInterParameterField *pSPBMInterParameter,
+                                                     CThostFtdcRspInfoField *pRspInfo,
                                                      int nRequestID,
                                                      cbool bIsLast) except -1:
     self.OnRspQrySPBMInterParameter(
@@ -2550,7 +2551,7 @@ cdef extern int TraderSpi_OnRspQrySPBMInterParameter(self,
 # SPBM组合保证金套餐查询响应
 cdef extern int TraderSpi_OnRspQrySPBMPortfDefinition(self,
                                                       CThostFtdcSPBMPortfDefinitionField *pSPBMPortfDefinition,
-                                                      CThostFtdcRspInfoField pRspInfo,
+                                                      CThostFtdcRspInfoField *pRspInfo,
                                                       int nRequestID,
                                                       cbool bIsLast) except -1:
     self.OnRspQrySPBMPortfDefinition(
@@ -2562,9 +2563,9 @@ cdef extern int TraderSpi_OnRspQrySPBMPortfDefinition(self,
     return 0
 
 # 投资者SPBM套餐选择查询响应
-cdef extern int TraderSpi_OnRspQrySPBMInvestorPortfDef(self, 
-                                                       CThostFtdcSPBMInvestorPortfDefField *pSPBMInvestorPortfDef, 
-                                                       CThostFtdcRspInfoField pRspInfo,
+cdef extern int TraderSpi_OnRspQrySPBMInvestorPortfDef(self,
+                                                       CThostFtdcSPBMInvestorPortfDefField *pSPBMInvestorPortfDef,
+                                                       CThostFtdcRspInfoField *pRspInfo,
                                                        int nRequestID,
                                                        cbool bIsLast) except -1:
     self.OnRspQrySPBMInvestorPortfDef(
@@ -2578,7 +2579,7 @@ cdef extern int TraderSpi_OnRspQrySPBMInvestorPortfDef(self,
 # 投资者新型组合保证金系数查询响应
 cdef extern int TraderSpi_OnRspQryInvestorPortfMarginRatio(self,
                                                            CThostFtdcInvestorPortfMarginRatioField *pInvestorPortfMarginRatio,
-                                                           CThostFtdcRspInfoField pRspInfo,
+                                                           CThostFtdcRspInfoField *pRspInfo,
                                                            int nRequestID,
                                                            cbool bIsLast) except -1:
     self.OnRspQryInvestorPortfMarginRatio(
@@ -2592,7 +2593,7 @@ cdef extern int TraderSpi_OnRspQryInvestorPortfMarginRatio(self,
 # 投资者产品SPBM明细查询响应
 cdef extern int TraderSpi_OnRspQryInvestorProdSPBMDetail(self,
                                                          CThostFtdcInvestorProdSPBMDetailField *pInvestorProdSPBMDetail,
-                                                         CThostFtdcRspInfoField pRspInfo,
+                                                         CThostFtdcRspInfoField *pRspInfo,
                                                          int nRequestID,
                                                          cbool bIsLast) except -1:
     self.OnRspQryInvestorProdSPBMDetail(
