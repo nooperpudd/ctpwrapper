@@ -1011,7 +1011,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQrySPBMIntraParameter)
             with nogil:
-                result = self._api.ReqQryRiskSettleProductStatus(<CThostFtdcQrySPBMIntraParameterField *> address, nRequestID)
+                result = self._api.ReqQrySPBMIntraParameter(<CThostFtdcQrySPBMIntraParameterField *> address, nRequestID)
             return result
 
     # SPBM跨品种抵扣参数查询
@@ -1020,7 +1020,7 @@ cdef class TraderApiWrapper:
         if self._spi is not NULL:
             address = ctypes.addressof(pQrySPBMInterParameter)
             with nogil:
-                result = self._api.ReqQrySPBMIntraParameter(<CThostFtdcQrySPBMInterParameterField *> address, nRequestID)
+                result = self._api.ReqQrySPBMInterParameter(<CThostFtdcQrySPBMInterParameterField *> address, nRequestID)
             return result
 
     # SPBM组合保证金套餐查询

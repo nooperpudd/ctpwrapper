@@ -289,28 +289,28 @@ static inline int TraderSpi_OnRspQryTraderOffer(PyObject *, CThostFtdcTraderOffe
 
 
 ///SPBM期货合约参数查询响应
-static inline int TraderSpi_OnRspQrySPBMFutureParameter(PyObject *,CThostFtdcSPBMFutureParameterField *, CThostFtdcRspInfoField *, int , bool ) {};
+static inline int TraderSpi_OnRspQrySPBMFutureParameter(PyObject *, CThostFtdcSPBMFutureParameterField *, CThostFtdcRspInfoField *, int, bool);
 
 ///SPBM期权合约参数查询响应
-static inline int TraderSpi_OnRspQrySPBMOptionParameter(PyObject *,CThostFtdcSPBMOptionParameterField *, CThostFtdcRspInfoField *, int , bool ) {};
+static inline int TraderSpi_OnRspQrySPBMOptionParameter(PyObject *, CThostFtdcSPBMOptionParameterField *, CThostFtdcRspInfoField *, int, bool);
 
 ///SPBM品种内对锁仓折扣参数查询响应
-static inline int TraderSpi_OnRspQrySPBMIntraParameter(PyObject *,CThostFtdcSPBMIntraParameterField *, CThostFtdcRspInfoField *, int , bool ) {};
+static inline int TraderSpi_OnRspQrySPBMIntraParameter(PyObject *, CThostFtdcSPBMIntraParameterField *, CThostFtdcRspInfoField *, int, bool);
 
 ///SPBM跨品种抵扣参数查询响应
-static inline int TraderSpi_OnRspQrySPBMInterParameter(PyObject *,CThostFtdcSPBMInterParameterField *, CThostFtdcRspInfoField *, int , bool ) {};
+static inline int TraderSpi_OnRspQrySPBMInterParameter(PyObject *, CThostFtdcSPBMInterParameterField *, CThostFtdcRspInfoField *, int, bool);
 
 ///SPBM组合保证金套餐查询响应
-static inline int TraderSpi_OnRspQrySPBMPortfDefinition(PyObject *,CThostFtdcSPBMPortfDefinitionField *, CThostFtdcRspInfoField *, int , bool ) {};
+static inline int TraderSpi_OnRspQrySPBMPortfDefinition(PyObject *, CThostFtdcSPBMPortfDefinitionField *, CThostFtdcRspInfoField *, int, bool);
 
 ///投资者SPBM套餐选择查询响应
-static inline int TraderSpi_OnRspQrySPBMInvestorPortfDef(PyObject *,CThostFtdcSPBMInvestorPortfDefField *, CThostFtdcRspInfoField *, int , bool ) {};
+static inline int TraderSpi_OnRspQrySPBMInvestorPortfDef(PyObject *, CThostFtdcSPBMInvestorPortfDefField *, CThostFtdcRspInfoField *, int, bool);
 
 ///投资者新型组合保证金系数查询响应
-static inline int TraderSpi_OnRspQryInvestorPortfMarginRatio(PyObject *,CThostFtdcInvestorPortfMarginRatioField *, CThostFtdcRspInfoField *, int , bool ) {};
+static inline int TraderSpi_OnRspQryInvestorPortfMarginRatio(PyObject *, CThostFtdcInvestorPortfMarginRatioField *, CThostFtdcRspInfoField *, int, bool);
 
 ///投资者产品SPBM明细查询响应
-static inline int TraderSpi_OnRspQryInvestorProdSPBMDetail(PyObject *,CThostFtdcInvestorProdSPBMDetailField *, CThostFtdcRspInfoField *, int , bool ) {};
+static inline int TraderSpi_OnRspQryInvestorProdSPBMDetail(PyObject *, CThostFtdcInvestorProdSPBMDetailField *, CThostFtdcRspInfoField *, int, bool);
 
 
 #define Python_GIL(func) \
