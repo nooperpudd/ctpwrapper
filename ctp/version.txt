@@ -1,3 +1,4 @@
 V6.6.9
 windows-64x
 linux-64x
+max-arm/x86
