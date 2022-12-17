@@ -152,13 +152,13 @@ cdef class TraderApiWrapper:
             return result
 
     # 用户登录请求
-    def ReqUserLogin(self, pReqUserLoginField, int nRequestID):
+    def ReqUserLogin(self, pReqUserLoginField, int nRequestID, int length, char *systemInfo):
         cdef int result
         cdef size_t address
         if self._spi is not NULL:
             address = ctypes.addressof(pReqUserLoginField)
             with nogil:
-                result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *> address, nRequestID)
+                result = self._api.ReqUserLogin(<CThostFtdcReqUserLoginField *> address, nRequestID, length, systemInfo)
             return result
 
     # 登出请求

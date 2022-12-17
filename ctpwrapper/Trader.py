@@ -169,11 +169,11 @@ class TraderApiPy(TraderApiWrapper):
         """
         return super(TraderApiPy, self).ReqAuthenticate(pReqAuthenticate, nRequestID)
 
-    def ReqUserLogin(self, pReqUserLogin: "ReqUserLoginField", nRequestID: int) -> int:
+    def ReqUserLogin(self, pReqUserLogin: "ReqUserLoginField", nRequestID: int, length: int, systeminfo: str) -> int:
         """
         用户登录请求
         """
-        return super(TraderApiPy, self).ReqUserLogin(pReqUserLogin, nRequestID)
+        return super(TraderApiPy, self).ReqUserLogin(pReqUserLogin, nRequestID, length, systeminfo)
 
     def ReqUserAuthMethod(self, pReqUserAuthMethod: "ReqUserAuthMethod", nRequestID: int) -> int:
         """
