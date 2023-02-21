@@ -12,9 +12,7 @@ def GetSystemInfo(char *pSystemInfo,int nLen):
     return result
 
 def GetDataCollectApiVersion():
-    cdef const_char *result
-    with nogil:
-        result = CTP_GetDataCollectApiVersion()
+    cdef const_char *result = CTP_GetDataCollectApiVersion()
     return result
 
 
