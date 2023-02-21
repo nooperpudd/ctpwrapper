@@ -36,11 +36,6 @@ environment:
     CMD_IN_ENV: 'cmd /E:ON /V:ON /C .\extra\appveyor\compiler.cmd'
   matrix:
 
-    - PYTHON_DIR: "C:\\Python37-x64"
-      PYTHON: "C:\\Python37-x64\\python"
-      PYTHON_VERSION: "3.7"
-      PYTHON_ARCH: "64"
-
     - PYTHON_DIR: "C:\\Python38-x64"
       PYTHON: "C:\\Python38-x64\\python"
       PYTHON_VERSION: "3.8"
