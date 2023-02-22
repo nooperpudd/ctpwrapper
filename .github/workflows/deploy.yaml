@@ -1,6 +1,7 @@
 name: deploy
 
-release:
+on:
+  release:
     tags:
       - v*
 
