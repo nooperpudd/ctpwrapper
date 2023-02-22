@@ -3,6 +3,11 @@ on:
   release:
     tags:
       - "v*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
     name: python build
@@ -15,7 +20,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
-          
+
       - name: Install dependencies
         run: |
           python -m pip install pip setuptools pytest --upgrade

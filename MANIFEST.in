@@ -3,5 +3,6 @@ include README.md
 recursive-include ctp *
 recursive-include ctpwrapper *.h *.pyx *.pxd
 recursive-exclude ctpwrapper *.cpp *.xml *.dtd *.so
-
+recursive-exclude tests *
+recursive-exclude README.md
 global-exclude __pycache__ *.pyc *.pyo

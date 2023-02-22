@@ -1,6 +1,6 @@
 # CTP期货 API Python Wrapper 
 
-[![Build Status](https://app.travis-ci.com/nooperpudd/ctpwrapper.svg?branch=master)](https://app.travis-ci.com/nooperpudd/ctpwrapper)
+[![build action](https://github.com/nooperpudd/ctpwrapper/actions/workflows/build.yaml/badge.svg?branch=master)](https://github.com/nooperpudd/ctpwrapper/actions/workflows/build.yaml)
 [![Build status](https://ci.appveyor.com/api/projects/status/gvvtcqsjo9nsw0ct/branch/master?svg=true)](https://ci.appveyor.com/project/nooperpudd/ctpwrapper)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9ed5d0e55ed84dfeba30a7630ab5c160)](https://www.codacy.com/app/nooperpudd/ctpwrapper?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nooperpudd/ctpwrapper&amp;utm_campaign=Badge_Grade)
 [![pypi](https://img.shields.io/pypi/v/ctpwrapper.svg)](https://pypi.python.org/pypi/ctpwrapper)
