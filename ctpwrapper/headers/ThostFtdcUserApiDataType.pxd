@@ -828,3 +828,7 @@ cdef extern from 'ThostFtdcUserApiDataType.h':
     ctypedef int TThostFtdcSpreadIdType
     ctypedef char TThostFtdcPortfolioType
     ctypedef int TThostFtdcPortfolioDefIDType
+    ctypedef char TThostFtdcWithDrawParamIDType
+    ctypedef char TThostFtdcWithDrawParamValueType[41]
+    ctypedef char TThostFtdcInvstTradingRightType
+    ctypedef int TThostFtdcThostFunctionCodeType

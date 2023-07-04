@@ -5000,3 +5000,24 @@ cdef extern from 'ThostFtdcUserApiStruct.h':
         TThostFtdcPortfolioType Portfolio
         TThostFtdcBoolType IsActionVerify
         TThostFtdcBoolType IsCloseVerify
+    cdef struct CThostFtdcInvestorTradingRightField:
+        TThostFtdcBrokerIDType BrokerID
+        TThostFtdcInvestorIDType InvestorID
+        TThostFtdcInvstTradingRightType InvstTradingRight
+    cdef struct CThostFtdcMortgageParamField:
+        TThostFtdcBrokerIDType BrokerID
+        TThostFtdcAccountIDType AccountID
+        TThostFtdcRatioType MortgageBalance
+        TThostFtdcBoolType CheckMortgageRatio
+    cdef struct CThostFtdcWithDrawParamField:
+        TThostFtdcBrokerIDType BrokerID
+        TThostFtdcAccountIDType AccountID
+        TThostFtdcWithDrawParamIDType WithDrawParamID
+        TThostFtdcWithDrawParamValueType WithDrawParamValue
+    cdef struct CThostFtdcThostUserFunctionField:
+        TThostFtdcBrokerIDType BrokerID
+        TThostFtdcUserIDType UserID
+        TThostFtdcThostFunctionCodeType ThostFunctionCode
+    cdef struct CThostFtdcQryThostUserFunctionField:
+        TThostFtdcBrokerIDType BrokerID
+        TThostFtdcUserIDType UserID
