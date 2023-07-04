@@ -52,6 +52,9 @@ class MdApiPy(MdApiWrapper):
         """
         return super(MdApiPy, self).Join()
 
+    def Release(self) -> None:
+        super(MdApiPy, self).Release()
+
     def ReqUserLogin(self, pReqUserLogin: "ReqUserLoginField", nRequestID: int) -> int:
         """
         用户登录请求
