@@ -55,19 +55,24 @@ if sys.platform == "linux":
     package_data.append("*.so")
     extra_compile_args = ["-Wall"]
     extra_link_args = ['-Wl,-rpath,$ORIGIN']
-
 elif sys.platform == "win32":
     lib_dir = os.path.join(ctp_dir, "win")
     extra_compile_args = ["/GR", "/EHsc"]
     # extra_link_args = []
     package_data.append("*.dll")
 
+elif sys.platform == "darwin":
+    lib_dir = os.path.join(ctp_dir, "mac")
+    # https://github.com/python/cpython/issues/97524
+    extra_link_args = ['-Wl,-no_fixup_chains']
+    package_data.append("*.a")
+
 package_data.append("error.dtd")
 package_data.append("error.xml")
 shutil.copy2(header_dir + "/error.dtd", project_dir + "/error.dtd")
 shutil.copy2(header_dir + "/error.xml", project_dir + "/error.xml")
 
-if sys.platform in ["linux", "win32"]:
+if sys.platform in ["linux", "win32", "darwin"]:
     copy_tree(lib_dir, project_dir)
 
 common_args = {
@@ -88,10 +93,10 @@ ext_modules = [
                      sources=["ctpwrapper/TraderApi.pyx"],
                      libraries=["thosttraderapi_se"],
                      **common_args),
-    Cython_Extension(name="ctpwrapper.datacollect",
-                     sources=["ctpwrapper/datacollect.pyx"],
-                     libraries=["LinuxDataCollect"] if sys.platform == "linux" else ["WinDataCollect"],
-                     **common_args)
+    # Cython_Extension(name="ctpwrapper.datacollect",
+    #                  sources=["ctpwrapper/datacollect.pyx"],
+    #                  libraries=["LinuxDataCollect"] if sys.platform == "linux" else ["WinDataCollect"],
+    #                  **common_args)
 ]
 
 setup(
@@ -106,7 +111,7 @@ setup(
     author_email="365504029@qq.com",
     url="https://github.com/nooperpudd/ctpwrapper",
     include_dirs=[header_dir, cpp_header_dir],
-    platforms=["win32", "linux"],
+    platforms=["win32", "linux", "darwin"],
     packages=["ctpwrapper"],
     package_data={"": package_data},
     python_requires=">=3.7",

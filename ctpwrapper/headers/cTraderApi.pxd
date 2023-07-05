@@ -94,7 +94,7 @@ cdef extern from "ThostFtdcTraderApi.h":
         int SubmitUserSystemInfo(CThostFtdcUserSystemInfoField *pUserSystemInfo) nogil except +
 
         #用户登录请求
-        int ReqUserLogin(CThostFtdcReqUserLoginField *pReqUserLoginField, int nRequestID) nogil except +
+        int ReqUserLogin(CThostFtdcReqUserLoginField *pReqUserLoginField, int nRequestID, TThostFtdcSystemInfoLenType length, TThostFtdcClientSystemInfoType systemInfo) nogil except +
 
         #登出请求
         int ReqUserLogout(CThostFtdcUserLogoutField *pUserLogout, int nRequestID) nogil except +

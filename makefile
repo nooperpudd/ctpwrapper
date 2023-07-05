@@ -4,6 +4,11 @@ clean:
 	find ./ctpwrapper/ -name "Md*.so"  -delete
 	find ./ctpwrapper/ -name "Trader*.so"  -delete
 	find ./ctpwrapper/ -name "*.cpp" -delete
+	find ./ -name "*.con" -delete
+	find ./ctpwrapper/ -name "error.dtd" -delete
+	find ./ctpwrapper/ -name "error.xml" -delete
+	find ./ctpwrapper/ -name "*.a" -delete
+
 
 
 .PHONY: build-local
