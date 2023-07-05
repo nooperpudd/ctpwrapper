@@ -13210,3 +13210,80 @@ class PortfTradeParamSettingField(Base):
         self.Portfolio = self._to_bytes(Portfolio)
         self.IsActionVerify = int(IsActionVerify)
         self.IsCloseVerify = int(IsCloseVerify)
+
+
+class InvestorTradingRightField(Base):
+    """投资者交易权限设置"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('InvestorID', ctypes.c_char * 13),  # 投资者代码
+        ('InvstTradingRight', ctypes.c_char),  # 交易权限
+    ]
+
+    def __init__(self, BrokerID: str = '', InvestorID: str = '', InvstTradingRight: str = ''):
+        super(InvestorTradingRightField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.InvestorID = self._to_bytes(InvestorID)
+        self.InvstTradingRight = self._to_bytes(InvstTradingRight)
+
+
+class MortgageParamField(Base):
+    """质押配比参数"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('AccountID', ctypes.c_char * 13),  # 投资者帐号
+        ('MortgageBalance', ctypes.c_double),  # 质押配比系数
+        ('CheckMortgageRatio', ctypes.c_int),  # 开仓是否验证质押配比
+    ]
+
+    def __init__(self, BrokerID: str = '', AccountID: str = '', MortgageBalance: float = 0.0, CheckMortgageRatio: int = 0):
+        super(MortgageParamField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.AccountID = self._to_bytes(AccountID)
+        self.MortgageBalance = float(MortgageBalance)
+        self.CheckMortgageRatio = int(CheckMortgageRatio)
+
+
+class WithDrawParamField(Base):
+    """可提控制参数"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('AccountID', ctypes.c_char * 13),  # 投资者帐号
+        ('WithDrawParamID', ctypes.c_char),  # 参数代码
+        ('WithDrawParamValue', ctypes.c_char * 41),  # 参数代码值
+    ]
+
+    def __init__(self, BrokerID: str = '', AccountID: str = '', WithDrawParamID: str = '', WithDrawParamValue: str = ''):
+        super(WithDrawParamField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.AccountID = self._to_bytes(AccountID)
+        self.WithDrawParamID = self._to_bytes(WithDrawParamID)
+        self.WithDrawParamValue = self._to_bytes(WithDrawParamValue)
+
+
+class ThostUserFunctionField(Base):
+    """Thost终端用户功能权限"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+        ('ThostFunctionCode', ctypes.c_int),  # Thost终端功能代码
+    ]
+
+    def __init__(self, BrokerID: str = '', UserID: str = '', ThostFunctionCode: int = 0):
+        super(ThostUserFunctionField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)
+        self.ThostFunctionCode = int(ThostFunctionCode)
+
+
+class QryThostUserFunctionField(Base):
+    """Thost终端用户功能权限查询"""
+    _fields_ = [
+        ('BrokerID', ctypes.c_char * 11),  # 经纪公司代码
+        ('UserID', ctypes.c_char * 16),  # 用户代码
+    ]
+
+    def __init__(self, BrokerID: str = '', UserID: str = ''):
+        super(QryThostUserFunctionField, self).__init__()
+        self.BrokerID = self._to_bytes(BrokerID)
+        self.UserID = self._to_bytes(UserID)

@@ -10785,5 +10785,57 @@ struct CThostFtdcPortfTradeParamSettingField {
     TThostFtdcBoolType IsCloseVerify;
 };
 
+///投资者交易权限设置
+struct CThostFtdcInvestorTradingRightField {
+    ///经纪公司代码
+    TThostFtdcBrokerIDType BrokerID;
+    ///投资者代码
+    TThostFtdcInvestorIDType InvestorID;
+    ///交易权限
+    TThostFtdcInvstTradingRightType InvstTradingRight;
+};
+
+///质押配比参数
+struct CThostFtdcMortgageParamField {
+    ///经纪公司代码
+    TThostFtdcBrokerIDType BrokerID;
+    ///投资者帐号
+    TThostFtdcAccountIDType AccountID;
+    ///质押配比系数
+    TThostFtdcRatioType MortgageBalance;
+    ///开仓是否验证质押配比
+    TThostFtdcBoolType CheckMortgageRatio;
+};
+
+///可提控制参数
+struct CThostFtdcWithDrawParamField {
+    ///经纪公司代码
+    TThostFtdcBrokerIDType BrokerID;
+    ///投资者帐号
+    TThostFtdcAccountIDType AccountID;
+    ///参数代码
+    TThostFtdcWithDrawParamIDType WithDrawParamID;
+    ///参数代码值
+    TThostFtdcWithDrawParamValueType WithDrawParamValue;
+};
+
+///Thost终端用户功能权限
+struct CThostFtdcThostUserFunctionField {
+    ///经纪公司代码
+    TThostFtdcBrokerIDType BrokerID;
+    ///用户代码
+    TThostFtdcUserIDType UserID;
+    ///Thost终端功能代码
+    TThostFtdcThostFunctionCodeType ThostFunctionCode;
+};
+
+///Thost终端用户功能权限查询
+struct CThostFtdcQryThostUserFunctionField {
+    ///经纪公司代码
+    TThostFtdcBrokerIDType BrokerID;
+    ///用户代码
+    TThostFtdcUserIDType UserID;
+};
+
 
 #endif
